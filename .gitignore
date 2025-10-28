@@ -40,7 +40,13 @@ playground.xcworkspace
 # Pods/
 #
 # Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+*.xcworkspace
+
+# Exception: Allow Package.resolved for CI/CD (required for Xcode Cloud)
+!*.xcodeproj/project.xcworkspace/
+!*.xcodeproj/project.xcworkspace/xcshareddata/
+!*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+!*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
 # Carthage
 #
@@ -60,3 +66,15 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+fastlane/tmp/
+fastlane/.env*
+!fastlane/.env.example
+
+# Code Signing (Fastlane-generated, should not be committed)
+*.cer
+*.certSigningRequest
+*.p12
+*.mobileprovision
+
+# OS
+.DS_Store
