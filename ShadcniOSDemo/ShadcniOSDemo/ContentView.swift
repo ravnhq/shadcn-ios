@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  ShadCN-iOS-Demo
+//  ShadcniOSDemo
 //
 //  Created by JoseAlvarez on 10/28/25.
 //
