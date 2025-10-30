@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import shadcnios
 
 struct ContentView: View {
     var body: some View {
@@ -14,6 +15,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+                .foregroundColor(Color(ShadcnColors.Charts.Chart4.opacity100))
         }
         .padding()
     }

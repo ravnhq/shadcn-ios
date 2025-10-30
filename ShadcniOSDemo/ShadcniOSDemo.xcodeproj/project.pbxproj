@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242C7BD12EB24DC400D9A72F /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871612EB1343600CC51A7 /* shadcn-ios */; };
+		242C7BD22EB24DC400D9A72F /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871642EB1345100CC51A7 /* shadcn-ios */; };
 		24ECA3472EB16C9B001F13FB /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 24ECA3462EB16C9B001F13FB /* shadcn-ios */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				242C7BD22EB24DC400D9A72F /* shadcn-ios in Frameworks */,
+				242C7BD12EB24DC400D9A72F /* shadcn-ios in Frameworks */,
 				24ECA3472EB16C9B001F13FB /* shadcn-ios in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +276,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,6 +309,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
