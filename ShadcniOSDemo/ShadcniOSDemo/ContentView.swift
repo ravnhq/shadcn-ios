@@ -14,9 +14,11 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            ForEach(ShadcnColor.allCases, id: \.self) { color in
-                Text("Hello, world!")
-                    .foregroundColor(color.color)
+            List {
+                ForEach(ShadcnColor.allCases, id: \.self) { color in
+                    Text("Hello, world!")
+                        .foregroundColor(color.color)
+                }
             }
         }
         .padding()
