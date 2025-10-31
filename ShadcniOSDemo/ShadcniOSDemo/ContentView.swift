@@ -14,8 +14,10 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
-                .foregroundColor(Color(ShadcnColors.Charts.Chart4.opacity100))
+            ForEach(ShadcnColor.allCases, id: \.self) { color in
+                Text("Hello, world!")
+                    .foregroundColor(color.color)
+            }
         }
         .padding()
     }
