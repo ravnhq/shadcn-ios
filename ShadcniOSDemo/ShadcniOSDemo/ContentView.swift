@@ -15,8 +15,13 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
-                .fontColor(.foregroundDefault)
-
+                .fontColor(.foregroundDestructiveDefault)
+             
+            List {
+                ForEach(ShadcnRadiusSizing.allCases, id: \.rawValue) { size in
+                    Text("\(size.rawValue)")
+                }
+            }
         }
         .padding()
     }
