@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		242C7BD12EB24DC400D9A72F /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871612EB1343600CC51A7 /* shadcn-ios */; };
-		242C7BD22EB24DC400D9A72F /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871642EB1345100CC51A7 /* shadcn-ios */; };
-		24A3416D2EB52F1D00AEEBAF /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 24A3416C2EB52F1D00AEEBAF /* shadcn-ios */; };
-		24ECA3472EB16C9B001F13FB /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 24ECA3462EB16C9B001F13FB /* shadcn-ios */; };
+		244982752EB9189400DD2CD1 /* ShadcniOS in Frameworks */ = {isa = PBXBuildFile; productRef = 244982742EB9189400DD2CD1 /* ShadcniOS */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,10 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				242C7BD22EB24DC400D9A72F /* shadcn-ios in Frameworks */,
-				242C7BD12EB24DC400D9A72F /* shadcn-ios in Frameworks */,
-				24ECA3472EB16C9B001F13FB /* shadcn-ios in Frameworks */,
-				24A3416D2EB52F1D00AEEBAF /* shadcn-ios in Frameworks */,
+				244982752EB9189400DD2CD1 /* ShadcniOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,10 +70,7 @@
 			);
 			name = ShadcniOSDemo;
 			packageProductDependencies = (
-				241871612EB1343600CC51A7 /* shadcn-ios */,
-				241871642EB1345100CC51A7 /* shadcn-ios */,
-				24ECA3462EB16C9B001F13FB /* shadcn-ios */,
-				24A3416C2EB52F1D00AEEBAF /* shadcn-ios */,
+				244982742EB9189400DD2CD1 /* ShadcniOS */,
 			);
 			productName = ShadcniOSDemo;
 			productReference = 241871482EB1337000CC51A7 /* ShadcniOSDemo.app */;
@@ -361,21 +352,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		241871612EB1343600CC51A7 /* shadcn-ios */ = {
+		244982742EB9189400DD2CD1 /* ShadcniOS */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
-		};
-		241871642EB1345100CC51A7 /* shadcn-ios */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
-		};
-		24A3416C2EB52F1D00AEEBAF /* shadcn-ios */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
-		};
-		24ECA3462EB16C9B001F13FB /* shadcn-ios */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
+			package = 24ECA3572EB16D25001F13FB /* XCLocalSwiftPackageReference "../shadcn-ios" */;
+			productName = ShadcniOS;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

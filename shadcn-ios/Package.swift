@@ -4,22 +4,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "shadcn-ios",
+    name: "ShadcniOS",
     platforms: [
         .iOS(.v26)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "shadcn-ios",
-            targets: ["shadcnios"]
+            name: "ShadcniOS",
+            targets: ["ShadcniOS"]
         ),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "shadcnios",
+            name: "ShadcniOS",
             resources: [.process("Resources")]
         ),
 
