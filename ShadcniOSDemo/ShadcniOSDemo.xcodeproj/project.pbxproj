@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		242C7BD12EB24DC400D9A72F /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871612EB1343600CC51A7 /* shadcn-ios */; };
-		242C7BD22EB24DC400D9A72F /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871642EB1345100CC51A7 /* shadcn-ios */; };
-		24ECA3472EB16C9B001F13FB /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 24ECA3462EB16C9B001F13FB /* shadcn-ios */; };
+		24EA7E6C2EB92578007CC35F /* ShadcniOS in Frameworks */ = {isa = PBXBuildFile; productRef = 24EA7E6B2EB92578007CC35F /* ShadcniOS */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				242C7BD22EB24DC400D9A72F /* shadcn-ios in Frameworks */,
-				242C7BD12EB24DC400D9A72F /* shadcn-ios in Frameworks */,
-				24ECA3472EB16C9B001F13FB /* shadcn-ios in Frameworks */,
+				24EA7E6C2EB92578007CC35F /* ShadcniOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				2418714A2EB1337000CC51A7 /* ShadcniOSDemo */,
+				24EA7E6A2EB92578007CC35F /* Frameworks */,
 				241871492EB1337000CC51A7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,6 +49,13 @@
 				241871482EB1337000CC51A7 /* ShadcniOSDemo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		24EA7E6A2EB92578007CC35F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +78,8 @@
 			);
 			name = ShadcniOSDemo;
 			packageProductDependencies = (
-				241871612EB1343600CC51A7 /* shadcn-ios */,
-				241871642EB1345100CC51A7 /* shadcn-ios */,
-				24ECA3462EB16C9B001F13FB /* shadcn-ios */,
+				249857442EB92531001FE5DB /* shadcn-ios */,
+				24EA7E6B2EB92578007CC35F /* ShadcniOS */,
 			);
 			productName = ShadcniOSDemo;
 			productReference = 241871482EB1337000CC51A7 /* ShadcniOSDemo.app */;
@@ -107,7 +110,7 @@
 			mainGroup = 2418713F2EB1337000CC51A7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				24ECA3572EB16D25001F13FB /* XCLocalSwiftPackageReference "../shadcn-ios" */,
+				249857432EB92531001FE5DB /* XCLocalSwiftPackageReference "../ShadcniOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 241871492EB1337000CC51A7 /* Products */;
@@ -351,24 +354,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		24ECA3572EB16D25001F13FB /* XCLocalSwiftPackageReference "../shadcn-ios" */ = {
+		249857432EB92531001FE5DB /* XCLocalSwiftPackageReference "../ShadcniOS" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../shadcn-ios";
+			relativePath = ../ShadcniOS;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		241871612EB1343600CC51A7 /* shadcn-ios */ = {
+		249857442EB92531001FE5DB /* shadcn-ios */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "shadcn-ios";
 		};
-		241871642EB1345100CC51A7 /* shadcn-ios */ = {
+		24EA7E6B2EB92578007CC35F /* ShadcniOS */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
-		};
-		24ECA3462EB16C9B001F13FB /* shadcn-ios */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
+			package = 249857432EB92531001FE5DB /* XCLocalSwiftPackageReference "../ShadcniOS" */;
+			productName = ShadcniOS;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

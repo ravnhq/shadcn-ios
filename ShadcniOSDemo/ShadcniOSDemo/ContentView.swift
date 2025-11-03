@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import shadcnios
+import ShadcniOS
 
 struct ContentView: View {
     var body: some View {
