@@ -38,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				2418714A2EB1337000CC51A7 /* ShadcniOSDemo */,
+				24EA7E6A2EB92578007CC35F /* Frameworks */,
 				241871492EB1337000CC51A7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +49,13 @@
 				241871482EB1337000CC51A7 /* ShadcniOSDemo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		24EA7E6A2EB92578007CC35F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
