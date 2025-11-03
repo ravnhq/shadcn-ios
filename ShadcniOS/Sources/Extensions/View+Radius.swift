@@ -8,20 +8,19 @@
 import SwiftUI
 
 public extension View {
-
     // MARK: - Basic Corner Radius
 
     /// Applies a corner radius according to the Shadcn radius system.
     ///
     /// ```swift
     /// Button("Click Me") {}
-    ///     .shadcnCornerRadius(.radiusMD)
+    ///     .CornerRadius(.radiusMD)
     /// ```
     ///
     /// - Parameter radius: A radius value defined in `ShadcnRadiusSizing`.
     /// - Returns: A view with the specified corner radius applied.
-    func shadcnCornerRadius(_ radius: ShadcnRadiusSizing) -> some View {
-        cornerRadius(radius.size)
+    func CornerRadius(_ radius: ShadcnSizing.Radius) -> some View {
+        cornerRadius(radius.value)
     }
 
     // MARK: - Conditional Corner Radius
@@ -30,7 +29,7 @@ public extension View {
     ///
     /// ```swift
     /// Button("Click Me") {}
-    ///     .shadcnCornerRadius(.radiusLG, active: isRounded)
+    ///     .CornerRadius(.radiusLG, active: isRounded)
     /// ```
     ///
     /// - Parameters:
@@ -38,9 +37,9 @@ public extension View {
     ///   - active: A Boolean value that determines whether the corner radius is applied.
     /// - Returns: A view with corner radius applied if `active` is `true`.
     @ViewBuilder
-    func shadcnCornerRadius(_ radius: ShadcnRadiusSizing?, active: Bool = true) -> some View {
+    func CornerRadius(_ radius: ShadcnSizing.Radius?, active: Bool = true) -> some View {
         if let radius, active {
-            cornerRadius(radius.size)
+            cornerRadius(radius.value)
         } else {
             self
         }
