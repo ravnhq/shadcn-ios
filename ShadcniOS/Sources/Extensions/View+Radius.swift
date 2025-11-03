@@ -14,12 +14,12 @@ public extension View {
     ///
     /// ```swift
     /// Button("Click Me") {}
-    ///     .CornerRadius(.radiusMD)
+    ///     .cornerRadius(.md)
     /// ```
     ///
-    /// - Parameter radius: A radius value defined in `ShadcnRadiusSizing`.
+    /// - Parameter radius: A radius value defined in `SHDSizing.Radius`.
     /// - Returns: A view with the specified corner radius applied.
-    func CornerRadius(_ radius: ShadcnSizing.Radius) -> some View {
+    func cornerRadius(_ radius: SHDSizing.Radius) -> some View {
         cornerRadius(radius.value)
     }
 
@@ -29,15 +29,15 @@ public extension View {
     ///
     /// ```swift
     /// Button("Click Me") {}
-    ///     .CornerRadius(.radiusLG, active: isRounded)
+    ///     .cornerRadius(.radiusLG, active: isRounded)
     /// ```
     ///
     /// - Parameters:
-    ///   - radius: A radius value defined in `ShadcnRadiusSizing`.
+    ///   - radius: A radius value defined in `SHDSizing.Radius`.
     ///   - active: A Boolean value that determines whether the corner radius is applied.
     /// - Returns: A view with corner radius applied if `active` is `true`.
     @ViewBuilder
-    func CornerRadius(_ radius: ShadcnSizing.Radius?, active: Bool = true) -> some View {
+    func cornerRadius(_ radius: SHDSizing.Radius?, active: Bool = true) -> some View {
         if let radius, active {
             cornerRadius(radius.value)
         } else {

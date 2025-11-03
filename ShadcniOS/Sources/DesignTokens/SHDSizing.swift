@@ -1,5 +1,5 @@
 //
-//  ShadcnPaddingSizing.swift
+//  SHDSizing.swift
 //  shadcn-ios
 //
 //  Created by JoseAlvarez on 10/31/25.
@@ -7,7 +7,29 @@
 
 import Foundation
 
+<<<<<<< HEAD:ShadcniOS/Sources/DesignTokens/ShadcnPaddingSizing.swift
 public enum ShadcnSizing {
+=======
+/// A unified collection of standardized sizing values used throughout the Shadcn design system.
+///
+/// This type defines consistent design tokens for:
+/// - **Padding**: Internal spacing within components.
+/// - **Spacing**: External spacing between elements.
+/// - **Radius**: Corner rounding for shapes and containers.
+///
+/// Each sub-enum corresponds to a specific design dimension scale,
+/// ensuring predictable and consistent UI spacing and rounding.
+///
+/// Example:
+/// ```swift
+/// VStack(spacing: SHDSizing.Spacing.spacingMD.value) {
+///     Text("Hello, world!")
+///         .padding(.all, SHDSizing.Padding.paddingLG.value)
+///         .cornerRadius(SHDSizing.Radius.radiusMD.value)
+/// }
+/// ```
+public enum SHDSizing {
+>>>>>>> ed5b115 (refactor: Renames files to align with guidelines):ShadcniOS/Sources/DesignTokens/SHDSizing.swift
     
     // MARK: - Padding
     /// Defines standardized padding values for internal component spacing.
