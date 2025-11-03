@@ -15,7 +15,11 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+<<<<<<< HEAD
                 .fontColor(.foregroundWarningDefault)
+=======
+                .fontColor(.foregroundDestructiveDefault)
+>>>>>>> 1949bd3 (fix: merge conflicts fixed)
         }
         .padding()
     }
