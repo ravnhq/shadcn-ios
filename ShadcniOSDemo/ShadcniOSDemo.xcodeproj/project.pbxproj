@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		241871622EB1343600CC51A7 /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871612EB1343600CC51A7 /* shadcn-ios */; };
-		241871652EB1345100CC51A7 /* shadcn-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 241871642EB1345100CC51A7 /* shadcn-ios */; };
+		244982752EB9189400DD2CD1 /* ShadcniOS in Frameworks */ = {isa = PBXBuildFile; productRef = 244982742EB9189400DD2CD1 /* ShadcniOS */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				241871622EB1343600CC51A7 /* shadcn-ios in Frameworks */,
-				241871652EB1345100CC51A7 /* shadcn-ios in Frameworks */,
+				244982752EB9189400DD2CD1 /* ShadcniOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,8 +70,7 @@
 			);
 			name = ShadcniOSDemo;
 			packageProductDependencies = (
-				241871612EB1343600CC51A7 /* shadcn-ios */,
-				241871642EB1345100CC51A7 /* shadcn-ios */,
+				244982742EB9189400DD2CD1 /* ShadcniOS */,
 			);
 			productName = ShadcniOSDemo;
 			productReference = 241871482EB1337000CC51A7 /* ShadcniOSDemo.app */;
@@ -104,7 +101,7 @@
 			mainGroup = 2418713F2EB1337000CC51A7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				241871632EB1345100CC51A7 /* XCLocalSwiftPackageReference "../shadcn-ios" */,
+				24ECA3572EB16D25001F13FB /* XCLocalSwiftPackageReference "../shadcn-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 241871492EB1337000CC51A7 /* Products */;
@@ -273,6 +270,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +303,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -346,20 +345,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		241871632EB1345100CC51A7 /* XCLocalSwiftPackageReference "../shadcn-ios" */ = {
+		24ECA3572EB16D25001F13FB /* XCLocalSwiftPackageReference "../shadcn-ios" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../shadcn-ios";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		241871612EB1343600CC51A7 /* shadcn-ios */ = {
+		244982742EB9189400DD2CD1 /* ShadcniOS */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
-		};
-		241871642EB1345100CC51A7 /* shadcn-ios */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "shadcn-ios";
+			package = 24ECA3572EB16D25001F13FB /* XCLocalSwiftPackageReference "../shadcn-ios" */;
+			productName = ShadcniOS;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
