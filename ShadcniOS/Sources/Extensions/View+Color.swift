@@ -21,12 +21,12 @@ public extension View {
     ///
     /// ```swift
     /// Text("Hello, world!")
-    ///     .fontColor(.foregroundPrimary)
+    ///     .foregroundColor(.foregroundPrimary)
     /// ```
     ///
-    /// - Parameter color: A `ShadcnColor` value representing the desired color.
+    /// - Parameter color: A `SHDColor` value representing the desired color.
     /// - Returns: A view modified with the specified Shadcn foreground color.
-    func fontColor(_ color: ShadcnColor) -> some View {
+    func foregroundColor(_ color: SHDColor) -> some View {
         foregroundStyle(color.color)
     }
 
@@ -41,9 +41,9 @@ public extension View {
     ///     .backgroundColor(.backgroundDestructivePrimary)
     /// ```
     ///
-    /// - Parameter color: A `ShadcnColor` representing the desired background color.
+    /// - Parameter color: A `SHDColor` representing the desired background color.
     /// - Returns: A view modified with the specified Shadcn background color.
-    func backgroundColor(_ color: ShadcnColor) -> some View {
+    func backgroundColor(_ color: SHDColor) -> some View {
         background(color.color)
     }
 }

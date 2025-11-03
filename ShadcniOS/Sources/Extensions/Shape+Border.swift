@@ -12,7 +12,7 @@ public extension Shape {
     ///
     /// Use this modifier to apply a colored stroke around vector-based
     /// shapes such as `Circle`, `Capsule`, or `RoundedRectangle`, using
-    /// a predefined `ShadcnColor` from the design system palette.
+    /// a predefined `SHDColor` from the design system palette.
     ///
     /// ```swift
     /// Capsule()
@@ -21,10 +21,10 @@ public extension Shape {
     /// ```
     ///
     /// - Parameters:
-    ///   - color: A `ShadcnColor` representing the stroke color.
+    ///   - color: A `SHDColor` representing the stroke color.
     ///   - width: The thickness of the border. Defaults to `1`.
     /// - Returns: A view that renders the shape with the specified border color and width.
-    func borderColor(_ color: ShadcnColor, width: CGFloat = 1) -> some View {
+    func borderColor(_ color: SHDColor, width: CGFloat = 1) -> some View {
         stroke(color.color, lineWidth: width)
     }
 }

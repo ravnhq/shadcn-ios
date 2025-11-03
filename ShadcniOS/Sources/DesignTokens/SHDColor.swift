@@ -1,5 +1,5 @@
 //
-//  ShadcnColor.swift
+//  SHDColor.swift
 //  shadcn-ios
 //
 //  Created by JoseAlvarez on 10/28/25.
@@ -18,15 +18,15 @@ import SwiftUI
 /// Example:
 /// ```swift
 /// Text("Primary Text")
-///     .foregroundStyle(ShadcnColor.foregroundPrimaryDefault.color)
+///     .foregroundColor(.foregroundPrimaryDefault)
 ///
 /// Rectangle()
-///     .fill(ShadcnColor.backgroundAccent.color)
+///     .fill(SHDColor.backgroundAccent.color)
 /// ```
 ///
 /// The `color` property returns a SwiftUI `Color` instance that automatically
 /// resolves to the correct asset within the package’s bundle.
-public enum ShadcnColor: String, CaseIterable {
+public enum SHDColor: String, CaseIterable {
 
     // MARK: - Base Colors
     case black, white
@@ -102,12 +102,12 @@ public enum ShadcnColor: String, CaseIterable {
         iconWarningDefault
 
     /// Returns the corresponding SwiftUI `Color` instance
-    /// associated with this `ShadcnColor` case.
+    /// associated with this `SHDColor` case.
     ///
     /// This color is resolved from the module’s asset catalog.
     ///
     /// ```swift
-    /// let background = ShadcnColor.backgroundDefault.color
+    /// let background = SHDColor.backgroundDefault.color
     /// ```
     public var color: Color {
         Color(rawValue, bundle: .module)
