@@ -7,9 +7,6 @@
 
 import Foundation
 
-<<<<<<< HEAD:ShadcniOS/Sources/DesignTokens/ShadcnPaddingSizing.swift
-public enum ShadcnSizing {
-=======
 /// A unified collection of standardized sizing values used throughout the Shadcn design system.
 ///
 /// This type defines consistent design tokens for:
@@ -29,7 +26,6 @@ public enum ShadcnSizing {
 /// }
 /// ```
 public enum SHDSizing {
->>>>>>> ed5b115 (refactor: Renames files to align with guidelines):ShadcniOS/Sources/DesignTokens/SHDSizing.swift
     
     // MARK: - Padding
     /// Defines standardized padding values for internal component spacing.

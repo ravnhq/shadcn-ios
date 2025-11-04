@@ -16,15 +16,7 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
 
             Text("Hello, world!")
-<<<<<<< HEAD
-<<<<<<< HEAD
-                .fontColor(.foregroundWarningDefault)
-=======
-                .fontColor(.foregroundDestructiveDefault)
->>>>>>> 1949bd3 (fix: merge conflicts fixed)
-=======
                 .foregroundColor(.foregroundDestructiveDefault)
->>>>>>> ed5b115 (refactor: Renames files to align with guidelines)
         }
         .padding()
     }
