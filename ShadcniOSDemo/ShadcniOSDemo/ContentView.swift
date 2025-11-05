@@ -11,12 +11,20 @@ import ShadcniOS
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-
-            Text("Hello, world!")
-                .foregroundColor(.foregroundDestructiveDefault)
+            NavigationStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("Hello, world!")
+                    .foregroundColor(.foregroundDestructiveDefault)
+                NavigationLink(destination: IconShowcaseView()) {
+                    Text("Icon Tests")
+                        .padding(.all, .xxs)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+            }
         }
         .padding()
     }
