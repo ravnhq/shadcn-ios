@@ -17,13 +17,10 @@ struct ContentView: View {
                     .foregroundStyle(.tint)
                 Text("Hello, world!")
                     .foregroundColor(.foregroundDestructiveDefault)
-                NavigationLink(destination: IconShowcaseView()) {
-                    Text("Icon Tests")
-                        .padding(.all, .xxs)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+                    
+                SHDIcon(.notificationCircleAlert)
+                SHDIcon(.notificationBellRing)
+                    .foregroundColor(.iconDestructiveDefault)
             }
         }
         .padding()
