@@ -18,8 +18,8 @@ struct ContentView: View {
                 Text("Hello, world!")
                     .foregroundColor(.foregroundDestructiveDefault)
                     
-                SHDIcon(.notificationCircleAlert)
-                SHDIcon(.notificationBellRing)
+                SHDIcon(icon: .notificationCircleAlert, size: .lg)
+                SHDIcon(icon: .notificationBellRing, size: .lg)
                     .foregroundColor(.iconDestructiveDefault)
             }
         }
