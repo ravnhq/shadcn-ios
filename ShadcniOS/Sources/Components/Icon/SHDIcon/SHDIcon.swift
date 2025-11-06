@@ -11,15 +11,18 @@ internal struct SHDIcon: View {
 
     // MARK: - Properties
 
-    /// The design system icon asset to display.
+    /// The icon asset to display.
     private let icon: SHDIconAsset
+
+    /// The icon size. Defaults to `.md`.
+    private var size: SHDIconSize = .md
 
     // MARK: - Initializer
 
     /// Creates a new `SHDIcon` instance.
     ///
     /// - Parameter icon: The design system icon asset.
-    init(icon: SHDIconAsset) {
+    init(_ icon: SHDIconAsset) {
         self.icon = icon
     }
 
@@ -30,6 +33,17 @@ internal struct SHDIcon: View {
             .resizable()
             .renderingMode(.template)
             .flipsForRightToLeftLayoutDirection(true)
+            .frame(width: size.rawValue, height: size.rawValue)
+    }
+
+    // MARK: - Modifiers
+
+    /// Sets the size of the icon.
+    ///
+    /// - Parameter size: A value from `SHDIconSize`.
+    /// - Returns: A new `SHDIcon` view with the updated size.
+    func iconSize(_ size: SHDIconSize) -> some View {
+        mutating(keyPath: \.size, value: size)
     }
 }
 
@@ -37,11 +51,12 @@ internal struct SHDIcon: View {
 
 #Preview("SHDIcon - Sizes") {
     HStack(spacing: 16) {
-        SHDIcon(icon: .notificationBellRing)
+        SHDIcon(.notificationBellRing)
             .iconSize(.sm)
-        SHDIcon(icon: .notificationBellRing)
-            .iconSize(.md)
-        SHDIcon(icon: .notificationBellRing)
+
+        SHDIcon(.notificationBellRing)
+
+        SHDIcon(.notificationBellRing)
             .iconSize(.lg)
     }
     .padding()
