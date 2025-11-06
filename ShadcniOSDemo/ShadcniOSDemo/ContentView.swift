@@ -17,11 +17,7 @@ struct ContentView: View {
                     .foregroundStyle(.tint)
                 Text("Hello, world!")
                     .foregroundColor(.foregroundDestructiveDefault)
-                    
-                SHDIcon(icon: .notificationCircleAlert, size: .lg)
-                SHDIcon(icon: .notificationBellRing, size: .lg)
-                    .foregroundColor(.iconDestructiveDefault)
-            }
+                }
         }
         .padding()
     }
