@@ -8,7 +8,7 @@
 import Foundation
 
 /// Defines the sizing scale for `SHDIcon`, aligned with design tokens.
-public enum SHDIconSize: CGFloat {
+internal enum SHDIconSize: CGFloat {
     case sm = 12
     case md = 16
     case lg = 20
