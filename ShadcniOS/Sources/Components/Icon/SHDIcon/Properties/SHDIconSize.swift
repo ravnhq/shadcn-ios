@@ -12,12 +12,6 @@ import Foundation
 /// `SHDIconSize` provides a set of predefined values for consistent icon sizing throughout the app.
 /// These values are aligned with the design tokens and ensure visual consistency between components.
 ///
-/// Example usage:
-/// ```swift
-/// let icon = SHDIcon(size: .md)
-/// ```
-///
-/// - Note: Sizes are defined in points (`pt`).
 internal enum SHDIconSize: CGFloat {
     /// Small icon size (12pt) — typically used for compact UI elements or within text.
     case sm = 12
