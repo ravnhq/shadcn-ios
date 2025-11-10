@@ -306,4 +306,54 @@ internal extension SHDTextStyle {
             )
         }
     }
+    
+    enum text2XL {
+        static var regular: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title2,
+                font: .variable,
+                weight: .regular,
+                size: 24,
+                lineHeight: 32,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var medium: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title2,
+                font: .variable,
+                weight: .medium,
+                size: 24,
+                lineHeight: 32,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var semibold: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title2,
+                font: .variable,
+                weight: .semibold,
+                size: 24,
+                lineHeight: 32,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var underline: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title2,
+                font: .variable,
+                weight: .medium,
+                size: 24,
+                lineHeight: 32,
+                letterSpacing: 0,
+                underline: true
+            )
+        }
+    }
 }
