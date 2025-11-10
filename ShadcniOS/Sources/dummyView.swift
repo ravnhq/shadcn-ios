@@ -20,6 +20,18 @@ internal struct DummyView: View {
         Divider()
         Text("People stopped telling jokes")
             .textStyle(.h4)
+        Divider()
+        Text("Alexander III of Macedon (Ancient Greek: Ἀλέξανδρος, romanized: Aléxandros; 20/21 July 356 BC – 10/11 June 323 BC), most commonly known as Alexander the Great,[c] was a king of the ancient Greek kingdom of Macedon.")
+            .textStyle(.textXS.regular)
+        Divider()
+        Text("Alexander III of Macedon (Ancient Greek: Ἀλέξανδρος, romanized: Aléxandros; 20/21 July 356 BC – 10/11 June 323 BC), most commonly known as Alexander the Great,[c] was a king of the ancient Greek kingdom of Macedon.")
+            .textStyle(.textXS.medium)
+        Divider()
+        Text("Alexander III of Macedon (Ancient Greek: Ἀλέξανδρος, romanized: Aléxandros; 20/21 July 356 BC – 10/11 June 323 BC), most commonly known as Alexander the Great,[c] was a king of the ancient Greek kingdom of Macedon.")
+            .textStyle(.textXS.semibold)
+        Divider()
+        Text("Alexander III of Macedon (Ancient Greek: Ἀλέξανδρος, romanized: Aléxandros; 20/21 July 356 BC – 10/11 June 323 BC), most commonly known as Alexander the Great,[c] was a king of the ancient Greek kingdom of Macedon.")
+            .textStyle(.textXS.underline)
     }
 }
 
