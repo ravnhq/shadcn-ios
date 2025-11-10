@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public extension View {
+internal extension View {
     // MARK: - Basic Corner Radius
 
     /// Applies a corner radius according to the Shadcn radius system.

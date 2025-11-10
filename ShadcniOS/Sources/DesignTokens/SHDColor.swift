@@ -26,7 +26,7 @@ import SwiftUI
 ///
 /// The `color` property returns a SwiftUI `Color` instance that automatically
 /// resolves to the correct asset within the package’s bundle.
-public enum SHDColor: String, CaseIterable {
+internal enum SHDColor: String, CaseIterable {
 
     // MARK: - Base Colors
     case black, white
@@ -109,7 +109,7 @@ public enum SHDColor: String, CaseIterable {
     /// ```swift
     /// let background = SHDColor.backgroundDefault.color
     /// ```
-    public var color: Color {
+    var color: Color {
         Color(rawValue, bundle: .module)
     }
 }
