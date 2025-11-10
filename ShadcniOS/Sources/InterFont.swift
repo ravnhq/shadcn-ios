@@ -31,7 +31,7 @@ internal struct InterFont {
         case light = "Inter-Regular_Light"
         case regular = "Inter-Regular"
         case medium = "Inter-Regular_Medium"
-        case semiBold = "Inter-Regular_SemiBold"
+        case semibold = "Inter-Regular_SemiBold"
         case bold = "Inter-Regular_Bold"
         case extraBold = "Inter-Regular_ExtraBold"
         case black = "Inter-Regular_Black"
@@ -53,7 +53,7 @@ internal struct InterFont {
             case .medium:
                 return .medium
             case .semibold:
-                return .semiBold
+                return .semibold
             case .bold:
                 return .bold
             case .heavy:
