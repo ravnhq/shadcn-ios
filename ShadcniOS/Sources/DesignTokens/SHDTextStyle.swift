@@ -14,4 +14,5 @@ internal struct SHDTextStyle {
     let size: CGFloat
     let lineHeight: CGFloat
     let letterSpacing: CGFloat
+    let underline: Bool
 }

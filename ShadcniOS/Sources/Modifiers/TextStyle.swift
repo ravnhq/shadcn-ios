@@ -21,6 +21,7 @@ struct TextStyle: ViewModifier {
             )
             .kerning(style.letterSpacing)
             .lineSpacing(style.lineHeight - style.size)
+            .underline(style.underline)
     }
 }
 
