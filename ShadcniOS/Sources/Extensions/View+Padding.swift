@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public extension View {
+internal extension View {
 
     // MARK: - Custom Edge Padding
 

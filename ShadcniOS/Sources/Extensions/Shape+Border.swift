@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public extension Shape {
+internal extension Shape {
     /// Applies a Shadcn design system color as the border of any `Shape`.
     ///
     /// Use this modifier to apply a colored stroke around vector-based

@@ -12,7 +12,7 @@ import SwiftUI
 ///
 /// These modifiers provide a convenient way to maintain visual
 /// consistency using the Shadcn color palette across your iOS app.
-public extension View {
+internal extension View {
     
     /// Applies a Shadcn color as the view's foreground style.
     ///

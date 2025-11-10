@@ -25,11 +25,11 @@ import Foundation
 ///         .cornerRadius(SHDSizing.Radius.radiusMD.value)
 /// }
 /// ```
-public enum SHDSizing {
+internal enum SHDSizing {
     
     // MARK: - Padding
     /// Defines standardized padding values for internal component spacing.
-    public enum Padding: Double, CaseIterable {
+    internal enum Padding: Double, CaseIterable {
         
         /// No padding (`0` points).
         case none = 0
@@ -62,12 +62,12 @@ public enum SHDSizing {
         case xxxxl = 64
         
         /// Returns the padding value as a `CGFloat`.
-        public var value: CGFloat { CGFloat(rawValue) }
+        var value: CGFloat { CGFloat(rawValue) }
     }
     
     // MARK: - Spacing
     /// Defines standardized spacing values for layout gaps between UI elements.
-    public enum Spacing: Double, CaseIterable {
+    internal enum Spacing: Double, CaseIterable {
         
         /// No spacing (`0` points).
         case none = 0
@@ -100,12 +100,12 @@ public enum SHDSizing {
         case xxxxl = 64
         
         /// Returns the spacing value as a `CGFloat`.
-        public var value: CGFloat { CGFloat(rawValue) }
+        var value: CGFloat { CGFloat(rawValue) }
     }
     
     // MARK: - Radius
     /// Defines standardized corner radius values used for rounded shapes and containers.
-    public enum Radius: Double, CaseIterable {
+    internal enum Radius: Double, CaseIterable {
         
         /// No corner radius (`0` points).
         case none = 0
@@ -132,6 +132,6 @@ public enum SHDSizing {
         case full = 400
         
         /// Returns the corner radius value as a `CGFloat`.
-        public var value: CGFloat { CGFloat(rawValue) }
+        var value: CGFloat { CGFloat(rawValue) }
     }
 }
