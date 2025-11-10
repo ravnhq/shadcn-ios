@@ -156,4 +156,54 @@ internal extension SHDTextStyle {
             )
         }
     }
+    
+    enum textBase {
+        static var regular: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .subheadline,
+                font: .variable,
+                weight: .regular,
+                size: 16,
+                lineHeight: 24,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var medium: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .subheadline,
+                font: .variable,
+                weight: .medium,
+                size: 16,
+                lineHeight: 24,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var semiBold: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .subheadline,
+                font: .variable,
+                weight: .semiBold,
+                size: 16,
+                lineHeight: 24,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var underline: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .subheadline,
+                font: .variable,
+                weight: .regular,
+                size: 16,
+                lineHeight: 24,
+                letterSpacing: 0,
+                underline: true
+            )
+        }
+    }
 }
