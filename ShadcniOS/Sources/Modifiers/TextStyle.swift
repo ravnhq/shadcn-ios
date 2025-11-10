@@ -7,27 +7,25 @@
 
 import SwiftUI
 
-struct TextStyle: ViewModifier {
+/// A `ViewModifier` that applies an `SHDTextStyle` to a SwiftUI view.
+/// Handles font, weight, size, line spacing, letter spacing, underline, and color.
+internal struct TextStyle: ViewModifier {
+
+    /// The text style to apply.
     let style: SHDTextStyle
 
     func body(content: Content) -> some View {
         content
             .font(
                 .custom(
-                    style.weight.postScriptName,
+                    style.weight.postScriptName,  // Uses the postscript name for the font weight
                     size: style.size,
                     relativeTo: style.relativeFont
                 )
             )
-            .kerning(style.letterSpacing)
-            .lineSpacing(style.lineHeight)
-            .underline(style.underline)
-            .foregroundColor(.green)
-    }
-}
-
-extension View {
-    func textStyle(_ style: SHDTextStyle) -> some View {
-        self.modifier(TextStyle(style: style))
+            .kerning(style.letterSpacing)  // Adjust letter spacing
+            .lineSpacing(style.lineHeight)  // Set line height
+            .underline(style.underline)  // Apply underline if needed
+            .foregroundColor(.foregroundDefault)  // Default text color
     }
 }

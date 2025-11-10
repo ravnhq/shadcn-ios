@@ -8,7 +8,15 @@
 import CoreText
 import UIKit
 
+/// Handles registration of custom fonts bundled with the module.
 internal struct FontLoader {
+
+    /// Registers a font file located in the module bundle.
+    ///
+    /// - Parameters:
+    ///   - name: The name of the font file without its extension.
+    ///   - ext: The file extension (e.g. `"ttf"` or `"otf"`).
+    /// - Throws: An error if the font cannot be found or registration fails.
     static func registerFont(named name: String, withExtension ext: String)
         throws
     {
