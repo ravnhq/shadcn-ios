@@ -256,4 +256,54 @@ internal extension SHDTextStyle {
             )
         }
     }
+    
+    enum textXL {
+        static var regular: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title3,
+                font: .variable,
+                weight: .regular,
+                size: 20,
+                lineHeight: 28,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var medium: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title3,
+                font: .variable,
+                weight: .medium,
+                size: 20,
+                lineHeight: 28,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var semibold: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title3,
+                font: .variable,
+                weight: .semibold,
+                size: 20,
+                lineHeight: 28,
+                letterSpacing: 0,
+                underline: false
+            )
+        }
+        
+        static var underline: SHDTextStyle {
+            SHDTextStyle(
+                relativeFont: .title3,
+                font: .variable,
+                weight: .medium,
+                size: 20,
+                lineHeight: 28,
+                letterSpacing: 0,
+                underline: true
+            )
+        }
+    }
 }
