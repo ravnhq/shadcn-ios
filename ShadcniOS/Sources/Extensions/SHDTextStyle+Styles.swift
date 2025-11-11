@@ -5,10 +5,9 @@
 //  Created by JoseAlvarez on 11/7/25.
 //
 
-/// Predefined text styles for common heading levels used across the app.
 // MARK: - Header Styles
+/// Predefined text styles for common heading levels used across the app.
 internal extension SHDTextStyle {
-    
     /// Heading 1 style — used for main titles and large headers.
     static var h1: SHDTextStyle {
         SHDTextStyle(
@@ -64,10 +63,10 @@ internal extension SHDTextStyle {
 
 // MARK: - Text Styles
 /// Extra small text styles used for captions, notes, or small UI elements.
-internal extension SHDTextStyle {
+extension SHDTextStyle {
 
     // MARK: - Extra Small Texts
-    enum textXS {
+    enum TextXS {
         /// Extra small text — regular weight, used for small labels or metadata.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -123,7 +122,7 @@ internal extension SHDTextStyle {
 
     // MARK: - Small Texts
     /// Small text styles — used for captions or compact UI text.
-    enum textSM {
+    enum TextSM {
         /// Small text — regular weight, for secondary information or notes.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -136,7 +135,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Small text — medium weight, for slightly emphasized small labels.
         static var medium: SHDTextStyle {
             SHDTextStyle(
@@ -149,7 +147,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Small text — semibold weight, for compact emphasized text.
         static var semibold: SHDTextStyle {
             SHDTextStyle(
@@ -162,7 +159,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Small text — medium weight with underline, for links or actions.
         static var underline: SHDTextStyle {
             SHDTextStyle(
@@ -176,10 +172,9 @@ internal extension SHDTextStyle {
             )
         }
     }
-    
     // MARK: - Base Texts
     /// Base text styles — used for body copy or general text content.
-    enum textBase {
+    enum TextBase {
         /// Base text — regular weight, for standard paragraph content.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -192,7 +187,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Base text — medium weight, for slightly stronger body emphasis.
         static var medium: SHDTextStyle {
             SHDTextStyle(
@@ -205,7 +199,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Base text — semibold weight, for highlighted body or labels.
         static var semibold: SHDTextStyle {
             SHDTextStyle(
@@ -218,7 +211,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Base text — regular weight with underline, for links or key phrases.
         static var underline: SHDTextStyle {
             SHDTextStyle(
@@ -232,10 +224,9 @@ internal extension SHDTextStyle {
             )
         }
     }
-    
     // MARK: - Large Texts
     /// Large text styles — used for prominent body text or subheadings.
-    enum textLG {
+    enum TextLG {
         /// Large text — regular weight, ideal for readable paragraph content.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -248,7 +239,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Large text — medium weight, for slightly emphasized large text.
         static var medium: SHDTextStyle {
             SHDTextStyle(
@@ -261,7 +251,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Large text — semibold weight, used for highlighted or leading text.
         static var semibold: SHDTextStyle {
             SHDTextStyle(
@@ -274,7 +263,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Large text — medium weight with underline, for links or emphasis.
         static var underline: SHDTextStyle {
             SHDTextStyle(
@@ -288,10 +276,9 @@ internal extension SHDTextStyle {
             )
         }
     }
-    
     // MARK: - Extra Large Texts
     /// Extra large text styles — used for headers, highlights, or key UI text.
-    enum textXL {
+    enum TextXL {
         /// Extra large text — regular weight, for larger readable elements.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -304,7 +291,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Extra large text — medium weight, for stronger display emphasis.
         static var medium: SHDTextStyle {
             SHDTextStyle(
@@ -317,7 +303,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// Extra large text — semibold weight, for standout headings or labels.
         static var semibold: SHDTextStyle {
             SHDTextStyle(
@@ -343,10 +328,9 @@ internal extension SHDTextStyle {
             )
         }
     }
-    
     // MARK: - 2 Extra Large Texts
     /// 2XL text styles — used for large headings or key UI elements.
-    enum text2XL {
+    enum Text2XL {
         /// 2XL text — regular weight, standard display heading.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -359,7 +343,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 2XL text — medium weight for slightly stronger emphasis.
         static var medium: SHDTextStyle {
             SHDTextStyle(
@@ -372,7 +355,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 2XL text — semibold weight, for highlighted or leading headings.
         static var semibold: SHDTextStyle {
             SHDTextStyle(
@@ -385,7 +367,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 2XL text — medium weight with underline, for links or emphasis.
         static var underline: SHDTextStyle {
             SHDTextStyle(
@@ -399,10 +380,9 @@ internal extension SHDTextStyle {
             )
         }
     }
-    
     // MARK: - 3 Extra Large Texts
     /// 3XL text styles — very large headers or key display text.
-    enum text3XL {
+    enum Text3XL {
         /// 3XL text — regular weight, for big headings.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -415,7 +395,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 3XL text — medium weight, slightly more emphasis.
         static var medium: SHDTextStyle {
             SHDTextStyle(
@@ -428,7 +407,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 3XL text — semibold weight, for standout headings.
         static var semibold: SHDTextStyle {
             SHDTextStyle(
@@ -441,7 +419,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 3XL text — medium weight with underline, for links or highlighted headings.
         static var underline: SHDTextStyle {
             SHDTextStyle(
@@ -455,10 +432,9 @@ internal extension SHDTextStyle {
             )
         }
     }
-    
     // MARK: 4 Extra Large Texts
     /// 4XL text styles — hero headers or extremely prominent display text.
-    enum text4XL {
+    enum Text4XL {
         /// 4XL text — regular weight, for very large headings.
         static var regular: SHDTextStyle {
             SHDTextStyle(
@@ -471,7 +447,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 4XL text — medium weight, slightly stronger emphasis.
         static var medium: SHDTextStyle {
             SHDTextStyle(
@@ -484,7 +459,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 4XL text — semibold weight, for standout hero headings.
         static var semibold: SHDTextStyle {
             SHDTextStyle(
@@ -497,7 +471,6 @@ internal extension SHDTextStyle {
                 underline: false
             )
         }
-        
         /// 4XL text — medium weight with underline, for links or prominent emphasis.
         static var underline: SHDTextStyle {
             SHDTextStyle(
