@@ -17,8 +17,7 @@ internal struct FontLoader {
     ///   - name: The name of the font file without its extension.
     ///   - ext: The file extension (e.g. `"ttf"` or `"otf"`).
     /// - Throws: An error if the font cannot be found or registration fails.
-    static func registerFont(named name: String, withExtension ext: String)
-        throws {
+    static func registerFont(named name: String, withExtension ext: String) throws {
         guard let url = Bundle.module.url(forResource: name, withExtension: ext)
         else {
             throw NSError(
