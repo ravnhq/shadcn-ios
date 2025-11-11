@@ -13,15 +13,21 @@ let package = Package(
         .library(
             name: "ShadcniOS",
             targets: ["ShadcniOS"]
-        ),
+        )
+    ],
+    dependencies: [
+        // 👇 Add SwiftLint as a dependency
+        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.54.0")
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "ShadcniOS",
-            resources: [.process("Resources")]
-        ),
-
+            dependencies: [],
+            resources: [.process("Resources")],
+            // 👇 Attach the SwiftLint plugin
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
+            ]
+        )
     ]
 )

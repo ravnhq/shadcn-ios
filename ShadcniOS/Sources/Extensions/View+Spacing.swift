@@ -8,7 +8,8 @@
 import SwiftUI
 
 internal extension VStack {
-    /// Creates a vertical stack that arranges its child views in a column, using a custom `SHDSizing.Spacing` value
+    /// Creates a vertical stack that arranges its child views in a column
+    /// using a custom `SHDSizing.Spacing` value
     /// instead of a standard `CGFloat` for spacing.
     ///
     /// This initializer provides a type-safe way to define spacing between elements in a `VStack`,
@@ -40,7 +41,8 @@ internal extension VStack {
 }
 
 internal extension HStack {
-    /// Creates a horizontal stack that arranges its child views in a row, using a custom `SHDSizing.Spacing` value
+    /// Creates a horizontal stack that arranges its child views in a row
+    /// using a custom `SHDSizing.Spacing` value
     /// instead of a standard `CGFloat` for spacing.
     ///
     /// This initializer provides a type-safe way to define spacing between elements in a `HStack`,
