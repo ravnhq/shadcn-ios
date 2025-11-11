@@ -75,7 +75,6 @@ internal struct SHDTextStyle {
 
     // MARK: - Text Styles
     /// Extra small text styles used for captions, notes, or small UI elements.
-
     // MARK: - Extra Small Texts
     enum TextXS {
         /// Extra small text — regular weight, used for small labels or metadata.
