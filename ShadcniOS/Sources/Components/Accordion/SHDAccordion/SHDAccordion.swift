@@ -7,18 +7,13 @@
 
 import SwiftUI
 
-public protocol SHDAccordionRepresentable: Hashable {
-    var title: String { get set }
-    var content: String { get set }
-}
-
 internal struct SHDAccordionItem: View {
     public var title: String
     public var content: String
     @Binding var isExpanded: Bool
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             HStack {
                 Text(title)
                 Spacer()
@@ -37,18 +32,21 @@ internal struct SHDAccordionItem: View {
             if isExpanded {
                 Text(content)
                     .padding(.top, 8)
-                    .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
-        .padding(.horizontal, .xxxl)
     }
 }
 
-// MARK: - Accordion Group component
+// MARK: - Accordion component
 
-public struct SHDAccordionGroup<Item: SHDAccordionRepresentable>: View {
+public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
     public var items: [Item]
-    @State private var expandedIndex: Int?
+    @State public var expandedIndex: Int?
+    
+    public init(items: [Item]) {
+        self.items = items
+    }
+
     public var body: some View {
         VStack {
             ForEach(items.indices, id: \.self) { index in
@@ -80,5 +78,16 @@ struct SampleModel: SHDAccordionRepresentable {
         SampleModel(title: "Hello world 2", content: "Expandable content 2"),
         SampleModel(title: "Hello world 3", content: "Expandable content 3")
     ]
-    SHDAccordionGroup(items: sampleItems)
+
+    SHDAccordion(items: sampleItems)
+        .padding(.horizontal, .xxxl)
+        .accordionStyle(size: .sm)
+    Divider()
+    SHDAccordion(items: sampleItems)
+        .padding(.horizontal, .xxxl)
+        .accordionStyle(size: .md)
+    Divider()
+    SHDAccordion(items: sampleItems)
+        .padding(.horizontal, .xxxl)
+        .accordionStyle(size: .lg)
 }
