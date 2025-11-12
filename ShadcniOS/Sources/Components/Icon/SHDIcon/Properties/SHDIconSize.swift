@@ -13,7 +13,7 @@ import Foundation
 /// These values are aligned with the design tokens and ensure visual consistency between components.
 ///
 internal enum SHDIconSize: CGFloat {
-    /// Small icon size (12pt) — typically used for compact UI elements or within text.'
+    /// Small icon size (12pt) — typically used for compact UI elements or within text.
     case sm = 12
 
     /// Medium icon size (16pt) — the default icon size for most components elements.
