@@ -18,7 +18,7 @@ internal struct TextStyle: ViewModifier {
         content
             .font(
                 .custom(
-                    style.weight.fontName,  // Uses the postscript name for the font weight
+                    style.font.fontName,  // Uses the postscript name for the font weight
                     size: style.size,
                     relativeTo: style.relativeFont
                 )

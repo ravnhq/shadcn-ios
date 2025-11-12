@@ -12,7 +12,7 @@ internal struct SHDTextStyle {
     /// The relative system text style (e.g. `.body`, `.headline`).
     let relativeFont: Font.TextStyle
     /// The font weight.
-    let weight: InterFont
+    let font: InterFont
     /// The base font size in points.
     let size: CGFloat
     /// The line height for the text.
@@ -30,7 +30,7 @@ extension SHDTextStyle {
     static var h1: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .largeTitle,
-            weight: .regularExtraBold,
+            font: .regularExtraBold,
             size: 48,
             lineHeight: 48,
             letterSpacing: -1.2,
@@ -42,7 +42,7 @@ extension SHDTextStyle {
     static var h2: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 30,
             lineHeight: 36,
             letterSpacing: -0.75,
@@ -54,7 +54,7 @@ extension SHDTextStyle {
     static var h3: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title2,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 24,
             lineHeight: 32,
             letterSpacing: -0.6,
@@ -66,7 +66,7 @@ extension SHDTextStyle {
     static var h4: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title3,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 20,
             lineHeight: 28,
             letterSpacing: -0.5,
@@ -79,7 +79,7 @@ extension SHDTextStyle {
     static var textXSRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .caption,
-            weight: .regular,
+            font: .regular,
             size: 12,
             lineHeight: 16,
             letterSpacing: 0,
@@ -91,7 +91,7 @@ extension SHDTextStyle {
     static var textXSMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .caption,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 12,
             lineHeight: 16,
             letterSpacing: 0,
@@ -103,7 +103,7 @@ extension SHDTextStyle {
     static var textXSSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .caption,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 12,
             lineHeight: 16,
             letterSpacing: 0,
@@ -115,7 +115,7 @@ extension SHDTextStyle {
     static var textXSUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .caption,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 12,
             lineHeight: 16,
             letterSpacing: 0,
@@ -129,7 +129,7 @@ extension SHDTextStyle {
     static var textSMRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .footnote,
-            weight: .regular,
+            font: .regular,
             size: 14,
             lineHeight: 20,
             letterSpacing: 0,
@@ -140,7 +140,7 @@ extension SHDTextStyle {
     static var textSMMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .footnote,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 14,
             lineHeight: 20,
             letterSpacing: 0,
@@ -151,7 +151,7 @@ extension SHDTextStyle {
     static var textSMSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .footnote,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 14,
             lineHeight: 20,
             letterSpacing: 0,
@@ -162,7 +162,7 @@ extension SHDTextStyle {
     static var textSMUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .footnote,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 14,
             lineHeight: 20,
             letterSpacing: 0,
@@ -176,7 +176,7 @@ extension SHDTextStyle {
     static var textBaseRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .subheadline,
-            weight: .regular,
+            font: .regular,
             size: 16,
             lineHeight: 24,
             letterSpacing: 0,
@@ -187,7 +187,7 @@ extension SHDTextStyle {
     static var textBaseMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .subheadline,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 16,
             lineHeight: 24,
             letterSpacing: 0,
@@ -198,7 +198,7 @@ extension SHDTextStyle {
     static var textBaseSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .subheadline,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 16,
             lineHeight: 24,
             letterSpacing: 0,
@@ -209,7 +209,7 @@ extension SHDTextStyle {
     static var textBaseUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .subheadline,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 16,
             lineHeight: 24,
             letterSpacing: 0,
@@ -223,7 +223,7 @@ extension SHDTextStyle {
     static var textLGRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .body,
-            weight: .regular,
+            font: .regular,
             size: 18,
             lineHeight: 28,
             letterSpacing: 0,
@@ -234,7 +234,7 @@ extension SHDTextStyle {
     static var textLGMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .body,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 18,
             lineHeight: 28,
             letterSpacing: 0,
@@ -245,7 +245,7 @@ extension SHDTextStyle {
     static var textLGSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .body,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 18,
             lineHeight: 28,
             letterSpacing: 0,
@@ -256,7 +256,7 @@ extension SHDTextStyle {
     static var textLGUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .body,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 18,
             lineHeight: 28,
             letterSpacing: 0,
@@ -270,7 +270,7 @@ extension SHDTextStyle {
     static var textXLRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title3,
-            weight: .regular,
+            font: .regular,
             size: 20,
             lineHeight: 28,
             letterSpacing: 0,
@@ -281,7 +281,7 @@ extension SHDTextStyle {
     static var textXLMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title3,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 20,
             lineHeight: 28,
             letterSpacing: 0,
@@ -292,7 +292,7 @@ extension SHDTextStyle {
     static var textXLSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title3,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 20,
             lineHeight: 28,
             letterSpacing: 0,
@@ -303,7 +303,7 @@ extension SHDTextStyle {
     static var textXLUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title3,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 20,
             lineHeight: 28,
             letterSpacing: 0,
@@ -317,7 +317,7 @@ extension SHDTextStyle {
     static var text2XLRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title2,
-            weight: .regular,
+            font: .regular,
             size: 24,
             lineHeight: 32,
             letterSpacing: 0,
@@ -328,7 +328,7 @@ extension SHDTextStyle {
     static var text2XLMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title2,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 24,
             lineHeight: 32,
             letterSpacing: 0,
@@ -339,7 +339,7 @@ extension SHDTextStyle {
     static var text2XLSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title2,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 24,
             lineHeight: 32,
             letterSpacing: 0,
@@ -350,7 +350,7 @@ extension SHDTextStyle {
     static var text2XLUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title2,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 24,
             lineHeight: 32,
             letterSpacing: 0,
@@ -364,7 +364,7 @@ extension SHDTextStyle {
     static var text3XLRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title,
-            weight: .regular,
+            font: .regular,
             size: 30,
             lineHeight: 36,
             letterSpacing: 0,
@@ -375,7 +375,7 @@ extension SHDTextStyle {
     static var text3XLMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 30,
             lineHeight: 36,
             letterSpacing: 0,
@@ -386,7 +386,7 @@ extension SHDTextStyle {
     static var text3XLSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 30,
             lineHeight: 36,
             letterSpacing: 0,
@@ -397,7 +397,7 @@ extension SHDTextStyle {
     static var text3XLUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .title,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 30,
             lineHeight: 36,
             letterSpacing: 0,
@@ -411,7 +411,7 @@ extension SHDTextStyle {
     static var text4XLRegular: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .largeTitle,
-            weight: .regular,
+            font: .regular,
             size: 36,
             lineHeight: 40,
             letterSpacing: 0,
@@ -422,7 +422,7 @@ extension SHDTextStyle {
     static var text4XLMedium: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .largeTitle,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 36,
             lineHeight: 40,
             letterSpacing: 0,
@@ -433,7 +433,7 @@ extension SHDTextStyle {
     static var text4XLSemibold: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .largeTitle,
-            weight: .regularSemiBold,
+            font: .regularSemiBold,
             size: 36,
             lineHeight: 40,
             letterSpacing: 0,
@@ -444,7 +444,7 @@ extension SHDTextStyle {
     static var text4XLUnderline: SHDTextStyle {
         SHDTextStyle(
             relativeFont: .largeTitle,
-            weight: .regularMedium,
+            font: .regularMedium,
             size: 36,
             lineHeight: 40,
             letterSpacing: 0,
