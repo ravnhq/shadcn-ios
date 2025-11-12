@@ -17,45 +17,27 @@ internal struct InterFont {
     /// The logical font name representing a specific weight/style.
     let fontName: String
 
-    /// Registers the Inter font once in a thread-safe manner.
-    /// Accessing this property ensures the font file is available for use.
-    private static let registerOnce: Void = {
-        do {
-            try FontLoader.registerFont(named: "Inter", withExtension: "ttf")
-        } catch {
-            print("⚠️ Failed to register font 'Inter': \(error.localizedDescription)")
-        }
-    }()
-
     /// Creates a new `InterFont` instance and ensures the font is registered.
     ///
     /// - Parameter name: The logical font name, e.g., `"Inter-Regular_Bold"`.
     private init(name: String) {
-        _ = Self.registerOnce
         self.fontName = name
+        registerInterFont()
     }
-
-    /// Returns the corresponding `Font.Weight` for the logical font name.
-    ///
-    /// This mapping allows the use of a single `Inter.ttf` file for all weights while
-    /// providing semantic access to standard SwiftUI font weights.
-    var weight: Font.Weight {
-        switch fontName {
-        case "Inter-Regular_Thin": return .ultraLight
-        case "Inter-Regular_ExtraLight": return .thin
-        case "Inter-Regular_Light": return .light
-        case "Inter-Regular": return .regular
-        case "Inter-Regular_Medium": return .medium
-        case "Inter-Regular_SemiBold": return .semibold
-        case "Inter-Regular_Bold": return .bold
-        case "Inter-Regular_ExtraBold": return .heavy
-        case "Inter-Regular_Black": return .black
-        default: return .regular
+    
+    /// Registers the Inter font once in a thread-safe manner.
+    /// Accessing this func ensures the font file is available for use.
+    private func registerInterFont() {
+        do {
+            try FontLoader.registerFont(named: "Inter", withExtension: "ttf")
+        } catch {
+            print(
+                ":warning: Failed to register font 'Inter': \(error.localizedDescription)"
+            )
         }
     }
 }
-
-internal extension InterFont {
+extension InterFont {
     static let regularThin = InterFont(name: "Inter-Regular_Thin")
     static let regularExtraLight = InterFont(name: "Inter-Regular_ExtraLight")
     static let regularLight = InterFont(name: "Inter-Regular_Light")
