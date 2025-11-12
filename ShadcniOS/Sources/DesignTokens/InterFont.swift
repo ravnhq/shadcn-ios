@@ -24,7 +24,7 @@ internal struct InterFont {
         self.fontName = name
         registerInterFont()
     }
-    
+
     /// Registers the Inter font once in a thread-safe manner.
     /// Accessing this func ensures the font file is available for use.
     private func registerInterFont() {
