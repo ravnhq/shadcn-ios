@@ -92,22 +92,58 @@ struct SampleModel: SHDAccordionRepresentable {
     var content: String
 }
 
-#Preview("Accordion Group") {
-    let sampleItems = [
+struct SHDAccordionPreview: View {
+    let sampleItems: [SampleModel] = [
         SampleModel(
             title: "Is it accessible?",
             content: "Yes. It adheres to the WAI-ARIA design pattern."
         ),
         SampleModel(
-            title: "Is it animated?",
+            title: "Is it styled?",
             content: """
-                Yes, It improves user experience by organizing information in a clean way,
-                allowing users to click on a title to expand and see details, and then click again
-                to collapse it
+                Stylized accordion moves beyond simple functionality to enhance the
+                overall user experience (UX) and visual design of a website or
+                application.
                 """
         ),
+        SampleModel(
+            title: "Is it animated?",
+            content: """
+                Yes, it improves UX by organizing information cleanly and
+                allowing users to expand/collapse sections.
+                """
+        )
     ]
-    SHDAccordion(items: sampleItems)
-        .accordionStyle(size: .md)
-        .padding(.horizontal, .xxxl)
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: .xxxl) {
+                HStack {
+                    Text("SM")
+                    SHDAccordion(items: sampleItems)
+                        .accordionStyle(size: .sm)
+                        .padding(.horizontal, 20)
+                }
+
+                HStack {
+                    Text("MD")
+                    SHDAccordion(items: sampleItems)
+                        .accordionStyle(size: .md)
+                        .padding(.horizontal, 20)
+                }
+
+                HStack {
+                    Text("LG")
+                    SHDAccordion(items: sampleItems)
+                        .accordionStyle(size: .lg)
+                        .padding(.horizontal, 20)
+                }
+            }
+            .padding(20)
+        }
+    }
+}
+
+#Preview("Accordion Group") {
+    SHDAccordionPreview()
 }
