@@ -7,41 +7,10 @@
 
 import SwiftUI
 
-internal struct SHDAccordionItem: View {
-
-    public var title: String
-    public var content: String
-    @Binding var isExpanded: Bool
-
-    var body: some View {
-        VStack {
-            HStack {
-                Text(title)
-                Spacer()
-                SHDIcon(.arrowChevronUp)
-                    .rotationEffect(.degrees(isExpanded ? 180 : 0))
-            }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                withAnimation(.spring(response: 0.40, dampingFraction: 0.7)) {
-                    isExpanded.toggle()
-                }
-            }
-            Divider()
-            if isExpanded {
-                Text(content)
-                    .padding(.top, .xxs)
-            }
-        }
-    }
-}
-
 // MARK: - Accordion component
-
 public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
-
-    public var items: [Item]
     @State public var expandedIndex: Int?
+    public var items: [Item]
 
     public init(items: [Item]) {
         self.items = items
@@ -51,14 +20,14 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
         VStack {
             ForEach(items.indices, id: \.self) { index in
                 SHDAccordionItem(
-                    title: items[index].title,
-                    content: items[index].content,
                     isExpanded: Binding(
                         get: { expandedIndex == index },
                         set: { isExpanded in
                             expandedIndex = isExpanded ? index : nil
                         }
-                    )
+                    ),
+                    title: items[index].title,
+                    content: items[index].content
                 )
             }
         }
@@ -74,20 +43,18 @@ struct SampleModel: SHDAccordionRepresentable {
 
 #Preview("Accordion Group") {
     let sampleItems = [
-        SampleModel(title: "Hello world", content: "Expandable content"),
-        SampleModel(title: "Hello world 2", content: "Expandable content 2"),
-        SampleModel(title: "Hello world 3", content: "Expandable content 3")
+        SampleModel(
+            title: "Is it accessible?",
+            content: "Yes. It adheres to the WAI-ARIA design pattern."
+        ),
+        SampleModel(
+            title: "Is it animated?",
+            content:
+                "Yes, It improves user experience by organizing information in a clean way, allowing users to click on a title to expand and see details, and then click again to collapse it"
+        )
     ]
 
     SHDAccordion(items: sampleItems)
         .padding(.horizontal, .xxxl)
-        .accordionStyle(size: .sm)
-    Divider()
-    SHDAccordion(items: sampleItems)
-        .padding(.horizontal, .xxxl)
         .accordionStyle(size: .md)
-    Divider()
-    SHDAccordion(items: sampleItems)
-        .padding(.horizontal, .xxxl)
-        .accordionStyle(size: .lg)
 }
