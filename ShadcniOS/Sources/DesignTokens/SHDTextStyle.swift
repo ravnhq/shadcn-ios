@@ -23,7 +23,7 @@ internal struct SHDTextStyle {
     let underline: Bool
 }
 
-extension SHDTextStyle {
+internal extension SHDTextStyle {
     // MARK: - Header Styles
     /// Predefined text styles for common heading levels used across the app.
     /// Heading 1 style — used for main titles and large headers.

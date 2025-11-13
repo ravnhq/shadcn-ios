@@ -8,56 +8,95 @@
 import ShadcniOS
 import SwiftUI
 
-struct sampleModel: SHDAccordionRepresentable {
+// MARK: - Sample Model
+struct GameInfo: SHDAccordionRepresentable {
     var title: String
     var content: String
 }
 
+// MARK: - Mapping of sizes
+enum AccordionSize: String, CaseIterable, Identifiable {
+    case small = "Small"
+    case medium = "Medium"
+    case large = "Large"
+
+    var id: String { rawValue }
+
+    var shdSize: SHDAccordionSize {
+        switch self {
+        case .small: return .sm
+        case .medium: return .md
+        case .large: return .lg
+        }
+    }
+}
+
+// MARK: - Accordion Demo View
 struct AccordionDemoView: View {
-    let sampleData = [
-        sampleModel(
-            title: "Is it accessible?",
-            content: "Yes. It adheres to the WAI-ARIA design pattern."
+
+    @State private var selectedSize: AccordionSize = .medium
+
+    let gameSections: [GameInfo] = [
+        GameInfo(
+            title: "Gameplay",
+            content: """
+                Explore vast worlds, complete quests, and defeat enemies with a variety of skills and weapons. \
+                Each decision affects the story and the environment, offering multiple endings.
+                """
         ),
-        sampleModel(
-            title: "Is it styled?",
-            content:
-                "Stylized accordion moves beyond simple functionality to enhance the overall user experience (UX) and visual design of a website or application, integrating seamlessly with the site's style guide"
+        GameInfo(
+            title: "Characters",
+            content: """
+                Meet diverse characters, each with unique abilities and backstories. \
+                Build relationships to unlock secret missions and bonus rewards.
+                """
         ),
-        sampleModel(
-            title: "Is it animated?",
-            content:
-                "Yes, It improves user experience by organizing information in a clean way, allowing users to click on a title to expand and see details, and then click again to collapse it"
+        GameInfo(
+            title: "Tips & Tricks",
+            content: """
+                Use stealth to avoid difficult fights, upgrade your equipment regularly, \
+                and explore every corner to find hidden treasures.
+                """
+        ),
+        GameInfo(
+            title: "Patch Notes",
+            content: """
+                Version 1.2: Added new maps, improved AI behavior, and fixed several bugs related to multiplayer.
+                Version 1.1: Introduced seasonal events and new character skins.
+                """
         ),
     ]
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("SM")
-                SHDAccordion(items: sampleData)
-                    .accordionStyle(size: .sm)
-                    .padding(.horizontal, 20)
+        ScrollView {
+            VStack(spacing: 20) {
+                // Select the size via Picker
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Select Accordion Size")
+                        .font(.headline)
+                    Picker("Accordion Size", selection: $selectedSize) {
+                        ForEach(AccordionSize.allCases) { size in
+                            Text(size.rawValue).tag(size)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding(.horizontal, 16)
+
+                // Dynamic accordion based in the selection
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Game Info - \(selectedSize.rawValue)")
+                        .font(.headline)
+                    SHDAccordion(items: gameSections)
+                        .accordionStyle(size: selectedSize.shdSize)
+                        .padding(.horizontal, 16)
+                }
+                .padding()
+                .background(Color(UIColor.secondarySystemBackground))
+                .cornerRadius(10)
             }
-
-            Spacer()
-
-            HStack {
-                Text("MD")
-                SHDAccordion(items: sampleData)
-                    .accordionStyle(size: .md)
-                    .padding(.horizontal, 20)
-            }
-
-            Spacer()
-
-            HStack {
-                Text("LG")
-                SHDAccordion(items: sampleData)
-                    .accordionStyle(size: .lg)
-                    .padding(.horizontal, 20)
-            }
+            .padding()
         }
-        .padding(.all, 20)
+        .navigationTitle("Game Info Accordion")
     }
 }
