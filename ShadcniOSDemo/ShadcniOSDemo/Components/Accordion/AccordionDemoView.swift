@@ -5,8 +5,8 @@
 //  Created by JoseAlvarez on 11/13/25.
 //
 
-import SwiftUI
 import ShadcniOS
+import SwiftUI
 
 struct sampleModel: SHDAccordionRepresentable {
     var title: String
@@ -36,23 +36,28 @@ struct AccordionDemoView: View {
             HStack {
                 Text("SM")
                 SHDAccordion(items: sampleData)
-                    .padding(.horizontal, 20)
                     .accordionStyle(size: .sm)
+                    .padding(.horizontal, 20)
             }
+
+            Spacer()
+
             HStack {
                 Text("MD")
                 SHDAccordion(items: sampleData)
-                    .padding(.horizontal, 20)
                     .accordionStyle(size: .md)
+                    .padding(.horizontal, 20)
             }
+
+            Spacer()
+
             HStack {
                 Text("LG")
                 SHDAccordion(items: sampleData)
-                    .padding(.horizontal, 20)
                     .accordionStyle(size: .lg)
+                    .padding(.horizontal, 20)
             }
         }
         .padding(.all, 20)
     }
 }
-
