@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol SHDAccordionRepresentable: Hashable {
-    var title: String { get set }
-    var content: String { get set }
+    var title: String { get }
+    var content: String { get }
 }

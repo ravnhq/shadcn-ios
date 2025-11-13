@@ -8,6 +8,7 @@
 import SwiftUI
 
 internal struct SHDAccordionItem: View {
+
     public var title: String
     public var content: String
     @Binding var isExpanded: Bool
@@ -26,12 +27,10 @@ internal struct SHDAccordionItem: View {
                     isExpanded.toggle()
                 }
             }
-
             Divider()
-
             if isExpanded {
                 Text(content)
-                    .padding(.top, 8)
+                    .padding(.top, .xxs)
             }
         }
     }
@@ -40,9 +39,10 @@ internal struct SHDAccordionItem: View {
 // MARK: - Accordion component
 
 public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
+
     public var items: [Item]
     @State public var expandedIndex: Int?
-    
+
     public init(items: [Item]) {
         self.items = items
     }

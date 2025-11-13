@@ -26,7 +26,7 @@ import SwiftUI
 ///
 /// The `color` property returns a SwiftUI `Color` instance that automatically
 /// resolves to the correct asset within the package’s bundle.
-internal enum SHDColor: String, CaseIterable {
+public enum SHDColor: String, CaseIterable {
 
     // MARK: - Base Colors
     case black, white
