@@ -24,15 +24,15 @@ enum AccordionSize: String, CaseIterable, Identifiable {
 
     var shdSize: SHDAccordionSize {
         switch self {
-        case .small: return .sm
-        case .medium: return .md
-        case .large: return .lg
+        case .small: .sm
+        case .medium: .md
+        case .large: .lg
         }
     }
 }
 
 // MARK: - Accordion Demo View
-struct AccordionDemoView: View {
+struct SHDAccordionDemoView: View {
 
     @State private var selectedSize: AccordionSize = .medium
 
@@ -88,7 +88,7 @@ struct AccordionDemoView: View {
                     Text("Game Info - \(selectedSize.rawValue)")
                         .font(.headline)
                     SHDAccordion(items: gameSections)
-                        .accordionStyle(size: selectedSize.shdSize)
+                        .accordionSize(size: selectedSize.shdSize)
                         .padding(.horizontal, 16)
                 }
                 .padding()
@@ -97,6 +97,6 @@ struct AccordionDemoView: View {
             }
             .padding()
         }
-        .navigationTitle("Game Info Accordion")
+        .navigationTitle("SHDAccordion")
     }
 }

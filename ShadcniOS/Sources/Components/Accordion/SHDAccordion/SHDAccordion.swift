@@ -47,7 +47,7 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
     private var size: SHDAccordionSize = .md
 
     /// The index of the currently expanded accordion item
-    @State var selectedItem: Item?
+    @State private var selectedItem: Item?
 
     /// The collection of items displayed in the accordion
     public var items: [Item]
@@ -68,9 +68,10 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
         VStack {
             ForEach(items, id: \.self) { item in
                 SHDAccordionItem(selection: $selectedItem, item: item)
-                    .accordionItemSize(size: size)
+                    .itemSize(size: size)
             }
         }
+        .padding(.zero)
     }
 
     // MARK: - Func modifier
@@ -79,68 +80,8 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
     ///
     /// - Parameter size: The size preset to apply to all accordion items
     /// - Returns: A modified accordion view with the specified size style
-    public func accordionStyle(size: SHDAccordionSize) -> Self {
+    public func accordionSize(size: SHDAccordionSize) -> Self {
         mutating(keyPath: \.size, value: size)
-    }
-}
-
-// MARK: - Preview
-
-/// A simple sample model used to preview the accordion.
-struct SampleModel: SHDAccordionRepresentable {
-    var title: String
-    var content: String
-}
-
-struct SHDAccordionPreview: View {
-    let sampleItems: [SampleModel] = [
-        SampleModel(
-            title: "Is it accessible?",
-            content: "Yes. It adheres to the WAI-ARIA design pattern."
-        ),
-        SampleModel(
-            title: "Is it styled?",
-            content: """
-                Stylized accordion moves beyond simple functionality to enhance the
-                overall user experience (UX) and visual design of a website or
-                application.
-                """
-        ),
-        SampleModel(
-            title: "Is it animated?",
-            content: """
-                Yes, it improves UX by organizing information cleanly and
-                allowing users to expand/collapse sections.
-                """
-        )
-    ]
-
-    var body: some View {
-        ScrollView {
-            VStack(spacing: .xxxl) {
-                HStack {
-                    Text("SM")
-                    SHDAccordion(items: sampleItems)
-                        .accordionStyle(size: .sm)
-                        .padding(.horizontal, 20)
-                }
-
-                HStack {
-                    Text("MD")
-                    SHDAccordion(items: sampleItems)
-                        .accordionStyle(size: .md)
-                        .padding(.horizontal, 20)
-                }
-
-                HStack {
-                    Text("LG")
-                    SHDAccordion(items: sampleItems)
-                        .accordionStyle(size: .lg)
-                        .padding(.horizontal, 20)
-                }
-            }
-            .padding(20)
-        }
     }
 }
 
