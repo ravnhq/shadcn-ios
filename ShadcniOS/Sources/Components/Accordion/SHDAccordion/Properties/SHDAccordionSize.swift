@@ -17,11 +17,11 @@ import SwiftUI
 /// Example usage:
 /// ```swift
 /// Text("Title content")
-///     .textStyle(size.titleFont)
+///     .textStyle(size.titleTextStyle)
 /// ```
 ///
-/// The `SHDAccordionSize` is primarily used by `SHDAccordionTextStyle`
-/// to apply size-dependent text and layout settings
+/// The `SHDAccordionSize` is primarily used by `SHDAccordion`
+/// to apply size-dependent text and layout settings using his computed properties
 public enum SHDAccordionSize {
     /// Small accordion size, typically used in compact layouts
     case sm
@@ -33,7 +33,7 @@ public enum SHDAccordionSize {
     case lg
 
     /// The text style applied to the accordion title based on the selected size
-    var titleFont: SHDTextStyle {
+    var titleTextStyle: SHDTextStyle {
         switch self {
         case .sm: .textBaseMedium
         case .md: .textLGMedium
@@ -42,7 +42,7 @@ public enum SHDAccordionSize {
     }
 
     /// The text style applied to the accordion content based on the selected size
-    var contentFont: SHDTextStyle {
+    var contentTextStyle: SHDTextStyle {
         switch self {
         case .sm: .textSMRegular
         case .md: .textBaseRegular
