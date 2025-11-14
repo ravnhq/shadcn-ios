@@ -16,13 +16,11 @@ import SwiftUI
 ///
 /// Exmaple usage:
 /// ```swift
-/// @State private var isExpanded = false
-///
 /// SHDAccordionItem(
-///     isExpanded: $isExpanded,
-///     title: "Accordion Title",
-///     content: "Accordion content goes here"
-/// )
+///     selection: $selectedItem,
+///     item: item
+///     )
+///    .accordionItemSize(size: size)
 /// ```
 internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
 
@@ -63,10 +61,12 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
             header
             if isExpanded {
                 content
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
+
             Divider()
         }
+        .clipped()
     }
 
     // MARK: - Subviews
