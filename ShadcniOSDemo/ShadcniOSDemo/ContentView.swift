@@ -13,10 +13,10 @@ struct ContentView: View {
         VStack {
             NavigationStack {
                 List {
-                    NavigationLink(destination: AccordionDemoView()) {
+                    NavigationLink(destination: SHDAccordionDemoView()) {
                         HStack {
                             Image(systemName: "list.bullet.rectangle.portrait")
-                            Text("Accordion")
+                            Text("SHDAccordion")
                         }
                     }
                 }

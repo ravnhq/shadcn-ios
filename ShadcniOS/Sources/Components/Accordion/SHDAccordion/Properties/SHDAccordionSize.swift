@@ -35,27 +35,27 @@ public enum SHDAccordionSize {
     /// The text style applied to the accordion title based on the selected size
     var titleFont: SHDTextStyle {
         switch self {
-        case .sm: return .textBaseMedium
-        case .md: return .textLGMedium
-        case .lg: return .textXLMedium
+        case .sm: .textBaseMedium
+        case .md: .textLGMedium
+        case .lg: .textXLMedium
         }
     }
 
     /// The text style applied to the accordion content based on the selected size
     var contentFont: SHDTextStyle {
         switch self {
-        case .sm: return .textSMRegular
-        case .md: return .textBaseRegular
-        case .lg: return .textLGRegular
+        case .sm: .textSMRegular
+        case .md: .textBaseRegular
+        case .lg: .textLGRegular
         }
     }
 
     /// The vertical spacing applied to the accordion text content and outside
     var verticalSpacing: SHDSizing.Spacing {
         switch self {
-        case .sm: return .md
-        case .md: return .lg
-        case .lg: return .lg
+        case .sm: .md
+        case .md: .lg
+        case .lg: .lg
         }
     }
 }

@@ -103,7 +103,7 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
     ///
     /// - Parameter size: The size preset to apply to the item.
     /// - Returns: A modified accordion item with the specified size style.
-    func accordionItemSize(size: SHDAccordionSize) -> Self {
+    func itemSize(size: SHDAccordionSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
 }
