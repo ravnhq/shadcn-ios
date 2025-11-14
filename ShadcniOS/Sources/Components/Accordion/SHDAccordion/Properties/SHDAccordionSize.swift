@@ -16,8 +16,8 @@ import SwiftUI
 ///
 /// Example usage:
 /// ```swift
-/// Text("Accordion Title")
-///     .accordionStyle(size: .md, isTitle: true)
+/// Text("Title content")
+///     .textStyle(size.titleFont)
 /// ```
 ///
 /// The `SHDAccordionSize` is primarily used by `SHDAccordionTextStyle`
