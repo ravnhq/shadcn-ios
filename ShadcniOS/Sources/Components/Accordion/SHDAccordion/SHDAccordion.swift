@@ -34,7 +34,7 @@ import SwiftUI
 /// ]
 ///
 /// SHDAccordion(items: faqItems)
-///     .accordionStyle(size: .md)
+///    .accordionSize(size: .md)
 /// ```
 ///
 /// The accordion ensures only one item is expanded at a time by tracking
@@ -65,13 +65,12 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
     // MARK: - Body
 
     public var body: some View {
-        VStack {
+        VStack(spacing: size.verticalSpacing) {
             ForEach(items, id: \.self) { item in
                 SHDAccordionItem(selection: $selectedItem, item: item)
                     .itemSize(size: size)
             }
         }
-        .padding(.zero)
     }
 
     // MARK: - Func modifier

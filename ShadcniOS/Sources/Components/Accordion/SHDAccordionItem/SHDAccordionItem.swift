@@ -16,11 +16,8 @@ import SwiftUI
 ///
 /// Exmaple usage:
 /// ```swift
-/// SHDAccordionItem(
-///     selection: $selectedItem,
-///     item: item
-///     )
-///    .accordionItemSize(size: size)
+/// SHDAccordionItem(selection: $selectedItem, item: item)
+///    .itemSize(size: size)
 /// ```
 internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
 
@@ -58,7 +55,9 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
 
     var body: some View {
         VStack(spacing: size.verticalSpacing) {
+
             header
+
             if isExpanded {
                 content
                     .transition(.opacity.combined(with: .move(edge: .bottom)))
@@ -75,7 +74,7 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
     private var header: some View {
         HStack {
             Text(item.title)
-                .textStyle(size.titleFont)
+                .textStyle(size.titleTextStyle)
 
             Spacer()
 
@@ -94,7 +93,7 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
     /// The expanded content area shown when the item is active.
     private var content: some View {
         Text(item.content)
-            .textStyle(size.contentFont)
+            .textStyle(size.contentTextStyle)
     }
 
     // MARK: - Func modifier
