@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Variant {
+public enum VariantButton {
     case defaultButton
     case secondaryButton
 
