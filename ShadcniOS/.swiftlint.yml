@@ -77,3 +77,11 @@ identifier_name:
     - URL
     - GlobalAPIKey
 reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, codeclimate, junit, html, emoji, sonarqube, markdown, github-actions-logging, summary)
+## Custom rules
+## Enum custom rule
+custom_rules:
+    enum_singular:
+        name: "Enum must be singular"
+        message: "Enums should be named in singular (avoid names ending with 's')"
+        regex: "enum\\s+(?!Radius\\b)[A-Z][A-Za-z0-9_]*s\\b"
+        severity: error
