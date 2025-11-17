@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SHDButtonVariantStyle: ButtonStyle {
-    let variant: Variant
+    let variant: VariantButton
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -21,7 +21,7 @@ struct SHDButtonVariantStyle: ButtonStyle {
 }
 
 extension View {
-    func buttonVariant(_ variant: Variant) -> some View {
+    func buttonVariant(_ variant: VariantButton) -> some View {
         buttonStyle(SHDButtonVariantStyle(variant: variant))
     }
 }

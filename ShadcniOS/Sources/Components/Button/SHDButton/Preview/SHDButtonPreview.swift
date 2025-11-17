@@ -45,6 +45,26 @@ internal struct SHDButtonPreview: View {
                 print("Hello world 3!")
             }
         )
+        .buttonVariant(.defaultButton)
+        .shdButtonSize(.lg)
+        SHDButton(
+            label: "Proto button secondary",
+            icon: .notificationBellOff,
+            action: {
+                print("Hello world 3!")
+            }
+        )
+        .buttonVariant(.defaultButton)
+        .shdButtonSize(.md)
+        SHDButton(
+            label: "Proto button secondary",
+            icon: .notificationBellOff,
+            action: {
+                print("Hello world 3!")
+            }
+        )
+        .buttonVariant(.defaultButton)
+        .shdButtonSize(.sm)
     }
 }
 
