@@ -45,15 +45,20 @@ internal struct FontLoader {
     ///   - ext: The file extension (e.g. `"ttf"` or `"otf"`).
     /// - Throws: A `FontLoaderError` if the font cannot be found or registration fails.
     static func registerFont(named name: String, withExtension ext: String) throws {
-        guard let url = Bundle.module.url(forResource: name, withExtension: ext) else {
+        let descriptor = CTFontDescriptorCreateWithNameAndSize(name as CFString, 0)
+        var matched = CTFontDescriptorCreateMatchingFontDescriptor(descriptor, nil)
+
+        if matched == nil {
+            guard let url = Bundle.module.url(forResource: name, withExtension: ext) else {
             throw FontLoaderError.fontNotFound(name: name)
         }
 
-        var error: Unmanaged<CFError>?
-        CTFontManagerRegisterFontsForURL(url as CFURL, .process, &error)
+            var error: Unmanaged<CFError>?
+            CTFontManagerRegisterFontsForURL(url as CFURL, .process, &error)
 
-        if let error = error?.takeRetainedValue() {
-            throw FontLoaderError.registrationFailed(name: name, underlyingError: error)
+            if let error = error?.takeRetainedValue() {
+                throw FontLoaderError.registrationFailed(name: name, underlyingError: error)
+            }
         }
     }
 }
