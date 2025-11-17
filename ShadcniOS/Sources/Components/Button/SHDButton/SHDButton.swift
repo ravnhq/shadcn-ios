@@ -13,6 +13,7 @@ public struct SHDButton: View {
     let icon: SHDIconAsset?
     let action: () -> Void
     var iconDuplicated: Bool = false
+    var variant: Variants = .defaultButton
 
     init(
         label: String,
@@ -44,10 +45,14 @@ public struct SHDButton: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
             .contentShape(Rectangle())
-            .backgroundColor(.backgroundPrimaryDefault)
-            .foregroundColor(.foregroundPrimaryDefault)
+            .backgroundColor(variant.backgroundColor)
+            .foregroundColor(variant.foregroundColor)
             .cornerRadius(.lg)
         }
+    }
+
+    public func styleButton(_ variant: Variants) -> Self {
+        mutating(keyPath: \.variant, value: variant)
     }
 }
 
@@ -58,4 +63,28 @@ public struct SHDButton: View {
         action: { print("Hello, World!") },
         iconDuplicated: true
     )
+    
+    SHDButton(label: "Proto button secondary", icon: .notificationBellOff, action: {
+        print("Hello world 2!")
+    }, iconDuplicated: true)
+    .styleButton(.secondaryButton)
+}
+
+public enum Variants {
+    case defaultButton
+    case secondaryButton
+
+    var backgroundColor: SHDColor {
+        switch self {
+        case .defaultButton: return .backgroundPrimaryDefault
+        case .secondaryButton: return .backgroundPrimaryLight
+        }
+    }
+    
+    var foregroundColor: SHDColor {
+        switch self {
+        case .defaultButton: return .foregroundPrimaryDefault
+        case .secondaryButton: return .foregroundAccent
+        }
+    }
 }
