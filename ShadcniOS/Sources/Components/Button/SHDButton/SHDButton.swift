@@ -8,15 +8,14 @@
 import SwiftUI
 
 public struct SHDButton: View {
-    let text: String
+    let text: String?
     let leadingIcon: SHDIconAsset?
     let onTap: () -> Void
 
-    var iconDuplicated: Bool = false
-    var iconStyle: Bool = false
+    var iconSize: SHDIconSize = .md
 
     init(
-        label: String,
+        label: String?,
         icon: SHDIconAsset?,
         action: @escaping () -> Void,
     ) {
@@ -30,28 +29,19 @@ public struct SHDButton: View {
             HStack(spacing: .sm) {
                 if let leadingIcon {
                     SHDIcon(leadingIcon)
+                        .iconSize(iconSize)
                 }
 
-                if !iconStyle {
+                if let text {
                     Text(text)
-
-                    if iconDuplicated {
-                        if let leadingIcon {
-                            SHDIcon(leadingIcon)
-                        }
-                    }
                 }
             }
-            .padding(.horizontal, !iconStyle ? 16 : 8)
+            .padding(.horizontal, text != nil ? 16 : 8)
         }
     }
 
-    public func iconStyle(iconStyle: Bool = true) -> Self {
-        mutating(keyPath: \.iconStyle, value: iconStyle)
-    }
-
-    public func iconDuplicated(iconDuplicated: Bool = true) -> Self {
-        mutating(keyPath: \.iconDuplicated, value: iconDuplicated)
+    func iconSize(_ iconSize: SHDIconSize) -> Self {
+        mutating(keyPath: \.iconSize, value: iconSize)
     }
 }
 
