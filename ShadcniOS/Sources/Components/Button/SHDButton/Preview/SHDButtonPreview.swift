@@ -7,24 +7,39 @@
 
 import SwiftUI
 
-internal struct SHDButtonPreview: View {
-    var body: some View {
+public struct SHDButtonPreview: View {
+    public var body: some View {
         SHDButton(
-            label: "Proto button",
+            label: nil,
             icon: .notificationCheckCheck,
             action: { print("Hello, World!") },
         )
-        .iconStyle()
+        .iconSize(.sm)
+        .buttonVariant(.defaultButton)
+
+        SHDButton(
+            label: nil,
+            icon: .notificationCheckCheck,
+            action: { print("Hello, World!") },
+        )
+        .iconSize(.md)
+        .buttonVariant(.defaultButton)
+
+        SHDButton(
+            label: nil,
+            icon: .notificationCheckCheck,
+            action: { print("Hello, World!") },
+        )
+        .iconSize(.lg)
         .buttonVariant(.defaultButton)
 
         SHDButton(
             label: "Proto button",
-            icon: .notificationBellOff,
+            icon: nil,
             action: {
                 print("Hello world 2!")
             }
         )
-        .iconDuplicated()
         .buttonVariant(.defaultButton)
         .shdButtonStyle(.buttonDefault)
 
@@ -45,8 +60,10 @@ internal struct SHDButtonPreview: View {
                 print("Hello world 3!")
             }
         )
+        .iconSize(.lg)
         .buttonVariant(.defaultButton)
         .shdButtonSize(.lg)
+
         SHDButton(
             label: "Proto button secondary",
             icon: .notificationBellOff,
@@ -54,8 +71,10 @@ internal struct SHDButtonPreview: View {
                 print("Hello world 3!")
             }
         )
+        .iconSize(.md)
         .buttonVariant(.defaultButton)
         .shdButtonSize(.md)
+
         SHDButton(
             label: "Proto button secondary",
             icon: .notificationBellOff,
@@ -63,6 +82,7 @@ internal struct SHDButtonPreview: View {
                 print("Hello world 3!")
             }
         )
+        .iconSize(.sm)
         .buttonVariant(.defaultButton)
         .shdButtonSize(.sm)
     }
