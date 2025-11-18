@@ -12,10 +12,14 @@ struct SHDButtonVariantStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(.vertical, 8)
+            .padding(.vertical, .xxs)
             .contentShape(Rectangle())
             .backgroundColor(variant.backgroundColor)
             .foregroundColor(variant.foregroundColor)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(variant.borderColor.color, lineWidth: variant.borderColor == .clear ? 0 : 1)
+            )
             .cornerRadius(.lg)
     }
 }
