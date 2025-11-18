@@ -15,7 +15,7 @@ public struct SHDButtonPreview: View {
             action: { print("Hello, World!") },
         )
         .iconSize(.sm)
-        .buttonVariant(.defaultButton)
+        .buttonVariant(.`default`)
 
         SHDButton(
             label: nil,
@@ -23,7 +23,7 @@ public struct SHDButtonPreview: View {
             action: { print("Hello, World!") },
         )
         .iconSize(.md)
-        .buttonVariant(.defaultButton)
+        .buttonVariant(.default)
 
         SHDButton(
             label: nil,
@@ -31,7 +31,7 @@ public struct SHDButtonPreview: View {
             action: { print("Hello, World!") },
         )
         .iconSize(.lg)
-        .buttonVariant(.defaultButton)
+        .buttonVariant(.default)
 
         SHDButton(
             label: "Proto button",
@@ -40,7 +40,7 @@ public struct SHDButtonPreview: View {
                 print("Hello world 2!")
             }
         )
-        .buttonVariant(.defaultButton)
+        .buttonVariant(.default)
         .shdButtonStyle(.buttonDefault)
 
         SHDButton(
@@ -50,7 +50,7 @@ public struct SHDButtonPreview: View {
                 print("Hello world 3!")
             }
         )
-        .buttonVariant(.secondaryButton)
+        .buttonVariant(.secondary)
         .shdButtonStyle(.buttonDefault)
 
         SHDButton(
@@ -61,7 +61,7 @@ public struct SHDButtonPreview: View {
             }
         )
         .iconSize(.lg)
-        .buttonVariant(.defaultButton)
+        .buttonVariant(.default)
         .shdButtonSize(.lg)
 
         SHDButton(
@@ -72,7 +72,7 @@ public struct SHDButtonPreview: View {
             }
         )
         .iconSize(.md)
-        .buttonVariant(.defaultButton)
+        .buttonVariant(.default)
         .shdButtonSize(.md)
 
         SHDButton(
@@ -83,7 +83,51 @@ public struct SHDButtonPreview: View {
             }
         )
         .iconSize(.sm)
-        .buttonVariant(.defaultButton)
+        .buttonVariant(.default)
+        .shdButtonSize(.sm)
+
+        SHDButton(
+            label: "Proto button secondary",
+            icon: .notificationBellOff,
+            action: {
+                print("Hello world 3!")
+            }
+        )
+        .iconSize(.lg)
+        .buttonVariant(.destructive)
+        .shdButtonSize(.lg)
+
+        SHDButton(
+            label: "Proto button secondary",
+            icon: .notificationBellOff,
+            action: {
+                print("Hello world 3!")
+            }
+        )
+        .iconSize(.lg)
+        .buttonVariant(.outline)
+        .shdButtonSize(.lg)
+
+        SHDButton(
+            label: "Proto button secondary",
+            icon: .notificationBellOff,
+            action: {
+                print("Hello world 3!")
+            }
+        )
+        .iconSize(.lg)
+        .buttonVariant(.ghost)
+        .shdButtonSize(.lg)
+
+        SHDButton(
+            label: "Proto button secondary",
+            icon: .notificationBellOff,
+            action: {
+                print("Hello world 3!")
+            }
+        )
+        .iconSize(.sm)
+        .buttonVariant(.link)
         .shdButtonSize(.sm)
     }
 }
