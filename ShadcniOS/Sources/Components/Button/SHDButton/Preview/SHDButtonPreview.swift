@@ -9,126 +9,85 @@ import SwiftUI
 
 public struct SHDButtonPreview: View {
     public var body: some View {
-        SHDButton(
-            label: nil,
-            icon: .notificationCheckCheck,
-            action: { print("Hello, World!") },
-        )
-        .iconSize(.sm)
-        .buttonVariant(.`default`)
+        VStack(alignment: .leading, spacing: 24) {
+            Text("Sizing: ")
+            HStack(spacing: 16) {
+                SHDButton(
+                    icon: .notificationCheckCheck,
+                    action: { print("Hello, World!") }
+                )
+                .iconSize(.sm)
+                .buttonVariant(.default)
 
-        SHDButton(
-            label: nil,
-            icon: .notificationCheckCheck,
-            action: { print("Hello, World!") },
-        )
-        .iconSize(.md)
-        .buttonVariant(.default)
+                SHDButton(
+                    icon: .notificationCheckCheck,
+                    action: { print("Hello, World!") }
+                )
+                .iconSize(.md)
+                .buttonVariant(.default)
 
-        SHDButton(
-            label: nil,
-            icon: .notificationCheckCheck,
-            action: { print("Hello, World!") },
-        )
-        .iconSize(.lg)
-        .buttonVariant(.default)
-
-        SHDButton(
-            label: "Proto button",
-            icon: nil,
-            action: {
-                print("Hello world 2!")
+                SHDButton(
+                    icon: .notificationCheckCheck,
+                    action: { print("Hello, World!") }
+                )
+                .iconSize(.lg)
+                .buttonVariant(.default)
             }
-        )
-        .buttonVariant(.default)
-        .shdButtonStyle(.buttonDefault)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
-            }
-        )
-        .buttonVariant(.secondary)
-        .shdButtonStyle(.buttonDefault)
+            VStack(spacing: 12) {
+                SHDButton(label: "Button LG", icon: .notificationBellOff, action: {})
+                    .iconSize(.lg)
+                    .buttonVariant(.default)
+                    .shdButtonSize(.lg)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
-            }
-        )
-        .iconSize(.lg)
-        .buttonVariant(.default)
-        .shdButtonSize(.lg)
+                SHDButton(label: "Button MD", icon: .notificationBellOff, action: {})
+                    .iconSize(.md)
+                    .buttonVariant(.default)
+                    .shdButtonSize(.md)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
+                SHDButton(label: "Button SM", icon: .notificationBellOff, action: {})
+                    .iconSize(.sm)
+                    .buttonVariant(.default)
+                    .shdButtonSize(.sm)
             }
-        )
-        .iconSize(.md)
-        .buttonVariant(.default)
-        .shdButtonSize(.md)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
-            }
-        )
-        .iconSize(.sm)
-        .buttonVariant(.default)
-        .shdButtonSize(.sm)
+            Text("Variants:")
+            VStack(spacing: 12) {
+                SHDButton(label: "Default", action: {})
+                    .buttonVariant(.default)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
-            }
-        )
-        .iconSize(.lg)
-        .buttonVariant(.destructive)
-        .shdButtonSize(.lg)
+                SHDButton(label: "Secondary", icon: .notificationBellOff, action: {})
+                    .buttonVariant(.secondary)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
-            }
-        )
-        .iconSize(.lg)
-        .buttonVariant(.outline)
-        .shdButtonSize(.lg)
+                SHDButton(label: "Destructive", icon: .notificationBellOff, action: {})
+                    .buttonVariant(.destructive)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
-            }
-        )
-        .iconSize(.lg)
-        .buttonVariant(.ghost)
-        .shdButtonSize(.lg)
+                SHDButton(label: "Outline", icon: .notificationBellOff, action: {})
+                    .buttonVariant(.outline)
 
-        SHDButton(
-            label: "Proto button secondary",
-            icon: .notificationBellOff,
-            action: {
-                print("Hello world 3!")
+                SHDButton(label: "Ghost", icon: .notificationBellOff, action: {})
+                    .buttonVariant(.ghost)
+
+                SHDButton(label: "Link", icon: .notificationBellOff, action: {})
+                    .buttonVariant(.link)
             }
-        )
-        .iconSize(.sm)
-        .buttonVariant(.link)
-        .shdButtonSize(.sm)
+
+            Text("Styles:")
+            VStack(spacing: 12) {
+                SHDButton(label: "Default", action: {})
+                    .buttonVariant(.default)
+                    .shdButtonStyle(.buttonDefault)
+
+                SHDButton(label: "Loading", icon: .notificationBellOff, action: {})
+                    .buttonVariant(.secondary)
+                    .shdButtonStyle(.buttonLoading)
+
+                SHDButton(label: "Disable", icon: .notificationBellOff, action: {})
+                    .buttonVariant(.destructive)
+                    .shdButtonStyle(.buttonDisable)
+            }
+        }
+        .padding()
     }
 }
 

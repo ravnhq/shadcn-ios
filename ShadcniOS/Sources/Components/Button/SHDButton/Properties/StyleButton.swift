@@ -10,11 +10,13 @@ import Foundation
 public enum StyleButton {
     case buttonDefault
     case buttonLoading
+    case buttonDisable
 
     var opacity: CGFloat {
         switch self {
         case .buttonDefault: return 1
         case .buttonLoading: return 0.5
+        case .buttonDisable: return 0.5
         }
     }
 }
