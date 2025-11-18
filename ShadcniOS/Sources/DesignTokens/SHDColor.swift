@@ -28,6 +28,9 @@ import SwiftUI
 /// resolves to the correct asset within the package’s bundle.
 internal enum SHDColor: String, CaseIterable {
 
+    // MARK: - Clear color
+    case clear
+    
     // MARK: - Base Colors
     case black, white
 
@@ -110,6 +113,11 @@ internal enum SHDColor: String, CaseIterable {
     /// let background = SHDColor.backgroundDefault.color
     /// ```
     var color: Color {
-        Color(rawValue, bundle: .module)
+        switch self {
+        case .clear:
+            return .clear
+        default:
+            return Color(rawValue, bundle: .module)
+        }
     }
 }
