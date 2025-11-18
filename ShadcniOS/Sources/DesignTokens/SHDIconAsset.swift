@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-internal enum SHDIconAsset: String, Codable {
+public enum SHDIconAsset: String, Codable {
     case arrowChevronDown
     case notificationBellOff
     case notificationBellPlus

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDButtonStyle: ViewModifier {
+internal struct SHDButtonStyle: ViewModifier {
     let style: StyleButton
 
     init(style: StyleButton = .buttonDefault) {
@@ -20,7 +20,7 @@ struct SHDButtonStyle: ViewModifier {
 }
 
 extension  View {
-    func shdButtonStyle(_ style: StyleButton) -> some View {
+    public func shdButtonStyle(_ style: StyleButton) -> some View {
         modifier(SHDButtonStyle(style: style))
     }
 }

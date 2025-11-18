@@ -17,7 +17,7 @@ struct SHDButtonSize: ViewModifier {
 }
 
 extension View {
-    func shdButtonSize(_ size: SizeButton) -> some View {
+    public func shdButtonSize(_ size: SizeButton) -> some View {
         modifier(SHDButtonSize(size: size))
     }
 }

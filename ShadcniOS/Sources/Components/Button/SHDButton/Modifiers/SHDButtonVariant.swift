@@ -25,7 +25,7 @@ struct SHDButtonVariantStyle: ButtonStyle {
 }
 
 extension View {
-    func buttonVariant(_ variant: VariantButton) -> some View {
+    public func buttonVariant(_ variant: VariantButton) -> some View {
         buttonStyle(SHDButtonVariantStyle(variant: variant))
     }
 }
