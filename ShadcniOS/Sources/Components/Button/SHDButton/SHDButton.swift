@@ -14,9 +14,9 @@ public struct SHDButton: View {
 
     var iconSize: SHDIconSize = .md
 
-    init(
-        label: String?,
-        icon: SHDIconAsset?,
+    public init(
+        label: String? = nil,
+        icon: SHDIconAsset? = nil,
         action: @escaping () -> Void,
     ) {
         self.text = label
@@ -40,7 +40,7 @@ public struct SHDButton: View {
         }
     }
 
-    func iconSize(_ iconSize: SHDIconSize) -> Self {
+    public func iconSize(_ iconSize: SHDIconSize) -> Self {
         mutating(keyPath: \.iconSize, value: iconSize)
     }
 }

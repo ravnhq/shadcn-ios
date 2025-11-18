@@ -4,7 +4,6 @@
 //
 //  Created by JoseAlvarez on 10/28/25.
 //
-
 import ShadcniOS
 import SwiftUI
 
@@ -17,6 +16,12 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "list.bullet.rectangle.portrait")
                             Text("SHDAccordion")
+                        }
+                    }
+                    NavigationLink(destination: SHDButtonDemoView()) {
+                        HStack {
+                            Image(systemName: "button.horizontal.fill")
+                            Text("SHDButton")
                         }
                     }
                 }
