@@ -61,6 +61,10 @@ public struct SHDButton: View {
     /// Action executed when the button is tapped.
     public let onTap: () -> Void
 
+    var buttonStyle: StyleButton = .buttonDefault
+
+    @State private var rotationAngle: Angle = .zero
+
     /// The display size of the icon. Defaults to `.md`.
     ///
     /// Use `.iconSize(_:)` to modify.
@@ -92,8 +96,19 @@ public struct SHDButton: View {
             HStack(spacing: .sm) {
 
                 if let leadingIcon {
-                    SHDIcon(leadingIcon)
-                        .iconSize(iconSize)
+                    let shouldShowLoadingIcon = (buttonStyle == .buttonLoading && text == nil)
+                    if shouldShowLoadingIcon {
+                        SHDIcon(.cursorLoadingCircle)
+                            .rotationEffect(rotationAngle)
+                            .onAppear {
+                                withAnimation(.linear(duration: 2).repeatForever(autoreverses: false)) {
+                                    rotationAngle = .degrees(360)
+                                }
+                            }
+                    } else  {
+                        SHDIcon(leadingIcon )
+                            .iconSize(iconSize)
+                    }
                 }
 
                 if let text {
@@ -120,6 +135,10 @@ public struct SHDButton: View {
     /// ```
     public func iconSize(_ iconSize: SHDIconSize) -> Self {
         mutating(keyPath: \.iconSize, value: iconSize)
+    }
+
+    public func buttonLoading(_ buttonStyle: StyleButton = .buttonLoading) -> Self {
+        mutating(keyPath: \.buttonStyle, value: buttonStyle)
     }
 }
 
