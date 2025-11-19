@@ -32,7 +32,6 @@ struct SHDCloseButtonState: ButtonStyle {
     }
 }
 
-
 public extension View {
 
     /// Styles the view using the `SHDCloseButtonState` button style.
