@@ -107,6 +107,7 @@ struct SHDButtonDemoView: View {
 
         case .iconOnly:
             SHDButton(icon: .notificationCheckCheck, action: {})
+                .buttonLoading(style == .buttonLoading ? .buttonLoading : .buttonDefault)
                 .iconSize(iconSize)
                 .buttonVariant(variant)
                 .shdButtonSize(buttonSize)

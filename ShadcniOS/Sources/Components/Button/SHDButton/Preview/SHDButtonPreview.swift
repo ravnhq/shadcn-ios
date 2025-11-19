@@ -85,6 +85,12 @@ public struct SHDButtonPreview: View {
                 SHDButton(label: "Disable", icon: .notificationBellOff, action: {})
                     .buttonVariant(.destructive)
                     .shdButtonStyle(.buttonDisable)
+                
+                SHDButton(icon: .notificationBellOff, action: {})
+                    .buttonLoading()
+                    .buttonVariant(.destructive)
+                    .shdButtonStyle(.buttonLoading)
+
             }
         }
         .padding()
