@@ -61,8 +61,12 @@ public struct SHDButton: View {
     /// Action executed when the button is tapped.
     public let onTap: () -> Void
 
+    /// internal var to manage the style button
+    /// focused on the loading state
     var buttonStyle: StyleButton = .buttonDefault
 
+    /// State private var to handle the rotation animation when
+    /// the Loading icon appears
     @State private var rotationAngle: Angle = .zero
 
     /// The display size of the icon. Defaults to `.md`.
@@ -96,6 +100,10 @@ public struct SHDButton: View {
             HStack(spacing: .sm) {
 
                 if let leadingIcon {
+                    /// Conditional to handle de different icons, buttonStyle
+                    /// is setted as loading and there's no text
+                    /// I will draw the icon using .cursorLoadingCircle image asset
+                    ///  and will apply animation of infinity rotation
                     let shouldShowLoadingIcon = (buttonStyle == .buttonLoading && text == nil)
                     if shouldShowLoadingIcon {
                         SHDIcon(.cursorLoadingCircle)
@@ -105,7 +113,8 @@ public struct SHDButton: View {
                                     rotationAngle = .degrees(360)
                                 }
                             }
-                    } else  {
+                    } else {
+                        /// Otherwise it's the normal icon that users share
                         SHDIcon(leadingIcon )
                             .iconSize(iconSize)
                     }
@@ -137,6 +146,18 @@ public struct SHDButton: View {
         mutating(keyPath: \.iconSize, value: iconSize)
     }
 
+    /// Sets the state as loading style
+    ///
+    /// - Parameter buttonStyle: The style to be applied
+    /// - Returns: A modified `SHDButton` with the new style state
+    ///
+    /// ### Example
+    /// ```swift
+    /// SHDButton(icon: .notificationBellOff) {
+    ///     viewModel.clearNotifications()
+    /// }
+    /// .buttonLoading()
+    /// ```
     public func buttonLoading(_ buttonStyle: StyleButton = .buttonLoading) -> Self {
         mutating(keyPath: \.buttonStyle, value: buttonStyle)
     }

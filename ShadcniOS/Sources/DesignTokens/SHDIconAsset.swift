@@ -9,11 +9,11 @@ import SwiftUI
 
 public enum SHDIconAsset: String, Codable {
     case arrowChevronDown
-    
+
     case mathsX
-    
+
     case cursorLoadingCircle
-    
+
     case notificationBellOff
     case notificationBellPlus
     case notificationBellRing

@@ -41,13 +41,11 @@ public struct SHDCloseButton: View {
 
     @Environment(\.dismiss) var dismiss
 
-    // swiftlint:disable:next orphaned_doc_comment
     /// Creates a new standardized close button.
     ///
     /// The button uses the default “X” icon and automatically calls the SwiftUI
     /// `dismiss` environment action when tapped.
-    // swiftlint:disable:next opening_brace
-    public init(){}
+    public init() {}
 
     public var body: some View {
         // swiftlint:disable:next multiple_closures_with_trailing_closure

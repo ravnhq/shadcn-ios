@@ -30,7 +30,7 @@ internal enum SHDColor: String, CaseIterable {
 
     // MARK: - Clear color
     case clear
-    
+
     // MARK: - Base Colors
     case black, white
 
