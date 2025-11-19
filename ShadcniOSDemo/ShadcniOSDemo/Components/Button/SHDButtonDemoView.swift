@@ -86,6 +86,12 @@ struct SHDButtonDemoView: View {
 
                     demoButton
                         .padding(.top, 8)
+                    
+                    Text("Close button: ")
+                    
+                    SHDCloseButton()
+                        .closeButtonError(.false)
+                        
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
             }
