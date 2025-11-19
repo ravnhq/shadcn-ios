@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 /// A customizable button component used throughout the ShadcniOS design system.
 ///
 /// ### Discussion
