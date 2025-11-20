@@ -63,7 +63,7 @@ public struct SHDButton: View {
 
     /// internal var to manage the style button
     /// focused on the loading state
-    var buttonStyle: StyleButton = .buttonDefault
+    private var buttonStyle: SHDStyleButton = .buttonDefault
 
     /// State private var to handle the rotation animation when
     /// the Loading icon appears
@@ -72,7 +72,7 @@ public struct SHDButton: View {
     /// The display size of the icon. Defaults to `.md`.
     ///
     /// Use `.iconSize(_:)` to modify.
-    var iconSize: SHDIconSize = .md
+    private var iconSize: SHDIconSize = .md
 
     // MARK: - Initializer
 
@@ -98,7 +98,6 @@ public struct SHDButton: View {
     public var body: some View {
         Button(action: onTap) {
             HStack(spacing: .sm) {
-
                 if let leadingIcon {
                     /// Conditional to handle de different icons, buttonStyle
                     /// is setted as loading and there's no text
@@ -158,7 +157,7 @@ public struct SHDButton: View {
     /// }
     /// .buttonLoading()
     /// ```
-    public func buttonLoading(_ buttonStyle: StyleButton = .buttonLoading) -> Self {
+    public func buttonLoading(_ buttonStyle: SHDStyleButton = .buttonLoading) -> Self {
         mutating(keyPath: \.buttonStyle, value: buttonStyle)
     }
 }
