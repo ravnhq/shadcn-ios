@@ -17,81 +17,74 @@ public struct SHDButtonPreview: View {
                     action: { print("Hello, World!") }
                 )
                 .iconSize(.sm)
-                .buttonVariant(.default)
+                .buttonVariant(variant: .default, size: .sm)
 
                 SHDButton(
                     icon: .notificationCheckCheck,
                     action: { print("Hello, World!") }
                 )
                 .iconSize(.md)
-                .buttonVariant(.default)
+                .buttonVariant(variant: .default, size: .sm)
 
                 SHDButton(
                     icon: .notificationCheckCheck,
                     action: { print("Hello, World!") }
                 )
                 .iconSize(.lg)
-                .buttonVariant(.default)
+                .buttonVariant(variant: .default, size: .lg)
             }
 
             VStack(spacing: 12) {
                 SHDButton(label: "Button LG", icon: .notificationBellOff, action: {})
                     .iconSize(.lg)
-                    .buttonVariant(.default)
-                    .shdButtonSize(.lg)
+                    .buttonVariant(variant: .default, size: .lg)
 
                 SHDButton(label: "Button MD", icon: .notificationBellOff, action: {})
                     .iconSize(.md)
-                    .buttonVariant(.default)
-                    .shdButtonSize(.md)
+                    .buttonVariant(variant: .default)
 
                 SHDButton(label: "Button SM", icon: .notificationBellOff, action: {})
                     .iconSize(.sm)
-                    .buttonVariant(.default)
-                    .shdButtonSize(.sm)
+                    .buttonVariant(variant: .default, size: .sm)
             }
 
             Text("Variants:")
             VStack(spacing: 12) {
                 SHDButton(label: "Default", action: {})
-                    .buttonVariant(.default)
+                    .buttonVariant(variant: .default)
 
                 SHDButton(label: "Secondary", icon: .notificationBellOff, action: {})
-                    .buttonVariant(.secondary)
+                    .buttonVariant(variant: .secondary)
 
                 SHDButton(label: "Destructive", icon: .notificationBellOff, action: {})
-                    .buttonVariant(.destructive)
+                    .buttonVariant(variant: .destructive)
 
                 SHDButton(label: "Outline", icon: .notificationBellOff, action: {})
-                    .buttonVariant(.outline)
+                    .buttonVariant(variant: .outline)
 
                 SHDButton(label: "Ghost", icon: .notificationBellOff, action: {})
-                    .buttonVariant(.ghost)
+                    .buttonVariant(variant: .ghost)
 
                 SHDButton(label: "Link", icon: .notificationBellOff, action: {})
-                    .buttonVariant(.link)
+                    .buttonVariant(variant: .link)
             }
 
             Text("Styles:")
             VStack(spacing: 12) {
                 SHDButton(label: "Default", action: {})
-                    .buttonVariant(.default)
-                    .shdButtonStyle(.buttonDefault)
+                    .buttonVariant(variant: .default)
 
                 HStack {
                     SHDButton(icon: .notificationBellOff, action: {})
                         .buttonLoading()
-                        .buttonVariant(.secondary)
-                        .shdButtonStyle(.buttonLoading)
-                    
+                        .buttonVariant(variant: .secondary, style: .buttonLoading)
+
                     SHDButton(label: "Loading", icon: .notificationBellOff, action: {})
-                        .buttonVariant(.secondary)
-                        .shdButtonStyle(.buttonLoading)
+                        .buttonVariant(variant: .secondary, style: .buttonLoading)
                 }
 
                 SHDButton(label: "Disable", icon: .notificationBellOff, action: {})
-                    .buttonVariant(.destructive)
-                    .shdButtonStyle(.buttonDisable)
+                    .buttonVariant(variant: .destructive, style: .buttonDisable)
 
             }
         }

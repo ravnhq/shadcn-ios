@@ -109,15 +109,11 @@ struct SHDButtonDemoView: View {
             SHDButton(icon: .notificationCheckCheck, action: {})
                 .buttonLoading(style == .buttonLoading ? .buttonLoading : .buttonDefault)
                 .iconSize(iconSize)
-                .buttonVariant(variant)
-                .shdButtonSize(buttonSize)
-                .shdButtonStyle(style)
+                .buttonVariant(variant: variant, style: style, size: buttonSize)
 
         case .labelOnly:
             SHDButton(label: "Button Example", action: {})
-                .buttonVariant(variant)
-                .shdButtonSize(buttonSize)
-                .shdButtonStyle(style)
+                .buttonVariant(variant: variant, style: style, size: buttonSize)
 
         case .both:
             SHDButton(
@@ -126,9 +122,7 @@ struct SHDButtonDemoView: View {
                 action: {}
             )
             .iconSize(iconSize)
-            .buttonVariant(variant)
-            .shdButtonSize(buttonSize)
-            .shdButtonStyle(style)
+            .buttonVariant(variant: variant, style: style, size: buttonSize)
         }
     }
 
