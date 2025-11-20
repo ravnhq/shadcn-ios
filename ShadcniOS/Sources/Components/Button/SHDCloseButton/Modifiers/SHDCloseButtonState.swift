@@ -7,58 +7,61 @@
 
 import SwiftUI
 
-/// A button style that visually updates a close button based on its state.
+/// A button style that visually updates a close button based on an error flag.
 ///
-/// `SHDCloseButtonState` applies a foreground color derived from
-/// ``StateCloseButton`` to the button's content. Although designed for
-/// ``SHDCloseButton``, this style can be applied to any SwiftUI `Button`
-/// whose label supports foreground styling.
+/// `SHDCloseButtonState` applies a foreground color depending on whether the
+/// button is in an error state. Although designed for ``SHDCloseButton``,
+/// this style can be applied to any SwiftUI `Button` whose label supports
+/// foreground color styling.
 ///
 /// ### Discussion
-/// This style is most commonly applied via the `closeButtonError(_:)` view
-/// modifier rather than used directly.
+/// The styling rule is simple:
+/// - `isError == true` → error foreground color (typically red)
+/// - `isError == false` → default foreground color
 ///
-/// - Note: This style only affects foreground color. Layout, padding, and
-///   interaction behavior remain unchanged.
+/// This modifier is primarily accessed via `.closeButtonError(_:)`.
+///
+/// - Note: This style **only** affects foreground color. Layout and padding
+///   are unchanged.
 ///
 struct SHDCloseButtonState: ButtonStyle {
 
-    /// Visual state that determines the color applied to the button’s content.
-    var state: StateCloseButton = .false
+    /// Whether the close button is visually marked as an error.
+    let isError: Bool
 
+    /// Builds the button view applying the appropriate foreground color.
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundColor(state.foregroundColor)
+            .foregroundColor(isError ? .iconDestructiveOnDestructive : .iconMuted)
     }
 }
 
+// MARK: - View Extension
+
 public extension View {
 
-    /// Styles the view using the `SHDCloseButtonState` button style.
+    /// Applies the `SHDCloseButtonState` button style using a boolean flag.
     ///
-    /// Use this modifier to visually mark a close button as being in an error
-    /// or destructive context. This updates only the icon's foreground color.
+    /// - Parameter isError: A Boolean value indicating whether the close
+    ///   button should appear in an error state.
     ///
-    /// ### Parameters
-    /// - state: The desired visual state for the close button.
-    ///
-    /// ### Returns
-    /// A view styled according to the provided state.
+    /// - Returns: A view styled according to the error state.
     ///
     /// ### Usage
-    /// Basic usage:
+    ///
+    /// Error state:
     /// ```swift
     /// SHDCloseButton()
-    ///     .closeButtonError(.true)
+    ///     .closeButtonError(true)
     /// ```
     ///
     /// Default (non-error):
     /// ```swift
     /// SHDCloseButton()
-    ///     .closeButtonError(.false)
+    ///     .closeButtonError(false)
     /// ```
     ///
-    public func closeButtonError(_ state: StateCloseButton) -> some View {
-        buttonStyle(SHDCloseButtonState(state: state))
+    func closeButtonError(_ isError: Bool) -> some View {
+        buttonStyle(SHDCloseButtonState(isError: isError))
     }
 }
