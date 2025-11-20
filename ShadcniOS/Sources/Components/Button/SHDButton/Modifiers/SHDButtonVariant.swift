@@ -42,7 +42,7 @@ struct SHDButtonVariantStyle: ButtonStyle {
     // MARK: - Properties
 
     /// The variant to apply to the button.
-    let variant: VariantButton
+    let variant: SHDVariantButton
 
     // MARK: - ButtonStyle
 
@@ -60,7 +60,7 @@ struct SHDButtonVariantStyle: ButtonStyle {
             .backgroundColor(variant.backgroundColor)
             .foregroundColor(variant.foregroundColor)
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: .lg)
                     .stroke(variant.borderColor.color, lineWidth: variant.borderColor == .clear ? 0 : 1)
             )
             .cornerRadius(.lg)
@@ -83,7 +83,7 @@ public extension View {
     /// }
     /// .buttonVariant(.default)
     /// ```
-    func buttonVariant(_ variant: VariantButton) -> some View {
+    func buttonVariant(_ variant: SHDVariantButton) -> some View {
         buttonStyle(SHDButtonVariantStyle(variant: variant))
     }
 }

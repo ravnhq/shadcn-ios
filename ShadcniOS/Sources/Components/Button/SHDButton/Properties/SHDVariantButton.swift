@@ -1,5 +1,5 @@
 //
-//  Variant.swift
+//  SHDVariantButton.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 11/17/25.
@@ -10,7 +10,7 @@ import Foundation
 /// A set of semantic visual variants used to style buttons in the ShadcniOS design system.
 ///
 /// ### Discussion
-/// `VariantButton` defines the different look & feel configurations available for ShadcniOS buttons.
+/// `SHDVariantButton` defines the different look & feel configurations available for ShadcniOS buttons.
 /// Each variant conveys a specific intent within the interface—whether it represents a primary action,
 /// a secondary alternative, a destructive operation, or a minimal inline action.
 ///
@@ -21,20 +21,20 @@ import Foundation
 ///
 /// Basic usage inside a custom button:
 /// ```swift
-/// let variant: VariantButton = .default
+/// let variant: SHDVariantButton = .default
 /// let background = variant.backgroundColor
 /// let foreground = variant.foregroundColor
 /// ```
 ///
 /// Applying a destructive variant:
 /// ```swift
-/// let variant: VariantButton = .destructive
+/// let variant: SHDVariantButton = .destructive
 ///
 /// someView
 ///     .background(variant.backgroundColor.swiftUIColor)
 ///     .foregroundStyle(variant.foregroundColor.swiftUIColor)
 /// ```
-public enum VariantButton {
+public enum SHDVariantButton {
 
     // MARK: - Variants
 
@@ -63,10 +63,10 @@ public enum VariantButton {
     /// - Note: Minimal variants (`.outline`, `.ghost`, `.link`) use `.clear` backgrounds.
     var backgroundColor: SHDColor {
         switch self {
-        case .default: return .backgroundPrimaryDefault
-        case .secondary: return .backgroundPrimaryLight
-        case .destructive: return .backgroundDestructiveDefault
-        default: return .clear
+        case .default: .backgroundPrimaryDefault
+        case .secondary: .backgroundPrimaryLight
+        case .destructive: .backgroundDestructiveDefault
+        default: .clear
         }
     }
 
@@ -75,13 +75,13 @@ public enum VariantButton {
     /// - Note: `link` and `ghost` variants default to neutral foreground tones.
     var foregroundColor: SHDColor {
         switch self {
-        case .default: return .foregroundPrimaryDefault
-        case .secondary: return .foregroundAccent
-        case .destructive: return .foregroundPrimaryDefault
-        case .outline: return .foregroundDefault
-        case .ghost: return .foregroundDefault
-        case .link: return .foregroundDefault
-        default: return .clear
+        case .default: .foregroundPrimaryDefault
+        case .secondary: .foregroundAccent
+        case .destructive: .foregroundPrimaryDefault
+        case .outline: .foregroundDefault
+        case .ghost: .foregroundDefault
+        case .link: .foregroundDefault
+        default: .clear
         }
     }
 
@@ -90,8 +90,8 @@ public enum VariantButton {
     /// - Note: Only the `.outline` variant provides a visible border color.
     var borderColor: SHDColor {
         switch self {
-        case .outline: return .borderPrimaryDefault
-        default: return .clear
+        case .outline: .borderPrimaryDefault
+        default: .clear
         }
     }
 }

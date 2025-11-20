@@ -1,5 +1,5 @@
 //
-//  StyleButton.swift
+//  SHDStyleButton.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 11/17/25.
@@ -10,7 +10,7 @@ import Foundation
 /// Defines the interaction state styles for a button in the ShadcniOS design system.
 ///
 /// ### Discussion
-/// `StyleButton` provides a set of predefined visual states that a button can assume
+/// `SHDStyleButton` provides a set of predefined visual states that a button can assume
 /// to indicate its current status, such as default, loading, or disabled.
 /// Each state affects the button’s opacity to communicate availability or activity
 /// to the user.
@@ -22,14 +22,14 @@ import Foundation
 ///
 /// Basic usage:
 /// ```swift
-/// let state: StyleButton = .buttonDefault
+/// let state: SHDStyleButton = .buttonDefault
 /// someButton
 ///     .opacity(state.opacity)
 /// ```
 ///
 /// Applying a loading style:
 /// ```swift
-/// let state: StyleButton = .buttonLoading
+/// let state: SHDStyleButton = .buttonLoading
 /// someButton
 ///     .opacity(state.opacity)
 ///     .disabled(true)
@@ -37,12 +37,12 @@ import Foundation
 ///
 /// Applying a disabled style:
 /// ```swift
-/// let state: StyleButton = .buttonDisable
+/// let state: SHDStyleButton = .buttonDisable
 /// someButton
 ///     .opacity(state.opacity)
 ///     .disabled(true)
 /// ```
-public enum StyleButton {
+public enum SHDStyleButton {
 
     // MARK: - States
 
@@ -62,9 +62,9 @@ public enum StyleButton {
     /// Default buttons are fully opaque. Loading and disabled buttons are semi-transparent.
     public var opacity: CGFloat {
         switch self {
-        case .buttonDefault: return 1
-        case .buttonLoading: return 0.5
-        case .buttonDisable: return 0.5
+        case .buttonDefault: 1
+        case .buttonLoading: 0.5
+        case .buttonDisable: 0.5
         }
     }
 }

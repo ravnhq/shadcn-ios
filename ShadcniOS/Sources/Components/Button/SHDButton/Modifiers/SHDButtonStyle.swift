@@ -50,14 +50,14 @@ internal struct SHDButtonStyle: ViewModifier {
     // MARK: - Properties
 
     /// The style to apply to the button.
-    let style: StyleButton
+    let style: SHDStyleButton
 
     // MARK: - Initializer
 
     /// Creates a new `SHDButtonStyle` with a given button state style.
     ///
     /// - Parameter style: The `StyleButton` state to apply. Defaults to `.buttonDefault`.
-    init(style: StyleButton = .buttonDefault) {
+    init(style: SHDStyleButton = .buttonDefault) {
         self.style = style
     }
 
@@ -88,7 +88,7 @@ public extension View {
     /// }
     /// .shdButtonStyle(.buttonLoading)
     /// ```
-    public func shdButtonStyle(_ style: StyleButton) -> some View {
+    public func shdButtonStyle(_ style: SHDStyleButton) -> some View {
         modifier(SHDButtonStyle(style: style))
     }
 }

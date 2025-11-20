@@ -1,5 +1,5 @@
 //
-//  SizeButton.swift
+//  SHDSizeButton.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 11/17/25.
@@ -10,7 +10,7 @@ import SwiftUI
 /// Defines the available size variants for buttons in the ShadcniOS design system.
 ///
 /// ### Discussion
-/// `SizeButton` provides a set of predefined size options for buttons,
+/// `SHDSizeButton` provides a set of predefined size options for buttons,
 /// allowing consumers to easily apply consistent typography and spacing
 /// according to the design system guidelines.
 ///
@@ -22,7 +22,7 @@ import SwiftUI
 ///
 /// Basic usage:
 /// ```swift
-/// let size: SizeButton = .md
+/// let size: SHDSizeButton = .md
 /// let textStyle = size.textSize
 /// ```
 ///
@@ -33,7 +33,7 @@ import SwiftUI
 /// }
 /// .font(size.textSize.swiftUIFont)
 /// ```
-public enum SizeButton {
+public enum SHDSizeButton {
 
     // MARK: - Size Variants
 
@@ -53,9 +53,9 @@ public enum SizeButton {
     /// - Returns: An `SHDTextStyle` corresponding to the selected size.
     var textSize: SHDTextStyle {
         switch self {
-        case .sm: return .textSMMedium
-        case .md: return .textBaseMedium
-        case .lg: return .textLGMedium
+        case .sm: .textSMMedium
+        case .md: .textBaseMedium
+        case .lg: .textLGMedium
         }
     }
 }

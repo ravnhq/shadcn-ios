@@ -47,7 +47,7 @@ struct SHDButtonSize: ViewModifier {
     // MARK: - Properties
 
     /// The size variant to apply to the button.
-    let size: SizeButton
+    let size: SHDSizeButton
 
     // MARK: - ViewModifier
 
@@ -77,7 +77,7 @@ public extension View {
     /// }
     /// .shdButtonSize(.lg)
     /// ```
-    func shdButtonSize(_ size: SizeButton) -> some View {
+    func shdButtonSize(_ size: SHDSizeButton) -> some View {
         modifier(SHDButtonSize(size: size))
     }
 }

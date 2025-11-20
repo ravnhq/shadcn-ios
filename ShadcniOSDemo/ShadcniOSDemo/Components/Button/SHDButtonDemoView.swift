@@ -18,10 +18,10 @@ enum ContentType: String, CaseIterable {
 // MARK: - Demo Button
 struct SHDButtonDemoView: View {
     @State private var contentType: ContentType = .both
-    @State private var variant: VariantButton = .default
+    @State private var variant: SHDVariantButton = .default
     @State private var iconSize: SHDIconSize = .md
-    @State private var buttonSize: SizeButton = .md
-    @State private var style: StyleButton = .buttonDefault
+    @State private var buttonSize: SHDSizeButton = .md
+    @State private var style: SHDStyleButton = .buttonDefault
 
     var body: some View {
         ScrollView {
@@ -48,9 +48,9 @@ struct SHDButtonDemoView: View {
 
                 configSection(title: "Button Size") {
                     Picker("Button Size", selection: $buttonSize) {
-                        Text("SM").tag(SizeButton.sm)
-                        Text("MD").tag(SizeButton.md)
-                        Text("LG").tag(SizeButton.lg)
+                        Text("SM").tag(SHDSizeButton.sm)
+                        Text("MD").tag(SHDSizeButton.md)
+                        Text("LG").tag(SHDSizeButton.lg)
                     }
                     .pickerStyle(.segmented)
                 }
@@ -58,12 +58,12 @@ struct SHDButtonDemoView: View {
                 HStack {
                     configSection(title: "Button Variant") {
                         Picker("Variant", selection: $variant) {
-                            Text("Default").tag(VariantButton.default)
-                            Text("Secondary").tag(VariantButton.secondary)
-                            Text("Destructive").tag(VariantButton.destructive)
-                            Text("Outline").tag(VariantButton.outline)
-                            Text("Ghost").tag(VariantButton.ghost)
-                            Text("Link").tag(VariantButton.link)
+                            Text("Default").tag(SHDVariantButton.default)
+                            Text("Secondary").tag(SHDVariantButton.secondary)
+                            Text("Destructive").tag(SHDVariantButton.destructive)
+                            Text("Outline").tag(SHDVariantButton.outline)
+                            Text("Ghost").tag(SHDVariantButton.ghost)
+                            Text("Link").tag(SHDVariantButton.link)
                         }
                     }
                     
@@ -71,9 +71,9 @@ struct SHDButtonDemoView: View {
                     
                     configSection(title: "Button Style") {
                         Picker("Style", selection: $style) {
-                            Text("Default").tag(StyleButton.buttonDefault)
-                            Text("Loading").tag(StyleButton.buttonLoading)
-                            Text("Disabled").tag(StyleButton.buttonDisable)
+                            Text("Default").tag(SHDStyleButton.buttonDefault)
+                            Text("Loading").tag(SHDStyleButton.buttonLoading)
+                            Text("Disabled").tag(SHDStyleButton.buttonDisable)
                         }
                     }
                 }
