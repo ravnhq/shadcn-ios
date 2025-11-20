@@ -65,10 +65,6 @@ public struct SHDButton: View {
     /// focused on the loading state
     private var buttonStyle: SHDStyleButton = .buttonDefault
 
-    /// State private var to handle the rotation animation when
-    /// the Loading icon appears
-    @State private var rotationAngle: Angle = .zero
-
     /// The display size of the icon. Defaults to `.md`.
     ///
     /// Use `.iconSize(_:)` to modify.
@@ -105,13 +101,8 @@ public struct SHDButton: View {
                     ///  and will apply animation of infinity rotation
                     let shouldShowLoadingIcon = (buttonStyle == .buttonLoading && text == nil)
                     if shouldShowLoadingIcon {
-                        SHDIcon(.cursorLoadingCircle)
-                            .rotationEffect(rotationAngle)
-                            .onAppear {
-                                withAnimation(.linear(duration: 2).repeatForever(autoreverses: false)) {
-                                    rotationAngle = .degrees(360)
-                                }
-                            }
+                        SHDLoadingIcon()
+                            .iconSize(iconSize)
                     } else {
                         /// Otherwise it's the normal icon that users share
                         SHDIcon(leadingIcon )
