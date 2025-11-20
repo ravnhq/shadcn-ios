@@ -61,9 +61,11 @@ public struct SHDButton: View {
     /// Action executed when the button is tapped.
     public let onTap: () -> Void
 
-    /// internal var to manage the style button
-    /// focused on the loading state
-    private var buttonStyle: SHDStyleButton = .buttonDefault
+    /// Environment value indicating whether the button is in a loading state.
+    @Environment(\.isLoading) private var isLoading
+
+    /// Environment value indicating whether the button is currently enabled.
+    @Environment(\.isEnabled) private var isEnabled
 
     /// The display size of the icon. Defaults to `.md`.
     ///
@@ -95,17 +97,11 @@ public struct SHDButton: View {
         Button(action: onTap) {
             HStack(spacing: .sm) {
                 if let leadingIcon {
-                    /// Conditional to handle de different icons, buttonStyle
-                    /// is setted as loading and there's no text
-                    /// I will draw the icon using .cursorLoadingCircle image asset
-                    ///  and will apply animation of infinity rotation
-                    let shouldShowLoadingIcon = (buttonStyle == .buttonLoading && text == nil)
-                    if shouldShowLoadingIcon {
+                    if isLoading && text == nil {
                         SHDLoadingIcon()
                             .iconSize(iconSize)
                     } else {
-                        /// Otherwise it's the normal icon that users share
-                        SHDIcon(leadingIcon )
+                        SHDIcon(leadingIcon)
                             .iconSize(iconSize)
                     }
                 }
@@ -115,41 +111,8 @@ public struct SHDButton: View {
                 }
             }
             .padding(.horizontal, text != nil ? 16 : 8)
+            .opacity((isLoading || !isEnabled) ? 0.5 : 1)
         }
-    }
-
-    // MARK: - Modifiers
-
-    /// Sets the size of the leading icon.
-    ///
-    /// - Parameter iconSize: The new icon size value.
-    /// - Returns: A modified `SHDButton` with the updated icon size.
-    ///
-    /// ### Example
-    /// ```swift
-    /// SHDButton(label: "Edit", icon: .edit) {
-    ///     viewModel.edit()
-    /// }
-    /// .iconSize(.sm)
-    /// ```
-    public func iconSize(_ iconSize: SHDIconSize) -> Self {
-        mutating(keyPath: \.iconSize, value: iconSize)
-    }
-
-    /// Sets the state as loading style
-    ///
-    /// - Parameter buttonStyle: The style to be applied
-    /// - Returns: A modified `SHDButton` with the new style state
-    ///
-    /// ### Example
-    /// ```swift
-    /// SHDButton(icon: .notificationBellOff) {
-    ///     viewModel.clearNotifications()
-    /// }
-    /// .buttonLoading()
-    /// ```
-    public func buttonLoading(_ buttonStyle: SHDStyleButton = .buttonLoading) -> Self {
-        mutating(keyPath: \.buttonStyle, value: buttonStyle)
     }
 }
 
