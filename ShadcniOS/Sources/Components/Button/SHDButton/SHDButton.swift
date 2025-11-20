@@ -67,10 +67,8 @@ public struct SHDButton: View {
     /// Environment value indicating whether the button is currently enabled.
     @Environment(\.isEnabled) private var isEnabled
 
-    /// The display size of the icon. Defaults to `.md`.
-    ///
-    /// Use `.iconSize(_:)` to modify.
-    private var iconSize: SHDIconSize = .md
+    /// Environment value indicating whether the current button size
+    @Environment(\.shdButtonSize) private var buttonSize
 
     // MARK: - Initializer
 
@@ -99,10 +97,10 @@ public struct SHDButton: View {
                 if let leadingIcon {
                     if isLoading && text == nil {
                         SHDLoadingIcon()
-                            .iconSize(iconSize)
+                            .iconSize(buttonSize.iconSize)
                     } else {
                         SHDIcon(leadingIcon)
-                            .iconSize(iconSize)
+                            .iconSize(buttonSize.iconSize)
                     }
                 }
 
