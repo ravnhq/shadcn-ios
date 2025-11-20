@@ -59,10 +59,10 @@ public struct SHDCloseButton: View {
 #Preview {
     VStack(spacing: 24) {
         SHDCloseButton()
-            .closeButtonError(.false)
+            .closeButtonError(false)
 
         SHDCloseButton()
-            .closeButtonError(.true)
+            .closeButtonError(true)
     }
     .padding()
 }

@@ -100,7 +100,8 @@ public extension View {
     ///
     /// - Parameters:
     ///   - variant: The design variant of the button (colors, border, etc.). Defaults to `.default`.
-    ///   - style: The interaction state of the button (default, loading, disabled). Defaults to `.buttonDefault`.
+    ///   - style: The interaction state of the button
+    ///   (default, loading, disabled). Defaults to `.buttonDefault`.
     ///   - size: The size of the button (typography). Defaults to `.md`.
     ///
     /// - Returns: A fully styled button using the ShadcniOS design system.
