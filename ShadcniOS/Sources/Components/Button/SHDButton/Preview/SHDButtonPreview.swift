@@ -16,35 +16,29 @@ public struct SHDButtonPreview: View {
                     icon: .notificationCheckCheck,
                     action: { print("Hello, World!") }
                 )
-                .iconSize(.sm)
                 .buttonVariant(variant: .default, size: .sm)
 
                 SHDButton(
                     icon: .notificationCheckCheck,
                     action: { print("Hello, World!") }
                 )
-                .iconSize(.md)
                 .buttonVariant(variant: .default, size: .sm)
 
                 SHDButton(
                     icon: .notificationCheckCheck,
                     action: { print("Hello, World!") }
                 )
-                .iconSize(.lg)
                 .buttonVariant(variant: .default, size: .lg)
             }
 
             VStack(spacing: 12) {
                 SHDButton(label: "Button LG", icon: .notificationBellOff, action: {})
-                    .iconSize(.lg)
                     .buttonVariant(variant: .default, size: .lg)
 
                 SHDButton(label: "Button MD", icon: .notificationBellOff, action: {})
-                    .iconSize(.md)
                     .buttonVariant(variant: .default)
 
                 SHDButton(label: "Button SM", icon: .notificationBellOff, action: {})
-                    .iconSize(.sm)
                     .buttonVariant(variant: .default, size: .sm)
             }
 
@@ -76,15 +70,17 @@ public struct SHDButtonPreview: View {
 
                 HStack {
                     SHDButton(icon: .notificationBellOff, action: {})
-                        .buttonLoading()
-                        .buttonVariant(variant: .secondary, style: .buttonLoading)
+                        .buttonVariant(variant: .secondary)
+                        .isLoading(true)
 
                     SHDButton(label: "Loading", icon: .notificationBellOff, action: {})
-                        .buttonVariant(variant: .secondary, style: .buttonLoading)
+                        .buttonVariant(variant: .secondary)
+                        .isLoading(true)
                 }
 
                 SHDButton(label: "Disable", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .destructive, style: .buttonDisable)
+                    .buttonVariant(variant: .destructive)
+                    .disabled(true)
 
             }
         }

@@ -64,9 +64,6 @@ struct SHDButtonModifier: ViewModifier {
     /// The visual variant of the button (background, borders, foreground).
     let variant: SHDVariantButton
 
-    /// The interaction state (default, loading, disabled).
-    let style: SHDStyleButton
-
     /// The size of the button (controls typography).
     let size: SHDSizeButton
 
@@ -88,7 +85,6 @@ struct SHDButtonModifier: ViewModifier {
             )
             .cornerRadius(.lg)
             .textStyle(size.textSize)
-            .opacity(style.opacity)
     }
 }
 
@@ -115,12 +111,10 @@ public extension View {
     /// ```
     func buttonVariant(
         variant: SHDVariantButton = .default,
-        style: SHDStyleButton = .buttonDefault,
         size: SHDSizeButton = .md
     ) -> some View {
         modifier(SHDButtonModifier(
             variant: variant,
-            style: style,
             size: size
         ))
     }

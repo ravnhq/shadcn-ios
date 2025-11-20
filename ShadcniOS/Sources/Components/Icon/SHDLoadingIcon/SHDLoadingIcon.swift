@@ -11,10 +11,10 @@ internal struct SHDLoadingIcon: View {
 
     // MARK: - Properties
 
-    /// The icon asset to display. Defaults to `.cursorLoadingCircle`.
+    /// The loading icon asset to display. Defaults to `.cursorLoadingCircle`.
     private let icon: SHDIconAsset = .cursorLoadingCircle
 
-    /// The icon size. Defaults to `.md`.
+    /// The loading icon size. Defaults to `.md`.
     private var size: SHDIconSize = .md
 
     /// Angle value used by `rotationEffect` to animate the spinning icon.
@@ -35,10 +35,10 @@ internal struct SHDLoadingIcon: View {
 
     // MARK: - Modifiers
 
-    /// Sets the size of the icon.
+    /// Sets the size of the loading icon
     ///
     /// - Parameter size: A value from `SHDIconSize`.
-    /// - Returns: A new `SHDIcon` view with the updated size.
+    /// - Returns: A new `SHDLoadingIcon` view with the updated size.
     func iconSize(_ size: SHDIconSize) -> some View {
         mutating(keyPath: \.size, value: size)
     }
@@ -46,7 +46,7 @@ internal struct SHDLoadingIcon: View {
 
 // MARK: - Preview
 
-#Preview("SHDIcon - Sizes") {
+#Preview("SHDLoadingIcon - Sizes") {
     HStack(spacing: 16) {
         SHDLoadingIcon()
             .iconSize(.sm)

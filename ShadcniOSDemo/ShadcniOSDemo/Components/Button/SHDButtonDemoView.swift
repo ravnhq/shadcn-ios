@@ -21,7 +21,8 @@ struct SHDButtonDemoView: View {
     @State private var variant: SHDVariantButton = .default
     @State private var iconSize: SHDIconSize = .md
     @State private var buttonSize: SHDSizeButton = .md
-    @State private var style: SHDStyleButton = .buttonDefault
+    @State private var isLoading: Bool = false
+    @State private var isDisabled: Bool = false
 
     var body: some View {
         ScrollView {
@@ -69,13 +70,11 @@ struct SHDButtonDemoView: View {
                     
                     Spacer()
                     
-                    configSection(title: "Button Style") {
-                        Picker("Style", selection: $style) {
-                            Text("Default").tag(SHDStyleButton.buttonDefault)
-                            Text("Loading").tag(SHDStyleButton.buttonLoading)
-                            Text("Disabled").tag(SHDStyleButton.buttonDisable)
-                        }
+                    configSection(title: "Style") {
+                        Toggle("Loading", isOn: $isLoading)
+                        Toggle("Disabled", isOn: $isDisabled)
                     }
+                    .scaleEffect(0.8)
                 }
                 
                 Divider()
@@ -107,13 +106,15 @@ struct SHDButtonDemoView: View {
 
         case .iconOnly:
             SHDButton(icon: .notificationCheckCheck, action: {})
-                .buttonLoading(style == .buttonLoading ? .buttonLoading : .buttonDefault)
-                .iconSize(iconSize)
-                .buttonVariant(variant: variant, style: style, size: buttonSize)
+                .buttonVariant(variant: variant, size: buttonSize)
+                .isLoading(isLoading)
+                .disabled(isDisabled)
 
         case .labelOnly:
             SHDButton(label: "Button Example", action: {})
-                .buttonVariant(variant: variant, style: style, size: buttonSize)
+                .buttonVariant(variant: variant, size: buttonSize)
+                .isLoading(isLoading)
+                .disabled(isDisabled)
 
         case .both:
             SHDButton(
@@ -121,8 +122,10 @@ struct SHDButtonDemoView: View {
                 icon: .notificationCheckCheck,
                 action: {}
             )
-            .iconSize(iconSize)
-            .buttonVariant(variant: variant, style: style, size: buttonSize)
+            .buttonVariant(variant: variant, size: buttonSize)
+            .isLoading(isLoading)
+            .disabled(isDisabled)
+
         }
     }
 
