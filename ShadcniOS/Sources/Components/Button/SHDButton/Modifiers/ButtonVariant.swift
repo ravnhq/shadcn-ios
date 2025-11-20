@@ -117,5 +117,6 @@ public extension View {
             variant: variant,
             size: size
         ))
+        .environment(\.shdButtonSize, size)
     }
 }

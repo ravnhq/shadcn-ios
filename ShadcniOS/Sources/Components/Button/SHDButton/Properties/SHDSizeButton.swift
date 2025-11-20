@@ -33,7 +33,7 @@ import SwiftUI
 /// }
 /// .font(size.textSize.swiftUIFont)
 /// ```
-public enum SHDSizeButton {
+public enum SHDSizeButton: Sendable {
 
     // MARK: - Size Variants
 
@@ -56,6 +56,17 @@ public enum SHDSizeButton {
         case .sm: .textSMMedium
         case .md: .textBaseMedium
         case .lg: .textLGMedium
+        }
+    }
+    
+    /// The icon size associated with the button size.
+    ///
+    /// - Returns: An `SHDIconSizegi` corresponding to the selected size.
+    var iconSize: SHDIconSize {
+        switch self {
+        case .sm: .sm
+        case .md: .md
+        case .lg: .lg
         }
     }
 }

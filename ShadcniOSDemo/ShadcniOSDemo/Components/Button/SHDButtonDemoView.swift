@@ -38,15 +38,6 @@ struct SHDButtonDemoView: View {
                     .pickerStyle(.segmented)
                 }
 
-                configSection(title: "Icon Size") {
-                    Picker("Icon Size", selection: $iconSize) {
-                        Text("SM").tag(SHDIconSize.sm)
-                        Text("MD").tag(SHDIconSize.md)
-                        Text("LG").tag(SHDIconSize.lg)
-                    }
-                    .pickerStyle(.segmented)
-                }
-
                 configSection(title: "Button Size") {
                     Picker("Button Size", selection: $buttonSize) {
                         Text("SM").tag(SHDSizeButton.sm)
