@@ -7,24 +7,7 @@
 
 import SwiftUI
 
-/// Extensions to SwiftUI `EnvironmentValues` to support ShadcniOS button system.
-///
-/// ### Overview
-/// These environment values provide a way to propagate **button state and size**
-/// throughout a SwiftUI view hierarchy, enabling consistent styling and
-/// behavior for ShadcniOS buttons.
-///
-/// The system currently defines:
-/// - `buttonSize` → controls typography and icon sizing for buttons (`SHDButtonSize`)
-/// - `isLoading` → indicates whether a view (or button) is in a loading state
-///
 internal extension EnvironmentValues {
-
-    /// The current button size used by ShadcniOS buttons in the view hierarchy.
-    ///
-    /// - Default: `.md`
-    @Entry var buttonSize: SHDButtonSize = .md
-
     /// Indicates whether the view hierarchy is in a loading state.
     ///
     /// Buttons and icons can respond by showing loading indicators or reducing

@@ -88,14 +88,13 @@ public struct SHDButton: View {
     /// Indicates whether this button should show loading behavior.
     @Environment(\.isLoading) private var isLoading
 
-    /// Indicates whether the button is enabled.
-    @Environment(\.isEnabled) private var isEnabled
+    /// The visual style variant of the button.
+    private var variant: SHDButtonVariant = .default
 
-    /// The current button size coming from the design system.
-    @Environment(\.buttonSize) private var buttonSize
+    /// The predefined size type for the button.
+    private var size: SHDButtonSize = .md
 
     /// Optional text displayed inside the button.
-    ///
     /// If `nil`, the button may render as icon-only.
     public let text: String?
 
@@ -131,28 +130,59 @@ public struct SHDButton: View {
             HStack(spacing: .sm) {
                 // Leading icon or loading indicator
                 if let leadingIcon {
-                    if isLoading && text == nil {
+                    if isLoading {
                         SHDLoadingIcon()
-                            .iconSize(buttonSize.iconSize)
-                            .disabled(true)
+                            .iconSize(size.iconSize)
                     } else {
                         SHDIcon(leadingIcon)
-                            .iconSize(buttonSize.iconSize)
+                            .iconSize(size.iconSize)
                     }
                 }
 
                 // Text label (if any)
                 if let text {
                     Text(text)
+                        .textStyle(size.textSize)
                 }
             }
+            .padding(.vertical, .xxs)
             .padding(.horizontal, text != nil ?  .sm : .xxs)
-            .opacity(isLoading ? 0.5 : 1)
+            .backgroundColor(variant.backgroundColor)
+            .opacity(isLoading ? 0.5 : 1.0)
+            .foregroundColor(variant.foregroundColor)
+            .overlay(overlay)
+            .cornerRadius(.md)
         }
-        .disabled(isLoading || !isEnabled)
+        .baseButtonStyle()
+        .disabled(isLoading)
+    }
+
+    private var overlay: some View {
+        RoundedRectangle(cornerRadius: .md)
+            .stroke(
+                variant.borderColor.color,
+                lineWidth: variant.borderColor == .clear ? 0 : 1
+            )
+    }
+
+    // MARK: - Public Methods
+
+    /// Applies unified ShadcniOS button variant and size styling.
+    ///
+    /// - Parameters:
+    ///   - variant: The color and border configuration.
+    ///   - size: The typography size of the button.
+    ///
+    /// - Returns: A view styled according to the ShadcniOS design system.
+    public func buttonVariant(variant: SHDButtonVariant, size: SHDButtonSize) -> some View {
+        mutating { button in
+            button.variant = variant
+            button.size = size
+        }
     }
 }
 
 #Preview {
-    SHDButtonPreview()
+    SHDButton(icon: .mathsX) { }
+        .buttonVariant(variant: .default, size: .md)
 }
