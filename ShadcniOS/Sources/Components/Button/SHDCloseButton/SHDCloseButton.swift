@@ -7,49 +7,69 @@
 
 import SwiftUI
 
-/// A standardized close button used throughout the Shadcn iOS design system.
+/// A standardized close (“X”) button used throughout the ShadcniOS design system.
 ///
-/// `SHDCloseButton` displays a dismiss “X” icon and triggers the environment's
-/// `dismiss` action when tapped.
+/// ### Overview
+/// `SHDCloseButton` provides a consistent way to dismiss views across the app.
+/// It renders a single **X icon** and triggers the SwiftUI `dismiss`
+/// environment action when tapped.
 ///
-/// ### Discussion
-/// This component is intentionally minimal and applies no additional layout,
-/// padding, or background. Its primary goal is consistency and ergonomics for
-/// dismissal interactions across the UI.
+/// This component is intentionally minimal:
+/// - no extra padding
+/// - no background
+/// - no shape or border
 ///
-/// The appearance of the button can be adjusted using the
-/// ``closeButtonError(_:)`` modifier to reflect an error or destructive state.
+/// The appearance can be customized externally through modifiers such as:
+/// - `.errorStyle(_:)` → applies error foreground coloring
 ///
-/// ### Usage
+/// This ensures the component remains flexible while maintaining consistent
+/// structure and purpose.
+///
+/// ### Behavior
+/// - Always displays `SHDIcon(.mathsX)` sized at `.lg`.
+/// - Automatically calls `dismiss()` when tapped.
+/// - Visual state (error / default) is handled **outside** via `.errorStyle`.
+///
+///
+/// ### Usage Examples
+///
 /// Basic usage:
 /// ```swift
 /// SHDCloseButton()
 /// ```
 ///
-/// With error styling:
+/// Error-colored close button:
 /// ```swift
 /// SHDCloseButton()
-///     .closeButtonError(.true)
+///     .errorStyle(true)
+/// ```
+///
+/// Placing inside a toolbar or header:
+/// ```swift
+/// HStack {
+///     SHDCloseButton()
+///         .errorStyle(false)
+///     Spacer()
+/// }
 /// ```
 ///
 /// ### Notes
-/// - The icon uses `SHDIcon(.mathsX)` with a default `.lg` size.
-/// - The button automatically dismisses the current SwiftUI view using
-///   `@Environment(\.dismiss)`.
+/// - This component is purpose-built for dismissal interactions.
+/// - If you need a customizable action instead of dismissing, use `SHDButton`.
 ///
 public struct SHDCloseButton: View {
 
-    @Environment(\.dismiss) var dismiss
+    /// SwiftUI environment value for dismissing the current presentation.
+    @Environment(\.dismiss) private var dismiss
 
-    /// Creates a new standardized close button.
+    /// Creates a standardized close button using the default “X” icon.
     ///
-    /// The button uses the default “X” icon and automatically calls the SwiftUI
-    /// `dismiss` environment action when tapped.
+    /// The button has no internal styling and will call
+    /// `dismiss.callAsFunction()` when tapped.
     public init() {}
 
     public var body: some View {
-        // swiftlint:disable:next multiple_closures_with_trailing_closure
-        Button(action: { dismiss() }) {
+        Button(action: dismiss.callAsFunction) {
             SHDIcon(.mathsX)
                 .iconSize(.lg)
         }
@@ -59,10 +79,10 @@ public struct SHDCloseButton: View {
 #Preview {
     VStack(spacing: 24) {
         SHDCloseButton()
-            .closeButtonError(false)
+            .errorStyle(false)
 
         SHDCloseButton()
-            .closeButtonError(true)
+            .errorStyle(true)
     }
     .padding()
 }

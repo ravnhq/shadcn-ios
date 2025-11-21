@@ -18,9 +18,9 @@ enum ContentType: String, CaseIterable {
 // MARK: - Demo Button
 struct SHDButtonDemoView: View {
     @State private var contentType: ContentType = .both
-    @State private var variant: SHDVariantButton = .default
+    @State private var variant: SHDButtonVariant = .default
     @State private var iconSize: SHDIconSize = .md
-    @State private var buttonSize: SHDSizeButton = .md
+    @State private var buttonSize: SHDButtonSize = .md
     @State private var isLoading: Bool = false
     @State private var isDisabled: Bool = false
 
@@ -40,9 +40,9 @@ struct SHDButtonDemoView: View {
 
                 configSection(title: "Button Size") {
                     Picker("Button Size", selection: $buttonSize) {
-                        Text("SM").tag(SHDSizeButton.sm)
-                        Text("MD").tag(SHDSizeButton.md)
-                        Text("LG").tag(SHDSizeButton.lg)
+                        Text("SM").tag(SHDButtonSize.sm)
+                        Text("MD").tag(SHDButtonSize.md)
+                        Text("LG").tag(SHDButtonSize.lg)
                     }
                     .pickerStyle(.segmented)
                 }
@@ -50,12 +50,12 @@ struct SHDButtonDemoView: View {
                 HStack {
                     configSection(title: "Button Variant") {
                         Picker("Variant", selection: $variant) {
-                            Text("Default").tag(SHDVariantButton.default)
-                            Text("Secondary").tag(SHDVariantButton.secondary)
-                            Text("Destructive").tag(SHDVariantButton.destructive)
-                            Text("Outline").tag(SHDVariantButton.outline)
-                            Text("Ghost").tag(SHDVariantButton.ghost)
-                            Text("Link").tag(SHDVariantButton.link)
+                            Text("Default").tag(SHDButtonVariant.default)
+                            Text("Secondary").tag(SHDButtonVariant.secondary)
+                            Text("Destructive").tag(SHDButtonVariant.destructive)
+                            Text("Outline").tag(SHDButtonVariant.outline)
+                            Text("Ghost").tag(SHDButtonVariant.ghost)
+                            Text("Link").tag(SHDButtonVariant.link)
                         }
                     }
                     
@@ -80,7 +80,7 @@ struct SHDButtonDemoView: View {
                     Text("Close button: ")
                     
                     SHDCloseButton()
-                        .closeButtonError(false)
+                        .errorStyle(false)
                         
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
