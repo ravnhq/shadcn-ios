@@ -183,6 +183,5 @@ public struct SHDButton: View {
 }
 
 #Preview {
-    SHDButton(icon: .mathsX) { }
-        .buttonVariant(variant: .default, size: .md)
+    SHDButtonPreview()
 }
