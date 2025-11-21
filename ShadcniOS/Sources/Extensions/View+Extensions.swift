@@ -88,6 +88,16 @@ internal extension View {
         newSelf[keyPath: keyPath] = value
         return newSelf
     }
+
+    /// Mutates the view by modifying the specified properties in a closure.
+    /// - Parameter modifications: A closure containing all the modifications
+    /// - Returns: The view with the applied changes to its properties.
+    internal func mutating(_ modifications: (inout Self) -> Void) -> Self {
+        var newSelf = self
+        modifications(&newSelf)
+
+        return newSelf
+    }
 }
 
 // MARK: - Padding

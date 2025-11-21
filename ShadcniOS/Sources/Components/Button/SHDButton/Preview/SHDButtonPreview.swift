@@ -36,7 +36,7 @@ internal struct SHDButtonPreview: View {
                     .buttonVariant(variant: .default, size: .lg)
 
                 SHDButton(label: "Button MD", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .default)
+                    .buttonVariant(variant: .default, size: .md)
 
                 SHDButton(label: "Button SM", icon: .notificationBellOff, action: {})
                     .buttonVariant(variant: .default, size: .sm)
@@ -45,41 +45,41 @@ internal struct SHDButtonPreview: View {
             Text("Variants:")
             VStack(spacing: 12) {
                 SHDButton(label: "Default", action: {})
-                    .buttonVariant(variant: .default)
+                    .buttonVariant(variant: .default, size: .md)
 
                 SHDButton(label: "Secondary", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .secondary)
+                    .buttonVariant(variant: .secondary, size: .md)
 
                 SHDButton(label: "Destructive", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .destructive)
+                    .buttonVariant(variant: .destructive, size: .md)
 
                 SHDButton(label: "Outline", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .outline)
+                    .buttonVariant(variant: .outline, size: .md)
 
                 SHDButton(label: "Ghost", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .ghost)
+                    .buttonVariant(variant: .ghost, size: .md)
 
                 SHDButton(label: "Link", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .link)
+                    .buttonVariant(variant: .link, size: .md)
             }
 
             Text("Styles:")
             VStack(spacing: 12) {
                 SHDButton(label: "Default", action: {})
-                    .buttonVariant(variant: .default)
+                    .buttonVariant(variant: .default, size: .md)
 
                 HStack {
                     SHDButton(icon: .notificationBellOff, action: {})
-                        .buttonVariant(variant: .secondary)
+                        .buttonVariant(variant: .secondary, size: .md)
                         .isLoading(true)
 
                     SHDButton(label: "Loading", icon: .notificationBellOff, action: {})
-                        .buttonVariant(variant: .secondary)
+                        .buttonVariant(variant: .secondary, size: .md)
                         .isLoading(true)
                 }
 
                 SHDButton(label: "Disable", icon: .notificationBellOff, action: {})
-                    .buttonVariant(variant: .destructive)
+                    .buttonVariant(variant: .destructive, size: .md)
                     .disabled(true)
 
             }
