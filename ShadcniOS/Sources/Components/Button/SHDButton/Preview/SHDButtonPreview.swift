@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-public struct SHDButtonPreview: View {
-    public var body: some View {
+internal struct SHDButtonPreview: View {
+    internal var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             Text("Sizing: ")
             HStack(spacing: 16) {
@@ -22,7 +22,7 @@ public struct SHDButtonPreview: View {
                     icon: .notificationCheckCheck,
                     action: { print("Hello, World!") }
                 )
-                .buttonVariant(variant: .default, size: .sm)
+                .buttonVariant(variant: .default, size: .md)
 
                 SHDButton(
                     icon: .notificationCheckCheck,

@@ -114,10 +114,8 @@ internal enum SHDColor: String, CaseIterable {
     /// ```
     var color: Color {
         switch self {
-        case .clear:
-            return .clear
-        default:
-            return Color(rawValue, bundle: .module)
+        case .clear: .clear
+        default: Color(rawValue, bundle: .module)
         }
     }
 }
