@@ -12,6 +12,8 @@ public enum SHDIconAsset: String, Codable {
 
     case mathsX
 
+    case codingDevelopmentTerminal
+
     case cursorLoadingCircle
 
     case notificationBellOff
@@ -20,4 +22,5 @@ public enum SHDIconAsset: String, Codable {
     case notificationCheck
     case notificationCheckCheck
     case notificationCircleAlert
+    case notificationCircleCheckBig
 }
