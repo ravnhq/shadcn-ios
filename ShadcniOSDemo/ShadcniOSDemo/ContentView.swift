@@ -24,6 +24,11 @@ struct ContentView: View {
                             Text("SHDButton")
                         }
                     }
+                    NavigationLink(destination: SHDAlertDemo()) {
+                        HStack {
+                            Image(systemName: "exclamationmark.3")
+                            Text("SHDAlert")
+                        }                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())
