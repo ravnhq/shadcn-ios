@@ -52,6 +52,8 @@ public struct SHDAlert: View {
     /// The descriptive message displayed below the title
     var message: String
 
+    private var style: SHDAlertStyle = .default
+
     // MARK: Initializer
 
     /// Creates a new alert with a title and message
@@ -68,12 +70,28 @@ public struct SHDAlert: View {
 
     /// The alert's content layout, displaying the title and messge
     public var body: some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .bold()
+        HStack(alignment: .top, spacing: .md) {
+            SHDIcon(style.iconAsset)
+                .iconSize(.lg)
 
-            Text(message)
+            VStack(alignment: .leading, spacing: .xs) {
+                Text(title)
+                    .bold()
+
+                Text(message)
+            }
         }
+        .padding(.all, .sm)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(style.borderColor.color, lineWidth: 1)
+        )
+        .padding()
+        .foregroundColor(style.foregroundColor.color)
+    }
+
+    public func shdAlertStyle(_ style: SHDAlertStyle) -> Self {
+        mutating(keyPath: \.style, value: style)
     }
 }
 
@@ -81,7 +99,6 @@ public struct SHDAlert: View {
 
 #Preview {
     SHDAlert(title: "Default", message: "You can add components using the cli. ")
-        .shdAlertStyle()
 
     SHDAlert(title: "Destructive", message: "Your session has expired. Please log in again")
         .shdAlertStyle(.destructive)
