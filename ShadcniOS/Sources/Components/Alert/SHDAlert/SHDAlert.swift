@@ -52,6 +52,7 @@ public struct SHDAlert: View {
     /// The descriptive message displayed below the title
     var message: String
 
+    /// Visual configuration applied to the alert's layout and colors
     private var style: SHDAlertStyle = .default
 
     // MARK: Initializer
@@ -90,6 +91,13 @@ public struct SHDAlert: View {
         .foregroundColor(style.foregroundColor.color)
     }
 
+    /// Returns a new alert configured with the provided visual style
+    ///
+    /// Use this helper to keep the textual content source of truth while customizing the
+    /// presentation via `SHDAlertStyle`.
+    ///
+    /// - Parameter style: The style to apply when rendering the alert
+    /// - Returns: A copy of `SHDAlert` that renders with the supplied style
     public func shdAlertStyle(_ style: SHDAlertStyle) -> Self {
         mutating(keyPath: \.style, value: style)
     }
