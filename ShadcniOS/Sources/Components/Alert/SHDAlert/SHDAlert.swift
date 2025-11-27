@@ -149,7 +149,6 @@ public struct SHDAlert: View {
         )
         .padding()
         .foregroundColor(style.primaryForegroundColor)
-
     }
 
     /// Applies a visual style to the alert, controlling its appearance.
