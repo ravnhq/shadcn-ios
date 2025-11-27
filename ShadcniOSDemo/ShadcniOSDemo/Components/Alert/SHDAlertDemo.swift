@@ -57,7 +57,7 @@ struct SHDAlertDemo: View {
             }
             
             SHDAlert(title: option.title, message: option.messagge)
-                .shdAlertStyle(option.style)
+                .alertStyle(option.style)
         }
         .navigationTitle("SHDAlert")
     }
