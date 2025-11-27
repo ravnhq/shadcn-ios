@@ -83,22 +83,21 @@ public struct SHDAlert: View {
 
             VStack(alignment: .leading, spacing: .xs) {
                 Text(title)
-                    .bold()
                     .textStyle(.textBaseMedium)
 
                 Text(message)
                     .textStyle(.textSMRegular)
                     .foregroundColor(
                         style == .default
-                            ? .foregroundMuted : style.foregroundColor.color
+                            ? .foregroundMuted : style.foregroundColor
                     )
-
             }
+
             Spacer()
         }
         .padding(.all, .sm)
         .background(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: .md)
                 .stroke(style.borderColor.color, lineWidth: 1)
         )
         .padding()
