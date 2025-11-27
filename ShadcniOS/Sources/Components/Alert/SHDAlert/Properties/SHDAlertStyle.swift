@@ -55,9 +55,22 @@ public enum SHDAlertStyle {
     /// The foreground color associated with the alert style
     ///
     /// This color is used primarily for text and icons
-    var foregroundColor: SHDColor {
+    var primaryForegroundColor: SHDColor {
         switch self {
         case .default: .foregroundDefault
+        case .destructive: .foregroundDestructiveDefault
+        case .warning: .foregroundWarningDefault
+        case .success: .foregroundSuccessDefault
+        }
+    }
+
+    /// The secondary foreground color associated with the alert style
+    ///
+    /// This color is used for the alert's message text, providing
+    /// a visual distinction from the primary foreground color used for the title
+    var secondaryForegroundColor: SHDColor {
+        switch self {
+        case .default: .foregroundMuted
         case .destructive: .foregroundDestructiveDefault
         case .warning: .foregroundWarningDefault
         case .success: .foregroundSuccessDefault
@@ -67,7 +80,7 @@ public enum SHDAlertStyle {
     /// The border color used by the alert's container
     ///
     /// Each style maps to a corresponding semantic border color
-    /// defined in the desing system
+    /// defined in the design system
     var borderColor: SHDColor {
         switch self {
         case .default: .borderDefault
