@@ -24,7 +24,6 @@ internal struct TextStyle: ViewModifier {
                 )
             )
             .kerning(style.letterSpacing)  // Adjust letter spacing
-            .lineSpacing(style.lineHeight)  // Set line height
             .underline(style.underline)  // Apply underline if needed
     }
 }
