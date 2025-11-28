@@ -9,17 +9,15 @@ import SwiftUI
 
 /// Renders a resizable avatar image that keeps sizing and padding aligned with the design system.
 ///
-/// ### Discussion
+/// ## Discussion
 /// `SHDAvatarImage` wraps any SwiftUI `Image` and normalizes its padding, scaling, and clipping
 /// based on the supplied `SHDAvatarSize`. The component does not assume a particular image source:
-/// callers can pass SF Symbols, asset images, or remote placeholders. Combine it with
-/// `SHDAvatarImageConfiguration` or the `.shdAvatarImageVariant(_:)` modifier to apply color, border,
-/// and clipping variants consistently across the library.
+/// callers can pass SF Symbols, asset images, or remote placeholders. The component automatically
+/// applies appropriate padding and clipping to maintain visual consistency across the library.
 ///
-/// ### Usage
+/// ## Usage
 /// ```swift
 /// SHDAvatarImage(image: Image("profile-photo"), size: .lg)
-///     .shdAvatarImageVariant(.outline)
 /// ```
 struct SHDAvatarImage: View {
 

@@ -18,10 +18,10 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// SHDAvatar(image: Image("profile_photo"))
-///     .shdAvatarStyle(.lg, .filled)
+///     .shdAvatarStyle(size: .lg, variant: .filled)
 ///
 /// SHDAvatar(text: "JD")
-///     .shdAvatarStyle(.sm, .outline)
+///     .shdAvatarStyle(size: .sm, variant: .outline)
 /// ```
 public struct SHDAvatar: View {
 
@@ -76,8 +76,7 @@ public struct SHDAvatar: View {
 
     /// Returns a copy of the avatar configured with both size and visual variant in a single call.
     ///
-    /// Use this convenience builder when you want to update layout and styling together instead of
-    /// chaining `shdAvatarSize(_:)` and `shdAvatarVariant(_:)` separately.
+    /// Use this convenience builder when you want to update layout and styling together.
     ///
     /// - Parameters:
     ///   - size: The `SHDAvatarSize` to apply, controlling the avatar's frame and internal content scale.
