@@ -25,17 +25,18 @@ import SwiftUI
 /// ```
 public struct SHDAvatar: View {
 
+    /// Controls the avatar's frame and internal typography/icon scale, default in medium = `.md`
+    private var size: SHDAvatarSize = .md
+
+    /// Visual treatment applied to images or initials (e.g., filled or outline), default in `.light`
+    private var variant: SHDAvatarVariant = .light
+
     /// Optional user photo rendered at the selected size when available.
     var image: Image?
     /// Icon fallback used when no image is provided.
     var icon: SHDIconAsset?
     /// Two-character initials shown when both `image` and `icon` are `nil`.
     var text: String?
-    /// Controls the avatar's frame and internal typography/icon scale, default in medium = `.md`
-    var size: SHDAvatarSize = .md
-
-    /// Visual treatment applied to images or initials (e.g., filled or outline), default in `.light`
-    var variant: SHDAvatarVariant = .light
 
     /// Creates an avatar by specifying the desired content source, size, and visual variant.
     ///
@@ -64,12 +65,15 @@ public struct SHDAvatar: View {
     @ViewBuilder
     private var content: some View {
         if let image = image {
-            SHDAvatarImage(image: image, size: size)
+            SHDAvatarImage(image: image)
+                .imagePadding(size)
         } else if let icon = icon {
-            SHDAvatarIcon(icon: icon, size: size)
+            SHDAvatarIcon(icon: icon)
+                .iconSize(size)
                 .shdAvatarIconVariant(variant)
         } else if let text = text, text.count == 2 {
-            SHDAvatarInitials(text: text, size: size)
+            SHDAvatarInitials(text: text)
+                .textSize(size)
                 .shdAvatarInitialsVariant(variant)
         }
     }

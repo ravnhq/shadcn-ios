@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDAvatarIconConfiguration: ViewModifier {
+internal struct SHDAvatarIconConfiguration: ViewModifier {
 
     var variant: SHDAvatarVariant = .light
 
@@ -27,7 +27,7 @@ struct SHDAvatarIconConfiguration: ViewModifier {
     }
 }
 
-extension View {
+internal extension View {
 
     func shdAvatarIconVariant(_ variant: SHDAvatarVariant = .filled) -> some View {
         modifier(SHDAvatarIconConfiguration(variant: variant))

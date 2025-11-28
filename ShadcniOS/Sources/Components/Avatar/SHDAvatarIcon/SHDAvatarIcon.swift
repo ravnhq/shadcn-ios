@@ -24,13 +24,13 @@ import SwiftUI
 ///     size: .md
 /// )
 /// ```
-struct SHDAvatarIcon: View {
+internal struct SHDAvatarIcon: View {
 
     /// Icon asset displayed at the center of the avatar. Provide the precise asset you want rendered.
     var icon: SHDIconAsset
 
     /// Avatar sizing token used to derive the icon size and overall frame constraints.
-    var size: SHDAvatarSize
+    var size: SHDAvatarSize = .md
 
     /// Creates a new `SHDAvatarIcon`.
     ///
@@ -38,11 +38,9 @@ struct SHDAvatarIcon: View {
     ///   - icon: Icon asset to display.
     ///   - size: Avatar size token that drives the icon's visual scale.
     init(
-        icon: SHDIconAsset,
-        size: SHDAvatarSize
+        icon: SHDIconAsset
     ) {
         self.icon = icon
-        self.size = size
     }
 
     /// The composed SwiftUI hierarchy responsible for rendering the icon with the proper styling.
@@ -51,5 +49,9 @@ struct SHDAvatarIcon: View {
             SHDIcon(icon)
                 .iconSize(size.iconSize)
         }
+    }
+    
+    internal func iconSize(_ size: SHDAvatarSize) -> Self {
+        mutating(keyPath: \.size, value: size)
     }
 }

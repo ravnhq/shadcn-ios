@@ -19,7 +19,7 @@ import SwiftUI
 /// ```swift
 /// SHDAvatarImage(image: Image("profile-photo"), size: .lg)
 /// ```
-struct SHDAvatarImage: View {
+internal struct SHDAvatarImage: View {
 
     /// The visual content displayed inside the avatar frame.
     var image: Image
@@ -31,9 +31,8 @@ struct SHDAvatarImage: View {
     /// - Parameters:
     ///   - image: The `Image` to render—can be an asset, symbol, or remote placeholder.
     ///   - size: The avatar sizing preset that determines padding and layout.
-    init(image: Image, size: SHDAvatarSize) {
+    init(image: Image) {
         self.image = image
-        self.size = size
     }
 
     /// The composed avatar view ready for embedding in SwiftUI layouts.
@@ -46,5 +45,9 @@ struct SHDAvatarImage: View {
                 .backgroundColor(.textDimmed)
                 .clipShape(RoundedRectangle(cornerRadius: .full))
         }
+    }
+
+    internal func imagePadding(_ size: SHDAvatarSize) -> Self {
+        mutating(keyPath: \.size, value: size)
     }
 }

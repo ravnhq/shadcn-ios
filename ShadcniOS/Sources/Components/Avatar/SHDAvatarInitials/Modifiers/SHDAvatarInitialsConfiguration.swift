@@ -30,7 +30,7 @@ import SwiftUI
 /// SHDAvatarInitials(text: "JD", size: .md)
 ///     .shdAvatarInitialsVariant(.outline)
 /// ```
-struct SHDAvatarInitialsConfiguration: ViewModifier {
+internal struct SHDAvatarInitialsConfiguration: ViewModifier {
 
     /// Describes the color palette and border visibility for the avatar.
     var variant: SHDAvatarVariant
@@ -51,7 +51,7 @@ struct SHDAvatarInitialsConfiguration: ViewModifier {
     }
 }
 
-extension View {
+internal extension View {
 
     /// Applies the standardized initials avatar styling to the receiver.
     ///
