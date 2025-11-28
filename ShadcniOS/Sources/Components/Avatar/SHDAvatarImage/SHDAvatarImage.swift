@@ -49,7 +49,7 @@ internal struct SHDAvatarImage: View {
         }
     }
 
-    internal func imagePadding(_ size: SHDAvatarSize) -> Self {
+    func imagePadding(_ size: SHDAvatarSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
 }

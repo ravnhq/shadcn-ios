@@ -50,7 +50,7 @@ internal struct SHDAvatarIcon: View {
         }
     }
 
-    internal func iconSize(_ size: SHDAvatarSize) -> Self {
+    func iconSize(_ size: SHDAvatarSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
 }
