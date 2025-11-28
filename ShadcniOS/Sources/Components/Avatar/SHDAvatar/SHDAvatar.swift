@@ -57,12 +57,12 @@ public struct SHDAvatar: View {
         VStack {
             if let image = image {
                 SHDAvatarImage(image: image, size: size)
-                    .shdAvatarImageVariant(variant)
             } else if let icon = icon {
                 SHDAvatarIcon(
                     icon: icon,
                     size: size
                 )
+                .shdAvatarIconVariant(variant)
             } else if let text = text {
                 if text.count == 2 {
                     SHDAvatarInitials(text: text, size: size)
