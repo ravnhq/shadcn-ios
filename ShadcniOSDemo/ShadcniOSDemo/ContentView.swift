@@ -4,6 +4,7 @@
 //
 //  Created by JoseAlvarez on 10/28/25.
 //
+
 import ShadcniOS
 import SwiftUI
 
@@ -18,17 +19,27 @@ struct ContentView: View {
                             Text("SHDAccordion")
                         }
                     }
+                    
                     NavigationLink(destination: SHDButtonDemoView()) {
                         HStack {
                             Image(systemName: "button.horizontal.fill")
                             Text("SHDButton")
                         }
                     }
+                    
                     NavigationLink(destination: SHDAlertDemo()) {
                         HStack {
                             Image(systemName: "exclamationmark.3")
                             Text("SHDAlert")
-                        }                    }
+                        }
+                    }
+                    
+                    NavigationLink(destination: SHDAvatarDemo()) {
+                        HStack {
+                            Image(systemName: "a.circle")
+                            Text("SHDAvatar")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())
