@@ -9,17 +9,16 @@ import Foundation
 
 /// Encapsulates the sizing tokens available to `SHDAvatar`.
 ///
-/// ### Discussion
+/// ## Discussion
 /// The enum centralizes every measurement that an avatar uses—container
 /// dimensions, text styles, and the padding applied to images or icons. Using
 /// these presets keeps avatars visually consistent across the design system.
 ///
-/// ### Usage
+/// ## Usage
 /// ```swift
 /// let size: SHDAvatarSize = .md
-/// SHDAvatarIcon(.notificationCheckCheck)
+/// SHDAvatarIcon(icon: .notificationCheckCheck, size: size)
 ///     .frame(width: size.size, height: size.size)
-///     .padding(size.iconPadding)
 /// ```
 public enum SHDAvatarSize {
     case sm
@@ -28,13 +27,13 @@ public enum SHDAvatarSize {
 
     /// Square dimension of the avatar container, expressed in points.
     ///
-    /// ### Discussion
+    /// ## Discussion
     /// Apply this value to both the width and height of the avatar so the
     /// surface remains perfectly round and proportioned for the chosen size.
     ///
-    /// ### Usage
+    /// ## Usage
     /// ```swift
-    /// SHDAvatarInitials("RM")
+    /// SHDAvatarInitials(text: "RM", size: size)
     ///     .frame(width: size.size, height: size.size)
     /// ```
     var size: CGFloat {
@@ -47,13 +46,13 @@ public enum SHDAvatarSize {
 
     /// Padding between the avatar boundary and its loaded image content.
     ///
-    /// ### Discussion
+    /// ## Discussion
     /// Use this to inset user-uploaded images so they do not touch the edge of
     /// the container, preserving the intended breathing room.
     ///
-    /// ### Usage
+    /// ## Usage
     /// ```swift
-    /// SHDAvatarImage("imageFromAssets")
+    /// SHDAvatarImage(image: Image("imageFromAssets"), size: size)
     ///     .padding(size.imagePadding)
     /// ```
     var imagePadding: CGFloat {
@@ -66,11 +65,11 @@ public enum SHDAvatarSize {
 
     /// Appropriate `SHDIconSize` for fallback or decorative icons.
     ///
-    /// ### Discussion
+    /// ## Discussion
     /// When the avatar renders an icon instead of an image, reference this
     /// value to match the icon scale with the surrounding container.
     ///
-    /// ### Usage
+    /// ## Usage
     /// ```swift
     /// SHDIcon(.notificationBellRing)
     ///     .iconSize(size.iconSize)
@@ -85,11 +84,11 @@ public enum SHDAvatarSize {
 
     /// Padding used when laying out icon-only avatars.
     ///
-    /// ### Discussion
+    /// ## Discussion
     /// Mirrors `imagePadding` but tailored for icon glyphs so they maintain
     /// optical balance inside the circular frame.
     ///
-    /// ### Usage
+    /// ## Usage
     /// ```swift
     /// SHDIcon(.notificationBellRing)
     ///     .padding(size.iconPadding)
@@ -104,13 +103,13 @@ public enum SHDAvatarSize {
 
     /// Text style applied to monogram or initials-based avatars.
     ///
-    /// ### Discussion
+    /// ## Discussion
     /// Pair this with the typography API (e.g., `textStyle`) to ensure the
     /// characters inside the avatar align with the design spec.
     ///
-    /// ### Usage
+    /// ## Usage
     /// ```swift
-    /// SHDAvatarInitials("AM")
+    /// SHDAvatarInitials(text: "AM", size: size)
     ///     .textStyle(size.textStyle)
     /// ```
     var textStyle: SHDTextStyle {
@@ -123,13 +122,13 @@ public enum SHDAvatarSize {
 
     /// Horizontal and vertical padding for text-based avatars.
     ///
-    /// ### Discussion
+    /// ## Discussion
     /// Helps center initials or short labels within the avatar while preventing
     /// the glyphs from touching the edge of the circle.
     ///
-    /// ### Usage
+    /// ## Usage
     /// ```swift
-    /// SHDAvatarInitials("AM")
+    /// SHDAvatarInitials(text: "AM", size: size)
     ///     .padding(size.textPadding)
     /// ```
     var textPadding: CGFloat {

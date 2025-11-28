@@ -17,13 +17,13 @@
 /// ```swift
 /// VStack {
 ///     SHDAvatar(icon: .notificationCheckCheck)
-///         .shdAvatarStyle(.light)
+///         .shdAvatarStyle(variant: .light)
 ///
 ///     SHDAvatar(icon: .notificationCheckCheck)
-///         .shdAvatarStyle(.filled)
+///         .shdAvatarStyle(variant: .filled)
 ///
 ///     SHDAvatar(icon: .notificationCheckCheck)
-///         .shdAvatarStyle(.outline)
+///         .shdAvatarStyle(variant: .outline)
 /// }
 /// ```
 public enum SHDAvatarVariant {

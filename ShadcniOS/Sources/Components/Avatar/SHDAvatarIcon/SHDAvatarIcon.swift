@@ -10,14 +10,14 @@ import SwiftUI
 /// `SHDAvatarIcon` renders the fallback icon shown inside an `SHDAvatar` whenever
 /// no image or initials are available, ensuring consistent sizing and styling across the component library.
 ///
-/// Discussion:
+/// ## Discussion
 /// This view automatically sizes the embedded `SHDIcon` to match the avatar's current size token,
 /// applies the brand-compliant background color, and rounds the shape to a pill by default.
 /// You typically never present `SHDAvatarIcon` on its own; instead it is composed inside `SHDAvatar`
 /// to provide a graceful fallback state. `SHDAvatarIcon` always expects an icon asset, so callers must
 /// decide whether to render the view based on their own fallback logic.
 ///
-/// Usage:
+/// ## Usage
 /// ```swift
 /// SHDAvatarIcon(
 ///     icon: .notificationBellRing,
