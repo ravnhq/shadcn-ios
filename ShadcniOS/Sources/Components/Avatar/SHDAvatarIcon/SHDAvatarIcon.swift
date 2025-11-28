@@ -19,10 +19,8 @@ import SwiftUI
 ///
 /// ## Usage
 /// ```swift
-/// SHDAvatarIcon(
-///     icon: .notificationBellRing,
-///     size: .md
-/// )
+/// SHDAvatarIcon(icon: .notificationBellRing)
+///     .iconSize(.md)
 /// ```
 internal struct SHDAvatarIcon: View {
 
@@ -36,7 +34,8 @@ internal struct SHDAvatarIcon: View {
     ///
     /// - Parameters:
     ///   - icon: Icon asset to display.
-    ///   - size: Avatar size token that drives the icon's visual scale.
+    ///
+    /// - Note: Use `.iconSize(_:)` to set the avatar size token that drives the icon's visual scale.
     init(
         icon: SHDIconAsset
     ) {
@@ -50,7 +49,7 @@ internal struct SHDAvatarIcon: View {
                 .iconSize(size.iconSize)
         }
     }
-    
+
     internal func iconSize(_ size: SHDAvatarSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
