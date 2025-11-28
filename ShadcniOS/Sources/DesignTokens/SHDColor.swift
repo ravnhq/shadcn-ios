@@ -104,6 +104,10 @@ internal enum SHDColor: String, CaseIterable {
         iconSuccessDefault,
         iconWarningDefault
 
+    // MARK: - Text Color
+
+    case textDimmed
+
     /// Returns the corresponding SwiftUI `Color` instance
     /// associated with this `SHDColor` case.
     ///
