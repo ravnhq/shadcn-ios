@@ -43,7 +43,7 @@ internal struct SHDAvatarInitials: View {
             .textStyle(size.textStyle)
     }
 
-    internal func textSize(_ size: SHDAvatarSize) -> Self {
+    func textSize(_ size: SHDAvatarSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
 }
