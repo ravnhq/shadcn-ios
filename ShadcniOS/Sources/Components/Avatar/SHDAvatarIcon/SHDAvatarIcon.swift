@@ -50,9 +50,6 @@ struct SHDAvatarIcon: View {
         VStack {
             SHDIcon(icon)
                 .iconSize(size.iconSize)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .backgroundColor(.textDimmed)
-                .clipShape(RoundedRectangle(cornerRadius: .full))
         }
     }
 }

@@ -45,6 +45,8 @@ struct SHDAvatarImage: View {
                 .resizable()
                 .scaledToFit()
                 .padding(size.imagePadding)
+                .backgroundColor(.textDimmed)
+                .clipShape(RoundedRectangle(cornerRadius: .full))
         }
     }
 }
