@@ -54,24 +54,24 @@ public struct SHDAvatar: View {
     }
 
     public var body: some View {
-        VStack {
-            if let image = image {
-                SHDAvatarImage(image: image, size: size)
-            } else if let icon = icon {
-                SHDAvatarIcon(
-                    icon: icon,
-                    size: size
-                )
+        content
+            .frame(width: size.size, height: size.size)
+            .clipped()
+    }
+
+    /// Conditionally renders avatar content based on available sources (image, icon, or text).
+    /// Uses `@ViewBuilder` to allow returning different view types based on the conditional logic.
+    @ViewBuilder
+    private var content: some View {
+        if let image = image {
+            SHDAvatarImage(image: image, size: size)
+        } else if let icon = icon {
+            SHDAvatarIcon(icon: icon, size: size)
                 .shdAvatarIconVariant(variant)
-            } else if let text = text {
-                if text.count == 2 {
-                    SHDAvatarInitials(text: text, size: size)
-                        .shdAvatarInitialsVariant(variant)
-                }
-            }
+        } else if let text = text, text.count == 2 {
+            SHDAvatarInitials(text: text, size: size)
+                .shdAvatarInitialsVariant(variant)
         }
-        .frame(width: size.size, height: size.size)
-        .clipped()
     }
 
     /// Returns a copy of the avatar configured with both size and visual variant in a single call.
@@ -83,7 +83,10 @@ public struct SHDAvatar: View {
     ///   - variant: The `SHDAvatarVariant` to apply, defining the visual treatment (e.g., filled or outline).
     /// - Returns: A copy of `SHDAvatar` whose `size` and `variant`
     /// properties are updated to the provided values.
-    public func shdAvatarStyle(size: SHDAvatarSize = .md, variant: SHDAvatarVariant = .light) -> Self {
+    public func shdAvatarStyle(
+        size: SHDAvatarSize = .md,
+        variant: SHDAvatarVariant = .light
+    ) -> Self {
         mutating { style in
             style.size = size
             style.variant = variant
