@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDAvatarPreview: View {
+internal struct SHDAvatarPreview: View {
 
     private let sizes: [SHDAvatarSize] = [.sm, .md, .lg]
     private let variants: [SHDAvatarVariant] = [.light, .filled, .outline]
