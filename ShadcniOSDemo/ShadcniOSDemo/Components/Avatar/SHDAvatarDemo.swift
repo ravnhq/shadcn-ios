@@ -53,7 +53,7 @@ struct SHDAvatarDemo: View {
                             Text("Image")
                                 .font(.subheadline)
 
-                            SHDAvatar(image: Image("DMC"))
+                            SHDAvatar(image: Image(systemName: "person.fill"))
                                 .shdAvatarStyle(size: size, variant: variant)
 
                         }
