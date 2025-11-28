@@ -49,12 +49,9 @@ public enum SHDAvatarVariant {
     /// ```
     var backgroundColor: SHDColor {
         switch self {
-        case .light:
-            return .backgroundPrimaryLight
-        case .filled:
-            return .backgroundPrimaryDefault
-        case .outline:
-            return .clear
+        case .light: .backgroundPrimaryLight
+        case .filled: .backgroundPrimaryDefault
+        case .outline: .clear
         }
     }
 
@@ -65,12 +62,9 @@ public enum SHDAvatarVariant {
     /// For example, the filled variant uses white text to pop against the darker fill.
     var foregroundColor: SHDColor {
         switch self {
-        case .light:
-            return .foregroundDefault
-        case .filled:
-            return .foregroundPrimaryDefault
-        case .outline:
-            return .foregroundDefault
+        case .light: .foregroundDefault
+        case .filled: .foregroundPrimaryDefault
+        case .outline: .foregroundDefault
         }
     }
 
@@ -82,10 +76,8 @@ public enum SHDAvatarVariant {
     /// Apply this color to a stroke that matches the avatar's shape.
     var borderColor: SHDColor {
         switch self {
-        case .outline:
-            return .borderPrimaryDefault
-        default:
-            return .clear
+        case .outline: .borderPrimaryDefault
+        default: .clear
         }
     }
 }
