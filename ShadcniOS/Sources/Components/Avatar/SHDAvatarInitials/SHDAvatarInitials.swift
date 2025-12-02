@@ -41,6 +41,7 @@ internal struct SHDAvatarInitials: View {
     var body: some View {
         Text(text)
             .textStyle(size.textStyle)
+            .padding(.all, size.textPadding)
     }
 
     func textSize(_ size: SHDAvatarSize) -> Self {
