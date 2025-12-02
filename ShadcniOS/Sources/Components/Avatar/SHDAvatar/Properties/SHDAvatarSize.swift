@@ -17,7 +17,8 @@ import Foundation
 /// ## Usage
 /// ```swift
 /// let size: SHDAvatarSize = .md
-/// SHDAvatarIcon(icon: .notificationCheckCheck, size: size)
+/// SHDAvatarIcon(icon: .notificationCheckCheck)
+///     .iconSize(size)
 ///     .frame(width: size.size, height: size.size)
 /// ```
 public enum SHDAvatarSize {
@@ -33,7 +34,8 @@ public enum SHDAvatarSize {
     ///
     /// ## Usage
     /// ```swift
-    /// SHDAvatarInitials(text: "RM", size: size)
+    /// SHDAvatarInitials(text: "RM")
+    ///     .avatarVariant(variant: .light, size: size)
     ///     .frame(width: size.size, height: size.size)
     /// ```
     var size: CGFloat {
@@ -52,8 +54,8 @@ public enum SHDAvatarSize {
     ///
     /// ## Usage
     /// ```swift
-    /// SHDAvatarImage(image: Image("imageFromAssets"), size: size)
-    ///     .padding(size.imagePadding)
+    /// SHDAvatarImage(image: Image("imageFromAssets"))
+    ///     .imagePadding(size)
     /// ```
     var imagePadding: CGFloat {
         switch self {
