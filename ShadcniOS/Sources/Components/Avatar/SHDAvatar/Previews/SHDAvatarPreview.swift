@@ -33,7 +33,7 @@ internal struct SHDAvatarPreview: View {
                                 SHDAvatar(image: Image(systemName: "person"))
                                     .avatarStyle(size: size, variant: variant)
 
-                                SHDAvatar(text: "RM")
+                                SHDAvatar(text: "AV")
                                     .avatarStyle(size: size, variant: variant)
 
                                 SHDAvatar(icon: .notificationBellRing)
