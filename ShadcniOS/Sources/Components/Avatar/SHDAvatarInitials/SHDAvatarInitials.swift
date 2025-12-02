@@ -17,8 +17,7 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// SHDAvatarInitials(text: "JD")
-///     .textSize(.md)
-///     .AvatarInitialsVariant(.outline)
+///     .avatarVariant(variant: .outline, size: .md)
 /// ```
 internal struct SHDAvatarInitials: View {
 
@@ -30,7 +29,7 @@ internal struct SHDAvatarInitials: View {
     /// - Parameters:
     ///   - text: The initials that should be displayed, typically two characters to match `SHDAvatar`.
     ///
-    /// - Note: Use `.textSize(_:)` to set the avatar size configuration that controls typography.
+    /// - Note: Use `.avatarVariant(variant:size:)` to set the avatar size configuration and visual variant that controls typography and styling.
     init(text: String) {
         self.text = text
     }

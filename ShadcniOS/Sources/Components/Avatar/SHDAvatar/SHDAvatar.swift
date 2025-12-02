@@ -18,10 +18,10 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// SHDAvatar(image: Image("profile_photo"))
-///     .AvatarStyle(size: .lg, variant: .filled)
+///     .avatarStyle(size: .lg, variant: .filled)
 ///
 /// SHDAvatar(text: "JD")
-///     .AvatarStyle(size: .sm, variant: .outline)
+///     .avatarStyle(size: .sm, variant: .outline)
 /// ```
 public struct SHDAvatar: View {
 
