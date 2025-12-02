@@ -25,9 +25,6 @@ internal struct SHDAvatarInitials: View {
     /// The initials or short text that will be rendered inside the avatar circle.
     var text: String
 
-    /// The avatar size variant used to derive typography and layout metrics.
-    var size: SHDAvatarSize = .md
-
     /// Creates a new initials-based avatar representation.
     ///
     /// - Parameters:
@@ -40,11 +37,5 @@ internal struct SHDAvatarInitials: View {
 
     var body: some View {
         Text(text)
-            .textStyle(size.textStyle)
-            .padding(.all, size.textPadding)
-    }
-
-    func textSize(_ size: SHDAvatarSize) -> Self {
-        mutating(keyPath: \.size, value: size)
     }
 }
