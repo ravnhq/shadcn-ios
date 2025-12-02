@@ -29,7 +29,7 @@ internal struct SHDAvatarIconConfiguration: ViewModifier {
 
 internal extension View {
 
-    func shdAvatarIconVariant(_ variant: SHDAvatarVariant = .filled) -> some View {
+    func avatarIconVariant(_ variant: SHDAvatarVariant = .filled) -> some View {
         modifier(SHDAvatarIconConfiguration(variant: variant))
     }
 }

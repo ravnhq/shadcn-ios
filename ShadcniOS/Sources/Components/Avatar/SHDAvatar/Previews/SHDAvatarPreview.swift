@@ -31,13 +31,13 @@ internal struct SHDAvatarPreview: View {
                                     .foregroundColor(.secondary)
 
                                 SHDAvatar(image: Image(systemName: "person"))
-                                    .shdAvatarStyle(size: size, variant: variant)
+                                    .avatarStyle(size: size, variant: variant)
 
                                 SHDAvatar(text: "RM")
-                                    .shdAvatarStyle(size: size, variant: variant)
+                                    .avatarStyle(size: size, variant: variant)
 
                                 SHDAvatar(icon: .notificationBellRing)
-                                    .shdAvatarStyle(size: size, variant: variant)
+                                    .avatarStyle(size: size, variant: variant)
 
                             }
                         }

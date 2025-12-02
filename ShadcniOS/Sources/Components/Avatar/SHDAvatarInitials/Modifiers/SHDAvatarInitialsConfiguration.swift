@@ -28,7 +28,7 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// SHDAvatarInitials(text: "JD", size: .md)
-///     .shdAvatarInitialsVariant(.outline)
+///     .AvatarInitialsVariant(.outline)
 /// ```
 internal struct SHDAvatarInitialsConfiguration: ViewModifier {
 
@@ -62,9 +62,9 @@ internal extension View {
     /// ## Usage
     /// ```swift
     /// SHDAvatarInitials(text: "AL", size: .md)
-    ///     .shdAvatarInitialsVariant(.filled)
+    ///     .AvatarInitialsVariant(.filled)
     /// ```
-    func shdAvatarInitialsVariant(_ variant: SHDAvatarVariant = .filled) -> some View {
+    func avatarInitialsVariant(_ variant: SHDAvatarVariant = .filled) -> some View {
         modifier(SHDAvatarInitialsConfiguration(variant: variant))
     }
 }

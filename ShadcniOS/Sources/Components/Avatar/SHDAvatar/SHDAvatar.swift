@@ -18,10 +18,10 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// SHDAvatar(image: Image("profile_photo"))
-///     .shdAvatarStyle(size: .lg, variant: .filled)
+///     .AvatarStyle(size: .lg, variant: .filled)
 ///
 /// SHDAvatar(text: "JD")
-///     .shdAvatarStyle(size: .sm, variant: .outline)
+///     .AvatarStyle(size: .sm, variant: .outline)
 /// ```
 public struct SHDAvatar: View {
 
@@ -32,11 +32,11 @@ public struct SHDAvatar: View {
     private var variant: SHDAvatarVariant = .light
 
     /// Optional user photo rendered at the selected size when available.
-    var image: Image?
+    private let image: Image?
     /// Icon fallback used when no image is provided.
-    var icon: SHDIconAsset?
+    private let icon: SHDIconAsset?
     /// Two-character initials shown when both `image` and `icon` are `nil`.
-    var text: String?
+    private let text: String?
 
     /// Creates an avatar by specifying the desired content source, size, and visual variant.
     ///
@@ -44,13 +44,21 @@ public struct SHDAvatar: View {
     ///   - image: The `Image` to display when a photo is available.
     ///   - icon: A fallback `SHDIconAsset` used when no image is provided.
     ///   - text: Two-character initials rendered when both `image` and `icon` are `nil`.
-    public init(
-        image: Image? = nil,
-        icon: SHDIconAsset? = nil,
-        text: String? = nil,
-    ) {
+    public init(image: Image) {
         self.image = image
+        self.icon = nil
+        self.text = nil
+    }
+
+    public init(icon: SHDIconAsset) {
+        self.image = nil
         self.icon = icon
+        self.text = nil
+    }
+
+    public init(text: String) {
+        self.image = nil
+        self.icon = nil
         self.text = text
     }
 
@@ -70,11 +78,11 @@ public struct SHDAvatar: View {
         } else if let icon = icon {
             SHDAvatarIcon(icon: icon)
                 .iconSize(size)
-                .shdAvatarIconVariant(variant)
+                .avatarIconVariant(variant)
         } else if let text = text, text.count == 2 {
             SHDAvatarInitials(text: text)
                 .textSize(size)
-                .shdAvatarInitialsVariant(variant)
+                .avatarInitialsVariant(variant)
         }
     }
 
@@ -87,7 +95,7 @@ public struct SHDAvatar: View {
     ///   - variant: The `SHDAvatarVariant` to apply, defining the visual treatment (e.g., filled or outline).
     /// - Returns: A copy of `SHDAvatar` whose `size` and `variant`
     /// properties are updated to the provided values.
-    public func shdAvatarStyle(
+    public func avatarStyle(
         size: SHDAvatarSize = .md,
         variant: SHDAvatarVariant = .light
     ) -> Self {
