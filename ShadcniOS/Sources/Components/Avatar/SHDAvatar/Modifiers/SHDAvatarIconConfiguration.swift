@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-internal struct SHDAvatarIconConfiguration: ViewModifier {
+internal struct SHDAvatarConfiguration: ViewModifier {
 
     var variant: SHDAvatarVariant = .light
+    var size: SHDAvatarSize = .md
 
     func body(content: Content) -> some View {
         content
+            .textStyle(size.textStyle)
+            .padding(.all, size.textPadding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .backgroundColor(variant.backgroundColor)
             .foregroundColor(variant.foregroundColor)
@@ -29,7 +32,7 @@ internal struct SHDAvatarIconConfiguration: ViewModifier {
 
 internal extension View {
 
-    func avatarIconVariant(_ variant: SHDAvatarVariant = .filled) -> some View {
-        modifier(SHDAvatarIconConfiguration(variant: variant))
+    func avatarVariant(variant: SHDAvatarVariant = .light, size: SHDAvatarSize = .md) -> some View {
+        modifier(SHDAvatarConfiguration(variant: variant, size: size))
     }
 }
