@@ -18,7 +18,7 @@ import SwiftUI
 /// ```swift
 /// SHDAvatarInitials(text: "JD")
 ///     .textSize(.md)
-///     .shdAvatarInitialsVariant(.outline)
+///     .AvatarInitialsVariant(.outline)
 /// ```
 internal struct SHDAvatarInitials: View {
 

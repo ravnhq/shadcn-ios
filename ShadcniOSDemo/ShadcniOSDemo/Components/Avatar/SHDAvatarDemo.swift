@@ -54,7 +54,7 @@ struct SHDAvatarDemo: View {
                                 .font(.subheadline)
 
                             SHDAvatar(image: Image(systemName: "person.fill"))
-                                .shdAvatarStyle(size: size, variant: variant)
+                                .avatarStyle(size: size, variant: variant)
 
                         }
 
@@ -63,7 +63,7 @@ struct SHDAvatarDemo: View {
                                 .font(.subheadline)
 
                             SHDAvatar(icon: .notificationCheckCheck)
-                                .shdAvatarStyle(size: size, variant: variant)
+                                .avatarStyle(size: size, variant: variant)
 
                         }
 
@@ -72,7 +72,7 @@ struct SHDAvatarDemo: View {
                                 .font(.subheadline)
 
                             SHDAvatar(text: "AM")
-                                .shdAvatarStyle(size: size, variant: variant)
+                                .avatarStyle(size: size, variant: variant)
                         }
                     }
                     .frame(maxWidth: .infinity)
