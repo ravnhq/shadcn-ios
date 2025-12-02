@@ -29,7 +29,8 @@ internal struct SHDAvatarInitials: View {
     /// - Parameters:
     ///   - text: The initials that should be displayed, typically two characters to match `SHDAvatar`.
     ///
-    /// - Note: Use `.avatarVariant(variant:size:)` to set the avatar size configuration and visual variant that controls typography and styling.
+    /// - Note: Use `.avatarVariant(variant:size:)` to set the avatar size
+    /// configuration and visual variant that controls typography and styling.
     init(text: String) {
         self.text = text
     }

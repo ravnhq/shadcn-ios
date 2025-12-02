@@ -19,14 +19,14 @@ internal struct SHDAvatarConfiguration: ViewModifier {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .backgroundColor(variant.backgroundColor)
             .foregroundColor(variant.foregroundColor)
-            .clipShape(RoundedRectangle(cornerRadius: .full))
             .overlay {
-                Circle()
+                RoundedRectangle(cornerRadius: .full)
                     .stroke(
                         variant.borderColor.color,
                         lineWidth: variant.borderColor == .clear ? 0 : 1
                     )
             }
+            .clipShape(RoundedRectangle(cornerRadius: .full))
     }
 }
 
@@ -35,4 +35,8 @@ internal extension View {
     func avatarVariant(variant: SHDAvatarVariant = .light, size: SHDAvatarSize = .md) -> some View {
         modifier(SHDAvatarConfiguration(variant: variant, size: size))
     }
+}
+
+#Preview {
+    SHDAvatarPreview()
 }
