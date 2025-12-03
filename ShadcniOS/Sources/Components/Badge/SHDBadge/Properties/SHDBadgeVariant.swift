@@ -17,7 +17,8 @@
 ///
 /// ### Usage
 /// ```swift
-/// let badge = SHDBadge(text: "New", variant: .secondary)
+/// let badge = SHDBadge(text: "New")
+///     .badgeStyle(variant: .secondary)
 /// // Automatically applies the secondary palette tokens.
 /// ```
 public enum SHDBadgeVariant {

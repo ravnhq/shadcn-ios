@@ -10,15 +10,14 @@ import SwiftUI
 /// A configurable label-style badge that renders short status text using the Shade design tokens.
 ///
 /// ## Discussion
-/// `SHDBadge` encapsulates the padding, typography, and color rules
-/// defined by `shdBadgeConfig(size:variant:)`,
-/// ensuring consistent badges across the app. You can provide the display text plus optional size and color
-/// variant overrides either at initialization or later via `shdBadgeStyle`.
+/// `SHDBadge` applies padding, typography, and color rules directly in its body,
+/// ensuring consistent badges across the app. You can provide the display text and configure
+/// size and color variant using the `badgeStyle(size:variant:)` method.
 ///
 /// ## Usage
 /// ```swift
 /// SHDBadge(text: "New")
-///     .shdBadgeStyle(size: .lg, variant: .warning)
+///     .badgeStyle(size: .lg, variant: .default)
 /// ```
 public struct SHDBadge: View {
 
@@ -31,25 +30,40 @@ public struct SHDBadge: View {
     /// Determines the semantic color palette applied to the badge.
     private var variant: SHDBadgeVariant = .default
 
-    /// Creates a Shade badge and optionally overrides its size or visual variant.
+    /// Creates a Shade badge with the specified text.
     ///
     /// - Parameters:
     ///   - text: The string displayed inside the badge.
-    ///   - size: The layout configuration to use. Defaults to `.md`.
-    ///   - variant: The semantic color variant. Defaults to `.default`.
-    /// - Discussion: Use initializer parameters for the most common configuration scenario
-    ///     keeping chaining free for later adjustments.
-    /// - Usage: `SHDBadge(text: "Offline", size: .sm, variant: .destructive)`
+    /// - Discussion: The badge defaults to `.md` size and `.default` variant.
+    ///     Use `badgeStyle(size:variant:)` to customize the appearance.
+    /// - Usage: `SHDBadge(text: "Offline").badgeStyle(size: .sm, variant: .destructive)`
     public init(
         text: String
     ) {
         self.text = text
     }
 
-    /// The visual representation of the badge that applies the Shade styling configuration.
+    /// The visual representation of the badge that applies Shade styling directly.
+    /// 
+    /// The styling includes typography, padding, background color, border, and foreground color
+    /// based on the current `size` and `variant` properties.
     public var body: some View {
         Text(text)
-            .shdBadgeConfig(size: size, variant: variant)
+            .textStyle(size.textStyle)
+            .padding(.vertical, 2)
+            .padding(.horizontal, .xs)
+            .background(
+                RoundedRectangle(cornerRadius: .full)
+                    .fill(variant.backgroundColor.color)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: .full)
+                    .stroke(
+                        variant.borderColor.color,
+                        lineWidth: variant.borderColor == .clear ? 0 : 1
+                    )
+            )
+            .foregroundColor(variant.foregroundColor)
     }
 
     /// Returns a copy of the badge with updated sizing or variant metadata.
@@ -59,13 +73,13 @@ public struct SHDBadge: View {
     ///   - variant: The color scheme to use. Defaults to `.default`.
     /// - Returns: A new `SHDBadge` that reflects the requested overrides.
     /// - Discussion: This helper allows a fluent builder-style syntax when composing badges
-    ///     inside larger view hierarchies.
+    ///     inside larger view hierarchies. The styling is applied directly in the badge's body.
     /// - Usage:
     /// ```swift
     /// SHDBadge(text: "Queued")
-    ///     .shdBadgeStyle(size: .sm, variant: .secondary)
+    ///     .badgeStyle(size: .sm, variant: .secondary)
     /// ```
-    public func shdBadgeStyle(
+    public func badgeStyle(
         size: SHDBadgeSize = .md,
         variant: SHDBadgeVariant = .default
     ) -> Self {

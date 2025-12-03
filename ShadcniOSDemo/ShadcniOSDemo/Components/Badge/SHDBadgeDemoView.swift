@@ -33,7 +33,7 @@ struct SHDBadgeDemoView: View {
 
                 if let variant = statusVariant(for: selectedStatus) {
                     SHDBadge(text: selectedStatus)
-                        .shdBadgeStyle(size: selectedSize, variant: variant)
+                        .badgeStyle(size: selectedSize, variant: variant)
                 }
             }
             .padding()

@@ -9,12 +9,12 @@
 ///
 /// ## Discussion
 /// `SHDBadgeSize` aggregates the typography and spacing choices that accompany each badge size.
-/// Use these values whenever you need to configure badges manually or inside custom modifiers so the
-/// result stays visually consistent with the system component.
+/// Use these values with the `badgeStyle(size:variant:)` method to configure badge appearance
+/// so the result stays visually consistent with the system component.
 ///
 /// ## Usage
 /// ```swift
-/// SHDBadge(text: "Beta").shdBadgeStyle(size: .sm)
+/// SHDBadge(text: "Beta").badgeStyle(size: .sm)
 /// ```
 public enum SHDBadgeSize {
 
@@ -29,8 +29,8 @@ public enum SHDBadgeSize {
 
     /// Returns the Shade typography token that matches the current size.
     ///
-    /// - Discussion: While this property is primarily used internally by the badge configuration
-    ///     modifier, you can reference it to align custom `Text` views with badge typography.
+    /// - Discussion: This property is used internally by the badge component to apply
+    ///     consistent typography. You can reference it to align custom `Text` views with badge typography.
     var textStyle: SHDTextStyle {
         switch self {
         case .sm: .textXSSemibold
