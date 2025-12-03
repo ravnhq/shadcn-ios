@@ -11,6 +11,8 @@ import SwiftUI
 struct SHDBadgeDemoView: View {
 
     @State private var selectedStatus: String = "Default"
+    
+    @State private var selectedSize: SHDBadgeSize = .md
 
     private let statuses: [(label: String, variant: SHDBadgeVariant)] = [
         ("Default", .default),
@@ -18,6 +20,8 @@ struct SHDBadgeDemoView: View {
         ("Destructive", .destructive),
         ("Outline", .outline),
     ]
+    
+    private let sizes: [SHDBadgeSize] = [.sm, .md, .lg]
 
     var body: some View {
         VStack(spacing: 20) {
@@ -29,7 +33,7 @@ struct SHDBadgeDemoView: View {
 
                 if let variant = statusVariant(for: selectedStatus) {
                     SHDBadge(text: selectedStatus)
-                        .shdBadgeStyle(size: .sm, variant: variant)
+                        .shdBadgeStyle(size: selectedSize, variant: variant)
                 }
             }
             .padding()
@@ -40,6 +44,13 @@ struct SHDBadgeDemoView: View {
                 }
             }
             .pickerStyle(.segmented)
+            
+            Picker("Size", selection: $selectedSize) {
+                Text("Small").tag(SHDBadgeSize.sm)
+                Text("Medium").tag(SHDBadgeSize.md)
+                Text("Large").tag(SHDBadgeSize.lg)
+            }
+            .pickerStyle(.palette)
 
             Spacer()
         }
