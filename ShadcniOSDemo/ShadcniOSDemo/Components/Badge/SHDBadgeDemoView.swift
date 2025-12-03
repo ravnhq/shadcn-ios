@@ -10,13 +10,13 @@ import SwiftUI
 
 struct SHDBadgeDemoView: View {
 
-    @State private var selectedStatus: String = "New"
+    @State private var selectedStatus: String = "Default"
 
     private let statuses: [(label: String, variant: SHDBadgeVariant)] = [
-        ("New", .default),
-        ("Processing", .secondary),
-        ("Cancelled", .destructive),
-        ("Returned", .outline),
+        ("Default", .default),
+        ("Secondary", .secondary),
+        ("Destructive", .destructive),
+        ("Outline", .outline),
     ]
 
     var body: some View {
