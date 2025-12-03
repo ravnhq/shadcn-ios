@@ -47,6 +47,7 @@ internal struct SHDAvatarIcon: View {
         VStack {
             SHDIcon(icon)
                 .iconSize(size.iconSize)
+                .padding(size.iconPadding)
         }
     }
 
