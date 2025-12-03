@@ -84,25 +84,6 @@ public enum SHDAvatarSize {
         }
     }
 
-    /// Padding used when laying out icon-only avatars.
-    ///
-    /// ## Discussion
-    /// Mirrors `imagePadding` but tailored for icon glyphs so they maintain
-    /// optical balance inside the circular frame.
-    ///
-    /// ## Usage
-    /// ```swift
-    /// SHDIcon(.notificationBellRing)
-    ///     .padding(size.iconPadding)
-    /// ```
-    var iconPadding: CGFloat {
-        switch self {
-        case .sm: 2
-        case .md: 4
-        case .lg: 8
-        }
-    }
-
     /// Text style applied to monogram or initials-based avatars.
     ///
     /// ## Discussion
