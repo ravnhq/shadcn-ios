@@ -35,7 +35,7 @@ internal struct SHDBadgePreview: View {
                     ForEach(variants, id: \.self) { variant in
                         HStack {
                             SHDBadge(text: "\(title(for: variant)) Badge")
-                                .shdBadgeStyle(size: size, variant: variant)
+                                .badgeStyle(size: size, variant: variant)
                         }
                     }
                 }
