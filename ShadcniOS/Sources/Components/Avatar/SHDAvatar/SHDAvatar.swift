@@ -76,11 +76,11 @@ public struct SHDAvatar: View {
             SHDAvatarImage(image: image)
                 .imagePadding(size)
         } else if let icon = icon {
-            SHDAvatarIcon(icon: icon)
-                .iconSize(size)
+            SHDIcon(icon)
+                .iconSize(size.iconSize)
                 .avatarVariant(variant: variant)
         } else if let text = text, text.count == 2 {
-            SHDAvatarInitials(text: text)
+            Text(text)
                 .avatarVariant(variant: variant, size: size)
         }
     }

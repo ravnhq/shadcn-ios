@@ -17,9 +17,8 @@ import Foundation
 /// ## Usage
 /// ```swift
 /// let size: SHDAvatarSize = .md
-/// SHDAvatarIcon(icon: .notificationCheckCheck)
-///     .iconSize(size)
-///     .frame(width: size.size, height: size.size)
+/// SHDAvatar(icon: .notificationCheckCheck)
+///     .avatarStyle(size: size)
 /// ```
 public enum SHDAvatarSize {
     case sm
@@ -34,9 +33,8 @@ public enum SHDAvatarSize {
     ///
     /// ## Usage
     /// ```swift
-    /// SHDAvatarInitials(text: "RM")
-    ///     .avatarVariant(variant: .light, size: size)
-    ///     .frame(width: size.size, height: size.size)
+    /// SHDAvatar(text: "RM")
+    ///     .avatarStyle(size: size, variant: .light)
     /// ```
     var size: CGFloat {
         switch self {
@@ -92,8 +90,8 @@ public enum SHDAvatarSize {
     ///
     /// ## Usage
     /// ```swift
-    /// SHDAvatarInitials(text: "AM", size: size)
-    ///     .textStyle(size.textStyle)
+    /// SHDAvatar(text: "AM")
+    ///     .avatarStyle(size: size)
     /// ```
     var textStyle: SHDTextStyle {
         switch self {
@@ -111,8 +109,8 @@ public enum SHDAvatarSize {
     ///
     /// ## Usage
     /// ```swift
-    /// SHDAvatarInitials(text: "AM", size: size)
-    ///     .padding(size.textPadding)
+    /// SHDAvatar(text: "AM")
+    ///     .avatarStyle(size: size)
     /// ```
     var textPadding: CGFloat {
         switch self {
