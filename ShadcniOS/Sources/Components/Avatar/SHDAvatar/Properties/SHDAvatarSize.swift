@@ -135,9 +135,9 @@ public enum SHDAvatarSize {
     /// ```
     var textPadding: CGFloat {
         switch self {
-        case .sm: 1
-        case .md: 4
-        case .lg: 6
+        case .sm: 3
+        case .md: 6
+        case .lg: 9
         }
     }
 }
