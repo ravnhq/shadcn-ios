@@ -44,8 +44,8 @@ public enum SHDAvatarVariant {
     ///
     /// ## Usage
     /// ```swift
-    /// SHDAvatarIcon(icon)
-    ///     .backgroundColor(variant.backgroundColor)
+    /// SHDAvatar(icon: icon)
+    ///     .avatarStyle(variant: variant)
     /// ```
     var backgroundColor: SHDColor {
         switch self {

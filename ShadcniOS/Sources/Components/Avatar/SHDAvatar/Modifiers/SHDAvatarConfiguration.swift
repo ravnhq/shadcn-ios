@@ -1,5 +1,5 @@
 //
-//  SHDAvatarIconConfiguration.swift
+//  SHDAvatarConfiguration.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 11/28/25.
@@ -16,8 +16,8 @@ import SwiftUI
 ///
 /// Usage:
 /// ```swift
-/// SHDAvatarInitials("ND")
-///     .avatarVariant(variant: .light, size: .sm)
+/// SHDAvatar(text: "ND")
+///     .avatarStyle(size: .sm, variant: .light)
 /// ```
 internal struct SHDAvatarConfiguration: ViewModifier {
 
@@ -57,8 +57,8 @@ internal extension View {
     ///
     /// Usage:
     /// ```swift
-    /// SHDAvatarIcon()
-    ///     .avatarVariant(variant: .light)
+    /// SHDAvatar(icon: .notificationBellRing)
+    ///     .avatarStyle(variant: .light)
     /// ```
     ///
     /// - Parameters:
