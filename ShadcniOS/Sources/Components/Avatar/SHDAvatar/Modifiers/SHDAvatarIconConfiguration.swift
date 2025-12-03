@@ -14,6 +14,7 @@ internal struct SHDAvatarConfiguration: ViewModifier {
 
     func body(content: Content) -> some View {
         content
+            .minimumScaleFactor(0.01)
             .textStyle(size.textStyle)
             .padding(.all, size.textPadding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
