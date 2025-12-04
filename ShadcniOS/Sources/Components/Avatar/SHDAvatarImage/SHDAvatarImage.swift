@@ -29,9 +29,9 @@ internal struct SHDAvatarImage: View {
     var size: SHDAvatarSize = .md
 
     /// Creates an avatar image with the provided visual and sizing parameters.
+    ///
     /// - Parameters:
     ///   - image: The `Image` to render—can be an asset, symbol, or remote placeholder.
-    ///
     /// - Note: Use `.imagePadding(_:)` to set the avatar sizing preset that determines padding and layout.
     init(image: Image) {
         self.image = image

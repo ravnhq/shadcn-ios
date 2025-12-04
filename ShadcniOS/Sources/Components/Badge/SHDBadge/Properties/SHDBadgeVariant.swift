@@ -8,15 +8,16 @@
 /// Represents the visual style of `SHDBadge`, mapping each variant to its
 /// foreground, background, and border color tokens.
 ///
-/// - Description: Describes the visual style of an `SHDBadge`.
-/// - Discussion: Each case maps to a semantic color palette used by the Shade
-///   design system. Use variants to distinguish hierarchy or call out status
-///   without hard-coding colors.
-/// - Usage:
-///   ```swift
-///   SHDBadge(text: "New")
-///       .badgeStyle(variant: .secondary)
-///   ```
+/// ## Discussion
+/// Each case maps to a semantic color palette used by the Shade
+/// design system. Use variants to distinguish hierarchy or call out status
+/// without hard-coding colors.
+///
+/// ## Usage
+/// ```swift
+/// SHDBadge(text: "New")
+///     .badgeStyle(variant: .secondary)
+/// ```
 public enum SHDBadgeVariant {
     /// Default badge style for primary emphasis.
     case `default`

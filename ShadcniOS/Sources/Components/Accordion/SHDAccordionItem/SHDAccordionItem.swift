@@ -8,13 +8,14 @@
 import SwiftUI
 
 /// A single item within an accordion component, displaying a title
-/// and expandable content area
+/// and expandable content area.
 ///
-/// The `SHDAccordionItem` manage its own expanded or collapsed state
+/// ## Discussion
+/// The `SHDAccordionItem` manages its own expanded or collapsed state
 /// through a binding, providing smooth spring-based animations
-/// when toggling visibility
+/// when toggling visibility.
 ///
-/// Exmaple usage:
+/// ## Usage
 /// ```swift
 /// SHDAccordionItem(selection: $selectedItem, item: item)
 ///    .itemSize(size: size)
@@ -41,11 +42,11 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
 
     // MARK: - Initialization
 
-    /// Creates a new accordion item
+    /// Creates a new accordion item.
     ///
     /// - Parameters:
-    ///     - selection: A binding to the parent accordion's selected item
-    ///     - item: The item data conforming to `SHDAccordionRepresentable`
+    ///   - selection: A binding to the parent accordion's selected item.
+    ///   - item: The item data conforming to `SHDAccordionRepresentable`.
     init(selection: Binding<Item?>, item: Item) {
         self._selection = selection
         self.item = item
@@ -100,7 +101,8 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
 
     /// Applies a size configuration to this accordion item.
     ///
-    /// - Parameter size: The size preset to apply to the item.
+    /// - Parameters:
+    ///   - size: The size preset to apply to the item.
     /// - Returns: A modified accordion item with the specified size style.
     func itemSize(size: SHDAccordionSize) -> Self {
         mutating(keyPath: \.size, value: size)

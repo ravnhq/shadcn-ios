@@ -9,12 +9,12 @@ import SwiftUI
 
 /// A SwiftUI modifier that normalizes avatar icon typography, spacing, and colors.
 ///
-/// Discussion:
+/// ## Discussion
 /// Use `SHDAvatarConfiguration` internally to enforce a consistent look-and-feel across all
 /// avatar variants. The modifier sets the text style, applies the appropriate paddings, scales
 /// text to fit, and paints the background, foreground, and border based on the provided variant.
 ///
-/// Usage:
+/// ## Usage
 /// ```swift
 /// SHDAvatar(text: "ND")
 ///     .avatarStyle(size: .sm, variant: .light)
@@ -51,11 +51,11 @@ internal extension View {
 
     /// Applies the avatar configuration modifier to the receiving view.
     ///
-    /// Discussion:
+    /// ## Discussion
     /// Use this helper when building avatar subviews to keep the call site terse while still
     /// exposing the variant and size knobs.
     ///
-    /// Usage:
+    /// ## Usage
     /// ```swift
     /// SHDAvatar(icon: .notificationBellRing)
     ///     .avatarStyle(variant: .light)

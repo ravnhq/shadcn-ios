@@ -8,6 +8,8 @@
 import SwiftUI
 
 /// A `ViewModifier` that applies an `SHDTextStyle` to a SwiftUI view.
+///
+/// ## Discussion
 /// Handles font, weight, size, line spacing, letter spacing, underline, and color.
 internal struct TextStyle: ViewModifier {
 
@@ -32,13 +34,14 @@ internal struct TextStyle: ViewModifier {
 internal extension View {
     /// Convenience method to apply an `SHDTextStyle` to any view.
     ///
-    /// Example:
+    /// ## Usage
     /// ```swift
     /// Text("Hello World")
     ///     .textStyle(.h1) // Apply predefined H1 style
     /// ```
     ///
-    /// - Parameter style: The `SHDTextStyle` to apply.
+    /// - Parameters:
+    ///   - style: The `SHDTextStyle` to apply.
     /// - Returns: The view with the specified text style applied.
     func textStyle(_ style: SHDTextStyle) -> some View {
         modifier(TextStyle(style: style))

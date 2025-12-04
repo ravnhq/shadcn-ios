@@ -9,7 +9,7 @@ import SwiftUI
 
 /// Defines the available size variants for ShadcniOS buttons.
 ///
-/// ### Overview
+/// ## Discussion
 /// `SHDButtonSize` standardizes the typography and icon sizing for buttons
 /// in the ShadcniOS design system. Each case corresponds to a specific
 /// `SHDTextStyle` and `SHDIconSize`, ensuring consistent visual hierarchy
@@ -20,8 +20,7 @@ import SwiftUI
 /// - `textStyle(buttonSize.textSize)`
 /// - icon sizing via `iconSize` when needed
 ///
-///
-/// ### Usage Examples
+/// ## Usage
 ///
 /// Getting the text style for a given size:
 /// ```swift
@@ -42,7 +41,6 @@ import SwiftUI
 /// }
 /// .environment(\.buttonSize, .lg)
 /// ```
-///
 public enum SHDButtonSize: Sendable {
 
     // MARK: - Size Variants

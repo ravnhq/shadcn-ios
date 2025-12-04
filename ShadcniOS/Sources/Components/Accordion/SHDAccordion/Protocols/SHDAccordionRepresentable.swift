@@ -8,15 +8,16 @@
 import Foundation
 
 /// A protocol that defines the data requirements for types
-/// that can be displayed within an accordion component
+/// that can be displayed within an accordion component.
 ///
+/// ## Discussion
 /// Conforming types must provide a `title` and `content` string,
-/// which represent the header and body of an accordion item, respectively
+/// which represent the header and body of an accordion item, respectively.
 ///
 /// By conforming to `Hashable`, each accordion item can be uniquely
-/// identified within SwiftUI list or collections
+/// identified within SwiftUI list or collections.
 ///
-/// Example usage:
+/// ## Usage
 /// ```swift
 /// struct FAQItem: SHDAccordionRepresentable {
 ///     let title: String

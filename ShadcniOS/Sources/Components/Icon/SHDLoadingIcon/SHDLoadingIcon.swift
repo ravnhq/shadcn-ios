@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+/// A loading indicator icon that rotates continuously to indicate a loading state.
+///
+/// ## Discussion
+/// `SHDLoadingIcon` displays a spinning icon to indicate that an operation is in progress.
+/// The icon rotates continuously using a linear animation.
+///
+/// ## Usage
+/// ```swift
+/// SHDLoadingIcon()
+///     .iconSize(.md)
+/// ```
 internal struct SHDLoadingIcon: View {
 
     // MARK: - Properties
@@ -35,9 +46,10 @@ internal struct SHDLoadingIcon: View {
 
     // MARK: - Modifiers
 
-    /// Sets the size of the loading icon
+    /// Sets the size of the loading icon.
     ///
-    /// - Parameter size: A value from `SHDIconSize`.
+    /// - Parameters:
+    ///   - size: A value from `SHDIconSize`.
     /// - Returns: A new `SHDLoadingIcon` view with the updated size.
     func iconSize(_ size: SHDIconSize) -> some View {
         mutating(keyPath: \.size, value: size)

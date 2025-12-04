@@ -9,7 +9,7 @@ import SwiftUI
 
 /// A flexible, composable button used throughout the ShadcniOS design system.
 ///
-/// ### Overview
+/// ## Discussion
 /// `SHDButton` provides a lightweight button structure that supports:
 /// - text-only buttons
 /// - icon-only buttons
@@ -26,8 +26,6 @@ import SwiftUI
 /// This separation ensures predictable, centralized styling while allowing
 /// `SHDButton` to manage only layout and content composition.
 ///
-/// ### Loading Behavior
-///
 /// The button supports a loading state via the `isLoading` environment key:
 ///
 /// - When loading **and** the button is **icon-only**,
@@ -38,8 +36,7 @@ import SwiftUI
 ///
 /// - The button remains interactive unless disabled by `.disabled(...)`.
 ///
-/// ### Layout Rules
-///
+/// Layout rules:
 /// - If the button has text:
 ///   - horizontal padding = `16`
 ///   - icon spacing = `.sm`
@@ -53,8 +50,7 @@ import SwiftUI
 /// ```
 /// supplied by the design-system environment.
 ///
-///
-/// ### Usage Examples
+/// ## Usage
 ///
 /// Text-only:
 /// ```swift
@@ -172,7 +168,6 @@ public struct SHDButton: View {
     /// - Parameters:
     ///   - variant: The color and border configuration.
     ///   - size: The typography size of the button.
-    ///
     /// - Returns: A view styled according to the ShadcniOS design system.
     public func buttonVariant(variant: SHDButtonVariant, size: SHDButtonSize) -> some View {
         mutating { button in

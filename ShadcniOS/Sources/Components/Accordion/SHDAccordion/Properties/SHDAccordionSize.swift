@@ -8,20 +8,21 @@
 import Foundation
 import SwiftUI
 
-/// Defines the available size configurations for accordion components
+/// Defines the available size configurations for accordion components.
 ///
+/// ## Discussion
 /// Each size option specifies corresponding font styles and vertical padding
-/// for both the title and content areas of an accordion item
-/// This ensures  a consistent visual herarchy and spacing across the component
+/// for both the title and content areas of an accordion item.
+/// This ensures a consistent visual hierarchy and spacing across the component.
 ///
-/// Example usage:
+/// The `SHDAccordionSize` is primarily used by `SHDAccordion`
+/// to apply size-dependent text and layout settings using its computed properties.
+///
+/// ## Usage
 /// ```swift
 /// Text("Title content")
 ///     .textStyle(size.titleTextStyle)
 /// ```
-///
-/// The `SHDAccordionSize` is primarily used by `SHDAccordion`
-/// to apply size-dependent text and layout settings using his computed properties
 public enum SHDAccordionSize {
     /// Small accordion size, typically used in compact layouts
     case sm
@@ -32,7 +33,6 @@ public enum SHDAccordionSize {
     /// large accordion size, used for prominent or detailed accordion view
     case lg
 
-    /// The text style applied to the accordion title based on the selected size
     var titleTextStyle: SHDTextStyle {
         switch self {
         case .sm: .textBaseMedium
@@ -41,7 +41,6 @@ public enum SHDAccordionSize {
         }
     }
 
-    /// The text style applied to the accordion content based on the selected size
     var contentTextStyle: SHDTextStyle {
         switch self {
         case .sm: .textSMRegular
@@ -50,7 +49,6 @@ public enum SHDAccordionSize {
         }
     }
 
-    /// The vertical spacing applied to the accordion text content and outside
     var verticalSpacing: SHDSizing.Spacing {
         switch self {
         case .sm: .md

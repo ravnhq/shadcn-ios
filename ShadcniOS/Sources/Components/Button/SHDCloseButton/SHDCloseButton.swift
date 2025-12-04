@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-/// A standardized close (“X”) button used throughout the ShadcniOS design system.
+/// A standardized close ("X") button used throughout the ShadcniOS design system.
 ///
-/// ### Overview
+/// ## Discussion
 /// `SHDCloseButton` provides a consistent way to dismiss views across the app.
 /// It renders a single **X icon** and triggers the SwiftUI `dismiss`
 /// environment action when tapped.
@@ -25,13 +25,12 @@ import SwiftUI
 /// This ensures the component remains flexible while maintaining consistent
 /// structure and purpose.
 ///
-/// ### Behavior
+/// Behavior:
 /// - Always displays `SHDIcon(.mathsX)` sized at `.lg`.
 /// - Automatically calls `dismiss()` when tapped.
 /// - Visual state (error / default) is handled **outside** via `.errorStyle`.
 ///
-///
-/// ### Usage Examples
+/// ## Usage
 ///
 /// Basic usage:
 /// ```swift
@@ -52,11 +51,6 @@ import SwiftUI
 ///     Spacer()
 /// }
 /// ```
-///
-/// ### Notes
-/// - This component is purpose-built for dismissal interactions.
-/// - If you need a customizable action instead of dismissing, use `SHDButton`.
-///
 public struct SHDCloseButton: View {
 
     /// SwiftUI environment value for dismissing the current presentation.

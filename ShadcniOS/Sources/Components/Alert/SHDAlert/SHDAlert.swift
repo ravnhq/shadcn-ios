@@ -9,7 +9,7 @@ import SwiftUI
 
 /// A lightweight alert component used in the Shadcn iOS design system.
 ///
-/// ### Overview
+/// ## Discussion
 /// `SHDAlert` provides a structured way to display informational messages with
 /// a title, descriptive text, and a contextual icon. The component separates
 /// content (title and message) from visual styling, which is applied through
@@ -22,8 +22,6 @@ import SwiftUI
 ///
 /// `SHDAlert` pairs with `SHDAlertStyle` to create a complete alert system
 /// that is consistent, modular, and easy to configure.
-///
-/// ### Layout Structure
 ///
 /// The alert is composed of:
 /// - A leading icon (automatically selected based on style)
@@ -39,8 +37,6 @@ import SwiftUI
 /// - Corner radius: `.md`
 /// - Border width: `1` point
 ///
-/// ### Style Variants
-///
 /// The alert supports four semantic styles:
 /// - `.default`: Neutral informational messages
 /// - `.destructive`: Critical errors or dangerous actions
@@ -53,7 +49,7 @@ import SwiftUI
 /// - Secondary foreground color for message text
 /// - Semantic border color matching the alert's context
 ///
-/// ### Usage Examples
+/// ## Usage
 ///
 /// Default style (neutral information):
 /// ```swift
@@ -78,13 +74,6 @@ import SwiftUI
 /// SHDAlert(title: "Warning", message: "This action may have consequences")
 ///     .alertStyle(.warning)
 /// ```
-///
-/// ### Notes
-/// - The `title` is displayed using `.textBaseMedium` text style for emphasis
-/// - `message` is displayed using `.textSMRegular` with a secondary foreground color
-/// - An icon is automatically displayed based on the selected style
-/// - The default style (`.default`) is applied if no style is explicitly specified
-/// - The alert uses design system tokens for consistent spacing, colors, and typography
 public struct SHDAlert: View {
 
     // MARK: - Properties
@@ -157,19 +146,13 @@ public struct SHDAlert: View {
     /// while keeping the content (title and message) unchanged. The style
     /// determines the icon, colors, and border appearance.
     ///
-    /// - Parameter style: The `SHDAlertStyle` to apply. Options include:
-    ///   - `.default`: Neutral informational style
-    ///   - `.destructive`: For errors or critical messages
-    ///   - `.warning`: For cautionary messages
-    ///   - `.success`: For positive confirmations
-    ///
+    /// - Parameters:
+    ///   - style: The `SHDAlertStyle` to apply. Options include:
+    ///     - `.default`: Neutral informational style
+    ///     - `.destructive`: For errors or critical messages
+    ///     - `.warning`: For cautionary messages
+    ///     - `.success`: For positive confirmations
     /// - Returns: A modified `SHDAlert` instance with the specified style applied.
-    ///
-    /// ### Example
-    /// ```swift
-    /// SHDAlert(title: "Error", message: "Operation failed")
-    ///     .alertStyle(.destructive)
-    /// ```
     public func alertStyle(_ style: SHDAlertStyle) -> Self {
         mutating(keyPath: \.style, value: style)
     }
