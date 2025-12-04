@@ -14,6 +14,11 @@ import SwiftUI
 /// iconography throughout the application. Icons are automatically sized and
 /// can be customized using the `.iconSize(_:)` modifier.
 ///
+/// Creates a new `SHDIcon` instance.
+///
+/// - Parameters:
+///   - icon: The design system icon asset.
+///
 /// ## Usage
 /// ```swift
 /// SHDIcon(.notificationBellRing)
@@ -21,25 +26,12 @@ import SwiftUI
 /// ```
 internal struct SHDIcon: View {
 
-    // MARK: - Properties
-
-    /// The icon asset to display.
     private let icon: SHDIconAsset
-
-    /// The icon size. Defaults to `.md`.
     private var size: SHDIconSize = .md
 
-    // MARK: - Initializer
-
-    /// Creates a new `SHDIcon` instance.
-    ///
-    /// - Parameters:
-    ///   - icon: The design system icon asset.
     init(_ icon: SHDIconAsset) {
         self.icon = icon
     }
-
-    // MARK: - Body
 
     var body: some View {
         Image(icon.rawValue, bundle: .module)
@@ -48,8 +40,6 @@ internal struct SHDIcon: View {
             .flipsForRightToLeftLayoutDirection(true)
             .frame(width: size.rawValue, height: size.rawValue)
     }
-
-    // MARK: - Modifiers
 
     /// Sets the size of the icon.
     ///
@@ -60,8 +50,6 @@ internal struct SHDIcon: View {
         mutating(keyPath: \.size, value: size)
     }
 }
-
-// MARK: - Preview
 
 #Preview("SHDIcon - Sizes") {
     HStack(spacing: 16) {
