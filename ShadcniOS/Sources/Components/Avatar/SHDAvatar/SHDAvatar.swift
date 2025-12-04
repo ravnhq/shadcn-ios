@@ -43,7 +43,8 @@ public struct SHDAvatar: View {
     /// Use this initializer when a user-provided or system-provided `Image` should be displayed
     /// as the avatar's primary content. When this is set, `icon` and `text` are ignored.
     ///
-    /// - Parameter image: The image to render inside the avatar.
+    /// - Parameters:
+    ///     - image: The image to render inside the avatar.
     public init(image: Image) {
         self.image = image
         self.icon = nil
@@ -55,7 +56,8 @@ public struct SHDAvatar: View {
     /// Use this initializer when no user photo is available but an icon representation exists.
     /// When this is set, `image` and `text` are ignored.
     ///
-    /// - Parameter icon: The `SHDIconAsset` to display in place of a photo.
+    /// - Parameters:
+    ///     - icon: The `SHDIconAsset` to display in place of a photo.
     public init(icon: SHDIconAsset) {
         self.image = nil
         self.icon = icon
@@ -67,7 +69,8 @@ public struct SHDAvatar: View {
     /// Use this initializer when neither an image nor icon is available.
     /// Only two-character initials are rendered; longer or shorter strings are ignored at render time.
     ///
-    /// - Parameter text: A two-character string representing user initials.
+    /// - Parameters:
+    ///     - text: A two-character string representing user initials.
     public init(text: String) {
         self.image = nil
         self.icon = nil
