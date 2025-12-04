@@ -12,7 +12,20 @@ internal struct SHDCheckboxPreview: View {
         VStack(spacing: 16) {
             SHDCheckbox(
                 label: "Accept terms and conditions",
-                description: "You agree to our Terms of Service and Privacy Policy."
+                description: "You agree to our Terms of Service and Privacy Policy.",
+                size: .sm
+            )
+
+            SHDCheckbox(
+                label: "Accept terms and conditions",
+                description: "You agree to our Terms of Service and Privacy Policy.",
+                size: .md
+            )
+            
+            SHDCheckbox(
+                label: "Accept terms and conditions",
+                description: "You agree to our Terms of Service and Privacy Policy.",
+                size: .lg
             )
 
             Spacer()

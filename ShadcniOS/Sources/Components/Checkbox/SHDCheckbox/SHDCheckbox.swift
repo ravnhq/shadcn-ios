@@ -12,6 +12,7 @@ public struct SHDCheckbox: View {
 
     private let label: String
     private let description: String?
+    private let size: CheckboxSize
 
     // MARK: - Initializer
 
@@ -22,36 +23,42 @@ public struct SHDCheckbox: View {
     ///   - description:
     public init(
         label: String,
-        description: String? = nil
+        description: String? = nil,
+        size: CheckboxSize = .md
     ) {
         self.label = label
         self.description = description
+        self.size = size
     }
 
     public var body: some View {
-        Toggle("Accept terms and conditions", isOn: $isChecked)
-            .toggleStyle(CheckboxStyle(description: "You agree to our Terms of Service and Privacy Policy."))
+        Toggle(label, isOn: $isChecked)
+            .toggleStyle(CheckboxStyle(description: description, size: size))
             .padding()
     }
 }
 
 struct CheckboxStyle: ToggleStyle {
     let description: String?
+    let size: CheckboxSize
 
     func makeBody(configuration: Configuration) -> some View {
         HStack(alignment: .top) {
             Image(systemName: configuration.isOn ? "checkmark.square" : "square")
                 .resizable()
-                .frame(width: 24, height: 24)
+                .frame(width: size.rawValue, height: size.rawValue)
                 .onTapGesture {
                     configuration.isOn.toggle()
                 }
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 4) {
                 configuration.label
+                    .textStyle(size.textSize)
                     .font(.headline)
+
                 if let description {
                     Text(description)
+                        .textStyle(size.textSize)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
