@@ -50,6 +50,15 @@ import SwiftUI
 /// ```
 /// supplied by the design-system environment.
 ///
+///
+/// Creates a ShadcniOS button.
+///
+/// - Parameters:
+///   - label: Optional text. If `nil`, the button becomes icon-only.
+///   - icon: Optional leading icon.
+///   - action: Closure executed on tap.
+///
+///
 /// ## Usage
 ///
 /// Text-only:
@@ -79,35 +88,14 @@ import SwiftUI
 /// ```
 public struct SHDButton: View {
 
-    // MARK: - Properties
-
-    /// Indicates whether this button should show loading behavior.
     @Environment(\.isLoading) private var isLoading
 
-    /// The visual style variant of the button.
     private var variant: SHDButtonVariant = .default
-
-    /// The predefined size type for the button.
     private var size: SHDButtonSize = .md
+    private let text: String?
+    private let leadingIcon: SHDIconAsset?
+    private let onTap: () -> Void
 
-    /// Optional text displayed inside the button.
-    /// If `nil`, the button may render as icon-only.
-    public let text: String?
-
-    /// Optional icon displayed before the label text.
-    public let leadingIcon: SHDIconAsset?
-
-    /// Closure executed when the button is tapped.
-    public let onTap: () -> Void
-
-    // MARK: - Initializer
-
-    /// Creates a ShadcniOS button.
-    ///
-    /// - Parameters:
-    ///   - label: Optional text. If `nil`, the button becomes icon-only.
-    ///   - icon: Optional leading icon.
-    ///   - action: Closure executed on tap.
     public init(
         label: String? = nil,
         icon: SHDIconAsset? = nil,
@@ -118,13 +106,9 @@ public struct SHDButton: View {
         self.onTap = action
     }
 
-    // MARK: - View
-
-    /// The visual representation of the button.
     public var body: some View {
         Button(action: onTap) {
             HStack(spacing: .sm) {
-                // Leading icon or loading indicator
                 if let leadingIcon {
                     if isLoading {
                         SHDLoadingIcon()
@@ -135,7 +119,6 @@ public struct SHDButton: View {
                     }
                 }
 
-                // Text label (if any)
                 if let text {
                     Text(text)
                         .textStyle(size.textSize)
@@ -160,8 +143,6 @@ public struct SHDButton: View {
                 lineWidth: variant.borderColor == .clear ? 0 : 1
             )
     }
-
-    // MARK: - Public Methods
 
     /// Applies unified ShadcniOS button variant and size styling.
     ///

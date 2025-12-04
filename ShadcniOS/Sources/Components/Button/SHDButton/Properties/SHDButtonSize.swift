@@ -43,25 +43,13 @@ import SwiftUI
 /// ```
 public enum SHDButtonSize: Sendable {
 
-    // MARK: - Size Variants
-
-    /// Small button size.
-    /// Compact text and icon dimensions.
+    /// Small button size for compact text and icon dimensions.
     case sm
-
-    /// Medium button size.
-    /// Default size for standard buttons.
+    /// Medium button size for default size for standard buttons.
     case md
-
-    /// Large button size.
-    /// Larger typography for emphasized actions.
+    /// Large button size for larger typography for emphasized actions.
     case lg
 
-    // MARK: - Typography Mapping
-
-    /// The text style associated with the button size.
-    ///
-    /// - Returns: An `SHDTextStyle` representing the correct typography.
     var textSize: SHDTextStyle {
         switch self {
         case .sm: .textSMMedium
@@ -70,11 +58,6 @@ public enum SHDButtonSize: Sendable {
         }
     }
 
-    // MARK: - Icon Mapping
-
-    /// The icon size associated with the button size.
-    ///
-    /// - Returns: An `SHDIconSize` corresponding to the selected size.
     var iconSize: SHDIconSize {
         switch self {
         case .sm: .sm

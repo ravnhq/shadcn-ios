@@ -13,15 +13,6 @@ import Foundation
 /// `SHDButtonVariant` defines all visual button styles available in the
 /// ShadcniOS design system.
 ///
-/// Each variant expresses a different interaction intent:
-///
-/// - **default** → primary emphasized action
-/// - **secondary** → low-emphasis alternative
-/// - **destructive** → dangerous or irreversible actions
-/// - **outline** → bordered neutral action
-/// - **ghost** → minimal transparent button
-/// - **link** → inline text-only action
-///
 /// Each variant controls:
 /// - background color
 /// - foreground (text + icon) color
@@ -52,8 +43,6 @@ import Foundation
 /// ```
 public enum SHDButtonVariant {
 
-    // MARK: - Variants
-
     /// The primary emphasized button style.
     case `default`
 
@@ -71,8 +60,6 @@ public enum SHDButtonVariant {
 
     /// A text-only, inline-style action.
     case link
-
-    // MARK: - Computed Properties
 
     var backgroundColor: SHDColor {
         switch self {
