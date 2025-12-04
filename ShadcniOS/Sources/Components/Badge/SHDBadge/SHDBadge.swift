@@ -15,8 +15,8 @@ import SwiftUI
 /// typography, padding, background, border, and foreground colors.
 /// Default configuration is `.md` size and `.default` variant.
 ///
-/// ## Parameters
-/// - text: The text shown inside the badge.
+/// - Parameters
+///     - text: The text shown inside the badge.
 ///
 /// ## Usage
 /// ```swift

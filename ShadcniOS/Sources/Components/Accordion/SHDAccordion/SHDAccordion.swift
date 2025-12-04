@@ -22,11 +22,10 @@ import SwiftUI
 /// `accordionSize(_:)` modifier, which adjusts the spacing and size parameters
 /// according to a predefined `SHDAccordionSize` value.
 ///
-/// ## Parameters
-/// ### Init
-/// - items: An array of elements conforming to `SHDAccordionRepresentable`.
-///   These values define both the displayable header and expandable content
-///   of each accordion row.
+/// - Parameters
+///     - items: An array of elements conforming to `SHDAccordionRepresentable`.
+///     These values define both the displayable header and expandable content
+///     of each accordion row.
 ///
 /// ## Usage
 /// ```swift
