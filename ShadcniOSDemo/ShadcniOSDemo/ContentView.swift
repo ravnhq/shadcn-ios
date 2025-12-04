@@ -40,6 +40,13 @@ struct ContentView: View {
                             Text("SHDAvatar")
                         }
                     }
+                    
+                    NavigationLink(destination: SHDCardDemoView()) {
+                        HStack {
+                            Image(systemName: "person.text.rectangle")
+                            Text("SHDCard")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())
