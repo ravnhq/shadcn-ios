@@ -14,7 +14,6 @@ import SwiftUI
 /// in the ShadcniOS design system. By abstracting press and disabled appearances, it helps maintain
 /// visual consistency and accessibility throughout your app.
 ///
-/// Features:
 /// - Applies a subtle opacity change to the button when pressed, providing visual feedback.
 /// - Integrates with `.disabledMask()` to render a visual mask when the button is disabled,
 /// ensuring consistent disabled states across your interface.
@@ -26,7 +25,6 @@ import SwiftUI
 ///     .baseButtonStyle()
 /// ```
 struct BaseButtonStyle: ButtonStyle {
-    // MARK: - View
 
     func makeBody(configuration: Configuration) -> some View {
         configuration
