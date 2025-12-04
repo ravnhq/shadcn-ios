@@ -15,47 +15,59 @@ import SwiftUI
 /// The size parameter controls both the frame and the internal typography/icon scale, while the variant
 /// adjusts styling such as fill/background treatments applied by the supporting modifiers.
 ///
+///
+/// Creates an avatar by specifying the desired content source, size, and visual variant.
+///
+/// - Parameters:
+///   - image: The `Image` to display when a photo is available.
+///   - icon: A fallback `SHDIconAsset` used when no image is provided.
+///   - text: Two-character initials rendered when both `image` and `icon` are `nil`.
+///
+///
 /// ## Usage
 /// ```swift
 /// SHDAvatar(image: Image("profile_photo"))
 ///     .avatarStyle(size: .lg, variant: .filled)
-///
-/// SHDAvatar(text: "JD")
-///     .avatarStyle(size: .sm, variant: .outline)
 /// ```
 public struct SHDAvatar: View {
 
-    /// Controls the avatar's frame and internal typography/icon scale, default in medium = `.md`
-    private var size: SHDAvatarSize = .md
-
-    /// Visual treatment applied to images or initials (e.g., filled or outline), default in `.light`
-    private var variant: SHDAvatarVariant = .light
-
-    /// Optional user photo rendered at the selected size when available.
     private let image: Image?
-    /// Icon fallback used when no image is provided.
     private let icon: SHDIconAsset?
-    /// Two-character initials shown when both `image` and `icon` are `nil`.
     private let text: String?
 
-    /// Creates an avatar by specifying the desired content source, size, and visual variant.
+    private var size: SHDAvatarSize = .md
+    private var variant: SHDAvatarVariant = .light
+
+    /// Initializes an avatar with a photo image.
     ///
-    /// - Parameters:
-    ///   - image: The `Image` to display when a photo is available.
-    ///   - icon: A fallback `SHDIconAsset` used when no image is provided.
-    ///   - text: Two-character initials rendered when both `image` and `icon` are `nil`.
+    /// Use this initializer when a user-provided or system-provided `Image` should be displayed
+    /// as the avatar's primary content. When this is set, `icon` and `text` are ignored.
+    ///
+    /// - Parameter image: The image to render inside the avatar.
     public init(image: Image) {
         self.image = image
         self.icon = nil
         self.text = nil
     }
 
+    /// Initializes an avatar with an icon fallback.
+    ///
+    /// Use this initializer when no user photo is available but an icon representation exists.
+    /// When this is set, `image` and `text` are ignored.
+    ///
+    /// - Parameter icon: The `SHDIconAsset` to display in place of a photo.
     public init(icon: SHDIconAsset) {
         self.image = nil
         self.icon = icon
         self.text = nil
     }
 
+    /// Initializes an avatar using text initials.
+    ///
+    /// Use this initializer when neither an image nor icon is available.
+    /// Only two-character initials are rendered; longer or shorter strings are ignored at render time.
+    ///
+    /// - Parameter text: A two-character string representing user initials.
     public init(text: String) {
         self.image = nil
         self.icon = nil
@@ -92,7 +104,6 @@ public struct SHDAvatar: View {
     /// - Parameters:
     ///   - size: The `SHDAvatarSize` to apply, controlling the avatar's frame and internal content scale.
     ///   - variant: The `SHDAvatarVariant` to apply, defining the visual treatment (e.g., filled or outline).
-    /// - Returns: A copy of `SHDAvatar` whose `size` and `variant`
     /// properties are updated to the provided values.
     public func avatarStyle(
         size: SHDAvatarSize = .md,
