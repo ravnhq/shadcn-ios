@@ -33,11 +33,18 @@ struct ContentView: View {
                             Text("SHDAlert")
                         }
                     }
-                    
+
                     NavigationLink(destination: SHDAvatarDemo()) {
                         HStack {
                             Image(systemName: "a.circle")
                             Text("SHDAvatar")
+                        }
+                    }
+
+                    NavigationLink(destination: SHDCheckboxDemoView()) {
+                        HStack {
+                            Image(systemName: "checkmark.square")
+                            Text("SHDCheckbox")
                         }
                     }
                 }
