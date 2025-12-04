@@ -20,18 +20,10 @@ import SwiftUI
 /// ```
 internal struct SHDLoadingIcon: View {
 
-    // MARK: - Properties
-
-    /// The loading icon asset to display. Defaults to `.cursorLoadingCircle`.
-    private let icon: SHDIconAsset = .cursorLoadingCircle
-
-    /// The loading icon size. Defaults to `.md`.
-    private var size: SHDIconSize = .md
-
-    /// Angle value used by `rotationEffect` to animate the spinning icon.
     @State private var rotationAngle: Angle = .zero
 
-    // MARK: - Body
+    private let icon: SHDIconAsset = .cursorLoadingCircle
+    private var size: SHDIconSize = .md
 
     var body: some View {
         SHDIcon(icon)
@@ -44,8 +36,6 @@ internal struct SHDLoadingIcon: View {
             }
     }
 
-    // MARK: - Modifiers
-
     /// Sets the size of the loading icon.
     ///
     /// - Parameters:
@@ -55,8 +45,6 @@ internal struct SHDLoadingIcon: View {
         mutating(keyPath: \.size, value: size)
     }
 }
-
-// MARK: - Preview
 
 #Preview("SHDLoadingIcon - Sizes") {
     HStack(spacing: 16) {

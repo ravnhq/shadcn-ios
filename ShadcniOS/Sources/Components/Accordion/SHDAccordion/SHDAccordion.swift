@@ -64,7 +64,6 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
         }
     }
 
-
     /// Returns a  modified accordion view with the specified size style
     ///
     /// - Parameters: 

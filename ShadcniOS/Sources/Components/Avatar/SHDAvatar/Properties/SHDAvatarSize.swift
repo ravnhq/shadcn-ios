@@ -21,7 +21,7 @@ import Foundation
 ///     .avatarStyle(size: size)
 /// ```
 public enum SHDAvatarSize {
-    
+
     /// small size for avatar component (24 px)
     case sm
     /// Medium size for avatar component (36 px)
