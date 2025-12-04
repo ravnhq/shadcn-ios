@@ -83,7 +83,6 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
     // MARK: - Func modifier
 
     /// Returns: A modified accordion item with the specified size style
-    /// & applies a size configuration to this accordion item.
     ///
     /// - Parameter
     ///  - size: The size preset to apply to the item.
