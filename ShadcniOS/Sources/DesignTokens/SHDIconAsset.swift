@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+/// A collection of icon assets available in the Shadcn iOS design system.
+///
+/// ## Discussion
+/// Each case represents an icon asset that can be used with `SHDIcon` to display
+/// consistent icons throughout the application.
+///
+/// ## Usage
+/// ```swift
+/// SHDIcon(.notificationBellRing)
+///     .iconSize(.md)
+/// ```
 public enum SHDIconAsset: String, Codable {
     case arrowChevronDown
 

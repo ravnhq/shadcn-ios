@@ -9,13 +9,17 @@ import SwiftUI
 
 /// A comprehensive enumeration of all color tokens defined in the **Shadcn iOS Design System**.
 ///
+/// ## Discussion
 /// Each case represents a named color used throughout the system, including
 /// foreground, background, border, chart, and icon colors.
 ///
 /// These color tokens provide a consistent and theme-aware color palette
 /// that can be easily used in SwiftUI views.
 ///
-/// Example:
+/// The `color` property returns a SwiftUI `Color` instance that automatically
+/// resolves to the correct asset within the package's bundle.
+///
+/// ## Usage
 /// ```swift
 /// Text("Primary Text")
 ///     .foregroundColor(.foregroundPrimaryDefault)
@@ -23,9 +27,6 @@ import SwiftUI
 /// Rectangle()
 ///     .fill(SHDColor.backgroundAccent.color)
 /// ```
-///
-/// The `color` property returns a SwiftUI `Color` instance that automatically
-/// resolves to the correct asset within the package’s bundle.
 internal enum SHDColor: String, CaseIterable {
 
     // MARK: - Clear color
@@ -111,8 +112,10 @@ internal enum SHDColor: String, CaseIterable {
     /// Returns the corresponding SwiftUI `Color` instance
     /// associated with this `SHDColor` case.
     ///
-    /// This color is resolved from the module’s asset catalog.
+    /// ## Discussion
+    /// This color is resolved from the module's asset catalog.
     ///
+    /// ## Usage
     /// ```swift
     /// let background = SHDColor.backgroundDefault.color
     /// ```

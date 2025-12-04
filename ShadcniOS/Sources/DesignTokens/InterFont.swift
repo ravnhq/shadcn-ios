@@ -10,6 +10,7 @@ import SwiftUI
 
 /// A wrapper for the Inter font family that handles registration and weight mapping.
 ///
+/// ## Discussion
 /// This struct ensures the `Inter.ttf` font is registered exactly once and provides
 /// convenient access to the font weights through static properties.
 internal struct InterFont {
@@ -19,7 +20,8 @@ internal struct InterFont {
 
     /// Creates a new `InterFont` instance and ensures the font is registered.
     ///
-    /// - Parameter name: The logical font name, e.g., `"Inter-Regular_Bold"`.
+    /// - Parameters:
+    ///   - name: The logical font name, e.g., `"Inter-Regular_Bold"`.
     private init(name: String) {
         self.fontName = name
         registerInterFont()

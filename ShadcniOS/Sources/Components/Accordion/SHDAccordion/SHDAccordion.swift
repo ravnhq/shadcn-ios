@@ -9,17 +9,21 @@ import SwiftUI
 
 // MARK: - Accordion component
 
-/// A customizable accordion view that displays a list of expandable items
+/// A customizable accordion view that displays a list of expandable items.
 ///
+/// ## Discussion
 /// The `SHDAccordion` component renders a vertically stacked list of items
-/// conforming to the `SHDAccordionRepresentable` protocol
+/// conforming to the `SHDAccordionRepresentable` protocol.
 /// Each item can be individually expanded to reveal its content, while
-/// automatically collapsing any other expanded item
+/// automatically collapsing any other expanded item.
 ///
 /// This component is ideal for FAQs, collapsible sections, or any
-/// situation where content should be organized in an expandable format
+/// situation where content should be organized in an expandable format.
 ///
-/// Example usage:
+/// The accordion ensures only one item is expanded at a time by tracking
+/// the currently expanded item in its internal state.
+///
+/// ## Usage
 /// ```swift
 /// struct FAQItem: SHDAccordionRepresentable {
 ///     let title: String
@@ -36,9 +40,6 @@ import SwiftUI
 /// SHDAccordion(items: faqItems)
 ///    .accordionSize(size: .md)
 /// ```
-///
-/// The accordion ensures only one item is expanded at a time by tracking
-/// the currently expanded in its internal state
 public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
 
     // MARK: - Properties
@@ -54,10 +55,11 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
 
     // MARK: - Initialization
 
-    /// Creates a new accordion view with the specified list of items
+    /// Creates a new accordion view with the specified list of items.
     ///
-    /// - Parameter items: The list of items conforming to `SHDAccordionRepresentable`
-    ///   to be displayed in the accordion
+    /// - Parameters:
+    ///   - items: The list of items conforming to `SHDAccordionRepresentable`
+    ///     to be displayed in the accordion.
     public init(items: [Item]) {
         self.items = items
     }
@@ -75,10 +77,11 @@ public struct SHDAccordion<Item: SHDAccordionRepresentable>: View {
 
     // MARK: - Func modifier
 
-    /// Applies a visual style configuration to the accordion
+    /// Applies a visual style configuration to the accordion.
     ///
-    /// - Parameter size: The size preset to apply to all accordion items
-    /// - Returns: A modified accordion view with the specified size style
+    /// - Parameters:
+    ///   - size: The size preset to apply to all accordion items.
+    /// - Returns: A modified accordion view with the specified size style.
     public func accordionSize(size: SHDAccordionSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }

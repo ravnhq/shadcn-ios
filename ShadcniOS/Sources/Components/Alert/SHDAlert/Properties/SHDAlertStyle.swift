@@ -5,15 +5,15 @@
 //  Created by JoseAlvarez on 11/20/25.
 //
 
-/// Defines the style variants available for Shadcn Alerts
+/// Defines the style variants available for Shadcn Alerts.
 ///
-/// ### Discussion
+/// ## Discussion
 /// `SHDAlertStyle` determines the visual appearance of an alert, including:
 /// - The icon to display,
 /// - The foreground (text/icon) color,
 /// - The border color
 ///
-/// These values are sourced from the design system's color and icon assets (`SHDColor`, `SHDIconAsset`)
+/// These values are sourced from the design system's color and icon assets (`SHDColor`, `SHDIconAsset`).
 ///
 /// Each style corresponds to a semantic meaning:
 /// - `.default`: neutral information
@@ -23,7 +23,7 @@
 ///
 /// `SHDAlertStyle` is applied through the `.alertStyle(...)` modifier on the `SHDAlert` view.
 ///
-/// ### Usage
+/// ## Usage
 ///
 /// ```swift
 /// SHDAlert(title: "Delete", message: "This action cannot be undone")
@@ -52,9 +52,6 @@ public enum SHDAlertStyle {
 
     // MARK: - Computed Properties
 
-    /// The foreground color associated with the alert style
-    ///
-    /// This color is used primarily for text and icons
     var primaryForegroundColor: SHDColor {
         switch self {
         case .default: .foregroundDefault
@@ -64,10 +61,6 @@ public enum SHDAlertStyle {
         }
     }
 
-    /// The secondary foreground color associated with the alert style
-    ///
-    /// This color is used for the alert's message text, providing
-    /// a visual distinction from the primary foreground color used for the title
     var secondaryForegroundColor: SHDColor {
         switch self {
         case .default: .foregroundMuted
@@ -77,10 +70,6 @@ public enum SHDAlertStyle {
         }
     }
 
-    /// The border color used by the alert's container
-    ///
-    /// Each style maps to a corresponding semantic border color
-    /// defined in the design system
     var borderColor: SHDColor {
         switch self {
         case .default: .borderDefault
@@ -90,10 +79,6 @@ public enum SHDAlertStyle {
         }
     }
 
-    /// The icon asset representing the alert's semantic context
-    ///
-    /// This icon is displayed at the start of the alert content
-    /// when using `SHDAlert`
     var iconAsset: SHDIconAsset {
         switch self {
         case .default: .codingDevelopmentTerminal

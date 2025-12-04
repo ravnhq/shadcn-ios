@@ -10,10 +10,12 @@ import SwiftUI
 internal extension Shape {
     /// Applies a Shadcn design system color as the border of any `Shape`.
     ///
+    /// ## Discussion
     /// Use this modifier to apply a colored stroke around vector-based
     /// shapes such as `Circle`, `Capsule`, or `RoundedRectangle`, using
     /// a predefined `SHDColor` from the design system palette.
     ///
+    /// ## Usage
     /// ```swift
     /// Capsule()
     ///     .borderColor(.borderAccent, width: 2)
