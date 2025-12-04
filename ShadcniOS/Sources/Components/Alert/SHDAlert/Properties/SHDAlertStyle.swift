@@ -36,8 +36,6 @@
 /// ```
 public enum SHDAlertStyle {
 
-    // MARK: - Cases
-
     /// A neutral informational alert
     case `default`
 
@@ -49,8 +47,6 @@ public enum SHDAlertStyle {
 
     /// A success alert indicating that an action completed successfully
     case success
-
-    // MARK: - Computed Properties
 
     var primaryForegroundColor: SHDColor {
         switch self {
