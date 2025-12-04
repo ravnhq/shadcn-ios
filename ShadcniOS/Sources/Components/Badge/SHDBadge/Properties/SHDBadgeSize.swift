@@ -5,32 +5,26 @@
 //  Created by JoseAlvarez on 11/26/25.
 //
 
-/// Represents the sizing tokens that `SHDBadge` supports to stay aligned with Shade design standards.
-///
-/// ## Discussion
-/// `SHDBadgeSize` aggregates the typography and spacing choices that accompany each badge size.
-/// Use these values with the `badgeStyle(size:variant:)` method to configure badge appearance
-/// so the result stays visually consistent with the system component.
-///
-/// ## Usage
-/// ```swift
-/// SHDBadge(text: "Beta").badgeStyle(size: .sm)
-/// ```
+/// - Description: Describes the supported sizes for `SHDBadge`.
+/// - Discussion: Each size bundles typography and spacing choices so badges
+///   stay aligned with Shade design tokens. Use with `badgeStyle(size:variant:)`
+///   to adjust emphasis or density without manual tuning.
+/// - Usage:
+///   ```swift
+///   SHDBadge(text: "Beta")
+///       .badgeStyle(size: .sm)
+///   ```
 public enum SHDBadgeSize {
 
-    /// Condensed badge suited for dense interfaces and micro labels.
+    /// Small badge for dense layouts or compact labels.
     case sm
 
-    /// Default badge that balances readability and compact layout.
+    /// Default badge size that balances readability and space.
     case md
 
-    /// Spacious badge that pairs well with headlines or standalone status displays.
+    /// Large badge for prominent labels or standalone status.
     case lg
 
-    /// Returns the Shade typography token that matches the current size.
-    ///
-    /// - Discussion: This property is used internally by the badge component to apply
-    ///     consistent typography. You can reference it to align custom `Text` views with badge typography.
     var textStyle: SHDTextStyle {
         switch self {
         case .sm: .textXSSemibold
