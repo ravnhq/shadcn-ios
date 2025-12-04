@@ -105,18 +105,13 @@ public struct SHDAlert: View {
         .foregroundColor(style.primaryForegroundColor)
     }
 
-    /// - Returns: A modified `SHDAlert` instance with the specified style applied.
+    /// Returns a modified `SHDAlert` instance with the specified style applied.
     ///
-    /// This modifier allows you to customize the alert's visual presentation
-    /// while keeping the content (title and message) unchanged. The style
-    /// determines the icon, colors, and border appearance.
+    /// The alertStyle(_:) modifier customizes the alert’s icon, colors,
+    /// and border while keeping its title and message unchanged.
     ///
     /// - Parameters:
-    ///   - style: The `SHDAlertStyle` to apply. Options include:
-    ///     - `.default`: Neutral informational style
-    ///     - `.destructive`: For errors or critical messages
-    ///     - `.warning`: For cautionary messages
-    ///     - `.success`: For positive confirmations
+    ///     - style: The `SHDAlertStyle` to apply (`.default`, `.destructive`, `.warning`, `.success`)
     public func alertStyle(_ style: SHDAlertStyle) -> Self {
         mutating(keyPath: \.style, value: style)
     }
