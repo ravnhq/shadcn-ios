@@ -8,38 +8,28 @@
 /// Represents the visual style of `SHDBadge`, mapping each variant to its
 /// foreground, background, and border color tokens.
 ///
-/// ### Discussion
-/// `SHDBadgeVariant` centralizes the badge design decisions so the component
-/// can stay lightweight. Each case corresponds to a pre-defined semantic
-/// palette entry that aligns with the design system. Use variants to reinforce
-/// hierarchy (for example, `secondary`) or to convey urgency (`destructive`)
-/// without duplicating color logic across call sites.
-///
-/// ### Usage
-/// ```swift
-/// let badge = SHDBadge(text: "New")
-///     .badgeStyle(variant: .secondary)
-/// // Automatically applies the secondary palette tokens.
-/// ```
+/// - Description: Describes the visual style of an `SHDBadge`.
+/// - Discussion: Each case maps to a semantic color palette used by the Shade
+///   design system. Use variants to distinguish hierarchy or call out status
+///   without hard-coding colors.
+/// - Usage:
+///   ```swift
+///   SHDBadge(text: "New")
+///       .badgeStyle(variant: .secondary)
+///   ```
 public enum SHDBadgeVariant {
-    /// Default badge appearance intended for primary emphasis.
+    /// Default badge style for primary emphasis.
     case `default`
 
-    /// Softer treatment for secondary or supporting information.
+    /// Secondary style for supporting information.
     case secondary
 
-    /// Minimal badge with transparent background and visible border.
+    /// Outline style with a transparent background and visible border.
     case outline
 
-    /// High-alert appearance that leverages the destructive palette.
+    /// Destructive style for errors or critical states.
     case destructive
 
-    /// Primary text/icon color token that corresponds to the variant.
-    ///
-    /// ### Discussion
-    /// Returns semantic colors that ensure legible contrast for the selected
-    /// variant. Values are sourced from `SHDColor` so consumers do not need to
-    /// manually pick palette entries.
     var foregroundColor: SHDColor {
         switch self {
         case .default: .foregroundPrimaryDefault
@@ -49,12 +39,6 @@ public enum SHDBadgeVariant {
         }
     }
 
-    /// Background fill token that balances the foreground selection.
-    ///
-    /// ### Discussion
-    /// The colors reinforce the semantic intent of the badge (for example,
-    /// `.outline` remains transparent, while `.destructive` uses the warning
-    /// palette).
     var backgroundColor: SHDColor {
         switch self {
         case .default: .backgroundPrimaryDefault
@@ -64,11 +48,6 @@ public enum SHDBadgeVariant {
         }
     }
 
-    /// Thin border color applied when the variant requires extra delineation.
-    ///
-    /// ### Discussion
-    /// Currently only `.outline` uses a visible border; all other variants
-    /// default to `.clear` to avoid double strokes around the badge capsule.
     var borderColor: SHDColor {
         switch self {
         case .outline: .borderDefault
