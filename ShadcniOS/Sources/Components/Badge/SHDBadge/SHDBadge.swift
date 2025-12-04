@@ -36,13 +36,15 @@ public struct SHDBadge: View {
     }
 
     /// - Description: The view that renders the badge using the current size and variant.
-    /// - Discussion: Applies Shade typography, padding, background, border, and foreground
-    ///   colors based on the configured `SHDBadgeSize` and `SHDBadgeVariant` values.
+    /// - Discussion: Applies Shade typography and horizontal padding from the configured
+    ///   `SHDBadgeSize`, along with background, border, and foreground colors from the
+    ///   configured `SHDBadgeVariant`. The size determines both the text style and
+    ///   horizontal padding, ensuring consistent visual hierarchy.
     public var body: some View {
         Text(text)
             .textStyle(size.textStyle)
             .padding(.vertical, 2)
-            .padding(.horizontal, .xs)
+            .padding(.horizontal, size.horizontalPadding)
             .background(
                 RoundedRectangle(cornerRadius: .full)
                     .fill(variant.backgroundColor.color)
