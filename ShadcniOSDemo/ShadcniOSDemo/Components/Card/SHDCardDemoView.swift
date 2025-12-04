@@ -31,15 +31,11 @@ struct SHDCardDemoView: View {
 
     var shdBody: some View {
         VStack {
-            Text("Gmail:")
-                .frame(maxWidth: .infinity ,alignment: .leading)
-            TextField("E-Mail", text: $email)
-                .textFieldStyle(.roundedBorder)
-
-            Text("Password:")
-                .frame(maxWidth: .infinity ,alignment: .leading)
-            TextField("Password", text: $password)
-                .textFieldStyle(.roundedBorder)
+            Text("Hello world")
+            
+            Image(systemName: "person")
+                .resizable()
+                .frame(width: 100, height: 100)
         }
     }
 }

@@ -45,16 +45,8 @@ struct SHDCardHeader: View {
 
     // MARK: - Properties
 
-    /// The primary title text displayed at the top of the card header.
-    ///
-    /// This text uses the `.text2XLSemibold` design-system text style and is
-    /// left-aligned across the full available width.
     private var title: String
 
-    /// The secondary descriptive text displayed below the title.
-    ///
-    /// This text uses the `.textSMRegular` design-system text style and the
-    /// muted foreground color to visually de-emphasize it relative to the title.
     private var description: String
 
     // MARK: - Initializer

@@ -80,25 +80,18 @@ public struct SHDCard<Content: View>: View {
 
     // MARK: - Properties
 
-    /// The card's title displayed in the header section.
     private var title: String
 
-    /// The descriptive text displayed below the title in the header.
     private var description: String
 
-    /// The custom SwiftUI content displayed in the card's body section.
     private var shdBody: Content
 
-    /// The title text for the first (outline) button in the footer.
     private var button1Title: String
 
-    /// The title text for the second (default) button in the footer.
     private var button2Title: String
 
-    /// The closure executed when the first button is tapped.
     private var actionButton1: () -> Void
 
-    /// The closure executed when the second button is tapped.
     private var actionButton2: () -> Void
 
     // MARK: - Initializer

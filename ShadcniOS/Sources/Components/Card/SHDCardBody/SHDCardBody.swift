@@ -46,27 +46,24 @@ import SwiftUI
 ///
 /// Body with custom layout:
 /// ```swift
-/// SHDCardBody(shdBody: HStack {
-///     Image(systemName: "star.fill")
-///     Text("Featured content")
-/// })
+/// SHDCardBody(shdBody: shdBody)
+///
+/// var shdBody: some View {
+///     HStack {
+///         Image(systemName: "star.fill")
+///         Text("Featured content")
+///     }
+/// }
 /// ```
 ///
 /// ### Notes
 /// - Content is automatically left-aligned and spans the full available width
 /// - Bottom padding uses the design system's `.lg` spacing token
 /// - This component is typically used within `SHDCard` but can be used independently
-struct SHDCardBody<Content: View>: View {
+internal struct SHDCardBody<Content: View>: View {
 
     // MARK: - Properties
 
-    /// The SwiftUI view content displayed in the card's body section.
-    ///
-    /// This can be any SwiftUI view or composition of views, including:
-    /// - Text and labels
-    /// - Form controls (text fields, toggles, pickers)
-    /// - Lists and stacks
-    /// - Custom views and layouts
     var shdBody: Content
 
     // MARK: - View

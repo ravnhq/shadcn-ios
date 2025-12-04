@@ -44,18 +44,6 @@ import SwiftUI
 /// }
 /// ```
 ///
-/// Footer with reset and save actions:
-/// ```swift
-/// SHDCardFooter(
-///     button1Title: "Reset",
-///     button2Title: "Save"
-/// ) {
-///     resetForm()
-/// } actionButton2: {
-///     saveChanges()
-/// }
-/// ```
-///
 /// Footer with custom action handlers:
 /// ```swift
 /// SHDCardFooter(
@@ -74,34 +62,17 @@ import SwiftUI
 /// - Both buttons are required and will always be displayed
 /// - Button styling (variant and size) is fixed and cannot be customized
 /// - The first button is always left-aligned, the second is right-aligned
-/// - This component is typically used within `SHDCard` but can be used independently
 /// - Both buttons use the `.sm` size from the design system
-struct SHDCardFooter: View {
+internal struct SHDCardFooter: View {
 
     // MARK: - Properties
 
-    /// The title text displayed on the first (outline) button.
-    ///
-    /// This button is typically used for secondary actions such as "Cancel",
-    /// "Reset", or "Discard". It uses the `.outline` variant and is left-aligned.
     private var button1Title: String
 
-    /// The title text displayed on the second (default) button.
-    ///
-    /// This button is typically used for primary actions such as "Create",
-    /// "Save", or "Apply". It uses the `.default` variant and is right-aligned.
     private var button2Title: String
 
-    /// The closure executed when the first button is tapped.
-    ///
-    /// This action is typically used for secondary operations like canceling
-    /// an operation, resetting a form, or dismissing a view.
     private var actionButton1: () -> Void
 
-    /// The closure executed when the second button is tapped.
-    ///
-    /// This action is typically used for primary operations like saving changes,
-    /// creating an item, or confirming an action.
     private var actionButton2: () -> Void
 
     // MARK: - Initializer
