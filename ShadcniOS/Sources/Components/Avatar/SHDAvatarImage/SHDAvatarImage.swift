@@ -15,6 +15,12 @@ import SwiftUI
 /// callers can pass SF Symbols, asset images, or remote placeholders. The component automatically
 /// applies appropriate padding and clipping to maintain visual consistency across the library.
 ///
+/// Creates an avatar image with the provided visual and sizing parameters.
+///
+/// - Parameters:
+///   - image: The `Image` to render—can be an asset, symbol, or remote placeholder.
+/// - Note: Use `.imagePadding(_:)` to set the avatar sizing preset that determines padding and layout.
+///
 /// ## Usage
 /// ```swift
 /// SHDAvatarImage(image: Image("profile-photo"))
@@ -22,22 +28,13 @@ import SwiftUI
 /// ```
 internal struct SHDAvatarImage: View {
 
-    /// The visual content displayed inside the avatar frame.
     var image: Image
-
-    /// Controls intrinsic dimensions and internal padding for the avatar.
     var size: SHDAvatarSize = .md
 
-    /// Creates an avatar image with the provided visual and sizing parameters.
-    /// - Parameters:
-    ///   - image: The `Image` to render—can be an asset, symbol, or remote placeholder.
-    ///
-    /// - Note: Use `.imagePadding(_:)` to set the avatar sizing preset that determines padding and layout.
     init(image: Image) {
         self.image = image
     }
 
-    /// The composed avatar view ready for embedding in SwiftUI layouts.
     var body: some View {
         VStack {
             image
@@ -49,6 +46,12 @@ internal struct SHDAvatarImage: View {
         }
     }
 
+    /// Returns a copy of the AvatarImage configured with a differnt size in a single call.
+    ///
+    /// Use this convenience builder when you want to update layout.
+    ///
+    /// - Parameters:
+    ///   - size: The `SHDAvatarSize` to apply, controlling the avatar's frame and internal content scale.
     func imagePadding(_ size: SHDAvatarSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }

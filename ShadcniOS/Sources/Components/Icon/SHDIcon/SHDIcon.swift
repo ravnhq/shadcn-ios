@@ -7,26 +7,31 @@
 
 import SwiftUI
 
+/// A view that displays an icon from the Shadcn iOS design system.
+///
+/// ## Discussion
+/// `SHDIcon` renders icons from the `SHDIconAsset` enum, providing consistent
+/// iconography throughout the application. Icons are automatically sized and
+/// can be customized using the `.iconSize(_:)` modifier.
+///
+/// Creates a new `SHDIcon` instance.
+///
+/// - Parameters:
+///   - icon: The design system icon asset.
+///
+/// ## Usage
+/// ```swift
+/// SHDIcon(.notificationBellRing)
+///     .iconSize(.md)
+/// ```
 internal struct SHDIcon: View {
 
-    // MARK: - Properties
-
-    /// The icon asset to display.
     private let icon: SHDIconAsset
-
-    /// The icon size. Defaults to `.md`.
     private var size: SHDIconSize = .md
 
-    // MARK: - Initializer
-
-    /// Creates a new `SHDIcon` instance.
-    ///
-    /// - Parameter icon: The design system icon asset.
     init(_ icon: SHDIconAsset) {
         self.icon = icon
     }
-
-    // MARK: - Body
 
     var body: some View {
         Image(icon.rawValue, bundle: .module)
@@ -36,18 +41,15 @@ internal struct SHDIcon: View {
             .frame(width: size.rawValue, height: size.rawValue)
     }
 
-    // MARK: - Modifiers
-
     /// Sets the size of the icon.
     ///
-    /// - Parameter size: A value from `SHDIconSize`.
+    /// - Parameters:
+    ///   - size: A value from `SHDIconSize`.
     /// - Returns: A new `SHDIcon` view with the updated size.
     func iconSize(_ size: SHDIconSize) -> some View {
         mutating(keyPath: \.size, value: size)
     }
 }
-
-// MARK: - Preview
 
 #Preview("SHDIcon - Sizes") {
     HStack(spacing: 16) {

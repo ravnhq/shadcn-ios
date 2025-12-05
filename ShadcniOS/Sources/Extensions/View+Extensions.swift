@@ -11,21 +11,25 @@ import SwiftUI
 /// Extends `View` to easily apply Shadcn design system colors
 /// to foregrounds, backgrounds, and borders within SwiftUI views.
 ///
+/// ## Discussion
 /// These modifiers provide a convenient way to maintain visual
 /// consistency using the Shadcn color palette across your iOS app.
 internal extension View {
 
     /// Applies a Shadcn color as the view's foreground style.
     ///
+    /// ## Discussion
     /// Use this modifier to set the text, icon, or shape color
     /// using a predefined color from the Shadcn palette.
     ///
+    /// ## Usage
     /// ```swift
     /// Text("Hello, world!")
     ///     .foregroundColor(.foregroundPrimary)
     /// ```
     ///
-    /// - Parameter color: A `SHDColor` value representing the desired color.
+    /// - Parameters:
+    ///   - color: A `SHDColor` value representing the desired color.
     /// - Returns: A view modified with the specified Shadcn foreground color.
     func foregroundColor(_ color: SHDColor) -> some View {
         foregroundStyle(color.color)
@@ -33,16 +37,19 @@ internal extension View {
 
     /// Applies a Shadcn color as the view's background.
     ///
+    /// ## Discussion
     /// This modifier sets the background of the view using a
     /// predefined color from the Shadcn color palette.
     ///
+    /// ## Usage
     /// ```swift
     /// Text("Button")
     ///     .padding()
     ///     .backgroundColor(.backgroundDestructivePrimary)
     /// ```
     ///
-    /// - Parameter color: A `SHDColor` representing the desired background color.
+    /// - Parameters:
+    ///   - color: A `SHDColor` representing the desired background color.
     /// - Returns: A view modified with the specified Shadcn background color.
     func backgroundColor(_ color: SHDColor) -> some View {
         background(color.color)
@@ -52,12 +59,16 @@ internal extension View {
 // MARK: - Mutating
 /// A helper extension that allows mutation of view properties within immutable SwiftUI view structs.
 ///
+/// ## Discussion
 /// This utility enables modifying a specific property on a copy of a `View`,
 /// effectively creating a new instance with the updated value.
-/// It’s particularly useful for creating view modifier–like APIs that mutate internal
+/// It's particularly useful for creating view modifier–like APIs that mutate internal
 /// configuration values (e.g., updating size, color, or style properties).
 ///
-/// Example:
+/// - Important: This function should only be used for creating *modifier-style* APIs in value types
+///   (like SwiftUI `View`s). Avoid using it for mutable shared state or side effects.
+///
+/// ## Usage
 /// ```swift
 /// struct MyView: View {
 ///     private var color: Color = .blue
@@ -72,9 +83,6 @@ internal extension View {
 ///     }
 /// }
 /// ```
-///
-/// - Important: This function should only be used for creating *modifier-style* APIs in value types
-///   (like SwiftUI `View`s). Avoid using it for mutable shared state or side effects.
 internal extension View {
 
     /// Returns a copy of the current view with a modified property value.
@@ -90,7 +98,9 @@ internal extension View {
     }
 
     /// Mutates the view by modifying the specified properties in a closure.
-    /// - Parameter modifications: A closure containing all the modifications
+    ///
+    /// - Parameters:
+    ///   - modifications: A closure containing all the modifications.
     /// - Returns: The view with the applied changes to its properties.
     internal func mutating(_ modifications: (inout Self) -> Void) -> Self {
         var newSelf = self
@@ -107,16 +117,16 @@ internal extension View {
 
     /// Applies padding to the specified edges using a predefined `SHDSizing.Padding` value.
     ///
-    /// - Parameters:
-    ///   - edges: The edges to apply padding to (e.g., `.horizontal`, `.vertical`, or `.all`).
-    ///   - size: A `SHDSizing.Padding` value that determines the padding amount.
-    /// - Returns: A view with the specified edge padding applied.
-    ///
-    /// ### Example
+    /// ## Usage
     /// ```swift
     /// Text("Hello World")
     ///     .padding(.horizontal, .md)
     /// ```
+    ///
+    /// - Parameters:
+    ///   - edges: The edges to apply padding to (e.g., `.horizontal`, `.vertical`, or `.all`).
+    ///   - size: A `SHDSizing.Padding` value that determines the padding amount.
+    /// - Returns: A view with the specified edge padding applied.
     func padding(_ edges: Edge.Set, _ size: SHDSizing.Padding) -> some View {
         padding(edges, size.value)
     }
@@ -125,16 +135,16 @@ internal extension View {
 
     /// Conditionally applies padding using a `SHDSizing.Padding` value.
     ///
-    /// - Parameters:
-    ///   - size: The padding size to apply.
-    ///   - active: A Boolean flag indicating whether padding should be applied.
-    /// - Returns: A view with padding applied only when `active` is `true` and `size` is not `nil`.
-    ///
-    /// ### Example
+    /// ## Usage
     /// ```swift
     /// Text("Optional Padding")
     ///     .padding(.horizontal, .lg, active: isExpanded)
     /// ```
+    ///
+    /// - Parameters:
+    ///   - size: The padding size to apply.
+    ///   - active: A Boolean flag indicating whether padding should be applied.
+    /// - Returns: A view with padding applied only when `active` is `true` and `size` is not `nil`.
     @ViewBuilder
     func padding(_ edges: Edge.Set, _ size: SHDSizing.Padding, active: Bool = true) -> some View {
         if active {
@@ -148,19 +158,20 @@ internal extension View {
 
     /// Applies padding to the specified edges while ignoring the safe area insets.
     ///
+    /// ## Discussion
     /// This is useful for full-screen backgrounds or layouts where you
     /// want content to extend beneath system UI elements.
+    ///
+    /// ## Usage
+    /// ```swift
+    /// Color.blue
+    ///     .safeAreaPadding(.top, .xl)
+    /// ```
     ///
     /// - Parameters:
     ///   - edges: The edges to apply padding to. Defaults to `.all`.
     ///   - size: A `SHDSizing.Padding` value that determines the padding amount.
     /// - Returns: A view with safe area–ignoring padding applied.
-    ///
-    /// ### Example
-    /// ```swift
-    /// Color.blue
-    ///     .safeAreaPadding(.top, .xl)
-    /// ```
     func safeAreaPadding(_ edges: Edge.Set = .all, _ size: SHDSizing.Padding) -> some View {
         self
             .padding(edges, size.value)
@@ -174,12 +185,14 @@ internal extension View {
 
     /// Applies a corner radius according to the Shadcn radius system.
     ///
+    /// ## Usage
     /// ```swift
     /// Button("Click Me") {}
     ///     .cornerRadius(.md)
     /// ```
     ///
-    /// - Parameter radius: A radius value defined in `SHDSizing.Radius`.
+    /// - Parameters:
+    ///   - radius: A radius value defined in `SHDSizing.Radius`.
     /// - Returns: A view with the specified corner radius applied.
     func cornerRadius(_ radius: SHDSizing.Radius) -> some View {
         cornerRadius(radius.value)
@@ -189,6 +202,7 @@ internal extension View {
 
     /// Conditionally applies a corner radius according to the Shadcn radius system.
     ///
+    /// ## Usage
     /// ```swift
     /// Button("Click Me") {}
     ///     .cornerRadius(.radiusLG, active: isRounded)
@@ -214,21 +228,22 @@ internal extension VStack {
     /// using a custom `SHDSizing.Spacing` value
     /// instead of a standard `CGFloat` for spacing.
     ///
+    /// ## Discussion
     /// This initializer provides a type-safe way to define spacing between elements in a `VStack`,
     /// using design-system-defined values from `SHDSizing.Spacing`.
     ///
-    /// - Parameters:
-    ///   - alignment: The horizontal alignment of the stack’s children. The default is `.center`.
-    ///   - spacing: The amount of space between adjacent subviews, represented by `SHDSizing.Spacing`.
-    ///   - content: A view builder that creates the content of the stack.
-    ///
-    /// - Example:
+    /// ## Usage
     /// ```swift
     /// VStack(spacing: .xxl) {
     ///     Text("Title")
     ///     Text("Subtitle")
     /// }
     /// ```
+    ///
+    /// - Parameters:
+    ///   - alignment: The horizontal alignment of the stack's children. The default is `.center`.
+    ///   - spacing: The amount of space between adjacent subviews, represented by `SHDSizing.Spacing`.
+    ///   - content: A view builder that creates the content of the stack.
     init(
         alignment: HorizontalAlignment = .center,
         spacing: SHDSizing.Spacing,
@@ -247,21 +262,22 @@ internal extension HStack {
     /// using a custom `SHDSizing.Spacing` value
     /// instead of a standard `CGFloat` for spacing.
     ///
+    /// ## Discussion
     /// This initializer provides a type-safe way to define spacing between elements in a `HStack`,
     /// using design-system-defined values from `SHDSizing.Spacing`.
     ///
-    /// - Parameters:
-    ///   - alignment: The vertical alignment of the stack’s children. The default is `.center`.
-    ///   - spacing: The amount of space between adjacent subviews, represented by `SHDSizing.Spacing`.
-    ///   - content: A view builder that creates the content of the stack.
-    ///
-    /// - Example:
+    /// ## Usage
     /// ```swift
     /// HStack(spacing: .xxl) {
     ///     Image(systemName: "star.fill")
     ///     Text("Favorite")
     /// }
     /// ```
+    ///
+    /// - Parameters:
+    ///   - alignment: The vertical alignment of the stack's children. The default is `.center`.
+    ///   - spacing: The amount of space between adjacent subviews, represented by `SHDSizing.Spacing`.
+    ///   - content: A view builder that creates the content of the stack.
     init(
         alignment: VerticalAlignment = .center,
         spacing: SHDSizing.Spacing,
@@ -281,7 +297,7 @@ internal extension HStack {
 /// design system's radius tokens (`SHDSizing.Radius`) directly
 /// with SwiftUI's `RoundedRectangle`.
 ///
-/// ### Discussion
+/// ## Discussion
 /// `RoundedRectangle` normally requires a `CGFloat` for its corner radius.
 /// Since ShadcniOS provides predefined radius tokens through
 /// `SHDSizing.Radius`, this extension improves ergonomics by enabling:
@@ -299,7 +315,7 @@ internal extension HStack {
 /// This keeps button, card, and component styling consistent with the
 /// design system while reducing verbosity.
 ///
-/// ### Usage
+/// ## Usage
 ///
 /// ```swift
 /// RoundedRectangle(cornerRadius: .md)
@@ -320,7 +336,8 @@ extension RoundedRectangle {
 
     /// Creates a `RoundedRectangle` using a ShadcniOS radius token.
     ///
-    /// - Parameter radius: A design-system radius from `SHDSizing.Radius`.
+    /// - Parameters:
+    ///   - radius: A design-system radius from `SHDSizing.Radius`.
     /// - Note: Internally converts the token to a `CGFloat`.
     init(cornerRadius radius: SHDSizing.Radius) {
         self.init(cornerRadius: radius.value)

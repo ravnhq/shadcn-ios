@@ -72,7 +72,8 @@ public extension View {
 
     /// Applies the ShadcniOS close-button error style.
     ///
-    /// - Parameter isError: Whether the button should appear in an error state.
+    /// - Parameters:
+    ///     - isError: Whether the button should appear in an error state.
     ///
     /// - Returns: A button styled according to `isError`.
     ///

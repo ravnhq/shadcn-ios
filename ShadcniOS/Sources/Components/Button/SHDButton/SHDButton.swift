@@ -9,7 +9,7 @@ import SwiftUI
 
 /// A flexible, composable button used throughout the ShadcniOS design system.
 ///
-/// ### Overview
+/// ## Discussion
 /// `SHDButton` provides a lightweight button structure that supports:
 /// - text-only buttons
 /// - icon-only buttons
@@ -26,8 +26,6 @@ import SwiftUI
 /// This separation ensures predictable, centralized styling while allowing
 /// `SHDButton` to manage only layout and content composition.
 ///
-/// ### Loading Behavior
-///
 /// The button supports a loading state via the `isLoading` environment key:
 ///
 /// - When loading **and** the button is **icon-only**,
@@ -38,8 +36,7 @@ import SwiftUI
 ///
 /// - The button remains interactive unless disabled by `.disabled(...)`.
 ///
-/// ### Layout Rules
-///
+/// Layout rules:
 /// - If the button has text:
 ///   - horizontal padding = `16`
 ///   - icon spacing = `.sm`
@@ -54,7 +51,15 @@ import SwiftUI
 /// supplied by the design-system environment.
 ///
 ///
-/// ### Usage Examples
+/// Creates a ShadcniOS button.
+///
+/// - Parameters:
+///   - label: Optional text. If `nil`, the button becomes icon-only.
+///   - icon: Optional leading icon.
+///   - action: Closure executed on tap.
+///
+///
+/// ## Usage
 ///
 /// Text-only:
 /// ```swift
@@ -83,35 +88,14 @@ import SwiftUI
 /// ```
 public struct SHDButton: View {
 
-    // MARK: - Properties
-
-    /// Indicates whether this button should show loading behavior.
     @Environment(\.isLoading) private var isLoading
 
-    /// The visual style variant of the button.
     private var variant: SHDButtonVariant = .default
-
-    /// The predefined size type for the button.
     private var size: SHDButtonSize = .md
+    private let text: String?
+    private let leadingIcon: SHDIconAsset?
+    private let onTap: () -> Void
 
-    /// Optional text displayed inside the button.
-    /// If `nil`, the button may render as icon-only.
-    public let text: String?
-
-    /// Optional icon displayed before the label text.
-    public let leadingIcon: SHDIconAsset?
-
-    /// Closure executed when the button is tapped.
-    public let onTap: () -> Void
-
-    // MARK: - Initializer
-
-    /// Creates a ShadcniOS button.
-    ///
-    /// - Parameters:
-    ///   - label: Optional text. If `nil`, the button becomes icon-only.
-    ///   - icon: Optional leading icon.
-    ///   - action: Closure executed on tap.
     public init(
         label: String? = nil,
         icon: SHDIconAsset? = nil,
@@ -122,13 +106,9 @@ public struct SHDButton: View {
         self.onTap = action
     }
 
-    // MARK: - View
-
-    /// The visual representation of the button.
     public var body: some View {
         Button(action: onTap) {
             HStack(spacing: .sm) {
-                // Leading icon or loading indicator
                 if let leadingIcon {
                     if isLoading {
                         SHDLoadingIcon()
@@ -139,7 +119,6 @@ public struct SHDButton: View {
                     }
                 }
 
-                // Text label (if any)
                 if let text {
                     Text(text)
                         .textStyle(size.textSize)
@@ -165,14 +144,11 @@ public struct SHDButton: View {
             )
     }
 
-    // MARK: - Public Methods
-
     /// Applies unified ShadcniOS button variant and size styling.
     ///
     /// - Parameters:
     ///   - variant: The color and border configuration.
     ///   - size: The typography size of the button.
-    ///
     /// - Returns: A view styled according to the ShadcniOS design system.
     public func buttonVariant(variant: SHDButtonVariant, size: SHDButtonSize) -> some View {
         mutating { button in

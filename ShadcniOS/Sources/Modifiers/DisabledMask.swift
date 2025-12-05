@@ -10,10 +10,11 @@ import SwiftUI
 /// A view modifier that visually indicates a disabled state for ShadcniOS buttons
 /// by applying a white mask with reduced opacity.
 ///
-/// ### Overview
+/// ## Discussion
 /// `DisabledMask` is an internal `ViewModifier` that reacts to the SwiftUI `isEnabled` environment value.
+/// Designed for use within the ShadcniOS button system to maintain visual consistency.
 ///
-/// ### Usage
+/// ## Usage
 /// Attach `.disabledMask()` to any button content to have the mask automatically
 /// reflect the enabled/disabled state.
 ///
@@ -21,9 +22,6 @@ import SwiftUI
 /// SHDButton(label: "Submit") { /* action */ }
 ///     .disabledMask()
 /// ```
-///
-/// ### Notes
-/// - Designed for use within the ShadcniOS button system to maintain visual consistency.
 internal struct DisabledMask: ViewModifier {
 
     /// Reads the SwiftUI `isEnabled` environment value.
@@ -47,13 +45,13 @@ internal extension View {
 
     /// Applies the disabled mask to a button, reducing opacity when `isEnabled == false`.
     ///
-    /// - Returns: A view with a background mask that visually indicates the disabled state.
-    ///
-    /// ### Example
+    /// ## Usage
     /// ```swift
     /// SHDButton(label: "Submit") { }
     ///     .disabledMask()
     /// ```
+    ///
+    /// - Returns: A view with a background mask that visually indicates the disabled state.
     func disabledMask() -> some View {
         modifier(DisabledMask())
     }

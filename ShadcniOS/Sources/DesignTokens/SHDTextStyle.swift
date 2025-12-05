@@ -8,6 +8,11 @@
 import SwiftUI
 
 /// Defines a text style configuration used internally in ShadcniOS.
+///
+/// ## Discussion
+/// `SHDTextStyle` encapsulates typography settings including font, size, line height,
+/// letter spacing, and underline properties. These styles are used throughout the
+/// design system to maintain consistent typography.
 internal struct SHDTextStyle {
     /// The relative system text style (e.g. `.body`, `.headline`).
     let relativeFont: Font.TextStyle
@@ -25,7 +30,6 @@ internal struct SHDTextStyle {
 
 internal extension SHDTextStyle {
     // MARK: - Header Styles
-    /// Predefined text styles for common heading levels used across the app.
     /// Heading 1 style — used for main titles and large headers.
     static var h1: SHDTextStyle {
         SHDTextStyle(
@@ -124,7 +128,6 @@ internal extension SHDTextStyle {
     }
 
     // MARK: - Small Texts
-    /// Small text styles — used for captions or compact UI text.
     /// Small text — regular weight, for secondary information or notes.
     static var textSMRegular: SHDTextStyle {
         SHDTextStyle(
@@ -171,7 +174,6 @@ internal extension SHDTextStyle {
     }
 
     // MARK: - Base Texts
-    /// Base text styles — used for body copy or general text content.
     /// Base text — regular weight, for standard paragraph content.
     static var textBaseRegular: SHDTextStyle {
         SHDTextStyle(
@@ -218,7 +220,6 @@ internal extension SHDTextStyle {
     }
 
     // MARK: - Large Texts
-    /// Large text styles — used for prominent body text or subheadings.
     /// Large text — regular weight, ideal for readable paragraph content.
     static var textLGRegular: SHDTextStyle {
         SHDTextStyle(
@@ -265,7 +266,6 @@ internal extension SHDTextStyle {
     }
 
     // MARK: - Extra Large Texts
-    /// Extra large text styles — used for headers, highlights, or key UI text.
     /// Extra large text — regular weight, for larger readable elements.
     static var textXLRegular: SHDTextStyle {
         SHDTextStyle(
@@ -312,7 +312,6 @@ internal extension SHDTextStyle {
     }
 
     // MARK: - 2 Extra Large Texts
-    /// 2XL text styles — used for large headings or key UI elements.
     /// 2XL text — regular weight, standard display heading.
     static var text2XLRegular: SHDTextStyle {
         SHDTextStyle(
@@ -359,7 +358,6 @@ internal extension SHDTextStyle {
     }
 
     // MARK: - 3 Extra Large Texts
-    /// 3XL text styles — very large headers or key display text.
     /// 3XL text — regular weight, for big headings.
     static var text3XLRegular: SHDTextStyle {
         SHDTextStyle(
@@ -406,7 +404,6 @@ internal extension SHDTextStyle {
     }
 
     // MARK: 4 Extra Large Texts
-    /// 4XL text styles — hero headers or extremely prominent display text.
     /// 4XL text — regular weight, for very large headings.
     static var text4XLRegular: SHDTextStyle {
         SHDTextStyle(

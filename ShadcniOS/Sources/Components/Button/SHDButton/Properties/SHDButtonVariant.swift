@@ -9,18 +9,9 @@ import Foundation
 
 /// A semantic set of visual variants used to style ShadcniOS buttons.
 ///
-/// ### Overview
+/// ## Discussion
 /// `SHDButtonVariant` defines all visual button styles available in the
 /// ShadcniOS design system.
-///
-/// Each variant expresses a different interaction intent:
-///
-/// - **default** → primary emphasized action
-/// - **secondary** → low-emphasis alternative
-/// - **destructive** → dangerous or irreversible actions
-/// - **outline** → bordered neutral action
-/// - **ghost** → minimal transparent button
-/// - **link** → inline text-only action
 ///
 /// Each variant controls:
 /// - background color
@@ -29,7 +20,7 @@ import Foundation
 ///
 /// All colors are sourced from the ShadcniOS design system token set.
 ///
-/// ### Usage Examples
+/// ## Usage
 ///
 /// Accessing variant colors:
 /// ```swift
@@ -52,8 +43,6 @@ import Foundation
 /// ```
 public enum SHDButtonVariant {
 
-    // MARK: - Variants
-
     /// The primary emphasized button style.
     case `default`
 
@@ -72,11 +61,6 @@ public enum SHDButtonVariant {
     /// A text-only, inline-style action.
     case link
 
-    // MARK: - Computed Properties
-
-    /// The background color for the variant.
-    ///
-    /// - Note: Minimal variants (`.outline`, `.ghost`, `.link`) return `.clear`.
     var backgroundColor: SHDColor {
         switch self {
         case .default: .backgroundPrimaryDefault
@@ -86,11 +70,6 @@ public enum SHDButtonVariant {
         }
     }
 
-    /// The foreground (text + icon) color for the variant.
-    ///
-    /// - Note:
-    ///   - `.secondary` uses an accent foreground
-    ///   - minimal variants use neutral foreground tones
     var foregroundColor: SHDColor {
         switch self {
         case .default: .foregroundPrimaryDefault
@@ -100,9 +79,6 @@ public enum SHDButtonVariant {
         }
     }
 
-    /// The border color for the variant.
-    ///
-    /// - Note: Only `.outline` applies a visible border color.
     var borderColor: SHDColor {
         switch self {
         case .outline: .borderPrimaryDefault

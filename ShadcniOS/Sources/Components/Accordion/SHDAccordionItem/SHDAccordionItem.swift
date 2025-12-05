@@ -8,54 +8,40 @@
 import SwiftUI
 
 /// A single item within an accordion component, displaying a title
-/// and expandable content area
+/// and expandable content area.
 ///
-/// The `SHDAccordionItem` manage its own expanded or collapsed state
+/// ## Discussion
+/// The `SHDAccordionItem` manages its own expanded or collapsed state
 /// through a binding, providing smooth spring-based animations
-/// when toggling visibility
+/// when toggling visibility.
 ///
-/// Exmaple usage:
+/// - Parameters:
+///   - selection: A binding to the currently selected item in the parent accordion.
+///   - item: The item to be displayed and controlled by this accordion row.
+///
+/// ## Usage
 /// ```swift
 /// SHDAccordionItem(selection: $selectedItem, item: item)
 ///    .itemSize(size: size)
 /// ```
 internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
 
-    // MARK: - Properties
+    @Binding private var selection: Item?
 
-    /// The visual size style applied to this accordion item
     private var size: SHDAccordionSize = .md
+    private let item: Item
 
-    /// A binding to the currently selected item in the parent accordion.
-    ///
-    /// When this item is equal to the bound value, it is considered expanded.
-    @Binding var selection: Item?
-
-    /// The data model representing the accordion item
-    let item: Item
-
-    // Indicates wheter the current accordion item is expanded
     private var isExpanded: Bool {
         selection == item
     }
 
-    // MARK: - Initialization
-
-    /// Creates a new accordion item
-    ///
-    /// - Parameters:
-    ///     - selection: A binding to the parent accordion's selected item
-    ///     - item: The item data conforming to `SHDAccordionRepresentable`
     init(selection: Binding<Item?>, item: Item) {
         self._selection = selection
         self.item = item
     }
 
-    // MARK: - Body
-
     var body: some View {
         VStack(spacing: size.verticalSpacing) {
-
             header
 
             if isExpanded {
@@ -67,8 +53,6 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
         }
         .clipped()
     }
-
-    // MARK: - Subviews
 
     /// The header section containing the title and expand/collapse indicator.
     private var header: some View {
@@ -98,10 +82,10 @@ internal struct SHDAccordionItem<Item: SHDAccordionRepresentable>: View {
 
     // MARK: - Func modifier
 
-    /// Applies a size configuration to this accordion item.
+    /// Returns: A modified accordion item with the specified size style
     ///
-    /// - Parameter size: The size preset to apply to the item.
-    /// - Returns: A modified accordion item with the specified size style.
+    /// - Parameter
+    ///  - size: The size preset to apply to the item.
     func itemSize(size: SHDAccordionSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }

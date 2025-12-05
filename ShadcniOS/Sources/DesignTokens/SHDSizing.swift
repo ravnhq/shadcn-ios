@@ -9,6 +9,7 @@ import Foundation
 
 /// A unified collection of standardized sizing values used throughout the Shadcn design system.
 ///
+/// ## Discussion
 /// This type defines consistent design tokens for:
 /// - **Padding**: Internal spacing within components.
 /// - **Spacing**: External spacing between elements.
@@ -17,7 +18,7 @@ import Foundation
 /// Each sub-enum corresponds to a specific design dimension scale,
 /// ensuring predictable and consistent UI spacing and rounding.
 ///
-/// Example:
+/// ## Usage
 /// ```swift
 /// VStack(spacing: SHDSizing.Spacing.spacingMD.value) {
 ///     Text("Hello, world!")
@@ -29,6 +30,9 @@ internal enum SHDSizing {
 
     // MARK: - Padding
     /// Defines standardized padding values for internal component spacing.
+    ///
+    /// ## Discussion
+    /// Provides consistent padding tokens for use across components.
     internal enum Padding: Double, CaseIterable {
 
         /// No padding (`0` points).
@@ -67,6 +71,9 @@ internal enum SHDSizing {
 
     // MARK: - Spacing
     /// Defines standardized spacing values for layout gaps between UI elements.
+    ///
+    /// ## Discussion
+    /// Provides consistent spacing tokens for use between UI elements.
     internal enum Spacing: Double, CaseIterable {
 
         /// No spacing (`0` points).
@@ -105,6 +112,9 @@ internal enum SHDSizing {
 
     // MARK: - Radius
     /// Defines standardized corner radius values used for rounded shapes and containers.
+    ///
+    /// ## Discussion
+    /// Provides consistent corner radius tokens for rounded UI elements.
     internal enum Radius: Double, CaseIterable {
 
         /// No corner radius (`0` points).

@@ -18,15 +18,10 @@
 /// VStack {
 ///     SHDAvatar(icon: .notificationCheckCheck)
 ///         .avatarStyle(variant: .light)
-///
-///     SHDAvatar(icon: .notificationCheckCheck)
-///         .avatarStyle(variant: .filled)
-///
-///     SHDAvatar(icon: .notificationCheckCheck)
-///         .avatarStyle(variant: .outline)
 /// }
 /// ```
 public enum SHDAvatarVariant {
+
     /// Lightweight treatment that preserves the parent background and uses the default foreground color.
     case light
     /// High-emphasis treatment that fills the avatar with the primary
@@ -35,18 +30,6 @@ public enum SHDAvatarVariant {
     /// Minimal treatment that draws a stroke to outline the avatar, keeping the background transparent.
     case outline
 
-    /// Background color associated with the variant.
-    ///
-    /// ## Discussion
-    /// Use this color when rendering the avatar's background shape.
-    /// For outline variants the background remains
-    /// transparent to allow underlying content to show through.
-    ///
-    /// ## Usage
-    /// ```swift
-    /// SHDAvatar(icon: icon)
-    ///     .avatarStyle(variant: variant)
-    /// ```
     var backgroundColor: SHDColor {
         switch self {
         case .light: .backgroundPrimaryLight
@@ -55,11 +38,6 @@ public enum SHDAvatarVariant {
         }
     }
 
-    /// Foreground color applied to initials or glyphs.
-    ///
-    /// ## Discussion
-    /// This color is tuned per variant to maintain contrast regardless of background choice.
-    /// For example, the filled variant uses white text to pop against the darker fill.
     var foregroundColor: SHDColor {
         switch self {
         case .light: .foregroundDefault
@@ -68,12 +46,6 @@ public enum SHDAvatarVariant {
         }
     }
 
-    /// Border color for the avatar outline.
-    ///
-    /// ## Discussion
-    /// Only the outline variant draws a border; all other variants return `.clear`
-    /// so no additional stroke is rendered.
-    /// Apply this color to a stroke that matches the avatar's shape.
     var borderColor: SHDColor {
         switch self {
         case .outline: .borderPrimaryDefault
