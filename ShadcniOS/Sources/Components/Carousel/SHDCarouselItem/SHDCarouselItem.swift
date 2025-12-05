@@ -17,7 +17,10 @@ struct SHDCarouselItem<Item, Content: View>: View {
     var body: some View {
         ForEach(Array(visibleItems.enumerated()), id: \.offset) { _, item in
             content(item)
-                .applyFrameIfHorizontal(layoutVariant: layoutVariant, proporcionVariant: proporcionVariant)
+                .applyFrameIfHorizontal(
+                    layoutVariant: layoutVariant,
+                    proporcionVariant: proporcionVariant
+                )
         }
     }
 
@@ -42,7 +45,15 @@ struct FrameModifier: ViewModifier {
 }
 
 extension View {
-    func applyFrameIfHorizontal(layoutVariant: SHDCarouselLayoutVariant, proporcionVariant: SHDCarouselProprotionVariant) -> some View {
-        modifier(FrameModifier(layoutVariant: .groupVertical, proporcionVariant: .oneToOne))
+    func applyFrameIfHorizontal(
+        layoutVariant: SHDCarouselLayoutVariant,
+        proporcionVariant: SHDCarouselProprotionVariant
+    ) -> some View {
+        modifier(
+            FrameModifier(
+                layoutVariant: layoutVariant,
+                proporcionVariant: proporcionVariant
+            )
+        )
     }
 }
