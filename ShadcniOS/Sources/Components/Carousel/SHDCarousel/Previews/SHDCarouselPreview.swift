@@ -19,7 +19,6 @@ struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-
                     SHDCarousel(
                         items: [1, 2, 3, 4, 5]
                     ) { item in
