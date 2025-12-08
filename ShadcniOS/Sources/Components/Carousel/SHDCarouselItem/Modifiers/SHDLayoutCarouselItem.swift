@@ -23,8 +23,8 @@ struct SHDLayoutCarouselItem: ViewModifier {
         case .singleHorizonal:
             content
                 .frame(
-                    width: SHDCarouselProportionVariant.threeToFour.width,
-                    height: SHDCarouselProportionVariant.threeToFour.height
+                    width: SHDCarouselProportionVariant.threeToFourWithSingleItem.width,
+                    height: SHDCarouselProportionVariant.threeToFourWithSingleItem.height
                 )
 
         case .groupVertical:
@@ -48,18 +48,5 @@ extension View {
                 proporcionVariant: proportionVariant
             )
         )
-    }
-}
-
-struct SHDProportionCarouselItem: ViewModifier {
-
-    var proporcionVariant: SHDCarouselProportionVariant
-
-    func body(content: Content) -> some View {
-        switch proporcionVariant {
-        case .oneToOne: content
-        case .threeToFour: content
-        case .sixteenToNine: content
-        }
     }
 }
