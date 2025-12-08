@@ -18,7 +18,7 @@ struct SHDCarouselPreview: View {
             RoundedRectangle(cornerRadius: item)
                 .foregroundColor(.green)
         }
-        .carouselLayoutVariant(.groupHorizonal)
+        .carouselLayoutVariant(.singleHorizonal)
         .carouselProportionVariant(.oneToOne)
     }
 }
