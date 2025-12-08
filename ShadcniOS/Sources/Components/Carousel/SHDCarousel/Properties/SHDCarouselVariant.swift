@@ -25,7 +25,7 @@ enum SHDCarouselProprotionVariant {
         case .sixteenToNine: 377
         }
     }
-    
+
     var height: CGFloat {
         switch self {
         case .oneToOne: 212

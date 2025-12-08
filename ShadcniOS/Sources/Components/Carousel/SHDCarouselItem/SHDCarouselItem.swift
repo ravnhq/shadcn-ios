@@ -17,7 +17,7 @@ struct SHDCarouselItem<Item, Content: View>: View {
     var body: some View {
         ForEach(Array(visibleItems.enumerated()), id: \.offset) { _, item in
             content(item)
-                .applyFrameIfHorizontal(
+                .horizontalFrameVariantion(
                     layoutVariant: layoutVariant,
                     proporcionVariant: proporcionVariant
                 )
@@ -26,34 +26,5 @@ struct SHDCarouselItem<Item, Content: View>: View {
 
     func proportionVariant(_ proportionVariant: SHDCarouselProprotionVariant) -> Self {
         mutating(keyPath: \.proporcionVariant, value: proportionVariant)
-    }
-}
-
-struct FrameModifier: ViewModifier {
-
-    var layoutVariant: SHDCarouselLayoutVariant
-    var proporcionVariant: SHDCarouselProprotionVariant
-
-    func body(content: Content) -> some View {
-        switch layoutVariant {
-        case .groupVertical:
-            return AnyView(content.frame(width: 398, height: 212))
-        default:
-            return AnyView(content.frame(width: proporcionVariant.width, height: proporcionVariant.height))
-        }
-    }
-}
-
-extension View {
-    func applyFrameIfHorizontal(
-        layoutVariant: SHDCarouselLayoutVariant,
-        proporcionVariant: SHDCarouselProprotionVariant
-    ) -> some View {
-        modifier(
-            FrameModifier(
-                layoutVariant: layoutVariant,
-                proporcionVariant: proporcionVariant
-            )
-        )
     }
 }
