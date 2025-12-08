@@ -15,7 +15,7 @@ struct SHDCarousel<Item, Content: View>: View {
     private var content: (Item) -> Content
 
     private var layoutVariant: SHDCarouselLayoutVariant = .groupHorizonal
-    private var proportionVariant: SHDCarouselProprotionVariant = .oneToOne
+    private var proportionVariant: SHDCarouselProportionVariant = .oneToOne
 
     private var maxVisible: Int {
         layoutVariant == .singleHorizonal ? 1 : items.count
@@ -74,7 +74,7 @@ struct SHDCarousel<Item, Content: View>: View {
         mutating(keyPath: \.layoutVariant, value: layoutVariant)
     }
 
-    func carouselProportionVariant(_ proportionVariant: SHDCarouselProprotionVariant) -> Self {
+    func carouselProportionVariant(_ proportionVariant: SHDCarouselProportionVariant) -> Self {
         mutating(keyPath: \.proportionVariant, value: proportionVariant)
     }
 }

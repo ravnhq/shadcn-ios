@@ -10,14 +10,16 @@ import SwiftUI
 struct SHDLayoutCarouselItem: ViewModifier {
 
     var layoutVariant: SHDCarouselLayoutVariant
-    var proporcionVariant: SHDCarouselProprotionVariant
+    var proporcionVariant: SHDCarouselProportionVariant
 
     func body(content: Content) -> some View {
         switch layoutVariant {
-        case .groupVertical:
-            return AnyView(content.frame(width: 398, height: 212))
-        default:
+        case .groupHorizonal:
             return AnyView(content.frame(width: proporcionVariant.width, height: proporcionVariant.height))
+        case .singleHorizonal:
+            return AnyView(content.frame(width: SHDCarouselProportionVariant.threeToFour.width, height: SHDCarouselProportionVariant.threeToFour.width))
+        case .groupVertical:
+            return AnyView(content.frame(width: SHDCarouselProportionVariant.sixteenToNine.width, height: SHDCarouselProportionVariant.sixteenToNine.height))
         }
     }
 }
@@ -25,7 +27,7 @@ struct SHDLayoutCarouselItem: ViewModifier {
 extension View {
     func horizontalFrameVariantion(
         layoutVariant: SHDCarouselLayoutVariant,
-        proporcionVariant: SHDCarouselProprotionVariant
+        proporcionVariant: SHDCarouselProportionVariant
     ) -> some View {
         modifier(
             SHDLayoutCarouselItem(
