@@ -17,20 +17,11 @@ struct SHDCarousel<Item, Content: View>: View {
     private var layoutVariant: SHDCarouselLayoutVariant = .groupHorizonal
     private var proportionVariant: SHDCarouselProportionVariant = .oneToOne
 
-    private var maxVisible: Int {
-        layoutVariant == .singleHorizonal ? 1 : items.count
-    }
-
-    private var visibleItems: [Item] {
-        let end = min(index + maxVisible, items.count)
-        return Array(items[index..<end])
-    }
-
     private var carouselContent: some View {
         SHDCarouselItem(
             layoutVariant: layoutVariant,
-            proporcionVariant: proportionVariant,
-            visibleItems: visibleItems,
+            proportionVariant: proportionVariant,
+            items: items,
             content: content
         )
     }
@@ -46,7 +37,7 @@ struct SHDCarousel<Item, Content: View>: View {
     var body: some View {
         Group {
             switch layoutVariant {
-            case .groupHorizonal, .singleHorizonal:
+            case .groupHorizonal:
                 ScrollView(.horizontal) {
                     HStack(spacing: .md) {
                         carouselContent
@@ -54,6 +45,16 @@ struct SHDCarousel<Item, Content: View>: View {
                     .padding(.vertical, .xxs)
                     .padding(.horizontal, .md)
                 }
+
+            case .singleHorizonal:
+                SHDCarouselSingleItem(
+                    layoutVariant: layoutVariant,
+                    proportionVariant: proportionVariant,
+                    items: items,
+                    content: content
+                )
+                .padding(.vertical, .xxs)
+                .padding(.horizontal, .md)
 
             case .groupVertical:
                 ScrollView {
@@ -66,15 +67,15 @@ struct SHDCarousel<Item, Content: View>: View {
                 }
             }
         }
-        .backgroundColor(.black)
-
     }
 
     func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayoutVariant) -> Self {
         mutating(keyPath: \.layoutVariant, value: layoutVariant)
     }
 
-    func carouselProportionVariant(_ proportionVariant: SHDCarouselProportionVariant) -> Self {
+    func carouselProportionVariant(
+        _ proportionVariant: SHDCarouselProportionVariant
+    ) -> Self {
         mutating(keyPath: \.proportionVariant, value: proportionVariant)
     }
 }
