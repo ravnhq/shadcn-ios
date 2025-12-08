@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum SHDCarouselLayoutVariant {
+public enum SHDCarouselLayoutVariant {
     case groupHorizonal
     case singleHorizonal
     case groupVertical
 }
 
-enum SHDCarouselProportionVariant {
+public enum SHDCarouselProportionVariant {
     case oneToOne
     case threeToFour
     case sixteenToNine

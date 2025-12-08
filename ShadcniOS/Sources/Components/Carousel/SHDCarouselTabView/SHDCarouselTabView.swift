@@ -1,5 +1,5 @@
 //
-//  SHDCarouselSingleItem.swift
+//  SHDCarouselTabView.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 12/8/25.
@@ -41,6 +41,10 @@ struct SHDCarouselTabView<Item, Content: View>: View {
                 }
             }
         }
+    }
+    
+    func singleProportionVariant(_ proportionVariant: SHDCarouselProportionVariant) -> Self {
+        mutating(keyPath: \.proportionVariant, value: proportionVariant)
     }
 }
 
