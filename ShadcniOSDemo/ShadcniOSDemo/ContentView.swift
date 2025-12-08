@@ -62,9 +62,16 @@ struct ContentView: View {
                         HStack {
                             Image(
                                 systemName:
-                                "slider.horizontal.3"
+                                    "slider.horizontal.3"
                             )
                             Text("SHDSlider")
+                        }
+                    }
+
+                    NavigationLink(destination: SHDCarouselDemoView()) {
+                        HStack {
+                            Image(systemName: "rectangle.on.rectangle.fill")
+                            Text("SHDCarousel")
                         }
                     }
                 }
