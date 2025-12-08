@@ -10,21 +10,21 @@ import SwiftUI
 struct SHDCarouselItem<Item, Content: View>: View {
 
     var layoutVariant: SHDCarouselLayoutVariant
-    var proporcionVariant: SHDCarouselProportionVariant
-    var visibleItems: [Item]
+    var proportionVariant: SHDCarouselProportionVariant
+    var items: [Item]
     var content: (Item) -> Content
 
     var body: some View {
-        ForEach(Array(visibleItems.enumerated()), id: \.offset) { _, item in
+        ForEach(Array(items.enumerated()), id: \.offset) { _, item in
             content(item)
                 .horizontalFrameVariantion(
                     layoutVariant: layoutVariant,
-                    proporcionVariant: proporcionVariant
+                    proportionVariant: proportionVariant
                 )
         }
     }
 
     func proportionVariant(_ proportionVariant: SHDCarouselProportionVariant) -> Self {
-        mutating(keyPath: \.proporcionVariant, value: proportionVariant)
+        mutating(keyPath: \.proportionVariant, value: proportionVariant)
     }
 }

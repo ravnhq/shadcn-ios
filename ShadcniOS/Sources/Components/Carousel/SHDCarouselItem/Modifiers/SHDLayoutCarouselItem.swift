@@ -15,11 +15,24 @@ struct SHDLayoutCarouselItem: ViewModifier {
     func body(content: Content) -> some View {
         switch layoutVariant {
         case .groupHorizonal:
-            return AnyView(content.frame(width: proporcionVariant.width, height: proporcionVariant.height))
+            content
+                .frame(
+                    width: proporcionVariant.width,
+                    height: proporcionVariant.height
+                )
         case .singleHorizonal:
-            return AnyView(content.frame(width: SHDCarouselProportionVariant.threeToFour.width, height: SHDCarouselProportionVariant.threeToFour.width))
+            content
+                .frame(
+                    width: SHDCarouselProportionVariant.threeToFour.width,
+                    height: SHDCarouselProportionVariant.threeToFour.height
+                )
+
         case .groupVertical:
-            return AnyView(content.frame(width: SHDCarouselProportionVariant.sixteenToNine.width, height: SHDCarouselProportionVariant.sixteenToNine.height))
+            content
+                .frame(
+                    width: SHDCarouselProportionVariant.sixteenToNine.width,
+                    height: SHDCarouselProportionVariant.sixteenToNine.height
+                )
         }
     }
 }
@@ -27,13 +40,26 @@ struct SHDLayoutCarouselItem: ViewModifier {
 extension View {
     func horizontalFrameVariantion(
         layoutVariant: SHDCarouselLayoutVariant,
-        proporcionVariant: SHDCarouselProportionVariant
+        proportionVariant: SHDCarouselProportionVariant
     ) -> some View {
         modifier(
             SHDLayoutCarouselItem(
                 layoutVariant: layoutVariant,
-                proporcionVariant: proporcionVariant
+                proporcionVariant: proportionVariant
             )
         )
+    }
+}
+
+struct SHDProportionCarouselItem: ViewModifier {
+
+    var proporcionVariant: SHDCarouselProportionVariant
+
+    func body(content: Content) -> some View {
+        switch proporcionVariant {
+        case .oneToOne: content
+        case .threeToFour: content
+        case .sixteenToNine: content
+        }
     }
 }
