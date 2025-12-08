@@ -17,12 +17,14 @@ enum SHDCarouselProportionVariant {
     case oneToOne
     case threeToFour
     case sixteenToNine
+    case threeToFourWithSingleItem
 
     var width: CGFloat {
         switch self {
         case .oneToOne: 212
         case .threeToFour: 159
         case .sixteenToNine: 377
+        case .threeToFourWithSingleItem: 380
         }
     }
 
@@ -31,6 +33,7 @@ enum SHDCarouselProportionVariant {
         case .oneToOne: 212
         case .threeToFour: 212
         case .sixteenToNine: 212
+        case .threeToFourWithSingleItem: 507
         }
     }
 }

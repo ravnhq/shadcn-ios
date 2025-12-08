@@ -26,6 +26,15 @@ struct SHDCarousel<Item, Content: View>: View {
         )
     }
 
+    private var carouselPagedContent: some View {
+        SHDCarouselTabView(
+            layoutVariant: layoutVariant,
+            proportionVariant: proportionVariant,
+            items: items,
+            content: content
+        )
+    }
+
     init(
         items: [Item],
         @ViewBuilder content: @escaping (Item) -> Content
@@ -38,23 +47,24 @@ struct SHDCarousel<Item, Content: View>: View {
         Group {
             switch layoutVariant {
             case .groupHorizonal:
-                ScrollView(.horizontal) {
-                    HStack(spacing: .md) {
-                        carouselContent
+                if proportionVariant == .sixteenToNine {
+                    carouselPagedContent
+                        .padding(.vertical, .xxs)
+                        .padding(.horizontal, .md)
+                } else {
+                    ScrollView(.horizontal) {
+                        HStack(spacing: .md) {
+                            carouselContent
+                        }
+                        .padding(.vertical, .xxs)
+                        .padding(.horizontal, .md)
                     }
-                    .padding(.vertical, .xxs)
-                    .padding(.horizontal, .md)
                 }
 
             case .singleHorizonal:
-                SHDCarouselSingleItem(
-                    layoutVariant: layoutVariant,
-                    proportionVariant: proportionVariant,
-                    items: items,
-                    content: content
-                )
-                .padding(.vertical, .xxs)
-                .padding(.horizontal, .md)
+                carouselPagedContent
+                    .padding(.vertical, .xxs)
+                    .padding(.horizontal, .md)
 
             case .groupVertical:
                 ScrollView {
