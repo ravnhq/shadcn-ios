@@ -11,9 +11,7 @@ struct SHDCarouselPreview: View {
     var body: some View {
 
         ScrollView {
-            VStack(alignment: .leading, spacing: 32) {
-
-                // MARK: - Group Horizontal Layout Variants
+            VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Group Horizontal Layout – 1:1")
                         .font(.headline)

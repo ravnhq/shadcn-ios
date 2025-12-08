@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct SHDCarousel<Item, Content: View>: View {
-
-    @State private var index = 0
+public struct SHDCarousel<Item, Content: View>: View {
 
     private var items: [Item]
     private var content: (Item) -> Content
@@ -33,9 +31,10 @@ struct SHDCarousel<Item, Content: View>: View {
             items: items,
             content: content
         )
+        .singleProportionVariant( layoutVariant == .groupHorizonal ? proportionVariant : .threeToFourWithSingleItem )
     }
 
-    init(
+    public init(
         items: [Item],
         @ViewBuilder content: @escaping (Item) -> Content
     ) {
@@ -43,7 +42,7 @@ struct SHDCarousel<Item, Content: View>: View {
         self.content = content
     }
 
-    var body: some View {
+    public var body: some View {
         Group {
             switch layoutVariant {
             case .groupHorizonal:
@@ -79,11 +78,11 @@ struct SHDCarousel<Item, Content: View>: View {
         }
     }
 
-    func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayoutVariant) -> Self {
+    public func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayoutVariant) -> Self {
         mutating(keyPath: \.layoutVariant, value: layoutVariant)
     }
 
-    func carouselProportionVariant(
+    public func carouselProportionVariant(
         _ proportionVariant: SHDCarouselProportionVariant
     ) -> Self {
         mutating(keyPath: \.proportionVariant, value: proportionVariant)
