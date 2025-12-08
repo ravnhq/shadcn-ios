@@ -13,7 +13,7 @@ enum SHDCarouselLayoutVariant {
     case groupVertical
 }
 
-enum SHDCarouselProprotionVariant {
+enum SHDCarouselProportionVariant {
     case oneToOne
     case threeToFour
     case sixteenToNine

@@ -10,7 +10,7 @@ import SwiftUI
 struct SHDCarouselItem<Item, Content: View>: View {
 
     var layoutVariant: SHDCarouselLayoutVariant
-    var proporcionVariant: SHDCarouselProprotionVariant
+    var proporcionVariant: SHDCarouselProportionVariant
     var visibleItems: [Item]
     var content: (Item) -> Content
 
@@ -24,7 +24,7 @@ struct SHDCarouselItem<Item, Content: View>: View {
         }
     }
 
-    func proportionVariant(_ proportionVariant: SHDCarouselProprotionVariant) -> Self {
+    func proportionVariant(_ proportionVariant: SHDCarouselProportionVariant) -> Self {
         mutating(keyPath: \.proporcionVariant, value: proportionVariant)
     }
 }
