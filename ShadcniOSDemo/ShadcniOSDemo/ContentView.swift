@@ -52,6 +52,16 @@ struct ContentView: View {
                             Text("SHDBadge")
                         }
                     }
+                    
+                    NavigationLink(destination: SHDInputDemoView()) {
+                        HStack {
+                            Image(
+                                systemName:
+                                    "character.cursor.ibeam"
+                            )
+                            Text("SHDInput")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())
