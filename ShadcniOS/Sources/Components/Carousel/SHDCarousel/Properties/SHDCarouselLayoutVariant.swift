@@ -16,7 +16,8 @@
 /// The three layout variants provide different user experiences:
 /// - `Group Horizontal` displays multiple items visible at once in a horizontal scroll container,
 ///   allowing users to see context from adjacent items. When used with the 16:9 proportion variant,
-///   it automatically switches to a tab-based (paged) view for a full-width, single-item-at-a-time experience.
+///   it automatically switches to a tab-based (paged) view for a full-width,
+///   single-item-at-a-time experience.
 /// - `Single Horizontal` uses a tab-based (paged) scrolling view for horizontal browsing,
 ///   displaying one item at a time with page indicators. This variant is ideal for photo galleries
 ///   and image-focused carousels.
@@ -46,16 +47,17 @@
 public enum SHDCarouselLayoutVariant {
     /// Multiple items visible in a horizontal scroll.
     ///
-    /// Items are displayed side-by-side with `.md` spacing. When using the `.sixteenToNine` proportion variant,
+    /// Items are displayed side-by-side with `.md` spacing.
+    /// When using the `.sixteenToNine` proportion variant,
     /// automatically switches to tab-based (paged) view for full-width presentation.
     case groupHorizonal
-    
+
     /// Single item at a time with horizontal paging.
     ///
     /// Items are displayed one per "page" with animated paging transitions and optional page indicators.
     /// This layout is optimal for sequential browsing experiences.
     case singleHorizonal
-    
+
     /// Multiple items visible in a vertical scroll.
     ///
     /// Items are stacked vertically with customizable spacing, allowing multiple items to be visible

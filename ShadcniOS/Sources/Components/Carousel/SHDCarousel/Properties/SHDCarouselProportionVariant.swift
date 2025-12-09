@@ -17,9 +17,12 @@ import Foundation
 ///
 /// The four proportion variants balance content visibility with design flexibility:
 /// - `One to One` (1:1) creates square items ideal for avatars, icons, or uniform grid layouts.
-/// - `Three to Four` (3:4) provides a portrait-oriented rectangle suitable for profile cards or product thumbnails.
-/// - `Sixteen to Nine` (16:9) offers a landscape rectangle commonly used for video content, movie posters, or landscape imagery.
-/// - `Three to Four with Single Item` (3:4) is a tall variant optimized specifically for single-item carousel layouts
+/// - `Three to Four` (3:4) provides a portrait-oriented rectangle suitable for profile
+///     cards or product thumbnails.
+/// - `Sixteen to Nine` (16:9) offers a landscape rectangle commonly used for video content,
+///      movie posters, or landscape imagery.
+/// - `Three to Four with Single Item` (3:4) is a tall variant optimized
+///      specifically for single-item carousel layouts
 ///   and paged browsing experiences, providing maximum vertical space for prominent content display.
 ///
 /// Proportion dimensions:
@@ -48,24 +51,25 @@ public enum SHDCarouselProportionVariant {
     /// Ideal for displaying avatars, icons, or uniform square content in grid-like arrangements.
     /// Provides equal visual weight for all items regardless of orientation.
     case oneToOne
-    
+
     /// Portrait aspect ratio (3:4) — 159 × 212 points.
     ///
     /// Suitable for profile cards, product thumbnails, or portrait-oriented images.
     /// Provides a balanced portrait presentation in compact spaces.
     case threeToFour
-    
+
     /// Landscape aspect ratio (16:9) — 377 × 212 points.
     ///
     /// Optimized for video content, movie posters, or landscape imagery.
     /// When used with `.groupHorizonal` layout, automatically switches to paged tab-based viewing
     /// for optimal full-width presentation.
     case sixteenToNine
-    
+
     /// Tall portrait aspect ratio (3:4) optimized for single-item layouts — 380 × 507 points.
     ///
     /// Designed specifically for carousels using single-item paging navigation, providing maximum
-    /// vertical space for prominent content display. Commonly used in photo galleries and featured content showcases.
+    /// vertical space for prominent content display.
+    /// Commonly used in photo galleries and featured content showcases.
     case threeToFourWithSingleItem
 
     var width: CGFloat {

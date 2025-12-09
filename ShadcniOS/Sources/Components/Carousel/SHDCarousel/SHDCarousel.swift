@@ -7,20 +7,26 @@
 
 import SwiftUI
 
-/// A flexible carousel component for displaying collections of items with multiple layout and proportion configurations.
+/// A flexible carousel component for displaying collections of items
+/// with multiple layout and proportion configurations.
 ///
 /// ## Discussion
 ///
-/// `SHDCarousel` is a generic carousel component that displays a sequence of items in a horizontally or vertically scrollable container.
-/// It supports multiple layout variants (group horizontal, single horizontal, and group vertical) and proportion variants (1:1, 3:4, 16:9, and 3:4 with single item).
-/// The component uses SwiftUI's `@ViewBuilder` to allow flexible content customization, enabling you to render any SwiftUI view for each item in the carousel.
+/// `SHDCarousel` is a generic carousel component that displays a sequence of items
+///     in a horizontally or vertically scrollable container.
+/// It supports multiple layout variants (group horizontal, single horizontal, and group vertical)
+///     and proportion variants (1:1, 3:4, 16:9, and 3:4 with single item).
+/// The component uses SwiftUI's `@ViewBuilder` to allow flexible content customization,
+///     enabling you to render any SwiftUI view for each item in the carousel.
 ///
 /// The carousel adapts its internal structure based on the selected layout and proportion variants:
-/// - `Group Horizontal` displays multiple items in a horizontal scroll, switching to a tab-based view when the 16:9 proportion is selected for full-width presentation.
+/// - `Group Horizontal` displays multiple items in a horizontal scroll, switching to a tab-based
+///     view when the 16:9 proportion is selected for full-width presentation.
 /// - `Single Horizontal` uses a tab-based view (paged scrolling) for a single-item-at-a-time experience.
 /// - `Group Vertical` presents items in a vertical scroll with customizable proportions.
 ///
-/// The component manages internal state for layout and proportion variants through its modifier methods (`carouselLayoutVariant(_:)` and `carouselProportionVariant(_:)`).
+/// The component manages internal state for layout and proportion variants through its modifier methods
+///  (`carouselLayoutVariant(_:)` and `carouselProportionVariant(_:)`).
 /// This design follows SwiftUI's immutable value semantics while providing a fluent API for configuration.
 ///
 /// Layout and spacing characteristics:
@@ -47,8 +53,10 @@ import SwiftUI
 /// `.carouselProportionVariant(...)` modifiers.
 ///
 /// - Parameters:
-///   - items: An array of items to display in the carousel. The carousel will create one view for each item using the provided content closure.
-///   - content: A `@ViewBuilder` closure that takes an individual item and returns the view to display for that item. This closure is called for each item in the carousel.
+///   - items: An array of items to display in the carousel.
+///     The carousel will create one view for each item using the provided content closure.
+///   - content: A `@ViewBuilder` closure that takes an individual item and returns
+///     the view to display for that item. This closure is called for each item in the carousel.
 ///
 /// ## Usage
 ///
@@ -147,7 +155,8 @@ public struct SHDCarousel<Item, Content: View>: View {
     /// while keeping the items and content unchanged.
     ///
     /// - Parameters:
-    ///     - layoutVariant: The `SHDCarouselLayoutVariant` to apply (`.groupHorizonal`, `.singleHorizonal`, `.groupVertical`)
+    ///     - layoutVariant: The `SHDCarouselLayoutVariant`
+    ///         to apply (`.groupHorizonal`, `.singleHorizonal`, `.groupVertical`)
     public func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayoutVariant)
         -> Self {
         mutating(keyPath: \.layoutVariant, value: layoutVariant)
@@ -159,7 +168,8 @@ public struct SHDCarousel<Item, Content: View>: View {
     /// of carousel items while keeping the items and content unchanged.
     ///
     /// - Parameters:
-    ///     - proportionVariant: The `SHDCarouselProportionVariant` to apply (`.oneToOne`, `.threeToFour`, `.sixteenToNine`, `.threeToFourWithSingleItem`)
+    ///     - proportionVariant: The `SHDCarouselProportionVariant`
+    ///         to apply (`.oneToOne`, `.threeToFour`, `.sixteenToNine`, `.threeToFourWithSingleItem`)
     public func carouselProportionVariant(
         _ proportionVariant: SHDCarouselProportionVariant
     ) -> Self {
