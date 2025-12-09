@@ -39,19 +39,32 @@ struct SHDCarouselDemoView: View {
             .pickerStyle(.segmented)
             .padding()
             
-            
-            Picker("Layout Variant", selection: $layoutVariant) {
-                Text("Group Horizontal").tag(SHDCarouselLayoutVariant.groupHorizonal)
-                Text("Single Horizontal").tag(SHDCarouselLayoutVariant.singleHorizonal)
-                Text("Group Vertical").tag(SHDCarouselLayoutVariant.groupVertical)
+            HStack {
+                Text("Layout Variant")
+
+                Spacer()
+
+                Picker("Layout Variant", selection: $layoutVariant) {
+                    Text("Group Horizontal").tag(SHDCarouselLayoutVariant.groupHorizonal)
+                    Text("Single Horizontal").tag(SHDCarouselLayoutVariant.singleHorizonal)
+                    Text("Group Vertical").tag(SHDCarouselLayoutVariant.groupVertical)
+                }
             }
+            .padding()
             
-            Picker("Layout Variant", selection: $proportionVariant) {
-                Text("1:1").tag(SHDCarouselProportionVariant.oneToOne)
-                Text("3:4").tag(SHDCarouselProportionVariant.threeToFour)
-                Text("16:9").tag(SHDCarouselProportionVariant.sixteenToNine)
+            HStack {
+                Text("Proportion Variant")
+
+                Spacer()
+
+                Picker("Layout Variant", selection: $proportionVariant) {
+                    Text("1:1").tag(SHDCarouselProportionVariant.oneToOne)
+                    Text("3:4").tag(SHDCarouselProportionVariant.threeToFour)
+                    Text("16:9").tag(SHDCarouselProportionVariant.sixteenToNine)
+                }
             }
-            
+            .padding()
+
             Group {
                 switch selectedType {
                     

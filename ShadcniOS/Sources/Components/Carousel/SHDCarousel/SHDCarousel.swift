@@ -31,7 +31,10 @@ public struct SHDCarousel<Item, Content: View>: View {
             items: items,
             content: content
         )
-        .singleProportionVariant( layoutVariant == .groupHorizonal ? proportionVariant : .threeToFourWithSingleItem )
+        .singleProportionVariant(
+            layoutVariant == .groupHorizonal
+                ? proportionVariant : .threeToFourWithSingleItem
+        )
     }
 
     public init(
@@ -78,7 +81,8 @@ public struct SHDCarousel<Item, Content: View>: View {
         }
     }
 
-    public func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayoutVariant) -> Self {
+    public func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayoutVariant)
+        -> Self {
         mutating(keyPath: \.layoutVariant, value: layoutVariant)
     }
 
