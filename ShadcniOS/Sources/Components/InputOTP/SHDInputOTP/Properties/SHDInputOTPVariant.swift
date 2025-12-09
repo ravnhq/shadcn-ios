@@ -9,7 +9,7 @@ enum SHDInputOTPVariant {
     case controlled
     case pattern
     case separator
-    
+
     var dividedBy: Int {
         switch self {
         case .controlled: 0
