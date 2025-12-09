@@ -11,18 +11,29 @@ struct SHDInputOTP: View {
     @State private var otpDigits: [String] = Array(repeating: "", count: 6)
     @FocusState private var focusedField: Int?
 
-    private let cornerRadius: CGFloat = SHDSizing.Radius.md.value
+    var variant: SHDInputOTPVariant = .controlled
 
     var body: some View {
-        HStack(spacing: SHDSizing.Spacing.none) {
+        HStack(spacing: 0) {
             ForEach(otpDigits.indices, id: \.self) { index in
+                if variant.shouldShowSeparator(at: index) {
+                    SHDInputOTPSeparator()
+                }
+
                 TextField("", text: $otpDigits[index])
                     .frame(width: 40, height: 40)
                     .multilineTextAlignment(.center)
-                    .tint(.borderPrimaryDefault)
-                    .background(border(for: index))
+                    .tint(.black)
+                    .background(
+                        SHDInputSlotBorder(
+                            index: index,
+                            count: otpDigits.count,
+                            variant: variant,
+                            isFocused: focusedField == index
+                        )
+                    )
                     .focused($focusedField, equals: index)
-                    .padding(.leading, index == 0 ? 0 : -1)
+                    .padding(.leading, paddingFor(index))
                     .zIndex(focusedField == index ? 1 : 0)
                     .onChange(of: otpDigits[index]) { newValue in
                         handleChange(newValue, at: index)
@@ -31,28 +42,14 @@ struct SHDInputOTP: View {
         }
     }
 
-    private func border(for index: Int) -> some View {
-        let isFirst = index == 0
-        let isLast = index == otpDigits.count - 1
+    private func paddingFor(_ index: Int) -> CGFloat {
+        if index == 0 { return 0 }
 
-        let tlRadius: CGFloat = isFirst ? cornerRadius : 0
-        let blRadius: CGFloat = isFirst ? cornerRadius : 0
-        let trRadius: CGFloat = isLast ? cornerRadius : 0
-        let brRadius: CGFloat = isLast ? cornerRadius : 0
-
-        let shape = UnevenRoundedRectangle(
-            topLeadingRadius: tlRadius,
-            bottomLeadingRadius: blRadius,
-            bottomTrailingRadius: brRadius,
-            topTrailingRadius: trRadius
-        )
-
-        return ZStack {
-            shape.stroke(
-                focusedField == index ? .borderPrimaryDefault : .borderDefault,
-                lineWidth: focusedField == index ? 2 : 1
-            )
+        if variant.shouldShowSeparator(at: index) {
+            return 0
         }
+
+        return -1
     }
 
     private func handleChange(_ value: String, at index: Int) {
@@ -66,16 +63,14 @@ struct SHDInputOTP: View {
             focusedField = index - 1
         }
 
-        checkFullFilled()
-    }
-
-    private func checkFullFilled() {
         if otpDigits.allSatisfy({ $0.count == 1 }) {
-            print("The OTP is full:", otpDigits.joined())
+            print("Full:", otpDigits.joined())
         }
     }
 }
 
 #Preview {
-    SHDInputOTP()
+    VStack(spacing: 20) {
+        SHDInputOTP()
+    }
 }
