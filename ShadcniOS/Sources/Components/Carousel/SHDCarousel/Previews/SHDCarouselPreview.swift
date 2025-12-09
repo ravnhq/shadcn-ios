@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDCarouselPreview: View {
+internal struct SHDCarouselPreview: View {
     var body: some View {
         ScrollView {
             VStack {
