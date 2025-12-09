@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SHDCarouselPreview: View {
     var body: some View {
-
         ScrollView {
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
@@ -22,8 +21,6 @@ struct SHDCarouselPreview: View {
                     ) { item in
                         itemView(item)
                     }
-                    .carouselLayoutVariant(.groupHorizonal)
-                    .carouselProportionVariant(.oneToOne)
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -54,7 +51,6 @@ struct SHDCarouselPreview: View {
                     .carouselProportionVariant(.sixteenToNine)
                 }
 
-                // MARK: - Single Horizontal Layout
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Single Horizontal Layout (3:4 only)")
                         .font(.headline)
@@ -68,7 +64,6 @@ struct SHDCarouselPreview: View {
                     .carouselLayoutVariant(.singleHorizonal)
                 }
 
-                // MARK: - Vertical Group Layout
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Vertical Group Layout (16:9 only)")
                         .font(.headline)
@@ -85,7 +80,6 @@ struct SHDCarouselPreview: View {
         }
     }
 
-    // MARK: - Extracted Item View
     private func itemView(_ item: Int) -> some View {
         Text("\(item)")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
