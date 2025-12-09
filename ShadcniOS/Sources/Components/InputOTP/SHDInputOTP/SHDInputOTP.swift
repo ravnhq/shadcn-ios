@@ -12,16 +12,22 @@ struct SHDInputOTP: View {
     @FocusState private var focusedField: Int?
 
     var variant: SHDInputOTPVariant = .controlled
+    var size: SHDInputOTPSizing = .sm
 
     var body: some View {
         HStack(spacing: 0) {
             ForEach(otpDigits.indices, id: \.self) { index in
+                let slotState = SHDInputSlotState.currentState(
+                    isFocused: focusedField == index,
+                    isError: !otpDigits[index].isEmpty
+                )
+
                 if variant.shouldShowSeparator(at: index) {
                     SHDInputOTPSeparator()
                 }
 
                 TextField("", text: $otpDigits[index])
-                    .frame(width: 40, height: 40)
+                    .frame(width: size.size, height: size.size)
                     .multilineTextAlignment(.center)
                     .tint(.black)
                     .background(
@@ -29,12 +35,12 @@ struct SHDInputOTP: View {
                             index: index,
                             count: otpDigits.count,
                             variant: variant,
-                            isFocused: focusedField == index
+                            state: slotState
                         )
                     )
                     .focused($focusedField, equals: index)
                     .padding(.leading, paddingFor(index))
-                    .zIndex(focusedField == index ? 1 : 0)
+                    .zIndex(slotState.zIndex)
                     .onChange(of: otpDigits[index]) { newValue in
                         handleChange(newValue, at: index)
                     }
@@ -44,11 +50,7 @@ struct SHDInputOTP: View {
 
     private func paddingFor(_ index: Int) -> CGFloat {
         if index == 0 { return 0 }
-
-        if variant.shouldShowSeparator(at: index) {
-            return 0
-        }
-
+        if variant.shouldShowSeparator(at: index) { return 0 }
         return -1
     }
 
@@ -70,7 +72,7 @@ struct SHDInputOTP: View {
 }
 
 #Preview {
-    VStack(spacing: 20) {
+    VStack {
         SHDInputOTP()
     }
 }
