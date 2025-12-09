@@ -23,8 +23,4 @@ struct SHDCarouselItem<Item, Content: View>: View {
                 )
         }
     }
-
-    func proportionVariant(_ proportionVariant: SHDCarouselProportionVariant) -> Self {
-        mutating(keyPath: \.proportionVariant, value: proportionVariant)
-    }
 }
