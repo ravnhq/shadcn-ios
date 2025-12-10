@@ -18,6 +18,7 @@ struct SHDInputOTPItem: View {
     let size: SHDInputOTPSizing
 
     var onValueChange: (String) -> Void
+    var isError: Bool
 
     private var isActive: Bool {
         focusedField.wrappedValue == index
@@ -26,7 +27,7 @@ struct SHDInputOTPItem: View {
     private var slotState: SHDInputSlotState {
         SHDInputSlotState.currentState(
             isFocused: isActive,
-            isError: !text.isEmpty
+            isError: isError
         )
     }
 

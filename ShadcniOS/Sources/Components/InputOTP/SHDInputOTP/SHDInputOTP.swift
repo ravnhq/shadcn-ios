@@ -14,7 +14,7 @@ struct SHDInputOTP: View {
     private var caption: String = ""
     private var variant: SHDInputOTPVariant = .controlled
     private var size: SHDInputOTPSizing = .md
-
+    private var isError: Bool = false
     init(caption: String = "") {
         self.caption = caption
     }
@@ -36,7 +36,8 @@ struct SHDInputOTP: View {
                         size: size,
                         onValueChange: { newValue in
                             handleLogicChange(newValue, at: index)
-                        }
+                        },
+                        isError: isError
                     )
                 }
             }
@@ -71,6 +72,10 @@ struct SHDInputOTP: View {
             inputOTP.variant = variant
             inputOTP.size = size
         }
+    }
+
+    public func isError(_ isError: Bool = true) -> Self {
+        mutating(keyPath: \.isError, value: isError)
     }
 }
 
