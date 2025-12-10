@@ -171,7 +171,7 @@ public struct SHDInput: View {
                     .foregroundStyle(isInvalid ? .red : .foregroundDefault)
                     .padding(.vertical, .sm)
                     .focused($isFocused)
-         
+
                 Spacer()
 
                 if let trailingIcon = trailingIcon {
