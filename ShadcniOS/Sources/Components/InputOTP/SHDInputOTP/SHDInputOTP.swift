@@ -17,9 +17,7 @@ struct SHDInputOTP: View {
     private var isError: Bool = false
     private var length: SHDInputOTPLength = .otp6
 
-    init(
-        caption: String = ""
-    ) {
+    init(caption: String = "") {
         self.caption = caption
     }
 
@@ -96,5 +94,5 @@ struct SHDInputOTP: View {
     SHDInputOTP(
         caption: "This caption should be displayed on controlled variant",
     )
-    .inputOTPVariants(variant: .controlled, size: .sm, length: .otp8)
+    .inputOTPVariants(variant: .separator(groupOf: 2), size: .sm, length: .otp8)
 }
