@@ -11,27 +11,38 @@ struct SHDInputOTP: View {
     @State private var otpDigits: [String] = Array(repeating: "", count: 6)
     @FocusState private var focusedField: Int?
 
-    var variant: SHDInputOTPVariant = .controlled
-    var size: SHDInputOTPSizing = .md
+    private var caption: String = ""
+    private var variant: SHDInputOTPVariant = .controlled
+    private var size: SHDInputOTPSizing = .md
+
+    init(caption: String = "") {
+        self.caption = caption
+    }
 
     var body: some View {
-        HStack(spacing: 0) {
-            ForEach(otpDigits.indices, id: \.self) { index in
-                if variant.shouldShowSeparator(at: index) {
-                    SHDInputOTPSeparator()
-                }
-
-                SHDInputOTPItem(
-                    index: index,
-                    count: otpDigits.count,
-                    text: $otpDigits[index],
-                    focusedField: $focusedField,
-                    variant: variant,
-                    size: size,
-                    onValueChange: { newValue in
-                        handleLogicChange(newValue, at: index)
+        VStack(spacing: .sm) {
+            HStack(spacing: 0) {
+                ForEach(otpDigits.indices, id: \.self) { index in
+                    if variant.shouldShowSeparator(at: index) {
+                        SHDInputOTPSeparator()
                     }
-                )
+
+                    SHDInputOTPItem(
+                        index: index,
+                        count: otpDigits.count,
+                        text: $otpDigits[index],
+                        focusedField: $focusedField,
+                        variant: variant,
+                        size: size,
+                        onValueChange: { newValue in
+                            handleLogicChange(newValue, at: index)
+                        }
+                    )
+                }
+            }
+            if variant == .controlled {
+                Text(caption)
+                    .textStyle(size.textStyle)
             }
         }
     }
@@ -51,9 +62,21 @@ struct SHDInputOTP: View {
             print("Full:", otpDigits.joined())
         }
     }
+
+    public func inputOTPVariants(
+        variant: SHDInputOTPVariant,
+        size: SHDInputOTPSizing
+    ) -> Self {
+        mutating { inputOTP in
+            inputOTP.variant = variant
+            inputOTP.size = size
+        }
+    }
 }
 
 #Preview {
-    SHDInputOTP()
-
+    SHDInputOTP(
+        caption: "This caption should be displayed on controlled variant"
+    )
+    .inputOTPVariants(variant: .controlled, size: .sm)
 }
