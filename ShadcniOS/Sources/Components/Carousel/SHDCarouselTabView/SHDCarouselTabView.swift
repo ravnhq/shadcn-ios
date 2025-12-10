@@ -62,7 +62,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
             .frame(width: proportionVariant.width, height: proportionVariant.height)
             .tabViewStyle(.page(indexDisplayMode: .never))
 
-            HStack(spacing: 8) {
+            HStack(spacing: .sm) {
                 ForEach(0..<items.count, id: \.self) { idx in
                     Circle()
                         .fill(idx == currentPage
