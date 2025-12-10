@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDInputOTPPreview: View {
+internal struct SHDInputOTPPreview: View {
     var body: some View {
         ScrollView {
             Text("Sizes: ")
