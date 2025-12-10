@@ -14,9 +14,17 @@ enum SHDInputOTPSizing {
 
     var size: CGFloat {
         switch self {
-        case .sm: return 40
-        case .md: return 44
-        case .lg: return 48
+        case .sm: 40
+        case .md: 44
+        case .lg: 48
+        }
+    }
+
+    var textStyle: SHDTextStyle {
+        switch self {
+        case .sm: .textSMRegular
+        case .md: .textBaseRegular
+        case .lg: .textLGRegular
         }
     }
 }

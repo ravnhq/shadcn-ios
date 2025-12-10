@@ -12,9 +12,7 @@ enum SHDInputSlotState {
     case focused
     case error
 
-    static func currentState(isFocused: Bool, isError: Bool)
-        -> SHDInputSlotState
-    {
+    static func currentState(isFocused: Bool, isError: Bool) -> SHDInputSlotState {
         if isFocused { return .focused }
         if isError { return .error }
         return .idle
