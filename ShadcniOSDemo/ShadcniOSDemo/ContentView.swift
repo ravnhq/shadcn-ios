@@ -52,6 +52,16 @@ struct ContentView: View {
                             Text("SHDBadge")
                         }
                     }
+                    
+                    NavigationLink(destination: SHDInputOTPDemoView()) {
+                        HStack {
+                            Image(
+                                systemName:
+                                    "rectangle.and.pencil.and.ellipsis"
+                            )
+                            Text("SHDInputOTP")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())

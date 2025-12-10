@@ -5,7 +5,7 @@
 //  Created by JoseAlvarez on 12/9/25.
 //
 
-enum SHDInputOTPVariant: Equatable {
+public enum SHDInputOTPVariant: Equatable, Hashable {
     case controlled
     case pattern
     case separator(groupOf: Int = 2)

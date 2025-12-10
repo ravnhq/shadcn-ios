@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum SHDInputSlotState {
+public enum SHDInputSlotState {
     case idle
     case focused
     case error

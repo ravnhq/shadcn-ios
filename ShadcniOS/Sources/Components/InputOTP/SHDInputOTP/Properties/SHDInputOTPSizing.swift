@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SHDInputOTPSizing {
+public enum SHDInputOTPSizing {
     case sm
     case md
     case lg

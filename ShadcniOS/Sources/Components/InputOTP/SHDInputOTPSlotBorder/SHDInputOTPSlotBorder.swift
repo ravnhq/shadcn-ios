@@ -36,7 +36,3 @@ struct SHDInputSlotBorder: View {
         }
     }
 }
-
-#Preview {
-    SHDInputOTP()
-}

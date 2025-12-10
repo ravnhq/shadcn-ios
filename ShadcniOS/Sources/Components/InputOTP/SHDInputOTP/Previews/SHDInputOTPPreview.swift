@@ -133,14 +133,6 @@ struct SHDInputOTPPreview: View {
                 }
 
                 Spacer()
-                HStack {
-                    Text("Focus: ")
-
-                    Spacer()
-
-                    SHDInputOTP()
-
-                }
 
                 HStack {
                     Text("Error: ")
