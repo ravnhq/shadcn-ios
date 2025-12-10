@@ -74,8 +74,8 @@ struct SHDInputOTP: View {
     }
 
     public func inputOTPVariants(
-        variant: SHDInputOTPVariant,
-        size: SHDInputOTPSizing,
+        variant: SHDInputOTPVariant = .controlled,
+        size: SHDInputOTPSizing = .md,
         length: SHDInputOTPLength = .otp6
     ) -> Self {
         mutating { inputOTP in
