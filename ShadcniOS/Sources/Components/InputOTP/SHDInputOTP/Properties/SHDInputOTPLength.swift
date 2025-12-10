@@ -9,7 +9,7 @@ enum SHDInputOTPLength {
     case otp4
     case otp6
     case otp8
-    
+
     var digits: Int {
         switch self {
         case .otp4: 4

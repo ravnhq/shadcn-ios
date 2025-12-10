@@ -10,7 +10,7 @@ import SwiftUI
 struct SHDInputOTPSeparator: View {
     var body: some View {
         Circle()
-            .fill(SHDColor.iconDefault.color) // Asegúrate que este color exista en tu proyecto
+            .fill(SHDColor.iconDefault.color)
             .frame(width: 4, height: 4)
             .padding(.horizontal, 8)
     }
