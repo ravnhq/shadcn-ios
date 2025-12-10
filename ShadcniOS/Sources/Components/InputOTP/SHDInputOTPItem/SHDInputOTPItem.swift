@@ -41,7 +41,7 @@ struct SHDInputOTPItem: View {
         TextField("", text: $text)
             .frame(width: size.size, height: size.size)
             .multilineTextAlignment(.center)
-            .tint(.black)
+            .tint(SHDColor.borderPrimaryDefault.color)
             .background(
                 SHDInputSlotBorder(
                     index: index,
