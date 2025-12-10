@@ -96,5 +96,5 @@ struct SHDInputOTP: View {
     SHDInputOTP(
         caption: "This caption should be displayed on controlled variant",
     )
-    .inputOTPVariants(variant: .controlled, size: .sm, length: .otp4)
+    .inputOTPVariants(variant: .controlled, size: .sm, length: .otp8)
 }
