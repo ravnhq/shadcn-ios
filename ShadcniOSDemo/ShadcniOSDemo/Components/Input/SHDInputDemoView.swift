@@ -5,10 +5,11 @@
 //  Created by Diego Takaki on 12/8/25.
 //
 
-import SwiftUI
 import ShadcniOS
+import SwiftUI
 
 // MARK: - Enums for UI selector
+
 enum InputExample: String, CaseIterable {
     case basic = "Basic"
     case withIcons = "With Icons"
@@ -19,11 +20,10 @@ enum InputExample: String, CaseIterable {
 }
 
 struct SHDInputDemoView: View {
-
     @State private var selectedExample: InputExample = .basic
     @State private var inputSize: SHDInputSize = .md
     @State private var inputVariant: SHDInputVariant = .default
-    
+
     // Text states for different examples
     @State private var basicText: String = ""
     @State private var emailText: String = ""
@@ -34,8 +34,8 @@ struct SHDInputDemoView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 32) {
-
                 // MARK: Selectors
+
                 configSection(title: "Example Type") {
                     Picker("Example", selection: $selectedExample) {
                         ForEach(InputExample.allCases, id: \.self) {
@@ -61,9 +61,9 @@ struct SHDInputDemoView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                
+
                 Divider()
-                
+
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Preview")
                         .font(.headline)
@@ -78,10 +78,10 @@ struct SHDInputDemoView: View {
     }
 
     // MARK: - Input Preview
+
     @ViewBuilder
     private var demoInputs: some View {
         switch selectedExample {
-            
         case .basic:
             VStack(alignment: .leading, spacing: 20) {
                 SHDInput(
@@ -90,7 +90,7 @@ struct SHDInputDemoView: View {
                     placeholder: "Enter your username"
                 )
                 .inputVariant(variant: inputVariant, size: inputSize)
-                
+
                 SHDInput(
                     text: $searchText,
                     label: "Search",
@@ -110,7 +110,7 @@ struct SHDInputDemoView: View {
                     caption: "Choose a unique username"
                 )
                 .inputVariant(variant: inputVariant, size: inputSize)
-                
+
                 SHDInput(
                     text: $emailText,
                     label: "Email",
@@ -136,7 +136,7 @@ struct SHDInputDemoView: View {
                     }
                 )
                 .inputVariant(variant: inputVariant, size: inputSize)
-                
+
                 SHDInput(
                     text: $passwordText,
                     label: "Password",
@@ -161,7 +161,7 @@ struct SHDInputDemoView: View {
                     caption: "This field is required"
                 )
                 .inputVariant(variant: .obligatory, size: inputSize)
-                
+
                 SHDInput(
                     text: $emailText,
                     label: "Email Address",
@@ -172,11 +172,11 @@ struct SHDInputDemoView: View {
                 .inputVariant(variant: .obligatory, size: inputSize)
                 .keyboardType(.emailAddress)
                 .textInputAutocapitalization(.never)
-                
+
                 Text("Fields marked with * are required")
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                
+
                 Text("Try tapping in and out of empty fields to see validation")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -199,7 +199,7 @@ struct SHDInputDemoView: View {
                 .keyboardType(.emailAddress)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
-                
+
                 Text("This example includes email validation")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -222,7 +222,7 @@ struct SHDInputDemoView: View {
                 .inputVariant(variant: inputVariant, size: inputSize)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
-                
+
                 Text("Trailing icon could be used for password visibility toggle")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -231,6 +231,7 @@ struct SHDInputDemoView: View {
     }
 
     // MARK: - Helper Section Builder
+
     @ViewBuilder
     private func configSection<Content: View>(
         title: String,

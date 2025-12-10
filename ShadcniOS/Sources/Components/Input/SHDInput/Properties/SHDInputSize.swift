@@ -8,7 +8,6 @@
 import SwiftUI
 
 public enum SHDInputSize: Sendable {
-
     case sm
 
     case md

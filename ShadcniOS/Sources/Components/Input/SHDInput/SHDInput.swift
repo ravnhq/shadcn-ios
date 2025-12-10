@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  SHDInput.swift
 //  ShadcniOS
 //
 //  Created by Diego Takaki on 12/8/25.
@@ -138,7 +138,6 @@ import SwiftUI
 ///     .inputVariant(variant: .default, size: .lg)
 /// ```
 public struct SHDInput: View {
-
     private var variant: SHDInputVariant = .default
     private var size: SHDInputSize = .md
     private var label: String
@@ -170,7 +169,8 @@ public struct SHDInput: View {
                 placeholder: String? = nil,
                 caption: String? = nil,
                 errorText: String? = nil,
-                validation: ((String) -> Bool)? = nil) {
+                validation: ((String) -> Bool)? = nil)
+    {
         _text = text
         self.label = label
         self.leadingIcon = leadingIcon
@@ -187,7 +187,7 @@ public struct SHDInput: View {
                 Text(label)
                     .textStyle(size.textSize)
                     .foregroundStyle(.foregroundDefault)
-                
+
                 if variant == .obligatory {
                     Text("*")
                         .textStyle(size.textSize)
@@ -246,7 +246,7 @@ public struct SHDInput: View {
         if variant == .obligatory && text.isEmpty && hasBeenTouched {
             return true
         }
-        
+
         // Check custom validation
         guard let validation = validation, !text.isEmpty else {
             return false
@@ -277,7 +277,7 @@ public struct SHDInput: View {
         if isInvalid {
             if let errorText = errorText {
                 return errorText
-            } else if variant == .obligatory && text.isEmpty {
+            } else if variant == .obligatory, text.isEmpty {
                 return "This field is required"
             }
         }

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SHDInputVariant.swift
 //  ShadcniOS
 //
 //  Created by Diego Takaki on 12/8/25.
@@ -12,14 +12,13 @@ import Foundation
 /// Input variants control how the input field appears and behaves,
 /// particularly regarding required field validation and visual indicators.
 public enum SHDInputVariant {
-
     /// The default input variant.
     ///
     /// - No special visual indicators
     /// - No automatic required field validation
     /// - Standard border and label styling
     case `default`
-    
+
     /// An obligatory (required) input variant.
     ///
     /// When applied to an input field:
@@ -38,5 +37,4 @@ public enum SHDInputVariant {
     /// .inputVariant(variant: .obligatory, size: .md)
     /// ```
     case obligatory
-
 }
