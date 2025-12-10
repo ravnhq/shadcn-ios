@@ -59,7 +59,3 @@ struct SHDInputOTPItem: View {
             }
     }
 }
-
-#Preview {
-    SHDInputOTP()
-}

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDInputOTP: View {
+public struct SHDInputOTP: View {
     @State private var otpDigits: [String] = []
     @FocusState private var focusedField: Int?
 
@@ -17,11 +17,11 @@ struct SHDInputOTP: View {
     private var isError: Bool = false
     private var length: SHDInputOTPLength = .otp6
 
-    init(caption: String = "") {
+    public init(caption: String = "") {
         self.caption = caption
     }
 
-    var body: some View {
+    public var body: some View {
         VStack(spacing: .sm) {
             HStack(spacing: 0) {
                 ForEach(otpDigits.indices, id: \.self) { index in
@@ -91,8 +91,5 @@ struct SHDInputOTP: View {
 }
 
 #Preview {
-    SHDInputOTP(
-        caption: "This caption should be displayed on controlled variant",
-    )
-    .inputOTPVariants(variant: .separator(groupOf: 2), size: .sm, length: .otp8)
+    SHDInputOTPPreview()
 }

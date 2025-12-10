@@ -5,7 +5,7 @@
 //  Created by JoseAlvarez on 12/10/25.
 //
 
-enum SHDInputOTPLength {
+public enum SHDInputOTPLength {
     case otp4
     case otp6
     case otp8
