@@ -13,6 +13,7 @@ enum InputExample: String, CaseIterable {
     case basic = "Basic"
     case withIcons = "With Icons"
     case withValidation = "With Validation"
+    case obligatory = "Obligatory (Required)"
     case email = "Email Example"
     case password = "Password Example"
 }
@@ -56,9 +57,9 @@ struct SHDInputDemoView: View {
                 configSection(title: "Input Variant") {
                     Picker("Variant", selection: $inputVariant) {
                         Text("Default").tag(SHDInputVariant.default)
-                        // Add other variants as they exist
+                        Text("Obligatory").tag(SHDInputVariant.obligatory)
                     }
-                    .pickerStyle(.menu)
+                    .pickerStyle(.segmented)
                 }
                 
                 Divider()
@@ -148,6 +149,37 @@ struct SHDInputDemoView: View {
                     }
                 )
                 .inputVariant(variant: inputVariant, size: inputSize)
+            }
+
+        case .obligatory:
+            VStack(alignment: .leading, spacing: 20) {
+                SHDInput(
+                    text: $usernameText,
+                    label: "Full Name",
+                    leadingIcon: .codingDevelopmentTerminal,
+                    placeholder: "Enter your full name",
+                    caption: "This field is required"
+                )
+                .inputVariant(variant: .obligatory, size: inputSize)
+                
+                SHDInput(
+                    text: $emailText,
+                    label: "Email Address",
+                    leadingIcon: .mathsX,
+                    placeholder: "you@example.com",
+                    errorText: "Please provide your email address"
+                )
+                .inputVariant(variant: .obligatory, size: inputSize)
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
+                
+                Text("Fields marked with * are required")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                
+                Text("Try tapping in and out of empty fields to see validation")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
         case .email:

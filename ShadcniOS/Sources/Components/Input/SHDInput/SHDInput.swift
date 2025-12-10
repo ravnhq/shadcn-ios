@@ -45,6 +45,16 @@ import SwiftUI
 ///
 /// - The input remains interactive during validation states.
 ///
+/// ## Obligatory Fields
+///
+/// When using `.inputVariant(variant: .obligatory, size:)`:
+///
+/// - An **asterisk (*)** appears next to the label in red
+/// - The field becomes **required** - empty values are considered invalid
+/// - If the field is empty and loses focus, it shows an error state
+/// - A default "This field is required" message appears (unless custom `errorText` is provided)
+/// - Can be combined with custom validation for additional requirements
+///
 /// ## Layout Rules
 ///
 /// - Label appears above the input field
@@ -109,6 +119,19 @@ import SwiftUI
 /// )
 /// ```
 ///
+/// With obligatory variant (required field):
+/// ```swift
+/// @State private var name = ""
+///
+/// SHDInput(
+///     text: $name,
+///     label: "Full Name",
+///     placeholder: "Enter your name",
+///     errorText: "Name is required"
+/// )
+/// .inputVariant(variant: .obligatory, size: .md)
+/// ```
+///
 /// With custom variant and size:
 /// ```swift
 /// SHDInput(text: $text, label: "Label")
@@ -126,6 +149,7 @@ public struct SHDInput: View {
     private var errorText: String?
     @Binding var text: String
     @FocusState private var isFocused: Bool
+    @State private var hasBeenTouched: Bool = false
     let validation: ((String) -> Bool)?
 
     /// Creates a ShadcniOS text input field.
@@ -159,9 +183,17 @@ public struct SHDInput: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: .xs) {
-            Text(label)
-                .textStyle(size.textSize)
-                .foregroundStyle(.foregroundDefault)
+            HStack(spacing: 4) {
+                Text(label)
+                    .textStyle(size.textSize)
+                    .foregroundStyle(.foregroundDefault)
+                
+                if variant == .obligatory {
+                    Text("*")
+                        .textStyle(size.textSize)
+                        .foregroundStyle(.red)
+                }
+            }
 
             HStack(spacing: .sm) {
                 if let leadingIcon = leadingIcon {
@@ -171,6 +203,11 @@ public struct SHDInput: View {
                     .foregroundStyle(isInvalid ? .red : .foregroundDefault)
                     .padding(.vertical, .sm)
                     .focused($isFocused)
+                    .onChange(of: isFocused) { _, newValue in
+                        if !newValue && !hasBeenTouched {
+                            hasBeenTouched = true
+                        }
+                    }
 
                 Spacer()
 
@@ -202,10 +239,15 @@ public struct SHDInput: View {
     /// Determines whether the current input text is invalid based on validation rules.
     ///
     /// Returns `true` when:
-    /// - A validation closure is provided
-    /// - The text is not empty
-    /// - The validation closure returns `false`
+    /// - A validation closure is provided, the text is not empty, and validation fails
+    /// - The variant is `.obligatory`, the field has been touched, and it's empty
     private var isInvalid: Bool {
+        // Check obligatory variant - field is required
+        if variant == .obligatory && text.isEmpty && hasBeenTouched {
+            return true
+        }
+        
+        // Check custom validation
         guard let validation = validation, !text.isEmpty else {
             return false
         }
@@ -229,10 +271,15 @@ public struct SHDInput: View {
     ///
     /// Returns:
     /// - `errorText` when validation fails and error text is provided
+    /// - A default "This field is required" message for empty obligatory fields
     /// - `caption` otherwise
     private var captionOrErrorText: String? {
-        if isInvalid, let errorText = errorText {
-            return errorText
+        if isInvalid {
+            if let errorText = errorText {
+                return errorText
+            } else if variant == .obligatory && text.isEmpty {
+                return "This field is required"
+            }
         }
         return caption
     }
