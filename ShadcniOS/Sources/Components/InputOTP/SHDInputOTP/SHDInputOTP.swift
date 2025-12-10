@@ -110,17 +110,40 @@ public struct SHDInputOTP: View {
     public var body: some View {
         VStack(spacing: .sm) {
             HStack(spacing: SHDSizing.Spacing.none.value) {
-                otpFields
-            }
+                ForEach(otpDigits.indices, id: \.self) { index in
+                    if variant.shouldShowSeparator(at: index, length: length) {
+                        SHDInputOTPSeparator()
+                    }
 
-            if variant == .controlled && !caption.isEmpty {
+                    let isInitialField = variant.isStartOfGroup(index: index, length: length)
+                    let isFinalField = variant.isEndOfGroup(
+                        index: index,
+                        totalCount: otpDigits.count,
+                        length: length
+                    )
+                    SHDInputOTPItem(
+                        isInitialField: isInitialField,
+                        isFinalField: isFinalField,
+                        text: $otpDigits[index]
+                    )
+                    .itemSize(size)
+                    .isError(isError)
+                    .onBackspace {
+                        if index > 0 {
+                            focusedField = index - 1
+                        }
+                    }
+                    .focused($focusedField, equals: index)
+                    .onChange(of: otpDigits[index]) { newValue in
+                        handleLogicChange(newValue, at: index)
+                    }
+                }
+            }
+            if variant == .controlled {
                 Text(caption)
                     .textStyle(size.textStyle)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, .xxxs)
             }
         }
-        .padding(.horizontal, .sm)
         .onAppear {
             otpDigits = Array(repeating: "", count: length.digits)
         }
@@ -136,52 +159,6 @@ public struct SHDInputOTP: View {
         }
         .onChange(of: otpDigits) { newValue in
             code = newValue.joined()
-        }
-    }
-
-    @ViewBuilder
-    private var otpFields: some View {
-        ForEach(otpDigits.indices, id: \.self) { index in
-            if variant.shouldShowSeparator(at: index, length: length) {
-                SHDInputOTPSeparator()
-            }
-
-            let isFirst = index == 0
-            let isLast = index == otpDigits.count - 1
-            let isStart = variant.isStartOfGroup(index: index, length: length)
-            let isEnd = variant.isEndOfGroup(
-                index: index,
-                totalCount: otpDigits.count,
-                length: length
-            )
-            let showSeparator = variant.shouldShowSeparator(
-                at: index,
-                length: length
-            )
-
-            SHDInputOTPItem(
-                text: $otpDigits[index],
-                onValueChange: { newValue in
-                    handleLogicChange(newValue, at: index)
-                },
-                isFirst: isFirst,
-                isLast: isLast,
-                showLeftSeparator: showSeparator,
-                isStartOfGroup: isStart,
-                isEndOfGroup: isEnd
-            )
-            .inputOTPItemConfiguration(
-                variant: variant,
-                size: size,
-                length: length
-            )
-            .isError(isError)
-            .onBackspace {
-                if index > 0 {
-                    focusedField = index - 1
-                }
-            }
-            .focused($focusedField, equals: index)
         }
     }
 

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SHDInputOTPDemoView: View {
     
-    @State private var selectedVariant: SHDInputOTPVariant = .controlled
+    @State private var variant: SHDInputOTPVariant = .controlled
     @State private var size: SHDInputOTPSizing = .md
     @State private var length: SHDInputOTPLength = .standard
     @State private var isError: Bool = false
@@ -19,14 +19,14 @@ struct SHDInputOTPDemoView: View {
     
     private var resolvedVariant: SHDInputOTPVariant {
         if length == .extended { return .controlled }
-        switch selectedVariant {
+        switch variant {
         case .separator:
             switch length {
             case .short, .standard, .extended:
                 return .separator
             }
         default:
-            return selectedVariant
+            return variant
         }
     }
 
@@ -36,7 +36,7 @@ struct SHDInputOTPDemoView: View {
                 Text("Variants")
                     .font(.headline)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                Picker("Variant", selection: $selectedVariant) {
+                Picker("Variant", selection: $variant) {
                     Text("Controlled").tag(SHDInputOTPVariant.controlled)
                     Text("Pattern").tag(SHDInputOTPVariant.pattern)
                     Text("Separator").tag(SHDInputOTPVariant.separator)
@@ -85,7 +85,7 @@ struct SHDInputOTPDemoView: View {
             .padding()
             .onChange(of: length) { _, newValue in
                 if newValue == .extended {
-                    selectedVariant = .controlled
+                    variant = .controlled
                 }
             }
         }
@@ -96,5 +96,3 @@ struct SHDInputOTPDemoView: View {
 #Preview {
     SHDInputOTPDemoView()
 }
-
-
