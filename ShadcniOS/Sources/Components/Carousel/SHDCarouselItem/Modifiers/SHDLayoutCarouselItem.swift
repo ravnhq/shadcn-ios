@@ -29,15 +29,15 @@ import SwiftUI
 internal struct SHDLayoutCarouselItem: ViewModifier {
 
     var layoutVariant: SHDCarouselLayoutVariant
-    var proporcionVariant: SHDCarouselProportionVariant
+    var proportionVariant: SHDCarouselProportionVariant
 
     func body(content: Content) -> some View {
         switch layoutVariant {
         case .groupHorizonal:
             content
                 .frame(
-                    width: proporcionVariant.width,
-                    height: proporcionVariant.height
+                    width: proportionVariant.width,
+                    height: proportionVariant.height
                 )
         case .singleHorizonal:
             content
@@ -72,7 +72,7 @@ internal extension View {
         modifier(
             SHDLayoutCarouselItem(
                 layoutVariant: layoutVariant,
-                proporcionVariant: proportionVariant
+                proportionVariant: proportionVariant
             )
         )
     }
