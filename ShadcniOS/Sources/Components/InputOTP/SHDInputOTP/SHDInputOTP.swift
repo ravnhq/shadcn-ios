@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct SHDInputOTP: View {
-    @State private var otpDigits: [String] = Array(repeating: "", count: 6)
+    @State private var otpDigits: [String] = []
     @FocusState private var focusedField: Int?
 
     private var caption: String = ""
     private var variant: SHDInputOTPVariant = .controlled
     private var size: SHDInputOTPSizing = .md
     private var isError: Bool = false
-    init(caption: String = "") {
+    private var length: SHDInputOTPLength = .otp6
+
+    init(
+        caption: String = ""
+    ) {
         self.caption = caption
     }
 
@@ -46,6 +50,13 @@ struct SHDInputOTP: View {
                     .textStyle(size.textStyle)
             }
         }
+        .onAppear {
+            otpDigits = Array(repeating: "", count: length.digits)
+        }
+        .onChange(of: length) { newLength in
+            otpDigits = Array(repeating: "", count: newLength.digits)
+            focusedField = 0
+        }
     }
 
     private func handleLogicChange(_ value: String, at index: Int) {
@@ -66,11 +77,13 @@ struct SHDInputOTP: View {
 
     public func inputOTPVariants(
         variant: SHDInputOTPVariant,
-        size: SHDInputOTPSizing
+        size: SHDInputOTPSizing,
+        length: SHDInputOTPLength = .otp6
     ) -> Self {
         mutating { inputOTP in
             inputOTP.variant = variant
             inputOTP.size = size
+            inputOTP.length = length
         }
     }
 
@@ -81,7 +94,7 @@ struct SHDInputOTP: View {
 
 #Preview {
     SHDInputOTP(
-        caption: "This caption should be displayed on controlled variant"
+        caption: "This caption should be displayed on controlled variant",
     )
-    .inputOTPVariants(variant: .controlled, size: .sm)
+    .inputOTPVariants(variant: .controlled, size: .sm, length: .otp4)
 }
