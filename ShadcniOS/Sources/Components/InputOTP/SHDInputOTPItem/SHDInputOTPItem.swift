@@ -79,33 +79,17 @@ import SwiftUI
 ///   flags (`isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`)
 ///   are provided by the parent; the view does not expose additional public state.
 internal struct SHDInputOTPItem: View {
-    @Environment(\.isFocused) private var isFocused
-    @Binding var text: String
-    @FocusState private var internalFocus: Bool
-    private let zws = "\u{200B}"
-    let onValueChange: (String) -> Void
-    var onBackspace: () -> Void = {}
-    var variant: SHDInputOTPVariant = .controlled
-    var size: SHDInputOTPSizing = .md
-    var length: SHDInputOTPLength = .standard
-    var isError: Bool = false
-    var isFirst: Bool = false
-    var isLast: Bool = false
-    var showLeftSeparator: Bool = false
-    var isStartOfGroup: Bool = false
-    var isEndOfGroup: Bool = false
+    // MARK: Properties
 
-    private var slotState: SHDInputSlotState {
-        SHDInputSlotState.currentState(
-            isFocused: internalFocus,
-            isError: isError
-        )
-    }
+    private var size: SHDInputOTPSizing = .md
+    private var isError: Bool = false
+    private var onBackspace: () -> Void = {}
+    let onValueChange: (String) -> Void = { _ in }
+    private var zws = "\u{200B}"
+    private let isInitialField: Bool
+    private let isFinalField: Bool
 
-    private var leadingPadding: CGFloat {
-        if isFirst || showLeftSeparator { return 0 }
-        return -1
-    }
+    @Binding private var text: String
 
     var body: some View {
         TextField(
@@ -131,47 +115,108 @@ internal struct SHDInputOTPItem: View {
                 }
             )
         )
+        .contentShape(Rectangle())
         .lineLimit(1)
-        .frame(width: size.textFieldSize, height: size.textFieldSize)
         .multilineTextAlignment(.center)
         .textInputAutocapitalization(.characters)
-        .tint(SHDColor.borderPrimaryDefault.color)
-        .focused($internalFocus)
-        .background(
-            SHDInputSlotBorder()
-                .inputSlotBorderConfiguration(
-                    state: slotState,
-                    isStartOfGroup: isStartOfGroup,
-                    isEndOfGroup: isEndOfGroup
-                )
+        .frame(width: size.textFieldSize, height: size.textFieldSize)
+        .tint(.borderPrimaryDefault)
+        .border(
+            isInitialField: isInitialField,
+            isFinalField: isFinalField,
+            isError: isError
         )
-        .contentShape(Rectangle())
-        .foregroundColor(.foregroundDefault)
-        .padding(.leading, leadingPadding)
-        .zIndex(slotState.zIndex)
         .onChange(of: text) { newValue in
             if newValue == zws { return }
             onValueChange(newValue)
         }
     }
 
-    public func inputOTPItemConfiguration(
-        variant: SHDInputOTPVariant = .controlled,
-        size: SHDInputOTPSizing = .md,
-        length: SHDInputOTPLength = .standard
-    ) -> Self {
-        mutating { inputOTP in
-            inputOTP.variant = variant
-            inputOTP.size = size
-            inputOTP.length = length
-        }
+    // MARK: Initializer
+
+    init(
+        isInitialField: Bool = false,
+        isFinalField: Bool = false,
+        text: Binding<String>
+    ) {
+        self.isInitialField = isInitialField
+        self.isFinalField = isFinalField
+        _text = text
     }
 
-    public func isError(_ isError: Bool = true) -> Self {
+    // MARK: Public Methods
+
+    func itemSize(_ size: SHDInputOTPSizing = .md) -> Self {
+        mutating(keyPath: \.size, value: size)
+    }
+
+    func isError(_ isError: Bool = true) -> Self {
         mutating(keyPath: \.isError, value: isError)
     }
     
     public func onBackspace(_ action: @escaping () -> Void) -> Self {
         mutating(keyPath: \.onBackspace, value: action)
+    }
+}
+
+#Preview {
+    @Previewable @State var text: String = "1"
+
+    SHDInputOTPItem(isInitialField: true, text: $text)
+}
+
+struct SHDInputSlotBorder: ViewModifier {
+    // MARK: Properties
+
+    @FocusState private var isFocused: Bool
+
+    private var borderColor: SHDColor {
+        if isFocused {
+            .borderPrimaryDefault
+        } else if isError {
+            .borderDestructiveDefault
+        } else {
+            .borderDefault
+        }
+    }
+
+    let isInitialField: Bool
+    let isFinalField: Bool
+    let isError: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .focused($isFocused)
+            .zIndex(isFocused ? 1 : 0)
+            .background {
+                UnevenRoundedRectangle(
+                    topLeadingRadius: calculateRadius(isInitialField),
+                    bottomLeadingRadius: calculateRadius(isInitialField),
+                    bottomTrailingRadius: calculateRadius(isFinalField),
+                    topTrailingRadius: calculateRadius(isFinalField)
+                )
+                .fill(.white)
+                .stroke(borderColor.color, lineWidth: isFocused ? 2 : 1)
+            }
+    }
+
+    // MARK: Private Methods
+
+    private func calculateRadius(_ shouldBend: Bool) -> CGFloat {
+        shouldBend ? SHDSizing.Radius.md.value : 0
+    }
+}
+
+extension View {
+    func border(isInitialField: Bool, isFinalField: Bool, isError: Bool)
+        -> some View
+    {
+        modifier(
+            SHDInputSlotBorder(
+                isInitialField: isInitialField,
+                isFinalField: isFinalField,
+                isError: isError
+            )
+        )
     }
 }
