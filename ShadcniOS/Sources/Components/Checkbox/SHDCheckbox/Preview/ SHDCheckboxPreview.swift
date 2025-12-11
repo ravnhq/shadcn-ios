@@ -16,18 +16,21 @@ internal struct SHDCheckboxPreview: View {
             VStack(alignment: .leading, spacing: .md) {
                 SHDCheckbox(
                     label: "Small checkbox",
+                    isChecked: .constant(false),
                     description: "Preview of a small checkbox."
                 )
                 .checkboxStyle(size: .sm)
 
                 SHDCheckbox(
                     label: "Medium checkbox",
+                    isChecked: .constant(true),
                     description: "Preview of a medium checkbox."
                 )
                 .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Large checkbox",
+                    isChecked: .constant(false),
                     description: "Preview of a large checkbox."
                 )
                 .checkboxStyle(size: .lg)
@@ -41,19 +44,21 @@ internal struct SHDCheckboxPreview: View {
             VStack(alignment: .leading, spacing: .md) {
                 SHDCheckbox(
                     label: "Enabled - Unselected",
+                    isChecked: .constant(false),
                     description: "Default unchecked state."
                 )
                 .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Enabled - Selected",
-                    description: "Starts checked and interactive.",
-                    isChecked: true
+                    isChecked: .constant(true),
+                    description: "Starts checked and interactive."
                 )
                 .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Disabled - Unselected",
+                    isChecked: .constant(false),
                     description: "Not interactive."
                 )
                 .checkboxStyle(size: .md)
@@ -61,8 +66,8 @@ internal struct SHDCheckboxPreview: View {
 
                 SHDCheckbox(
                     label: "Disabled - Selected",
-                    description: "Checked but disabled.",
-                    isChecked: true
+                    isChecked: .constant(true),
+                    description: "Checked but disabled."
                 )
                 .checkboxStyle(size: .md)
                 .disabled(true)

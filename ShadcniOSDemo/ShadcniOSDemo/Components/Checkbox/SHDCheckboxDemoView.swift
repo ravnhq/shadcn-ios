@@ -11,6 +11,7 @@ import ShadcniOS
 // MARK: - Demo Checkbox
 struct SHDCheckboxDemoView: View {
     @State private var checkboxSize: SHDCheckboxSize = .md
+    @State private var isChecked = false
     @State private var isDisabled: Bool = false
     @State private var showDescription: Bool = true
 
@@ -40,6 +41,7 @@ struct SHDCheckboxDemoView: View {
 
                     SHDCheckbox(
                         label: "Accept terms and conditions",
+                        isChecked: $isChecked,
                         description: showDescription ? "You agree to our Terms of Service and Privacy Policy." : nil
                     )
                     .checkboxStyle(size: checkboxSize)

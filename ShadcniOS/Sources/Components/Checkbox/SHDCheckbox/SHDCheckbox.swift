@@ -40,7 +40,7 @@ import SwiftUI
 ///     .checkboxDisabled(true)
 /// ```
 public struct SHDCheckbox: View {
-    @State private var isChecked = false
+    private var isChecked: Binding<Bool>
 
     private let label: String
     private let description: String?
@@ -51,16 +51,16 @@ public struct SHDCheckbox: View {
 
     public init(
         label: String,
-        description: String? = nil,
-        isChecked: Bool = false
+        isChecked: Binding<Bool>,
+        description: String? = nil
     ) {
         self.label = label
         self.description = description
-        _isChecked = State(initialValue: isChecked)
+        self.isChecked = isChecked
     }
 
     public var body: some View {
-        Toggle(label, isOn: $isChecked)
+        Toggle(label, isOn: isChecked)
             .baseCheckboxStyle(description: description, size: size)
             .disabledMask()
     }
