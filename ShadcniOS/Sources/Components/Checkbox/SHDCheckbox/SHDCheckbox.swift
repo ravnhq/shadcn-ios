@@ -12,7 +12,7 @@ public struct SHDCheckbox: View {
 
     private let label: String
     private let description: String?
-    private let size: CheckboxSize
+    private var size: CheckboxSize = .md
 
     // MARK: - Initializer
 
@@ -23,46 +23,25 @@ public struct SHDCheckbox: View {
     ///   - description:
     public init(
         label: String,
-        description: String? = nil,
-        size: CheckboxSize = .md
+        description: String? = nil
     ) {
         self.label = label
         self.description = description
-        self.size = size
     }
 
     public var body: some View {
         Toggle(label, isOn: $isChecked)
-            .toggleStyle(CheckboxStyle(description: description, size: size))
+            .baseCheckboxStyle(description: description, size: size)
             .padding()
     }
-}
 
-struct CheckboxStyle: ToggleStyle {
-    let description: String?
-    let size: CheckboxSize
-
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(alignment: .top) {
-            Image(systemName: configuration.isOn ? "checkmark.square" : "square")
-                .resizable()
-                .frame(width: size.rawValue, height: size.rawValue)
-                .onTapGesture {
-                    configuration.isOn.toggle()
-                }
-
-            VStack(alignment: .leading, spacing: 4) {
-                configuration.label
-                    .textStyle(size.textSize)
-                    .font(.headline)
-
-                if let description {
-                    Text(description)
-                        .textStyle(size.textSize)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-            }
+    /// Applies the checkbox size using a modifier-style API.
+    ///
+    /// - Parameter size: Desired checkbox sizing preset.
+    /// - Returns: A checkbox with the updated size.
+    public func checkboxSize(_ size: CheckboxSize) -> some View {
+        mutating { checkbox in
+            checkbox.size = size
         }
     }
 }
