@@ -122,13 +122,11 @@ public struct SHDCarousel<Item, Content: View>: View {
                         .padding(.vertical, .xxs)
                         .padding(.horizontal, .md)
                 } else {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: .md) {
-                            carouselContent
-                        }
-                        .padding(.vertical, .xxs)
-                        .padding(.horizontal, .md)
-                    }
+                    SHDCarouselGroupHorizontal(
+                        items: items,
+                        proportionVariant: proportionVariant,
+                        content: content
+                    )
                 }
 
             case .singleHorizonal:

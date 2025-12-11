@@ -48,29 +48,28 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
     var content: (Item) -> Content
 
     var body: some View {
-        GeometryReader { geo in
-            let width = geo.size.width
-            let tileWidth = width * proportionVariant.widthFactor
-            let tileHeight = tileWidth / proportionVariant.aspectRatio
-
-            VStack(spacing: .sm) {
+        VStack(spacing: .sm) {
+            GeometryReader { proxy in
+                let containerWidth = proxy.size.width
+                let itemWidth = containerWidth * proportionVariant.widthFactor
+                let itemHeight = itemWidth / proportionVariant.aspectRatio
 
                 TabView(selection: $currentPage) {
                     ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                         content(item)
-                            .horizontalFrameVariantion(
-                                layoutVariant: layoutVariant,
-                                proportionVariant: proportionVariant
-                            )
+                            .frame(width: itemWidth, height: itemHeight)
+                            .frame(maxWidth: .infinity)
                             .tag(index)
                     }
                 }
-                .frame(width: tileWidth, height: tileHeight)
                 .tabViewStyle(.page(indexDisplayMode: .never))
-
-                indicators
+                .frame(width: containerWidth, height: itemHeight)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .aspectRatio(
+                proportionVariant.aspectRatio / proportionVariant.widthFactor,
+                contentMode: .fit
+            )
+            indicators
         }
     }
 
