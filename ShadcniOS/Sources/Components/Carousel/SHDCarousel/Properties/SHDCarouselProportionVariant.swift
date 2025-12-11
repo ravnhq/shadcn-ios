@@ -38,7 +38,7 @@ import Foundation
 ///     ProductThumbnail(product: product)
 /// }
 /// .carouselProportionVariant(.threeToFour)
-/// 
+///
 /// SHDCarousel(items: videos) { video in
 ///     VideoPreview(video: video)
 /// }
@@ -72,21 +72,30 @@ public enum SHDCarouselProportionVariant {
     /// Commonly used in photo galleries and featured content showcases.
     case threeToFourWithSingleItem
 
-    var width: CGFloat {
+    var aspectRatio: CGFloat {
         switch self {
-        case .oneToOne: 212
-        case .threeToFour: 159
-        case .sixteenToNine: 377
-        case .threeToFourWithSingleItem: 380
+        case .oneToOne: 1.0
+        case .threeToFour: 3.0 / 4.0
+        case .sixteenToNine: 16.0 / 9.0
+        case .threeToFourWithSingleItem: 3.0 / 4.0
         }
     }
 
-    var height: CGFloat {
+    var widthFactor: CGFloat {
         switch self {
-        case .oneToOne: 212
-        case .threeToFour: 212
-        case .sixteenToNine: 212
-        case .threeToFourWithSingleItem: 507
+        case .oneToOne: 0.45  // Ocupa el 45% del ancho (caben 2 y un poco)
+        case .threeToFour: 0.40  // Ocupa el 40% del ancho
+        case .sixteenToNine: 0.85  // Ocupa el 85% (se ve el borde del siguiente para invitar a scrollear)
+        case .threeToFourWithSingleItem: 0.90  // Casi pantalla completa para el modo "Single"
+        }
+    }
+    
+    var heightFactor: CGFloat {
+        switch self {
+        case .oneToOne: 0.45
+        case .threeToFour: 0.50
+        case .sixteenToNine: 0.85
+        case .threeToFourWithSingleItem: 0.90
         }
     }
 }
