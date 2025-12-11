@@ -48,28 +48,40 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
     var content: (Item) -> Content
 
     var body: some View {
-        VStack(spacing: .sm) {
-            TabView(selection: $currentPage) {
-                ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-                    content(item)
-                        .horizontalFrameVariantion(
-                            layoutVariant: layoutVariant,
-                            proportionVariant: proportionVariant
-                        )
-                        .tag(index)
-                }
-            }
-            .frame(width: proportionVariant.width, height: proportionVariant.height)
-            .tabViewStyle(.page(indexDisplayMode: .never))
+        GeometryReader { geo in
+            let width = geo.size.width
+            let tileWidth = width * proportionVariant.widthFactor
+            let tileHeight = tileWidth / proportionVariant.aspectRatio
 
-            HStack(spacing: .sm) {
-                ForEach(0..<items.count, id: \.self) { idx in
-                    Circle()
-                        .fill(idx == currentPage
-                              ? SHDColor.foregroundDefault.color
-                              : SHDColor.foregroundDefault.color.opacity(0.3))
-                        .frame(width: 8, height: 8)
+            VStack(spacing: .sm) {
+
+                TabView(selection: $currentPage) {
+                    ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+                        content(item)
+                            .horizontalFrameVariantion(
+                                layoutVariant: layoutVariant,
+                                proportionVariant: proportionVariant
+                            )
+                            .tag(index)
+                    }
                 }
+                .frame(width: tileWidth, height: tileHeight)
+                .tabViewStyle(.page(indexDisplayMode: .never))
+
+                indicators
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }
+    }
+
+    private var indicators: some View {
+        HStack(spacing: .sm) {
+            ForEach(0..<items.count, id: \.self) { idx in
+                Circle()
+                    .fill(idx == currentPage
+                          ? SHDColor.foregroundDefault.color
+                          : SHDColor.foregroundDefault.color.opacity(0.3))
+                    .frame(width: 8, height: 8)
             }
         }
     }

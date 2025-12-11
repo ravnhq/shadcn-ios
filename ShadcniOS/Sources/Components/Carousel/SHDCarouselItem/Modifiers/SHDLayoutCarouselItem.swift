@@ -27,30 +27,38 @@ import SwiftUI
 /// beyond the designated dimensions. This maintains visual consistency and predictable spacing in carousels.
 ///
 internal struct SHDLayoutCarouselItem: ViewModifier {
-
+    
     var layoutVariant: SHDCarouselLayoutVariant
     var proportionVariant: SHDCarouselProportionVariant
-
+    
     func body(content: Content) -> some View {
         switch layoutVariant {
         case .groupHorizonal:
             content
-                .frame(
-                    width: proportionVariant.width,
-                    height: proportionVariant.height
+                .containerRelativeFrame(.horizontal) { containerWidth, _ in
+                    containerWidth * proportionVariant.widthFactor
+                }
+                .aspectRatio(
+                    proportionVariant.aspectRatio,
+                    contentMode: .fit
                 )
         case .singleHorizonal:
             content
-                .frame(
-                    width: SHDCarouselProportionVariant.threeToFourWithSingleItem.width,
-                    height: SHDCarouselProportionVariant.threeToFourWithSingleItem.height
+                .containerRelativeFrame(.horizontal) { containerWidth, _ in
+                    containerWidth *
+                    SHDCarouselProportionVariant.threeToFourWithSingleItem.widthFactor
+                }
+                .aspectRatio(
+                    SHDCarouselProportionVariant.threeToFourWithSingleItem.aspectRatio,
+                    contentMode: .fit
                 )
-
+            
         case .groupVertical:
             content
-                .frame(
-                    width: SHDCarouselProportionVariant.sixteenToNine.width,
-                    height: SHDCarouselProportionVariant.sixteenToNine.height
+                .frame(maxWidth: .infinity)
+                .aspectRatio(
+                    SHDCarouselProportionVariant.sixteenToNine.aspectRatio,
+                    contentMode: .fit
                 )
         }
     }
@@ -64,7 +72,7 @@ internal struct SHDLayoutCarouselItem: ViewModifier {
 /// - Parameters:
 ///   - layoutVariant: The carousel's layout variant that determines sizing strategy
 ///   - proportionVariant: The carousel's proportion variant used for group horizontal layouts
-internal extension View {
+extension View {
     func horizontalFrameVariantion(
         layoutVariant: SHDCarouselLayoutVariant,
         proportionVariant: SHDCarouselProportionVariant
