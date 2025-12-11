@@ -14,7 +14,7 @@ enum InputExample: String, CaseIterable {
     case basic = "Basic"
     case withIcons = "With Icons"
     case withValidation = "With Validation"
-    case obligatory = "Obligatory (Required)"
+    case required = "Obligatory (Required)"
     case email = "Email Example"
     case password = "Password Example"
 }
@@ -57,7 +57,7 @@ struct SHDInputDemoView: View {
                 configSection(title: "Input Variant") {
                     Picker("Variant", selection: $inputVariant) {
                         Text("Default").tag(SHDInputVariant.default)
-                        Text("Obligatory").tag(SHDInputVariant.obligatory)
+                        Text("Required").tag(SHDInputVariant.required)
                     }
                     .pickerStyle(.segmented)
                 }
@@ -151,7 +151,7 @@ struct SHDInputDemoView: View {
                 .inputVariant(variant: inputVariant, size: inputSize)
             }
 
-        case .obligatory:
+        case .required:
             VStack(alignment: .leading, spacing: 20) {
                 SHDInput(
                     text: $usernameText,
@@ -160,7 +160,7 @@ struct SHDInputDemoView: View {
                     placeholder: "Enter your full name",
                     caption: "This field is required"
                 )
-                .inputVariant(variant: .obligatory, size: inputSize)
+                .inputVariant(variant: .required, size: inputSize)
 
                 SHDInput(
                     text: $emailText,
@@ -169,7 +169,7 @@ struct SHDInputDemoView: View {
                     placeholder: "you@example.com",
                     errorText: "Please provide your email address"
                 )
-                .inputVariant(variant: .obligatory, size: inputSize)
+                .inputVariant(variant: .required, size: inputSize)
                 .keyboardType(.emailAddress)
                 .textInputAutocapitalization(.never)
 

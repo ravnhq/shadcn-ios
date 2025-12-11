@@ -36,5 +36,5 @@ public enum SHDInputVariant {
     /// )
     /// .inputVariant(variant: .obligatory, size: .md)
     /// ```
-    case obligatory
+    case required
 }

@@ -36,8 +36,8 @@ import SwiftUI
 ///   validation runs automatically as the user types.
 ///
 /// - If validation **fails** (`validation(text)` returns `false`):
-///   - The border changes to **red**
-///   - The caption is replaced with the **error text** in red
+///   - The border changes to **borderDestructiveDefault**
+///   - The caption is replaced with the **error text** in borderDestructiveDefault
 ///
 /// - If validation **succeeds** or the field is **empty**:
 ///   - Normal border colors apply (focused or unfocused)
@@ -49,7 +49,7 @@ import SwiftUI
 ///
 /// When using `.inputVariant(variant: .obligatory, size:)`:
 ///
-/// - An **asterisk (*)** appears next to the label in red
+/// - An **asterisk (*)** appears next to the label in borderDestructiveDefault
 /// - The field becomes **required** - empty values are considered invalid
 /// - If the field is empty and loses focus, it shows an error state
 /// - A default "This field is required" message appears (unless custom `errorText` is provided)
@@ -161,7 +161,8 @@ public struct SHDInput: View {
     ///   - placeholder: Optional placeholder text shown when the field is empty.
     ///   - caption: Optional helper text displayed below the input field.
     ///   - errorText: Text displayed in place of caption when validation fails.
-    ///   - validation: Optional closure that validates the input text. Returns `true` if valid, `false` otherwise.
+    ///   - validation: Optional closure that validates the input text. Returns
+    ///    `true` if valid, `false` otherwise.
     public init(text: Binding<String>,
                 label: String,
                 leadingIcon: SHDIconAsset? = nil,
@@ -169,8 +170,7 @@ public struct SHDInput: View {
                 placeholder: String? = nil,
                 caption: String? = nil,
                 errorText: String? = nil,
-                validation: ((String) -> Bool)? = nil)
-    {
+                validation: ((String) -> Bool)? = nil) {
         _text = text
         self.label = label
         self.leadingIcon = leadingIcon
@@ -183,15 +183,15 @@ public struct SHDInput: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: .xs) {
-            HStack(spacing: 4) {
+            HStack(spacing: .xs) {
                 Text(label)
                     .textStyle(size.textSize)
                     .foregroundStyle(.foregroundDefault)
 
-                if variant == .obligatory {
+                if variant == .required {
                     Text("*")
                         .textStyle(size.textSize)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.borderDestructiveDefault)
                 }
             }
 
@@ -200,7 +200,7 @@ public struct SHDInput: View {
                     SHDIcon(leadingIcon)
                 }
                 TextField(placeholder ?? "", text: $text)
-                    .foregroundStyle(isInvalid ? .red : .foregroundDefault)
+                    .foregroundStyle(isInvalid ? .borderDestructiveDefault : .foregroundDefault)
                     .padding(.vertical, .sm)
                     .focused($isFocused)
                     .onChange(of: isFocused) { _, newValue in
@@ -229,7 +229,7 @@ public struct SHDInput: View {
             if let displayText = captionOrErrorText {
                 Text(displayText)
                     .textStyle(size.textSize)
-                    .foregroundStyle(isInvalid ? .red : .foregroundMuted)
+                    .foregroundStyle(isInvalid ? .borderDestructiveDefault : .foregroundMuted)
             }
         }
     }
@@ -243,7 +243,7 @@ public struct SHDInput: View {
     /// - The variant is `.obligatory`, the field has been touched, and it's empty
     private var isInvalid: Bool {
         // Check obligatory variant - field is required
-        if variant == .obligatory && text.isEmpty && hasBeenTouched {
+        if variant == .required && text.isEmpty && hasBeenTouched {
             return true
         }
 
@@ -257,12 +257,12 @@ public struct SHDInput: View {
     /// The color to use for the input field border.
     ///
     /// Returns:
-    /// - Red when validation fails
+    /// - borderDestructiveDefault when validation fails
     /// - `.borderDefault` when focused and valid
     /// - `.separator` when unfocused and valid
     private var borderColor: Color {
         if isInvalid {
-            return .red
+            return .borderDestructiveDefault
         }
         return isFocused ? .borderDefault : Color(.separator)
     }
@@ -277,7 +277,7 @@ public struct SHDInput: View {
         if isInvalid {
             if let errorText = errorText {
                 return errorText
-            } else if variant == .obligatory, text.isEmpty {
+            } else if variant == .required, text.isEmpty {
                 return "This field is required"
             }
         }
