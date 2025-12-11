@@ -49,7 +49,8 @@ public struct SHDCheckbox: View {
     ///
     /// - Parameters:
     ///   - size: Desired checkbox size. Defaults to `.md`.
-    ///   - isDisabled: Whether the checkbox should start disabled. Applies reduced opacity and disables interaction.
+    ///   - isDisabled: Whether the checkbox should start disabled.
+    ///   Applies reduced opacity and disables interaction.
     /// - Returns: A checkbox configured with the given size and disabled state.
     public func checkboxStyle(
         size: CheckboxSize = .md,
