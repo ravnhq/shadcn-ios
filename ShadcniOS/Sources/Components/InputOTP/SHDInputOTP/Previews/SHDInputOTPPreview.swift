@@ -8,137 +8,86 @@
 import SwiftUI
 
 internal struct SHDInputOTPPreview: View {
+    private func row(_ title: String, @ViewBuilder content: () -> some View) -> some View {
+        HStack {
+            Text(title)
+            Spacer()
+            content()
+                .frame(maxWidth: .infinity)
+        }
+    }
+
+    private func section(_ title: String, @ViewBuilder content: () -> some View) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text(title)
+            content()
+        }
+        .padding(.bottom)
+    }
+
     var body: some View {
         ScrollView {
-            Text("Sizes: ")
 
-            VStack {
-                HStack {
-                    Text("SM:")
-
-                    Spacer()
-
+            section("Sizes:") {
+                row("SM:") {
                     SHDInputOTP()
                         .inputOTPVariants(variant: .pattern, size: .sm)
-                        .frame(maxWidth: .infinity)
                 }
 
-                Spacer()
-
-                HStack {
-                    Text("MD:")
-
-                    Spacer()
-
+                row("MD:") {
                     SHDInputOTP()
                         .inputOTPVariants(variant: .pattern)
-                        .frame(maxWidth: .infinity)
                 }
 
-                Spacer()
-
-                HStack {
-                    Text("LG:")
-
-                    Spacer()
-
+                row("LG:") {
                     SHDInputOTP()
                         .inputOTPVariants(variant: .pattern, size: .lg)
-                        .frame(maxWidth: .infinity)
                 }
             }
-            .padding()
 
-            Spacer()
-
-            VStack {
-                Text("Variants: ")
-                HStack {
-                    Text("Controlled: ")
-
-                    Spacer()
-                    SHDInputOTP(
-                        caption: "You can add a caption in this variant"
-                    )
-                    .inputOTPVariants(size: .sm)
+            section("Variants:") {
+                row("Controlled:") {
+                    SHDInputOTP(caption: "You can add a caption in this variant")
+                        .inputOTPVariants(size: .sm)
                 }
 
-                Spacer()
-
-                HStack {
-                    Text("Pattern: ")
-
-                    Spacer()
-
+                row("Pattern:") {
                     SHDInputOTP()
                         .inputOTPVariants(variant: .pattern, size: .sm)
                 }
 
-                Spacer()
-
-                HStack {
-                    Text("Separator: ")
-
-                    Spacer()
-
+                row("Separator:") {
                     SHDInputOTP()
                         .inputOTPVariants(variant: .separator(), size: .sm)
                 }
             }
-            .padding()
 
-            Spacer()
-            VStack {
-                Text("Length: ")
-
-                HStack {
-                    Text("4 inputs: ")
-
-                    Spacer()
-
+            // MARK: Length
+            section("Length:") {
+                row("4 inputs:") {
                     SHDInputOTP()
                         .inputOTPVariants(length: .otp4)
                 }
 
-                HStack {
-                    Text("6 inputs: ")
-
-                    Spacer()
-
+                row("6 inputs:") {
                     SHDInputOTP()
-
                 }
 
                 ScrollView(.horizontal) {
-                    HStack {
-                        Text("8 inputs: ")
-
-                        Spacer()
-
+                    row("8 inputs:") {
                         SHDInputOTP()
                             .inputOTPVariants(length: .otp8)
                     }
                 }
             }
 
-            VStack {
-                Text("States: ")
-
-                HStack {
-                    Text("Default: ")
-
-                    Spacer()
-
+            // MARK: States
+            section("States:") {
+                row("Default:") {
                     SHDInputOTP()
                 }
 
-                Spacer()
-
-                HStack {
-                    Text("Error: ")
-
-                    Spacer()
-
+                row("Error:") {
                     SHDInputOTP()
                         .isError()
                 }
