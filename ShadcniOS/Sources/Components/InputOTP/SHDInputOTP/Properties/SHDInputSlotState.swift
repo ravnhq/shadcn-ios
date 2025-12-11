@@ -15,7 +15,8 @@ import SwiftUI
 /// an OTP field's interaction status and validation state:
 ///
 /// - `Idle`: Default state when the field is not focused and has no errors. Uses standard border styling.
-/// - `Focused`: Active state when the field has keyboard focus. Uses primary color border with increased width.
+/// - `Focused`: Active state when the field has keyboard focus.
+///     Uses primary color border with increased width.
 /// - `Error`: Validation failed state. Uses destructive color border to indicate input error.
 ///
 /// The state determines border color, border width, and z-index stacking to provide clear visual
@@ -34,10 +35,10 @@ import SwiftUI
 public enum SHDInputSlotState {
     /// The default idle state when the field is not focused and has no validation errors.
     case idle
-    
+
     /// The active focused state when the field has keyboard focus.
     case focused
-    
+
     /// The error state when the field has validation errors.
     case error
 

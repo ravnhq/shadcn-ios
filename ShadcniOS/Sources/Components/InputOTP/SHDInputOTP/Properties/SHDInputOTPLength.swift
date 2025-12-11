@@ -37,10 +37,10 @@
 public enum SHDInputOTPLength {
     /// Four-digit OTP.
     case otp4
-    
+
     /// Six-digit OTP.
     case otp6
-    
+
     /// Eight-digit OTP.
     case otp8
 

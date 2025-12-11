@@ -62,7 +62,6 @@ internal struct SHDInputOTPPreview: View {
                 }
             }
 
-            // MARK: Length
             section("Length:") {
                 row("4 inputs:") {
                     SHDInputOTP()
@@ -81,7 +80,6 @@ internal struct SHDInputOTPPreview: View {
                 }
             }
 
-            // MARK: States
             section("States:") {
                 row("Default:") {
                     SHDInputOTP()
