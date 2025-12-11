@@ -42,10 +42,10 @@ import Foundation
 public enum SHDInputOTPSizing {
     /// Small input fields (40×40 points) with `.textSMRegular` typography.
     case sm
-    
+
     /// Medium input fields (44×44 points) with `.textBaseRegular` typography.
     case md
-    
+
     /// Large input fields (48×48 points) with `.textLGRegular` typography.
     case lg
 
