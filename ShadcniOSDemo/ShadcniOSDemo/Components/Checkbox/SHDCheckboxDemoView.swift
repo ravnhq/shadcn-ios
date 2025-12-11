@@ -42,7 +42,8 @@ struct SHDCheckboxDemoView: View {
                         label: "Accept terms and conditions",
                         description: showDescription ? "You agree to our Terms of Service and Privacy Policy." : nil
                     )
-                    .checkboxStyle(size: checkboxSize, isDisabled: isDisabled)
+                    .checkboxStyle(size: checkboxSize)
+                    .disabled(isDisabled)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

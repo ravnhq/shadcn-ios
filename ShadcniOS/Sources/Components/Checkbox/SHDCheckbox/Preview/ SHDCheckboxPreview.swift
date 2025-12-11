@@ -43,27 +43,29 @@ internal struct SHDCheckboxPreview: View {
                     label: "Enabled - Unselected",
                     description: "Default unchecked state."
                 )
-                .checkboxStyle(size: .md, isDisabled: false)
+                .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Enabled - Selected",
                     description: "Starts checked and interactive.",
                     isChecked: true
                 )
-                .checkboxStyle(size: .md, isDisabled: false)
+                .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Disabled - Unselected",
                     description: "Not interactive."
                 )
-                .checkboxStyle(size: .md, isDisabled: true)
+                .checkboxStyle(size: .md)
+                .disabled(true)
 
                 SHDCheckbox(
                     label: "Disabled - Selected",
                     description: "Checked but disabled.",
                     isChecked: true
                 )
-                .checkboxStyle(size: .md, isDisabled: true)
+                .checkboxStyle(size: .md)
+                .disabled(true)
             }
 
             Spacer()

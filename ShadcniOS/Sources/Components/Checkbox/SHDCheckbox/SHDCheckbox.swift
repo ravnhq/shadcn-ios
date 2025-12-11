@@ -14,9 +14,9 @@ import SwiftUI
 /// typography. Visual styling (size, disabled opacity) is applied through the
 /// provided modifiers, keeping the core component focused on layout.
 ///
-/// - Sizing is controlled by ``checkboxStyle(size:isDisabled:)``,
+/// - Sizing is controlled by ``checkboxStyle(size:)``,
 /// which updates control and typography dimensions.
-/// - Disabled state reduces opacity and disables interaction via the same modifier.
+/// - Disabled state can be applied with ``checkboxDisabled(_:)`` (or plain `.disabled`).
 /// - The initial checked state can be set through the initializer.
 ///
 /// Creates a ShadcniOS checkbox.
@@ -36,7 +36,8 @@ import SwiftUI
 /// Disabled and pre-checked:
 /// ```swift
 /// SHDCheckbox(label: "Accept terms", isChecked: true)
-///     .checkboxStyle(size: .md, isDisabled: true)
+///     .checkboxStyle(size: .md)
+///     .checkboxDisabled(true)
 /// ```
 public struct SHDCheckbox: View {
     @State private var isChecked = false
@@ -44,6 +45,7 @@ public struct SHDCheckbox: View {
     private let label: String
     private let description: String?
     private var size: SHDCheckboxSize = .md
+    private var isDisabled: Bool = false
 
     // MARK: - Initializer
 
@@ -63,20 +65,22 @@ public struct SHDCheckbox: View {
             .disabledMask()
     }
 
-    /// Applies checkbox sizing plus disabled opacity handling.
+    /// Applies checkbox sizing.
     ///
     /// - Parameters:
     ///   - size: Desired checkbox size. Defaults to `.md`.
-    ///   - isDisabled: Whether the checkbox should start disabled.
-    ///   Applies reduced opacity and disables interaction.
     public func checkboxStyle(
-        size: SHDCheckboxSize = .md,
-        isDisabled: Bool = false
+        size: SHDCheckboxSize = .md
     ) -> some View {
         mutating { checkbox in
             checkbox.size = size
         }
-        .disabled(isDisabled)
+    }
+
+    public func isDisabled(_ isDisabled: Bool = false) -> some View {
+        mutating { checkbox in
+            checkbox.isDisabled = isDisabled
+        }
     }
 }
 
