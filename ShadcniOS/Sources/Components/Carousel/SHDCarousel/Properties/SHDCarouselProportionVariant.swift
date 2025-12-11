@@ -83,13 +83,13 @@ public enum SHDCarouselProportionVariant {
 
     var widthFactor: CGFloat {
         switch self {
-        case .oneToOne: 0.45  // Ocupa el 45% del ancho (caben 2 y un poco)
-        case .threeToFour: 0.40  // Ocupa el 40% del ancho
-        case .sixteenToNine: 0.85  // Ocupa el 85% (se ve el borde del siguiente para invitar a scrollear)
-        case .threeToFourWithSingleItem: 0.90  // Casi pantalla completa para el modo "Single"
+        case .oneToOne: 0.45
+        case .threeToFour: 0.40
+        case .sixteenToNine: 0.85
+        case .threeToFourWithSingleItem: 0.90
         }
     }
-    
+
     var heightFactor: CGFloat {
         switch self {
         case .oneToOne: 0.45
