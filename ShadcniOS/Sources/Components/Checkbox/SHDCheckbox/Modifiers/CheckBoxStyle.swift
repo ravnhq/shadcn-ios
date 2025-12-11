@@ -55,10 +55,3 @@ internal struct CheckboxStyle: ToggleStyle {
         }
     }
 }
-
-extension View {
-    /// Applies the default ShadcniOS checkbox styling.
-    func baseCheckboxStyle(description: String?, size: CheckboxSize) -> some View {
-        toggleStyle(CheckboxStyle(description: description, size: size))
-    }
-}
