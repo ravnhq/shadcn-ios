@@ -27,35 +27,27 @@ import SwiftUI
 /// beyond the designated dimensions. This maintains visual consistency and predictable spacing in carousels.
 ///
 internal struct SHDLayoutCarouselItem: ViewModifier {
-    
+
     var layoutVariant: SHDCarouselLayoutVariant
     var proportionVariant: SHDCarouselProportionVariant
-    
+
     func body(content: Content) -> some View {
         switch layoutVariant {
         case .groupHorizonal:
             content
-                .containerRelativeFrame(.horizontal) { containerWidth, _ in
-                    containerWidth * proportionVariant.widthFactor
-                }
                 .aspectRatio(
                     proportionVariant.aspectRatio,
                     contentMode: .fit
                 )
         case .singleHorizonal:
             content
-                .containerRelativeFrame(.horizontal) { containerWidth, _ in
-                    containerWidth *
-                    SHDCarouselProportionVariant.threeToFourWithSingleItem.widthFactor
-                }
                 .aspectRatio(
                     SHDCarouselProportionVariant.threeToFourWithSingleItem.aspectRatio,
                     contentMode: .fit
                 )
-            
+
         case .groupVertical:
             content
-                .frame(maxWidth: .infinity)
                 .aspectRatio(
                     SHDCarouselProportionVariant.sixteenToNine.aspectRatio,
                     contentMode: .fit

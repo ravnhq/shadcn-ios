@@ -58,7 +58,6 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
                     ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                         content(item)
                             .frame(width: itemWidth, height: itemHeight)
-                            .frame(maxWidth: .infinity)
                             .tag(index)
                     }
                 }
