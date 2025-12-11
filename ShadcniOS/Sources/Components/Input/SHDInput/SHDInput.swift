@@ -45,15 +45,26 @@ import SwiftUI
 ///
 /// - The input remains interactive during validation states.
 ///
-/// ## Obligatory Fields
+/// ## Required Fields
 ///
-/// When using `.inputVariant(variant: .obligatory, size:)`:
+/// When using `.inputVariant(variant: .required, size:)`:
 ///
 /// - An **asterisk (*)** appears next to the label in borderDestructiveDefault
 /// - The field becomes **required** - empty values are considered invalid
 /// - If the field is empty and loses focus, it shows an error state
 /// - A default "This field is required" message appears (unless custom `errorText` is provided)
 /// - Can be combined with custom validation for additional requirements
+///
+/// ## Disabled Fields
+///
+/// When using `.inputVariant(variant: .disabled, size:)`:
+///
+/// - The input field becomes **non-interactive** - user cannot edit or focus
+/// - Visual appearance is **dimmed** with reduced opacity
+/// - Border color is muted (`.separator`)
+/// - The current text value is preserved but cannot be changed
+/// - No validation or error states are shown
+/// - Useful for read-only fields or conditionally unavailable inputs
 ///
 /// ## Layout Rules
 ///
@@ -119,7 +130,7 @@ import SwiftUI
 /// )
 /// ```
 ///
-/// With obligatory variant (required field):
+/// With required variant (required field):
 /// ```swift
 /// @State private var name = ""
 ///
@@ -129,7 +140,19 @@ import SwiftUI
 ///     placeholder: "Enter your name",
 ///     errorText: "Name is required"
 /// )
-/// .inputVariant(variant: .obligatory, size: .md)
+/// .inputVariant(variant: .required, size: .md)
+/// ```
+///
+/// With disabled variant (non-editable field):
+/// ```swift
+/// @State private var email = "user@example.com"
+///
+/// SHDInput(
+///     text: $email,
+///     label: "Email",
+///     placeholder: "Email address"
+/// )
+/// .inputVariant(variant: .disabled, size: .md)
 /// ```
 ///
 /// With custom variant and size:
@@ -198,11 +221,13 @@ public struct SHDInput: View {
             HStack(spacing: .sm) {
                 if let leadingIcon = leadingIcon {
                     SHDIcon(leadingIcon)
+                        .opacity(variant == .disabled ? 0.5 : 1.0)
                 }
                 TextField(placeholder ?? "", text: $text)
                     .foregroundStyle(isInvalid ? .borderDestructiveDefault : .foregroundDefault)
                     .padding(.vertical, .sm)
                     .focused($isFocused)
+                    .disabled(variant == .disabled)
                     .onChange(of: isFocused) { _, newValue in
                         if !newValue && !hasBeenTouched {
                             hasBeenTouched = true
@@ -213,6 +238,7 @@ public struct SHDInput: View {
 
                 if let trailingIcon = trailingIcon {
                     SHDIcon(trailingIcon)
+                        .opacity(variant == .disabled ? 0.5 : 1.0)
                 }
             }
             .padding(.horizontal, .xs)
@@ -223,7 +249,9 @@ public struct SHDInput: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                isFocused = true
+                if variant != .disabled {
+                    isFocused = true
+                }
             }
 
             if let displayText = captionOrErrorText {
@@ -240,14 +268,18 @@ public struct SHDInput: View {
     ///
     /// Returns `true` when:
     /// - A validation closure is provided, the text is not empty, and validation fails
-    /// - The variant is `.obligatory`, the field has been touched, and it's empty
+    /// - The variant is `.required`, the field has been touched, and it's empty
+    ///
+    /// Note: Disabled fields are never invalid.
     private var isInvalid: Bool {
-        // Check obligatory variant - field is required
+        if variant == .disabled {
+            return false
+        }
+
         if variant == .required && text.isEmpty && hasBeenTouched {
             return true
         }
 
-        // Check custom validation
         guard let validation = validation, !text.isEmpty else {
             return false
         }
@@ -257,10 +289,15 @@ public struct SHDInput: View {
     /// The color to use for the input field border.
     ///
     /// Returns:
+    /// - `.separator` when disabled (muted appearance)
     /// - borderDestructiveDefault when validation fails
     /// - `.borderDefault` when focused and valid
     /// - `.separator` when unfocused and valid
     private var borderColor: Color {
+        if variant == .disabled {
+            return Color(.separator)
+        }
+        
         if isInvalid {
             return .borderDestructiveDefault
         }
