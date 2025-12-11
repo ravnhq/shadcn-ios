@@ -13,17 +13,17 @@ import SwiftUI
 /// `SHDCheckbox` stays lean.
 internal struct CheckboxStyle: ToggleStyle {
     let description: String?
-    let size: CheckboxSize
+    let size: SHDCheckboxSize
 
     func makeBody(configuration: Configuration) -> some View {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top, spacing: .sm) {
             RoundedRectangle(cornerRadius: .sm)
                 .foregroundColor(configuration.isOn ? .foregroundDefault : .clear)
                 .overlay(
                     Image(systemName: configuration.isOn ? "checkmark" : "square")
                         .resizable()
-                        .padding(.horizontal, 2)
-                        .padding(.vertical, 4)
+                        .padding(.horizontal, .xxxxs)
+                        .padding(.vertical, .xxxs)
                         .foregroundColor(configuration.isOn ? .foregroundPrimaryDefault : .clear)
                         .overlay(
                             RoundedRectangle(cornerRadius: .sm)
@@ -39,19 +39,40 @@ internal struct CheckboxStyle: ToggleStyle {
                     configuration.isOn.toggle()
                 }
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: .xs) {
                 configuration.label
-                    .textStyle(size.textSize)
-                    .font(.headline)
+                    .textStyle(size.labelTextStyle)
                     .foregroundColor(.foregroundDefault)
 
                 if let description {
                     Text(description)
-                        .textStyle(size.textSize)
-                        .font(.caption)
+                        .textStyle(size.descriptionTextSize)
                         .foregroundColor(.foregroundMuted)
                 }
             }
         }
+    }
+}
+
+internal extension View {
+    /// Applies the ShadcniOS checkbox style using the provided description and size.
+    ///
+    /// ## Discussion
+    /// Mirrors other design-system helpers (such as `backgroundColor`) to keep styling
+    /// centralized and readable. This attaches the custom `CheckboxStyle` so the control,
+    /// label, and optional description render with the correct sizing and typography tokens.
+    ///
+    /// ## Usage
+    /// ```swift
+    /// SHDCheckbox(label: "Accept terms")
+    ///     .baseCheckboxStyle(description: "You agree to the policy.", size: .md)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - description: Optional supporting text displayed under the label.
+    ///   - size: Checkbox sizing preset that controls both square and text dimensions.
+    /// - Returns: A view with the ShadcniOS checkbox toggle style applied.
+    func baseCheckboxStyle(description: String?, size: SHDCheckboxSize) -> some View {
+        toggleStyle(CheckboxStyle(description: description, size: size))
     }
 }

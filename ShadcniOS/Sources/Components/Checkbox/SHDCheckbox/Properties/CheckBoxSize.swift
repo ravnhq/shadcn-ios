@@ -18,7 +18,7 @@ import Foundation
 /// SHDCheckbox(label: "Accept")
 ///     .checkboxStyle(size: .md)
 /// ```
-public enum CheckboxSize: CGFloat {
+public enum SHDCheckboxSize: CGFloat {
     // MARK: - Size Variants
     /// Compact dimensions.
     case sm = 16
@@ -31,14 +31,26 @@ public enum CheckboxSize: CGFloat {
     case lg = 24
 
     // MARK: - Typography Mapping
-    /// The text style associated with the checkbox size.
+    /// The label text style associated with the checkbox size.
     ///
     /// - Returns: An `SHDTextStyle` representing the correct typography.
-    var textSize: SHDTextStyle {
+    var labelTextStyle: SHDTextStyle {
         switch self {
         case .sm: .textSMMedium
         case .md: .textBaseMedium
         case .lg: .textLGMedium
+        }
+    }
+
+    // MARK: - Typography Mapping
+    /// The description text style associated with the checkbox size.
+    ///
+    /// - Returns: An `SHDTextStyle` representing the correct typography.
+    var descriptionTextSize: SHDTextStyle {
+        switch self {
+        case .sm: .textSMRegular
+        case .md: .textBaseRegular
+        case .lg: .textLGRegular
         }
     }
 }

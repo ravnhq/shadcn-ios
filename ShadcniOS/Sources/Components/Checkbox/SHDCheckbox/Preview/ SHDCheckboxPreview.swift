@@ -9,11 +9,11 @@ import SwiftUI
 
 internal struct SHDCheckboxPreview: View {
     internal var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: .lg) {
             Text("Sizes")
                 .font(.headline)
 
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: .md) {
                 SHDCheckbox(
                     label: "Small checkbox",
                     description: "Preview of a small checkbox."
@@ -38,7 +38,7 @@ internal struct SHDCheckboxPreview: View {
             Text("States")
                 .font(.headline)
 
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: .md) {
                 SHDCheckbox(
                     label: "Enabled - Unselected",
                     description: "Default unchecked state."

@@ -38,6 +38,12 @@ internal enum SHDSizing {
         /// No padding (`0` points).
         case none = 0
 
+        /// Extra extra small padding (`2` points).
+        case xxxxs = 2
+
+        /// Extra extra small padding (`4` points).
+        case xxxs = 4
+
         /// Extra extra small padding (`8` points).
         case xxs = 8
 

@@ -10,7 +10,7 @@ import ShadcniOS
 
 // MARK: - Demo Checkbox
 struct SHDCheckboxDemoView: View {
-    @State private var checkboxSize: CheckboxSize = .md
+    @State private var checkboxSize: SHDCheckboxSize = .md
     @State private var isDisabled: Bool = false
     @State private var showDescription: Bool = true
 
@@ -19,9 +19,9 @@ struct SHDCheckboxDemoView: View {
             VStack(alignment: .leading, spacing: 24) {
                 configSection(title: "Checkbox Size") {
                     Picker("Checkbox Size", selection: $checkboxSize) {
-                        Text("SM").tag(CheckboxSize.sm)
-                        Text("MD").tag(CheckboxSize.md)
-                        Text("LG").tag(CheckboxSize.lg)
+                        Text("SM").tag(SHDCheckboxSize.sm)
+                        Text("MD").tag(SHDCheckboxSize.md)
+                        Text("LG").tag(SHDCheckboxSize.lg)
                     }
                     .pickerStyle(.segmented)
                 }

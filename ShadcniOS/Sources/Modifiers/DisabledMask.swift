@@ -32,10 +32,7 @@ internal struct DisabledMask: ViewModifier {
     /// Applies the background mask with reduced opacity if disabled.
     func body(content: Content) -> some View {
         content
-            .mask(alignment: .center) {
-                Color.white
-                    .opacity(isEnabled ? 1 : 0.4)
-            }
+            .opacity(isEnabled ? 1 : 0.4)
     }
 }
 

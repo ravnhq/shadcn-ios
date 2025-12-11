@@ -43,7 +43,7 @@ public struct SHDCheckbox: View {
 
     private let label: String
     private let description: String?
-    private var size: CheckboxSize = .md
+    private var size: SHDCheckboxSize = .md
 
     // MARK: - Initializer
 
@@ -60,7 +60,7 @@ public struct SHDCheckbox: View {
     public var body: some View {
         Toggle(label, isOn: $isChecked)
             .baseCheckboxStyle(description: description, size: size)
-            .padding()
+            .disabledMask()
     }
 
     /// Applies checkbox sizing plus disabled opacity handling.
@@ -70,13 +70,12 @@ public struct SHDCheckbox: View {
     ///   - isDisabled: Whether the checkbox should start disabled.
     ///   Applies reduced opacity and disables interaction.
     public func checkboxStyle(
-        size: CheckboxSize = .md,
+        size: SHDCheckboxSize = .md,
         isDisabled: Bool = false
     ) -> some View {
         mutating { checkbox in
             checkbox.size = size
         }
-        .opacity(isDisabled ? 0.5 : 1.0)
         .disabled(isDisabled)
     }
 }

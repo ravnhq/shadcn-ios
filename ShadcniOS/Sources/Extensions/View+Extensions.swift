@@ -54,27 +54,6 @@ internal extension View {
     func backgroundColor(_ color: SHDColor) -> some View {
         background(color.color)
     }
-
-    /// Applies the ShadcniOS checkbox style using the provided description and size.
-    ///
-    /// ## Discussion
-    /// Mirrors other design-system helpers (such as `backgroundColor`) to keep styling
-    /// centralized and readable. This attaches the custom `CheckboxStyle` so the control,
-    /// label, and optional description render with the correct sizing and typography tokens.
-    ///
-    /// ## Usage
-    /// ```swift
-    /// SHDCheckbox(label: "Accept terms")
-    ///     .baseCheckboxStyle(description: "You agree to the policy.", size: .md)
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - description: Optional supporting text displayed under the label.
-    ///   - size: Checkbox sizing preset that controls both square and text dimensions.
-    /// - Returns: A view with the ShadcniOS checkbox toggle style applied.
-    func baseCheckboxStyle(description: String?, size: CheckboxSize) -> some View {
-        toggleStyle(CheckboxStyle(description: description, size: size))
-    }
 }
 
 // MARK: - Mutating
