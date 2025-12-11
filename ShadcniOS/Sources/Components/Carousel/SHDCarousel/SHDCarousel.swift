@@ -122,7 +122,7 @@ public struct SHDCarousel<Item, Content: View>: View {
                         .padding(.vertical, .xxs)
                         .padding(.horizontal, .md)
                 } else {
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: .md) {
                             carouselContent
                         }
@@ -137,7 +137,7 @@ public struct SHDCarousel<Item, Content: View>: View {
                     .padding(.horizontal, .md)
 
             case .groupVertical:
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     VStack {
                         carouselContent
                     }
