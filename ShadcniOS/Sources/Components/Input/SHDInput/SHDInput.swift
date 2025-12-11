@@ -27,6 +27,16 @@ import SwiftUI
 ///
 /// This component automatically manages focus state and provides visual
 /// feedback through border highlighting when the field is active.
+/// Initializer:
+///   - text: A binding to the text value being edited.
+///   - label: Text displayed above the input field.
+///   - leadingIcon: Optional icon displayed at the start of the input field (left side).
+///   - trailingIcon: Optional icon displayed at the end of the input field (right side).
+///   - placeholder: Optional placeholder text shown when the field is empty.
+///   - caption: Optional helper text displayed below the input field.
+///   - errorText: Text displayed in place of caption when validation fails.
+///   - validation: Optional closure that validates the input text. Returns
+///    `true` if valid, `false` otherwise.
 ///
 /// ## Validation
 ///
@@ -54,18 +64,7 @@ import SwiftUI
 /// - If the field is empty and loses focus, it shows an error state
 /// - A default "This field is required" message appears (unless custom `errorText` is provided)
 /// - Can be combined with custom validation for additional requirements
-///
-/// ## Disabled Fields
-///
-/// When using `.inputVariant(variant: .disabled, size:)`:
-///
-/// - The input field becomes **non-interactive** - user cannot edit or focus
-/// - Visual appearance is **dimmed** with reduced opacity
-/// - Border color is muted (`.separator`)
-/// - The current text value is preserved but cannot be changed
-/// - No validation or error states are shown
-/// - Useful for read-only fields or conditionally unavailable inputs
-///
+/// 
 /// ## Layout Rules
 ///
 /// - Label appears above the input field
@@ -84,19 +83,6 @@ import SwiftUI
 ///     text: $username,
 ///     label: "Username",
 ///     placeholder: "Enter your username"
-/// )
-/// ```
-///
-/// With leading icon and caption:
-/// ```swift
-/// @State private var email = ""
-///
-/// SHDInput(
-///     text: $email,
-///     label: "Email",
-///     leadingIcon: .envelope,
-///     placeholder: "you@example.com",
-///     caption: "We'll never share your email."
 /// )
 /// ```
 ///
@@ -142,24 +128,6 @@ import SwiftUI
 /// )
 /// .inputVariant(variant: .required, size: .md)
 /// ```
-///
-/// With disabled variant (non-editable field):
-/// ```swift
-/// @State private var email = "user@example.com"
-///
-/// SHDInput(
-///     text: $email,
-///     label: "Email",
-///     placeholder: "Email address"
-/// )
-/// .inputVariant(variant: .disabled, size: .md)
-/// ```
-///
-/// With custom variant and size:
-/// ```swift
-/// SHDInput(text: $text, label: "Label")
-///     .inputVariant(variant: .default, size: .lg)
-/// ```
 public struct SHDInput: View {
     private var variant: SHDInputVariant = .default
     private var size: SHDInputSize = .md
@@ -174,18 +142,6 @@ public struct SHDInput: View {
     @State private var hasBeenTouched: Bool = false
     let validation: ((String) -> Bool)?
 
-    /// Creates a ShadcniOS text input field.
-    ///
-    /// - Parameters:
-    ///   - text: A binding to the text value being edited.
-    ///   - label: Text displayed above the input field.
-    ///   - leadingIcon: Optional icon displayed at the start of the input field (left side).
-    ///   - trailingIcon: Optional icon displayed at the end of the input field (right side).
-    ///   - placeholder: Optional placeholder text shown when the field is empty.
-    ///   - caption: Optional helper text displayed below the input field.
-    ///   - errorText: Text displayed in place of caption when validation fails.
-    ///   - validation: Optional closure that validates the input text. Returns
-    ///    `true` if valid, `false` otherwise.
     public init(text: Binding<String>,
                 label: String,
                 leadingIcon: SHDIconAsset? = nil,
@@ -221,13 +177,11 @@ public struct SHDInput: View {
             HStack(spacing: .sm) {
                 if let leadingIcon = leadingIcon {
                     SHDIcon(leadingIcon)
-                        .opacity(variant == .disabled ? 0.5 : 1.0)
                 }
                 TextField(placeholder ?? "", text: $text)
                     .foregroundStyle(isInvalid ? .borderDestructiveDefault : .foregroundDefault)
                     .padding(.vertical, .sm)
                     .focused($isFocused)
-                    .disabled(variant == .disabled)
                     .onChange(of: isFocused) { _, newValue in
                         if !newValue && !hasBeenTouched {
                             hasBeenTouched = true
@@ -238,11 +192,11 @@ public struct SHDInput: View {
 
                 if let trailingIcon = trailingIcon {
                     SHDIcon(trailingIcon)
-                        .opacity(variant == .disabled ? 0.5 : 1.0)
                 }
             }
+            .disabledMask()
+            .disabled(variant == .disabled)
             .padding(.horizontal, .xs)
-            .background(Color(.systemBackground))
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
                     .stroke(borderColor, lineWidth: 1)
@@ -264,13 +218,6 @@ public struct SHDInput: View {
 
     // MARK: - Helper Properties
 
-    /// Determines whether the current input text is invalid based on validation rules.
-    ///
-    /// Returns `true` when:
-    /// - A validation closure is provided, the text is not empty, and validation fails
-    /// - The variant is `.required`, the field has been touched, and it's empty
-    ///
-    /// Note: Disabled fields are never invalid.
     private var isInvalid: Bool {
         if variant == .disabled {
             return false
@@ -286,30 +233,17 @@ public struct SHDInput: View {
         return !validation(text)
     }
 
-    /// The color to use for the input field border.
-    ///
-    /// Returns:
-    /// - `.separator` when disabled (muted appearance)
-    /// - borderDestructiveDefault when validation fails
-    /// - `.borderDefault` when focused and valid
-    /// - `.separator` when unfocused and valid
     private var borderColor: Color {
         if variant == .disabled {
             return Color(.separator)
         }
-        
+
         if isInvalid {
             return .borderDestructiveDefault
         }
         return isFocused ? .borderDefault : Color(.separator)
     }
 
-    /// The text to display below the input field.
-    ///
-    /// Returns:
-    /// - `errorText` when validation fails and error text is provided
-    /// - A default "This field is required" message for empty obligatory fields
-    /// - `caption` otherwise
     private var captionOrErrorText: String? {
         if isInvalid {
             if let errorText = errorText {

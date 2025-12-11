@@ -9,66 +9,42 @@ import SwiftUI
 
 /// Defines the size variants for `SHDInput`.
 ///
-/// Input sizes control the overall scale of the input field, including
-/// text size, icon dimensions, padding, and visual spacing.
+/// ## Discussion
+/// `SHDInputSize` standardizes the typography and icon sizing for input fields
+/// in the ShadcniOS design system. Each case corresponds to a specific
+/// `SHDTextStyle` and `SHDIconSize`, ensuring consistent visual hierarchy
+/// across different input sizes.
+///
+/// These values are used in conjunction with the `inputVariant` modifier to
+/// control both the visual appearance and dimensions of input fields, providing
+/// a cohesive user experience throughout the application.
+///
+/// ## Usage
+///
+/// Getting the text style for a size:
+/// ```swift
+/// let size: SHDInputSize = .md
+/// let style = size.textSize
+/// ```
+///
+/// Applying the size in a SHDInput:
+/// ```swift
+/// SHDInput(
+///     text: $searchText,
+///     label: "Search",
+///     placeholder: "Type to search..."
+/// )
+/// .inputVariant(variant: .default, size: .sm)
+/// ```
 public enum SHDInputSize {
+
     /// Small input size.
-    ///
-    /// - Text style: `.textSMMedium`
-    /// - Icon size: `.sm`
-    /// - Compact padding and spacing
-    ///
-    /// Use for dense layouts or secondary input fields where space is limited.
-    ///
-    /// ## Usage
-    /// ```swift
-    /// SHDInput(
-    ///     text: $searchText,
-    ///     label: "Search",
-    ///     placeholder: "Type to search..."
-    /// )
-    /// .inputVariant(variant: .default, size: .sm)
-    /// ```
     case sm
 
     /// Medium input size (default).
-    ///
-    /// - Text style: `.textBaseMedium`
-    /// - Icon size: `.md`
-    /// - Balanced padding and spacing
-    ///
-    /// The recommended default size for most input fields, providing
-    /// a good balance between readability and space efficiency.
-    ///
-    /// ## Usage
-    /// ```swift
-    /// SHDInput(
-    ///     text: $emailText,
-    ///     label: "Email",
-    ///     placeholder: "you@example.com"
-    /// )
-    /// .inputVariant(variant: .default, size: .md)
-    /// ```
     case md
 
     /// Large input size.
-    ///
-    /// - Text style: `.textLGMedium`
-    /// - Icon size: `.lg`
-    /// - Generous padding and spacing
-    ///
-    /// Use for prominent input fields, accessibility considerations,
-    /// or when you want to emphasize the importance of the field.
-    ///
-    /// ## Usage
-    /// ```swift
-    /// SHDInput(
-    ///     text: $nameText,
-    ///     label: "Full Name",
-    ///     placeholder: "Enter your name"
-    /// )
-    /// .inputVariant(variant: .default, size: .lg)
-    /// ```
     case lg
 
     var textSize: SHDTextStyle {
