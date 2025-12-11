@@ -119,8 +119,6 @@ public struct SHDCarousel<Item, Content: View>: View {
             case .groupHorizonal:
                 if proportionVariant == .sixteenToNine {
                     carouselPagedContent
-                        .padding(.vertical, .xxs)
-                        .padding(.horizontal, .md)
                 } else {
                     SHDCarouselGroupHorizontal(
                         items: items,
@@ -131,8 +129,6 @@ public struct SHDCarousel<Item, Content: View>: View {
 
             case .singleHorizonal:
                 carouselPagedContent
-                    .padding(.vertical, .xxs)
-                    .padding(.horizontal, .md)
 
             case .groupVertical:
                 ScrollView(showsIndicators: false) {
