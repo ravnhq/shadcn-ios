@@ -43,6 +43,7 @@ struct SHDCheckboxDemoView: View {
                         description: showDescription ? "You agree to our Terms of Service and Privacy Policy." : nil
                     )
                     .checkboxSize(checkboxSize)
+                    .opacity(isDisabled ? 0.5 : 1)
                     .disabled(isDisabled)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
