@@ -62,6 +62,7 @@ struct SHDCarouselDemoView: View {
                         Text("3:4").tag(SHDCarouselProportionVariant.threeToFour)
                         Text("16:9").tag(SHDCarouselProportionVariant.sixteenToNine)
                     }
+                    .disabled((layoutVariant == .groupVertical || layoutVariant == .singleHorizonal))
                 }
                 .padding()
                 
