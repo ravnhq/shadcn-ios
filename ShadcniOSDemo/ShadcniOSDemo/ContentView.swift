@@ -52,6 +52,13 @@ struct ContentView: View {
                             Text("SHDBadge")
                         }
                     }
+
+                    NavigationLink(destination: SHDCheckboxDemoView()) {
+                        HStack {
+                            Image(systemName: "checkmark.square")
+                            Text("SHDCheckbox")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())

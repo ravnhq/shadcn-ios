@@ -1,0 +1,72 @@
+//
+//  SHDCheckboxDemoView.swift
+//  ShadcniOSDemo
+//
+//  Created by Concepción Orellana on 12/4/25.
+//
+
+import SwiftUI
+import ShadcniOS
+
+// MARK: - Demo Checkbox
+struct SHDCheckboxDemoView: View {
+    @State private var checkboxSize: SHDCheckboxSize = .md
+    @State private var isChecked = false
+    @State private var isDisabled: Bool = false
+    @State private var showDescription: Bool = true
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                configSection(title: "Checkbox Size") {
+                    Picker("Checkbox Size", selection: $checkboxSize) {
+                        Text("SM").tag(SHDCheckboxSize.sm)
+                        Text("MD").tag(SHDCheckboxSize.md)
+                        Text("LG").tag(SHDCheckboxSize.lg)
+                    }
+                    .pickerStyle(.segmented)
+                }
+
+                configSection(title: "Options") {
+                    Toggle("Show description", isOn: $showDescription)
+                    Toggle("Disabled", isOn: $isDisabled)
+                }
+                .scaleEffect(0.9)
+
+                Divider()
+
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Preview")
+                        .font(.headline)
+
+                    SHDCheckbox(
+                        label: "Accept terms and conditions",
+                        description: showDescription ? "You agree to our Terms of Service and Privacy Policy." : nil,
+                        isChecked: $isChecked
+                    )
+                    .checkboxStyle(size: checkboxSize)
+                    .disabled(isDisabled)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding()
+        }
+        .navigationTitle("SHDCheckbox")
+    }
+
+    @ViewBuilder
+    private func configSection<Content: View>(
+        title: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.headline)
+            content()
+        }
+    }
+}
+
+#Preview {
+    SHDCheckboxDemoView()
+}
