@@ -28,7 +28,8 @@ import SwiftUI
 ///
 /// - `items`: An array of items to display in the horizontal group.
 /// - `proportionVariant`: The `SHDCarouselProportionVariant` determining item dimensions and aspect ratios.
-/// - `content`: A `@ViewBuilder` closure that takes an individual item and returns the view to display for that item.
+/// - `content`: A `@ViewBuilder` closure that takes an individual item and returns
+///     the view to display for that item.
 ///
 internal struct SHDCarouselGroupHorizontal<Item, Content: View>: View {
     var items: [Item]
