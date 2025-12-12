@@ -7,6 +7,55 @@
 
 import SwiftUI
 
+/// A customizable slider component for selecting numeric values within a range.
+///
+/// ## Discussion
+/// `SHDSlider` provides a fluid, interactive slider control that supports:
+/// - Continuous value selection within a defined range
+/// - Customizable size variants (small, medium, large)
+/// - Visual feedback with a filled track and draggable thumb
+/// - Gesture-based interaction for precise value adjustment
+///
+/// The slider automatically calculates the thumb position based on the current value
+/// and the specified min/max range. Users can interact with the slider by:
+///
+/// - Dragging the thumb
+/// - Tapping anywhere on the track to jump to that position
+///
+/// Size variants control:
+/// - Track height
+/// - Thumb diameter
+///
+/// These are configured through the `SHDSliderSize` enum and applied via the
+/// `.sliderVariant(variant:)` modifier.
+///
+/// Layout rules:
+/// - The slider expands to fill available horizontal space
+/// - Height is determined by the selected size variant
+/// - The thumb is centered vertically on the track
+/// - The filled track grows from left to right based on the current value
+///
+/// Creates a ShadcniOS slider.
+///
+/// - Parameters:
+///   - minValue: The minimum value of the slider range.
+///   - maxValue: The maximum value of the slider range.
+///   - value: A binding to the current slider value.
+///
+/// ## Usage
+///
+/// Basic slider:
+/// ```swift
+/// @State private var volume: Double = 50
+///
+/// SHDSlider(minValue: 0, maxValue: 100, value: $volume)
+/// ```
+///
+/// Slider with variation:
+/// ```swift
+/// SHDSlider(minValue: 0, maxValue: 100, value: $humidity)
+///     .sliderVariant(variant: .sm)
+/// ```
 public struct SHDSlider: View {
     private var size: SHDSliderSize = .md
     private var minValue: Int
@@ -60,6 +109,10 @@ public struct SHDSlider: View {
         value = Double(minValue) + percentage * Double(maxValue - minValue)
     }
 
+    /// Applies a size variant to the slider.
+    ///
+    /// - Parameter variant: The size configuration for the slider.
+    /// - Returns: A view with the specified slider size applied.
     public func sliderVariant(variant: SHDSliderSize) -> some View {
         mutating { slider in
             slider.size = variant
