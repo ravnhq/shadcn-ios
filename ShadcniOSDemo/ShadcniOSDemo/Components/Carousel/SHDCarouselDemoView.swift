@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SHDCarouselDemoView: View {
     
-    // MARK: - Data sets
     let textItems: [String] = ["Swift", "Kotlin", "Go", "Rust"]
     let numberItems: [Int] = [1, 2, 3, 4, 5]
     let imageItems: [String] = ["star", "heart", "paperplane"]
