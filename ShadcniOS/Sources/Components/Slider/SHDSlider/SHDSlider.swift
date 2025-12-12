@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct SHDSlider: View {
-
     private var size: SHDSliderSize = .md
     private var minValue: Int
     private var maxValue: Int
