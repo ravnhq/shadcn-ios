@@ -52,6 +52,13 @@ struct ContentView: View {
                             Text("SHDBadge")
                         }
                     }
+
+                    NavigationLink(destination: SHDCarouselDemoView()) {
+                        HStack {
+                            Image(systemName: "rectangle.on.rectangle.fill")
+                            Text("SHDCarousel")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())
