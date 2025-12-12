@@ -40,11 +40,11 @@ import SwiftUI
 /// - `.singleHorizonal`: One item at a time with horizontal paging
 /// - `.groupVertical`: Multiple items visible vertically in a scrollable container
 ///
-/// The carousel supports four proportion variants:
-/// - `.oneToOne`: Square items (212×212 points)
-/// - `.threeToFour`: 3:4 aspect ratio items (159×212 points)
-/// - `.sixteenToNine`: 16:9 aspect ratio items (377×212 points), commonly used for video content
-/// - `.threeToFourWithSingleItem`: Tall 3:4 proportion optimized for single-item layouts (380×507 points)
+/// The carousel supports four proportion variants with proportional sizing:
+/// - `.oneToOne`: Square items (45% container width × 45% width)
+/// - `.threeToFour`: 3:4 aspect ratio items (40% width × 53% width)
+/// - `.sixteenToNine`: 16:9 aspect ratio items (85% width × 48% width), commonly used for video content
+/// - `.threeToFourWithSingleItem`: Tall 3:4 proportion optimized for single-item layouts (90% width × 120% width)
 ///
 /// Creates a carousel with the specified items and content view builder.
 ///

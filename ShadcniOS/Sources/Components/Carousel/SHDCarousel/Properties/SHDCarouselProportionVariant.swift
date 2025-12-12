@@ -25,11 +25,11 @@ import Foundation
 ///      specifically for single-item carousel layouts
 ///   and paged browsing experiences, providing maximum vertical space for prominent content display.
 ///
-/// Proportion dimensions:
-/// - `.oneToOne`: 212 × 212 points (square)
-/// - `.threeToFour`: 159 × 212 points (portrait)
-/// - `.sixteenToNine`: 377 × 212 points (landscape)
-/// - `.threeToFourWithSingleItem`: 380 × 507 points (tall portrait)
+/// Item dimensions are calculated proportionally to the container width:
+/// - `.oneToOne`: 45% width × 45% width (square aspect ratio)
+/// - `.threeToFour`: 40% width × 53% width (3:4 portrait)
+/// - `.sixteenToNine`: 85% width × 48% width (16:9 landscape)
+/// - `.threeToFourWithSingleItem`: 90% width × 120% width (tall 3:4 for single-item layouts)
 ///
 /// ## Usage
 ///
