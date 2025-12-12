@@ -5,25 +5,24 @@
 //  Created by Diego Takaki on 12/12/25.
 //
 
-import SwiftUI
 import ShadcniOS
+import SwiftUI
 
 // MARK: - Slider Demo View
+
 struct SHDSliderDemoView: View {
-    
     // Configuration state
     @State private var displayFormat: SHDSliderSize = .md
     @State private var showMinMax: Bool = true
-    
+
     // Slider values
     @State private var sliderValue: Double = 50
     @State private var minRange: Int = 0
     @State private var maxRange: Int = 100
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 32) {
-                
                 configSection(title: "Size") {
                     Picker("Format", selection: $displayFormat) {
                         Text("SM").tag(SHDSliderSize.sm)
@@ -32,7 +31,7 @@ struct SHDSliderDemoView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                
+
                 HStack(spacing: 20) {
                     configSection(title: "Range Settings") {
                         HStack(spacing: 12) {
@@ -44,7 +43,7 @@ struct SHDSliderDemoView: View {
                                     .textFieldStyle(.roundedBorder)
                                     .keyboardType(.numberPad)
                             }
-                            
+
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("Max")
                                     .font(.caption)
@@ -55,21 +54,22 @@ struct SHDSliderDemoView: View {
                             }
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     configSection(title: "Options") {
                         Toggle("Show Min/Max", isOn: $showMinMax)
                     }
                 }
-                
+
                 Divider()
-                
+
                 // MARK: Preview Section
+
                 VStack(spacing: 24) {
                     Text("Preview")
                         .font(.headline)
-                    
+
                     demoSlider
                         .padding(.horizontal, 24)
                         .padding(.vertical, 16)
@@ -92,14 +92,14 @@ struct SHDSliderDemoView: View {
             }
         }
     }
-    
+
     // MARK: - Main Demo Slider
+
     @ViewBuilder
     private var demoSlider: some View {
         VStack(alignment: .leading, spacing: 12) {
-            
             Text("Current value - \(sliderValue, specifier: "%.2f")")
-            
+
             // Slider
             SHDSlider(
                 minValue: minRange,
@@ -108,7 +108,7 @@ struct SHDSliderDemoView: View {
             )
             .sliderVariant(variant: displayFormat)
             .padding(.vertical, 8)
-            
+
             // Min/Max labels
             if showMinMax {
                 HStack {
@@ -123,8 +123,9 @@ struct SHDSliderDemoView: View {
             }
         }
     }
-    
+
     // MARK: - Helper Section Builder
+
     @ViewBuilder
     private func configSection<Content: View>(
         title: String,

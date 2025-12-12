@@ -13,7 +13,6 @@ struct ContentView: View {
         VStack {
             NavigationStack {
                 List {
-
                     NavigationLink(destination: SHDAccordionDemoView()) {
                         HStack {
                             Image(systemName: "list.bullet.rectangle.portrait")
@@ -39,7 +38,6 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "a.circle")
                             Text("SHDAvatar")
-
                         }
                     }
 
@@ -47,7 +45,7 @@ struct ContentView: View {
                         HStack {
                             Image(
                                 systemName:
-                                    "rectangle.inset.filled.badge.record"
+                                "rectangle.inset.filled.badge.record"
                             )
                             Text("SHDBadge")
                         }
@@ -64,7 +62,7 @@ struct ContentView: View {
                         HStack {
                             Image(
                                 systemName:
-                                    "slider.horizontal.3"
+                                "slider.horizontal.3"
                             )
                             Text("SHDSlider")
                         }

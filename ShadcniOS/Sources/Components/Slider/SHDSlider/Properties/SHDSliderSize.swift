@@ -1,5 +1,5 @@
 //
-//  SHDSliderVariant.swift
+//  SHDSliderSize.swift
 //  ShadcniOS
 //
 //  Created by Diego Takaki on 12/12/25.
