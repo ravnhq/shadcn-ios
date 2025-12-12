@@ -44,7 +44,8 @@ import SwiftUI
 /// - `.oneToOne`: Square items (45% container width × 45% width)
 /// - `.threeToFour`: 3:4 aspect ratio items (40% width × 53% width)
 /// - `.sixteenToNine`: 16:9 aspect ratio items (85% width × 48% width), commonly used for video content
-/// - `.threeToFourWithSingleItem`: Tall 3:4 proportion optimized for single-item layouts (90% width × 120% width)
+/// - `.threeToFourWithSingleItem`: Tall 3:4 proportion optimized for
+///     single-item layouts (90% width × 120% width)
 ///
 /// Creates a carousel with the specified items and content view builder.
 ///

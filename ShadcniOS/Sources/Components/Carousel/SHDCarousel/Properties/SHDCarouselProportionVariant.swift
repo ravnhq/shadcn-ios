@@ -46,26 +46,26 @@ import Foundation
 /// ```
 ///
 public enum SHDCarouselProportionVariant {
-    /// Square aspect ratio (1:1) — 212 × 212 points.
+    /// Square aspect ratio (1:1).
     ///
     /// Ideal for displaying avatars, icons, or uniform square content in grid-like arrangements.
     /// Provides equal visual weight for all items regardless of orientation.
     case oneToOne
 
-    /// Portrait aspect ratio (3:4) — 159 × 212 points.
+    /// Portrait aspect ratio (3:4) .
     ///
     /// Suitable for profile cards, product thumbnails, or portrait-oriented images.
     /// Provides a balanced portrait presentation in compact spaces.
     case threeToFour
 
-    /// Landscape aspect ratio (16:9) — 377 × 212 points.
+    /// Landscape aspect ratio (16:9).
     ///
     /// Optimized for video content, movie posters, or landscape imagery.
     /// When used with `.groupHorizonal` layout, automatically switches to paged tab-based viewing
     /// for optimal full-width presentation.
     case sixteenToNine
 
-    /// Tall portrait aspect ratio (3:4) optimized for single-item layouts — 380 × 507 points.
+    /// Tall portrait aspect ratio (3:4) optimized for single-item layouts .
     ///
     /// Designed specifically for carousels using single-item paging navigation, providing maximum
     /// vertical space for prominent content display.
