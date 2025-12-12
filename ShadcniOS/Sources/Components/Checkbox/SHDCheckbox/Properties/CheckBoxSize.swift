@@ -42,7 +42,7 @@ public enum SHDCheckboxSize: CGFloat {
         }
     }
 
-    // MARK: - Typography Mapping
+    // MARK: - Description Typography
     /// The description text style associated with the checkbox size.
     ///
     /// - Returns: An `SHDTextStyle` representing the correct typography.
@@ -51,6 +51,17 @@ public enum SHDCheckboxSize: CGFloat {
         case .sm: .textSMRegular
         case .md: .textBaseRegular
         case .lg: .textLGRegular
+        }
+    }
+
+    /// Icon sizing that pairs with each checkbox dimension.
+    ///
+    /// Ensures the checkmark graphic scales in step with the square dimensions.
+    var iconSize: SHDIconSize {
+        switch self {
+        case .sm: .md
+        case .md: .lg
+        case .lg: .xl
         }
     }
 }

@@ -16,36 +16,35 @@ import SwiftUI
 ///
 /// - Sizing is controlled by ``checkboxStyle(size:)``,
 /// which updates control and typography dimensions.
-/// - Disabled state can be applied with ``checkboxDisabled(_:)`` (or plain `.disabled`).
-/// - The initial checked state can be set through the initializer.
+/// - Checked state is controlled externally via `Binding<Bool>`.
 ///
 /// Creates a ShadcniOS checkbox.
 ///
 /// - Parameters:
 ///   - label: Leading label text.
+///   - isChecked: Bound state for the toggle.
 ///   - description: Optional supporting text shown below the label.
-///   - isChecked: Optional initial toggle state.
 ///
 /// ## Usage
 /// Basic checkbox:
 /// ```swift
-/// SHDCheckbox(label: "Accept terms")
+/// @State private var isChecked = false
+/// SHDCheckbox(label: "Accept terms", isChecked: $isChecked)
 ///     .checkboxStyle(size: .md)
 /// ```
 ///
 /// Disabled and pre-checked:
 /// ```swift
-/// SHDCheckbox(label: "Accept terms", isChecked: true)
+/// @State private var isChecked = true
+/// SHDCheckbox(label: "Accept terms", isChecked: $isChecked)
 ///     .checkboxStyle(size: .md)
-///     .checkboxDisabled(true)
 /// ```
 public struct SHDCheckbox: View {
-    private var isChecked: Binding<Bool>
+    @Binding private var isChecked: Bool
 
-    private let label: String
     private let description: String?
+    private let label: String
     private var size: SHDCheckboxSize = .md
-    private var isDisabled: Bool = false
 
     // MARK: - Initializer
 
@@ -54,18 +53,24 @@ public struct SHDCheckbox: View {
         isChecked: Binding<Bool>,
         description: String? = nil
     ) {
-        self.label = label
         self.description = description
-        self.isChecked = isChecked
+        self.label = label
+        _isChecked = isChecked
     }
 
     public var body: some View {
-        Toggle(label, isOn: isChecked)
+        Toggle(label, isOn: $isChecked)
             .baseCheckboxStyle(description: description, size: size)
             .disabledMask()
     }
 
-    /// Applies checkbox sizing.
+    /// Applies checkbox sizing, similar to button size modifiers.
+    ///
+    /// ## Usage
+    /// ```swift
+    /// SHDCheckbox(label: "Accept terms")
+    ///     .checkboxStyle(size: .md)
+    /// ```
     ///
     /// - Parameters:
     ///   - size: Desired checkbox size. Defaults to `.md`.
@@ -74,12 +79,6 @@ public struct SHDCheckbox: View {
     ) -> some View {
         mutating { checkbox in
             checkbox.size = size
-        }
-    }
-
-    public func isDisabled(_ isDisabled: Bool = false) -> some View {
-        mutating { checkbox in
-            checkbox.isDisabled = isDisabled
         }
     }
 }

@@ -23,7 +23,7 @@ internal struct SHDCheckboxPreview: View {
 
                 SHDCheckbox(
                     label: "Medium checkbox",
-                    isChecked: .constant(true),
+                    isChecked: .constant(false),
                     description: "Preview of a medium checkbox."
                 )
                 .checkboxStyle(size: .md)

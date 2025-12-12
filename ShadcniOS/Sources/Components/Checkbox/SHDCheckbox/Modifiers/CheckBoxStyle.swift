@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-/// Base checkbox toggle style used by the design system.
+/// Checkbox toggle style that encapsulates the visual language for the component.
 ///
-/// Mirrors the role of `BaseButtonStyle`, centralizing sizing and label styling so
-/// `SHDCheckbox` stays lean.
+/// Centralizes the square, checkmark, border, and typography treatment so `SHDCheckbox`
+/// only handles content and state. Applies design-token spacing, sizing, and colors for
+/// the control, label, and optional description.
 internal struct CheckboxStyle: ToggleStyle {
     let description: String?
     let size: SHDCheckboxSize
@@ -20,10 +21,8 @@ internal struct CheckboxStyle: ToggleStyle {
             RoundedRectangle(cornerRadius: .sm)
                 .foregroundColor(configuration.isOn ? .foregroundDefault : .clear)
                 .overlay(
-                    Image(systemName: configuration.isOn ? "checkmark" : "square")
-                        .resizable()
-                        .padding(.horizontal, .xxxxs)
-                        .padding(.vertical, .xxxs)
+                    SHDIcon(.notificationCheck)
+                        .iconSize(size.iconSize)
                         .foregroundColor(configuration.isOn ? .foregroundPrimaryDefault : .clear)
                         .overlay(
                             RoundedRectangle(cornerRadius: .sm)
@@ -71,7 +70,6 @@ internal extension View {
     /// - Parameters:
     ///   - description: Optional supporting text displayed under the label.
     ///   - size: Checkbox sizing preset that controls both square and text dimensions.
-    /// - Returns: A view with the ShadcniOS checkbox toggle style applied.
     func baseCheckboxStyle(description: String?, size: SHDCheckboxSize) -> some View {
         toggleStyle(CheckboxStyle(description: description, size: size))
     }
