@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-internal struct SHDSliderPreview: View {
+struct SHDSliderPreview: View {
     @State private var sliderValue: Double = 50
 
     var body: some View {
