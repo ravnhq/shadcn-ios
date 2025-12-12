@@ -20,20 +20,20 @@ internal struct CheckboxStyle: ToggleStyle {
         HStack(alignment: .top, spacing: .sm) {
             RoundedRectangle(cornerRadius: .sm)
                 .foregroundColor(configuration.isOn ? .foregroundDefault : .clear)
+                .frame(width: size.rawValue, height: size.rawValue)
                 .overlay(
                     SHDIcon(.notificationCheck)
                         .iconSize(size.iconSize)
                         .foregroundColor(configuration.isOn ? .foregroundPrimaryDefault : .clear)
                         .overlay(
                             RoundedRectangle(cornerRadius: .sm)
+                                .inset(by: 1)
                                 .stroke(
                                     .foregroundMuted,
                                     lineWidth: 2
                                 )
                         )
-                        .frame(width: size.rawValue, height: size.rawValue)
                 )
-                .frame(width: size.rawValue, height: size.rawValue)
                 .onTapGesture {
                     configuration.isOn.toggle()
                 }

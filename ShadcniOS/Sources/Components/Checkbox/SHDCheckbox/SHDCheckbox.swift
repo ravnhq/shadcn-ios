@@ -50,8 +50,8 @@ public struct SHDCheckbox: View {
 
     public init(
         label: String,
-        isChecked: Binding<Bool>,
-        description: String? = nil
+        description: String? = nil,
+        isChecked: Binding<Bool>
     ) {
         self.description = description
         self.label = label
@@ -74,12 +74,8 @@ public struct SHDCheckbox: View {
     ///
     /// - Parameters:
     ///   - size: Desired checkbox size. Defaults to `.md`.
-    public func checkboxStyle(
-        size: SHDCheckboxSize = .md
-    ) -> some View {
-        mutating { checkbox in
-            checkbox.size = size
-        }
+    public func checkboxStyle(size: SHDCheckboxSize = .md) -> some View {
+        mutating(keyPath: \.size, value: size)
     }
 }
 

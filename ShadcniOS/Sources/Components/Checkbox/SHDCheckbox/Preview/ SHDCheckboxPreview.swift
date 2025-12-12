@@ -11,27 +11,27 @@ internal struct SHDCheckboxPreview: View {
     internal var body: some View {
         VStack(alignment: .leading, spacing: .lg) {
             Text("Sizes")
-                .font(.headline)
+                .textStyle(.textBaseSemibold)
 
             VStack(alignment: .leading, spacing: .md) {
                 SHDCheckbox(
                     label: "Small checkbox",
-                    isChecked: .constant(false),
-                    description: "Preview of a small checkbox."
+                    description: "Preview of a small checkbox.",
+                    isChecked: .constant(false)
                 )
                 .checkboxStyle(size: .sm)
 
                 SHDCheckbox(
                     label: "Medium checkbox",
-                    isChecked: .constant(false),
-                    description: "Preview of a medium checkbox."
+                    description: "Preview of a medium checkbox.",
+                    isChecked: .constant(false)
                 )
                 .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Large checkbox",
-                    isChecked: .constant(false),
-                    description: "Preview of a large checkbox."
+                    description: "Preview of a large checkbox.",
+                    isChecked: .constant(false)
                 )
                 .checkboxStyle(size: .lg)
             }
@@ -39,35 +39,35 @@ internal struct SHDCheckboxPreview: View {
             Divider()
 
             Text("States")
-                .font(.headline)
+                .textStyle(.textBaseSemibold)
 
             VStack(alignment: .leading, spacing: .md) {
                 SHDCheckbox(
                     label: "Enabled - Unselected",
-                    isChecked: .constant(false),
-                    description: "Default unchecked state."
+                    description: "Default unchecked state.",
+                    isChecked: .constant(false)
                 )
                 .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Enabled - Selected",
-                    isChecked: .constant(true),
-                    description: "Starts checked and interactive."
+                    description: "Starts checked and interactive.",
+                    isChecked: .constant(true)
                 )
                 .checkboxStyle(size: .md)
 
                 SHDCheckbox(
                     label: "Disabled - Unselected",
-                    isChecked: .constant(false),
-                    description: "Not interactive."
+                    description: "Not interactive.",
+                    isChecked: .constant(false)
                 )
                 .checkboxStyle(size: .md)
                 .disabled(true)
 
                 SHDCheckbox(
                     label: "Disabled - Selected",
-                    isChecked: .constant(true),
-                    description: "Checked but disabled."
+                    description: "Checked but disabled.",
+                    isChecked: .constant(true)
                 )
                 .checkboxStyle(size: .md)
                 .disabled(true)

@@ -41,8 +41,8 @@ struct SHDCheckboxDemoView: View {
 
                     SHDCheckbox(
                         label: "Accept terms and conditions",
-                        isChecked: $isChecked,
-                        description: showDescription ? "You agree to our Terms of Service and Privacy Policy." : nil
+                        description: showDescription ? "You agree to our Terms of Service and Privacy Policy." : nil,
+                        isChecked: $isChecked
                     )
                     .checkboxStyle(size: checkboxSize)
                     .disabled(isDisabled)
