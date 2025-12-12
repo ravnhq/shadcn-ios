@@ -52,6 +52,16 @@ struct ContentView: View {
                             Text("SHDBadge")
                         }
                     }
+                    
+                    NavigationLink(destination: SHDSliderDemoView()) {
+                        HStack {
+                            Image(
+                                systemName:
+                                    "slider.horizontal.3"
+                            )
+                            Text("SHDSlider")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())
