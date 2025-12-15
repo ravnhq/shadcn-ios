@@ -51,7 +51,17 @@ struct SHDCarouselDemoView: View {
                     }
                 }
                 .padding()
-                
+                .onChange(of: layoutVariant) { _, newValue in
+                    switch newValue {
+                    case .singleHorizonal:
+                        proportionVariant = .threeToFour
+                    case .groupVertical:
+                        proportionVariant = .sixteenToNine
+                    default:
+                        proportionVariant = .oneToOne
+                    }
+                }
+
                 HStack {
                     Text("Proportion Variant")
                     
@@ -110,7 +120,6 @@ struct SHDCarouselDemoView: View {
                         .carouselProportionVariant(proportionVariant)
                     }
                 }
-                .background(Color.blue)
             }
             .navigationTitle("SHDCarousel")
             .padding(.top)
