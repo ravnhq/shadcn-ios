@@ -11,17 +11,27 @@ struct SHDRadioGroup: View {
 
     @Binding private var selection: SHDRadioGroupSelection
     private var size: SHDRadioGroupSize = .md
+    private var textOption1: String
+    private var textOption2: String
+    private var textOption3: String
 
-    init(selection: Binding<SHDRadioGroupSelection>, size: SHDRadioGroupSize) {
+    init(
+        selection: Binding<SHDRadioGroupSelection>,
+        textOption1: String = "",
+        textOption2: String = "",
+        textOption3: String = ""
+    ) {
         self._selection = selection
-        self.size = size
+        self.textOption1 = textOption1
+        self.textOption2 = textOption2
+        self.textOption3 = textOption3
     }
 
     var body: some View {
         VStack {
             SHDRadioItem(
                 isFlagged: selection == .firstOption,
-                text: "Option 1"
+                text: textOption1
             ) {
                 selection = .firstOption
             }
@@ -29,7 +39,7 @@ struct SHDRadioGroup: View {
 
             SHDRadioItem(
                 isFlagged: selection == .secondOption,
-                text: "Option 2"
+                text: textOption2
             ) {
                 selection = .secondOption
             }
@@ -37,22 +47,34 @@ struct SHDRadioGroup: View {
 
             SHDRadioItem(
                 isFlagged: selection == .thirdOption,
-                text: "Option 3"
+                text: textOption3
             ) {
                 selection = .thirdOption
             }
             .radioItemStyle(size)
         }
     }
+
+    func radioGroupStyle(_ size: SHDRadioGroupSize) -> Self {
+        mutating(keyPath: \.size, value: size)
+    }
 }
 
 struct SHDRadioGroupPreview: View {
-    @State var selection: SHDRadioGroupSelection = .thirdOption
+    @State var selectionGroupMedium: SHDRadioGroupSelection = .thirdOption
+    @State var selectionGroupLarge: SHDRadioGroupSelection = .thirdOption
 
     var body: some View {
-        SHDRadioGroup(selection: $selection, size: .md)
+        SHDRadioGroup(
+            selection: $selectionGroupMedium,
+            textOption1: "This is the first option",
+            textOption2: "This is the second option",
+            textOption3: "This is the third option"
+        )
+        .radioGroupStyle(.md)
         Divider()
-        SHDRadioGroup(selection: $selection, size: .lg)
+        SHDRadioGroup(selection: $selectionGroupLarge)
+            .radioGroupStyle(.lg)
     }
 }
 
