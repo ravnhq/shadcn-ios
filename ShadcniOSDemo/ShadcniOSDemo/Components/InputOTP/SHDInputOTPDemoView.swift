@@ -39,7 +39,9 @@ struct SHDInputOTPDemoView: View {
                 }
                 .pickerStyle(.segmented)
 
-            
+            Spacer()
+                .frame(maxHeight: 50)
+
             SHDInputOTP(caption: "Please put the sended code")
                 .inputOTPVariants(variant: variant, size: size, length: length)
                 .isError(isError)
