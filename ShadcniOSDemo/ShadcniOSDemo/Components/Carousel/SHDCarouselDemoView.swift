@@ -110,6 +110,7 @@ struct SHDCarouselDemoView: View {
                         .carouselProportionVariant(proportionVariant)
                     }
                 }
+                .background(Color.blue)
             }
             .navigationTitle("SHDCarousel")
             .padding(.top)

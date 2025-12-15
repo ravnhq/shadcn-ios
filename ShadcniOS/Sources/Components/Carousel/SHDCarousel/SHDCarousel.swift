@@ -35,7 +35,7 @@ import SwiftUI
 /// - Vertical scroll uses `VStack` with customizable spacing
 /// - Items adapt their dimensions based on the selected proportion variant
 ///
-/// The carousel supports four layout variants:
+/// The carousel supports three layout variants:
 /// - `.groupHorizonal`: Multiple items visible horizontally, paged for 16:9 proportions
 /// - `.singleHorizonal`: One item at a time with horizontal paging
 /// - `.groupVertical`: Multiple items visible vertically in a scrollable container
