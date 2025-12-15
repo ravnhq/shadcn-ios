@@ -14,7 +14,7 @@ struct SHDRadioGroup: View {
     private var textOption1: String
     private var textOption2: String
     private var textOption3: String
-
+    private var disable: Bool = false
     init(
         selection: Binding<SHDRadioGroupSelection>,
         textOption1: String = "",
@@ -30,7 +30,7 @@ struct SHDRadioGroup: View {
     var body: some View {
         VStack {
             SHDRadioItem(
-                isFlagged: selection == .firstOption,
+                isSelected: selection == .firstOption,
                 text: textOption1
             ) {
                 selection = .firstOption
@@ -38,7 +38,7 @@ struct SHDRadioGroup: View {
             .radioItemStyle(size)
 
             SHDRadioItem(
-                isFlagged: selection == .secondOption,
+                isSelected: selection == .secondOption,
                 text: textOption2
             ) {
                 selection = .secondOption
@@ -46,70 +46,26 @@ struct SHDRadioGroup: View {
             .radioItemStyle(size)
 
             SHDRadioItem(
-                isFlagged: selection == .thirdOption,
+                isSelected: selection == .thirdOption,
                 text: textOption3
             ) {
                 selection = .thirdOption
             }
             .radioItemStyle(size)
         }
+        .disabledMask()
+        .disabled(disable)
     }
 
     func radioGroupStyle(_ size: SHDRadioGroupSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
-}
 
-struct SHDRadioGroupPreview: View {
-    @State var selectionGroupMedium: SHDRadioGroupSelection = .thirdOption
-    @State var selectionGroupLarge: SHDRadioGroupSelection = .thirdOption
-
-    var body: some View {
-        SHDRadioGroup(
-            selection: $selectionGroupMedium,
-            textOption1: "This is the first option",
-            textOption2: "This is the second option",
-            textOption3: "This is the third option"
-        )
-        .radioGroupStyle(.md)
-        Divider()
-        SHDRadioGroup(selection: $selectionGroupLarge)
-            .radioGroupStyle(.lg)
+    func disable(_ disable: Bool = true) -> Self {
+        mutating(keyPath: \.disable, value: disable)
     }
 }
 
 #Preview {
     SHDRadioGroupPreview()
-}
-
-enum SHDRadioGroupSelection {
-    case firstOption
-    case secondOption
-    case thirdOption
-}
-
-enum SHDRadioGroupSize {
-    case md
-    case lg
-
-    var outlineCircle: CGFloat {
-        switch self {
-        case .md: 20
-        case .lg: 24
-        }
-    }
-
-    var filledCircle: CGFloat {
-        switch self {
-        case .md: 14
-        case .lg: 18
-        }
-    }
-
-    var textStyle: SHDTextStyle {
-        switch self {
-        case .md: .textBaseMedium
-        case .lg: .textLGMedium
-        }
-    }
 }

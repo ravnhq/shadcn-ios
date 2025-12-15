@@ -24,8 +24,9 @@ struct ToggleRadioConfiguration: ToggleStyle {
                         .transition(.scale.animation(.easeInOut(duration: 0.1)))
                 }
             }
+            .padding(.trailing, 8)
             configuration.label
-                .padding(.leading, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .contentShape(Rectangle())
         .onTapGesture {
