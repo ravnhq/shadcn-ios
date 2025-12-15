@@ -129,6 +129,10 @@ import SwiftUI
 /// .inputVariant(variant: .required, size: .md)
 /// ```
 public struct SHDInput: View {
+    @FocusState private var isFocused: Bool
+    @State private var hasBeenTouched: Bool = false
+    @Binding var text: String
+
     private var variant: SHDInputVariant = .default
     private var size: SHDInputSize = .md
     private var label: String
@@ -137,19 +141,19 @@ public struct SHDInput: View {
     private var placeholder: String?
     private var caption: String?
     private var errorText: String?
-    @Binding var text: String
-    @FocusState private var isFocused: Bool
-    @State private var hasBeenTouched: Bool = false
+
     let validation: ((String) -> Bool)?
 
-    public init(text: Binding<String>,
-                label: String,
-                leadingIcon: SHDIconAsset? = nil,
-                trailingIcon: SHDIconAsset? = nil,
-                placeholder: String? = nil,
-                caption: String? = nil,
-                errorText: String? = nil,
-                validation: ((String) -> Bool)? = nil) {
+    public init(
+        text: Binding<String>,
+        label: String,
+        leadingIcon: SHDIconAsset? = nil,
+        trailingIcon: SHDIconAsset? = nil,
+        placeholder: String? = nil,
+        caption: String? = nil,
+        errorText: String? = nil,
+        validation: ((String) -> Bool)? = nil
+    ) {
         _text = text
         self.label = label
         self.leadingIcon = leadingIcon
@@ -183,8 +187,11 @@ public struct SHDInput: View {
                     .padding(.vertical, .sm)
                     .focused($isFocused)
                     .onChange(of: isFocused) { _, newValue in
-                        if !newValue && !hasBeenTouched {
-                            hasBeenTouched = true
+                        if !newValue {
+                            text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                            if !hasBeenTouched {
+                                hasBeenTouched = true
+                            }
                         }
                     }
 
