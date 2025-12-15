@@ -248,7 +248,7 @@ public struct SHDInput: View {
         if isInvalid {
             return .borderDestructiveDefault
         }
-        return isFocused ? .borderDefault : Color(.separator)
+        return isFocused ? .borderPrimaryDefault : .borderDefault
     }
 
     private var captionOrErrorText: String? {
