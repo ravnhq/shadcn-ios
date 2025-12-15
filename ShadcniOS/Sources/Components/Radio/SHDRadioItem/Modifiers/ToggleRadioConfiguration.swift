@@ -8,25 +8,30 @@
 import SwiftUI
 
 struct ToggleRadioConfiguration: ToggleStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
+    var size: SHDRadioGroupSize = .md
+
+    func makeBody(configuration: Configuration) -> some View {
         HStack {
             ZStack {
                 Circle()
                     .strokeBorder(SHDColor.borderPrimaryDefault.color, lineWidth: 1)
-                    .frame(width: 20, height: 20)
+                    .frame(width: size.outlineCircle, height: size.outlineCircle)
 
                 if configuration.isOn {
                     Circle()
                         .fill(SHDColor.iconSecondaryDefault.color)
-                        .frame(width: 14, height: 14)
-                        .padding(3)
+                        .frame(width: size.filledCircle, height: size.filledCircle)
+                        .transition(.scale.animation(.easeInOut(duration: 0.1)))
                 }
             }
-            .onTapGesture {
-                configuration.isOn.toggle()
-            }
-
             configuration.label
+                .padding(.leading, 8)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            if !configuration.isOn {
+                configuration.isOn = true
+            }
         }
     }
 }
