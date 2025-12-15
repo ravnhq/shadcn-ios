@@ -21,4 +21,7 @@ public enum SHDIconSize: CGFloat {
 
     /// Large icon size (20pt) — used for prominent icons or touch targets.
     case lg = 20
+
+    /// Large icon size (24pt) — used for prominent icons or touch targets.
+    case xl = 24
 }

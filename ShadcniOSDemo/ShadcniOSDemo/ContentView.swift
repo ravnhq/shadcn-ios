@@ -55,9 +55,16 @@ struct ContentView: View {
                         HStack {
                             Image(
                                 systemName:
-                                "character.cursor.ibeam"
+                                    "character.cursor.ibeam"
                             )
                             Text("SHDInput")
+                        }
+                    }
+                    
+                    NavigationLink(destination: SHDCheckboxDemoView()) {
+                        HStack {
+                            Image(systemName: "checkmark.square")
+                            Text("SHDCheckbox")
                         }
                     }
                 }
