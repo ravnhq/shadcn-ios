@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SHDRadioItem: View {
-    var isFlagged: Bool
+    var isSelected: Bool
     var text: String?
     var size: SHDRadioGroupSize = .md
     var onTap: () -> Void
@@ -16,7 +16,7 @@ struct SHDRadioItem: View {
     var body: some View {
         Toggle(
             isOn: Binding(
-                get: { isFlagged },
+                get: { isSelected },
                 set: { newValue in
                     if newValue {
                         onTap()
@@ -35,19 +35,4 @@ struct SHDRadioItem: View {
     func radioItemStyle(_ size: SHDRadioGroupSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
-}
-
-#Preview {
-    struct PreviewWrapper: View {
-        @State var isSelected = false
-        
-        var body: some View {
-            SHDRadioItem(isFlagged: isSelected, text: "Opción de prueba") {
-                isSelected.toggle()
-            }
-            .padding()
-        }
-    }
-    
-    return PreviewWrapper()
 }
