@@ -16,15 +16,13 @@ import SwiftUI
 /// This ensures consistent sizing across different layout modes while allowing the underlying
 /// content view to adapt to its assigned dimensions.
 ///
-/// The modifier applies different sizing strategies:
-/// - `Group Horizontal`: Uses the exact dimensions specified by the `proportionVariant`
-/// - `Single Horizontal`: Always uses the tall `.threeToFourWithSingleItem` dimensions (380×507 points)
-///   to maximize vertical space for prominent content in paged browsing
-/// - `Group Vertical`: Always uses the wide `.sixteenToNine` dimensions (377×212 points)
-///   to maintain consistent horizontal presentation in vertical scrolling
+/// The modifier applies layout-aware aspect ratios instead of fixed pixel sizes:
+/// - `Group Horizontal`: Uses the provided `proportionVariant` aspect ratio so sizing stays responsive
+/// - `Single Horizontal`: Locks to the tall `.threeToFourWithSingleItem` aspect ratio for paged layouts
+/// - `Group Vertical`: Locks to the wide `.sixteenToNine` aspect ratio for vertical scrolling contexts
 ///
-/// Frame sizing is applied as a fixed constraint, preventing content from expanding or contracting
-/// beyond the designated dimensions. This maintains visual consistency and predictable spacing in carousels.
+/// Using aspect ratios keeps the items fluid so their final width and height can adapt to the parent
+/// container (for example, geometry-driven layouts) while still maintaining consistent proportions.
 ///
 internal struct SHDLayoutCarouselItem: ViewModifier {
 

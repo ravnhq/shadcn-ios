@@ -70,6 +70,8 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
             )
             indicators
         }
+        .padding(.vertical, .xxs)
+        .padding(.horizontal, .sm)
     }
 
     private var indicators: some View {

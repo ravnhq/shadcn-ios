@@ -49,11 +49,11 @@ internal struct SHDCarouselGroupHorizontal<Item, Content: View>: View {
                             .frame(width: itemWidth, height: itemHeight)
                     }
                 }
-                .padding(.vertical, .xxs)
-                .padding(.horizontal, .sm)
             }
         }
         .aspectRatio(proportionVariant.aspectRatio / proportionVariant.widthFactor, contentMode: .fit)
+        .padding(.vertical, .xxs)
+        .padding(.horizontal, .sm)
     }
 }
 
