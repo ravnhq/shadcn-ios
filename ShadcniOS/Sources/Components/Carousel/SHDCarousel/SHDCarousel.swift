@@ -84,28 +84,6 @@ public struct SHDCarousel<Item, Content: View>: View {
     private var layoutVariant: SHDCarouselLayoutVariant = .groupHorizonal
     private var proportionVariant: SHDCarouselProportionVariant = .oneToOne
 
-    private var carouselContent: some View {
-        SHDCarouselItem(
-            layoutVariant: layoutVariant,
-            proportionVariant: proportionVariant,
-            items: items,
-            content: content
-        )
-    }
-
-    private var carouselPagedContent: some View {
-        SHDCarouselTabView(
-            layoutVariant: layoutVariant,
-            proportionVariant: proportionVariant,
-            items: items,
-            content: content
-        )
-        .singleProportionVariant(
-            layoutVariant == .groupHorizonal
-                ? proportionVariant : .threeToFourWithSingleItem
-        )
-    }
-
     public init(
         items: [Item],
         @ViewBuilder content: @escaping (Item) -> Content
@@ -118,28 +96,31 @@ public struct SHDCarousel<Item, Content: View>: View {
         Group {
             switch layoutVariant {
             case .groupHorizonal:
-                if proportionVariant == .sixteenToNine {
-                    carouselPagedContent
-                } else {
-                    SHDCarouselGroupHorizontal(
-                        items: items,
-                        proportionVariant: proportionVariant,
-                        content: content
-                    )
-                }
-
+                SHDCarouselHorizontal(
+                    items: items,
+                    content: content,
+                    layoutVariant: layoutVariant,
+                    proportionVariant: proportionVariant
+                )
             case .singleHorizonal:
-                carouselPagedContent
+                SHDCarouselTabView(
+                    layoutVariant: layoutVariant,
+                    proportionVariant: proportionVariant,
+                    items: items,
+                    content: content
+                )
+                .singleProportionVariant(
+                    layoutVariant == .groupHorizonal
+                        ? proportionVariant : .threeToFourWithSingleItem
+                )
 
             case .groupVertical:
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        carouselContent
-                    }
-                    .padding(.vertical, .xxs)
-                    .padding(.horizontal, .md)
-
-                }
+                SHDCarouselVertical(
+                    items: items,
+                    content: content,
+                    layoutVariant: layoutVariant,
+                    proportionVariant: proportionVariant
+                )
             }
         }
     }
