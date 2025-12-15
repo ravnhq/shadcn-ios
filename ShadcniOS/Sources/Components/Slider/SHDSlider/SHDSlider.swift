@@ -57,10 +57,11 @@ import SwiftUI
 ///     .sliderVariant(variant: .sm)
 /// ```
 public struct SHDSlider: View {
+    @Binding var value: Double
+
     private var size: SHDSliderSize = .md
     private var minValue: Int
     private var maxValue: Int
-    @Binding var value: Double
 
     public init(minValue: Int, maxValue: Int, value: Binding<Double>) {
         self.minValue = minValue
@@ -114,9 +115,7 @@ public struct SHDSlider: View {
     /// - Parameter variant: The size configuration for the slider.
     /// - Returns: A view with the specified slider size applied.
     public func sliderVariant(variant: SHDSliderSize) -> some View {
-        mutating { slider in
-            slider.size = variant
-        }
+        mutating(keyPath: \.size, value: variant)
     }
 }
 
