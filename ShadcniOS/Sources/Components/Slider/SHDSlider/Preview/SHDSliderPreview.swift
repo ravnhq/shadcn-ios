@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct SHDSliderPreview: View {
+    @State private var progressValue: Double = 75
     @State private var sliderValue: Double = 50
+    @State private var tempValue: Double = 20
 
     var body: some View {
-        VStack(spacing: 24) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(spacing: .xl) {
+            VStack(alignment: .leading, spacing: .sm) {
                 Text("Volume: \(Int(sliderValue))%")
-                    .font(.subheadline)
+                    .textStyle(.textBaseMedium)
                     .foregroundStyle(.secondary)
 
                 SHDSlider(minValue: 0, maxValue: 100, value: $sliderValue)
@@ -22,9 +24,9 @@ struct SHDSliderPreview: View {
                     .padding(.horizontal)
             }
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: .sm) {
                 Text("Temperature: \(tempValue)°")
-                    .font(.subheadline)
+                    .textStyle(.textBaseMedium)
                     .foregroundStyle(.secondary)
 
                 SHDSlider(minValue: -10, maxValue: 40, value: $tempValue)
@@ -32,9 +34,9 @@ struct SHDSliderPreview: View {
                     .padding(.horizontal)
             }
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: .sm) {
                 Text("Progress: \(Int(progressValue))%")
-                    .font(.subheadline)
+                    .textStyle(.textBaseMedium)
                     .foregroundStyle(.secondary)
 
                 SHDSlider(minValue: 0, maxValue: 100, value: $progressValue)
@@ -44,9 +46,6 @@ struct SHDSliderPreview: View {
         }
         .padding()
     }
-
-    @State private var tempValue: Double = 20
-    @State private var progressValue: Double = 75
 }
 
 #Preview {
