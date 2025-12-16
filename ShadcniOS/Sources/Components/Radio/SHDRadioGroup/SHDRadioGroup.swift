@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDRadioGroup: View {
+public struct SHDRadioGroup: View {
 
     @Binding private var selection: SHDRadioGroupSelection
     private var size: SHDRadioGroupSize = .md
@@ -15,7 +15,8 @@ struct SHDRadioGroup: View {
     private var textOption2: String
     private var textOption3: String
     private var disable: Bool = false
-    init(
+
+    public init(
         selection: Binding<SHDRadioGroupSelection>,
         textOption1: String = "",
         textOption2: String = "",
@@ -27,8 +28,8 @@ struct SHDRadioGroup: View {
         self.textOption3 = textOption3
     }
 
-    var body: some View {
-        VStack {
+    public var body: some View {
+        VStack(spacing: .sm) {
             SHDRadioItem(
                 isSelected: selection == .firstOption,
                 text: textOption1
@@ -57,11 +58,11 @@ struct SHDRadioGroup: View {
         .disabled(disable)
     }
 
-    func radioGroupStyle(_ size: SHDRadioGroupSize) -> Self {
+    public func radioGroupStyle(_ size: SHDRadioGroupSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
 
-    func disable(_ disable: Bool = true) -> Self {
+    public func disable(_ disable: Bool = true) -> Self {
         mutating(keyPath: \.disable, value: disable)
     }
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDRadioGroupPreview: View {
+internal struct SHDRadioGroupPreview: View {
     @State var selectionGroupMedium: SHDRadioGroupSelection = .thirdOption
     @State var selectionGroupLarge: SHDRadioGroupSelection = .thirdOption
     @State var selectionGroupDisabled: SHDRadioGroupSelection = .thirdOption

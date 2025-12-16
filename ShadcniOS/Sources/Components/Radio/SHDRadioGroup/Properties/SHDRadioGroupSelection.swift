@@ -5,7 +5,7 @@
 //  Created by JoseAlvarez on 12/15/25.
 //
 
-enum SHDRadioGroupSelection {
+public enum SHDRadioGroupSelection {
     case firstOption
     case secondOption
     case thirdOption
