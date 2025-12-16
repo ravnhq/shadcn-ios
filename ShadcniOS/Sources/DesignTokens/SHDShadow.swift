@@ -39,7 +39,7 @@ import SwiftUI
 /// - `blur`: The blur radius as a `CGFloat`, controlling the softness of the shadow.
 /// - `color`: The shadow color as a `Color`, typically a semi-transparent black.
 ///
-enum SHDShadow {
+internal enum SHDShadow {
     case shadowSM
     case shadow
     case shadowMD
