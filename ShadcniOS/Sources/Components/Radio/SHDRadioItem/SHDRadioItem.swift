@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SHDRadioItem: View {
+internal struct SHDRadioItem: View {
     var isSelected: Bool
     var text: String?
     var size: SHDRadioGroupSize = .md
@@ -26,6 +26,7 @@ struct SHDRadioItem: View {
         ) {
             if let text {
                 Text(text)
+                    .foregroundColor(.foregroundDefault)
                     .textStyle(size.textStyle)
             }
         }

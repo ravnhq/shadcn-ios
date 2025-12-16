@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToggleRadioConfiguration: ToggleStyle {
+internal struct ToggleRadioConfiguration: ToggleStyle {
     var size: SHDRadioGroupSize = .md
 
     func makeBody(configuration: Configuration) -> some View {

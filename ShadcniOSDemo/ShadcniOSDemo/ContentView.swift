@@ -74,6 +74,13 @@ struct ContentView: View {
                             Text("SHDCarousel")
                         }
                     }
+
+                    NavigationLink(destination: SHDRadioGroupDemoView()) {
+                        HStack {
+                            Image(systemName: "sensor.tag.radiowaves.forward")
+                            Text("SHDRadioGroup")
+                        }
+                    }
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())

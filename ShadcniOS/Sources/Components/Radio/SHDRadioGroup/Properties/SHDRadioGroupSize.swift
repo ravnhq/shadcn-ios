@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SHDRadioGroupSize {
+public enum SHDRadioGroupSize {
     case md
     case lg
 
