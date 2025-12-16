@@ -343,3 +343,42 @@ extension RoundedRectangle {
         self.init(cornerRadius: radius.value)
     }
 }
+
+// MARK: - Shadow
+
+internal extension View {
+
+    /// Applies a predefined shadow style from the Shadcn design system to the view.
+    ///
+    /// ## Description
+    /// `shadowStyle(_:)` provides a convenient way to add consistent shadows to SwiftUI views
+    /// using the standardized `SHDShadow` variants. It applies the shadow's color, blur radius,
+    /// and offset values directly to the view's shadow modifier.
+    ///
+    /// ## Discussion
+    /// Shadows enhance visual depth and hierarchy in user interfaces. This extension ensures
+    /// that all shadows in the app adhere to the design system's shadow tokens, promoting
+    /// consistency across components. The method internally uses SwiftUI's `shadow(color:radius:x:y:)`
+    /// modifier with values derived from the provided `SHDShadow` case.
+    ///
+    /// ## Parameters → Init
+    /// - `style`: The `SHDShadow` variant to apply, defining the shadow's color, blur, and offset.
+    ///
+    /// ## Usage
+    /// ```swift
+    /// Rectangle()
+    ///     .fill(Color.white)
+    ///     .shadowStyle(.shadow)
+    /// ```
+    ///
+    /// ## Functions → Internal functions
+    /// - `shadowStyle(_ style: SHDShadow) -> some View`: Applies the specified shadow style to the view.
+    func shadowStyle(_ style: SHDShadow) -> some View {
+        shadow(
+            color: style.color,
+            radius: style.blur,
+            x: style.offset.width,
+            y: style.offset.height
+        )
+    }
+}
