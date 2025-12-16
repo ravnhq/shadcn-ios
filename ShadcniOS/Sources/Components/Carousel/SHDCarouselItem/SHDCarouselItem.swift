@@ -40,8 +40,8 @@ import SwiftUI
 ///
 internal struct SHDCarouselItem<Item, Content: View>: View {
 
-    var layoutVariant: SHDCarouselLayoutVariant
-    var proportionVariant: SHDCarouselProportionVariant
+    var layoutVariant: SHDCarouselLayout
+    var proportionVariant: SHDCarouseItemAspectRatio
     var items: [Item]
     var content: (Item) -> Content
 

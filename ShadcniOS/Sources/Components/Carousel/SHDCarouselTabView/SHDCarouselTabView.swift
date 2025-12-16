@@ -42,8 +42,8 @@ import SwiftUI
 internal struct SHDCarouselTabView<Item, Content: View>: View {
 
     @State private var currentPage = 0
-    var layoutVariant: SHDCarouselLayoutVariant
-    var proportionVariant: SHDCarouselProportionVariant
+    var layoutVariant: SHDCarouselLayout
+    var proportionVariant: SHDCarouseItemAspectRatio
     var items: [Item]
     var content: (Item) -> Content
 
@@ -92,8 +92,8 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
     /// such as adjusting the aspect ratio and size for featured content presentation.
     ///
     /// - Parameters:
-    ///   - proportionVariant: The `SHDCarouselProportionVariant` to apply to the carousel items
-    func singleProportionVariant(_ proportionVariant: SHDCarouselProportionVariant) -> Self {
+    ///   - proportionVariant: The `SHDCarouseItemAspectRatio` to apply to the carousel items
+    func singleProportionVariant(_ proportionVariant: SHDCarouseItemAspectRatio) -> Self {
         mutating(keyPath: \.proportionVariant, value: proportionVariant)
     }
 }

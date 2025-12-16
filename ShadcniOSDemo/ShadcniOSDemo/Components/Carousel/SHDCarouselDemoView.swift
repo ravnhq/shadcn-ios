@@ -14,8 +14,8 @@ struct SHDCarouselDemoView: View {
     let numberItems: [Int] = [1, 2, 3, 4, 5]
     let imageItems: [String] = ["star", "heart", "paperplane"]
 
-    @State var layoutVariant: SHDCarouselLayoutVariant = .groupHorizonal
-    @State var proportionVariant: SHDCarouselProportionVariant = .oneToOne
+    @State var layoutVariant: SHDCarouselLayout = .groupHorizonal
+    @State var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
 
     enum DataType: String, CaseIterable, Identifiable {
         case text = "Text"
@@ -45,9 +45,9 @@ struct SHDCarouselDemoView: View {
                     Spacer()
                     
                     Picker("Layout Variant", selection: $layoutVariant) {
-                        Text("Group Horizontal").tag(SHDCarouselLayoutVariant.groupHorizonal)
-                        Text("Single Horizontal").tag(SHDCarouselLayoutVariant.singleHorizonal)
-                        Text("Group Vertical").tag(SHDCarouselLayoutVariant.groupVertical)
+                        Text("Group Horizontal").tag(SHDCarouselLayout.groupHorizonal)
+                        Text("Single Horizontal").tag(SHDCarouselLayout.singleHorizonal)
+                        Text("Group Vertical").tag(SHDCarouselLayout.groupVertical)
                     }
                 }
                 .padding()
@@ -68,9 +68,9 @@ struct SHDCarouselDemoView: View {
                     Spacer()
                     
                     Picker("Layout Variant", selection: $proportionVariant) {
-                        Text("1:1").tag(SHDCarouselProportionVariant.oneToOne)
-                        Text("3:4").tag(SHDCarouselProportionVariant.threeToFour)
-                        Text("16:9").tag(SHDCarouselProportionVariant.sixteenToNine)
+                        Text("1:1").tag(SHDCarouseItemAspectRatio.oneToOne)
+                        Text("3:4").tag(SHDCarouseItemAspectRatio.threeToFour)
+                        Text("16:9").tag(SHDCarouseItemAspectRatio.sixteenToNine)
                     }
                     .disabled((layoutVariant == .groupVertical || layoutVariant == .singleHorizonal))
                 }

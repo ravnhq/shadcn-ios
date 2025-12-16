@@ -1,5 +1,5 @@
 //
-//  SHDCarouselProportionVariant.swift
+//  SHDCarouseItemAspectRatio.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 12/8/25.
@@ -11,7 +11,7 @@ import Foundation
 ///
 /// ## Discussion
 ///
-/// `SHDCarouselProportionVariant` controls the visual dimensions and aspect ratios of items displayed
+/// `SHDCarouseItemAspectRatio` controls the visual dimensions and aspect ratios of items displayed
 /// in a carousel. Each variant provides preset width and height values optimized for different content types
 /// and use cases.
 ///
@@ -45,7 +45,7 @@ import Foundation
 /// .carouselProportionVariant(.sixteenToNine)
 /// ```
 ///
-public enum SHDCarouselProportionVariant {
+public enum SHDCarouseItemAspectRatio {
     /// Square aspect ratio (1:1).
     ///
     /// Ideal for displaying avatars, icons, or uniform square content in grid-like arrangements.

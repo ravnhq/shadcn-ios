@@ -16,18 +16,18 @@ import SwiftUI
 /// which applies layout- and proportion-aware frames using the provided
 /// `layoutVariant` and `proportionVariant`.
 ///
-/// This layout is intended to support the `.groupVertical` case of `SHDCarouselLayoutVariant`,
+/// This layout is intended to support the `.groupVertical` case of `SHDCarouselLayout`,
 /// allowing multiple items to be visible at once depending on the selected
-/// `SHDCarouselProportionVariant` and device size. Vertical scrolling hides indicators for a
+/// `SHDCarouseItemAspectRatio` and device size. Vertical scrolling hides indicators for a
 /// clean, content-focused browsing experience, while horizontal and vertical padding create
 /// consistent spacing with other carousel layouts.
 ///
 /// ## Parameters → Init
 ///
 /// - `items`: An array of items to display in the vertical list.
-/// - `layoutVariant`: The `SHDCarouselLayoutVariant` controlling layout semantics
+/// - `layoutVariant`: The `SHDCarouselLayout` controlling layout semantics
 ///     (typically `.groupVertical` for this type).
-/// - `proportionVariant`: The `SHDCarouselProportionVariant` determining item dimensions.
+/// - `proportionVariant`: The `SHDCarouseItemAspectRatio` determining item dimensions.
 /// - `content`: A `@ViewBuilder` closure that takes an individual item and returns
 ///     the view to display for that item.
 ///
@@ -35,8 +35,8 @@ internal struct SHDCarouselVertical<Item, Content: View>: View {
 
     var items: [Item]
     var content: (Item) -> Content
-    var layoutVariant: SHDCarouselLayoutVariant = .groupHorizonal
-    var proportionVariant: SHDCarouselProportionVariant = .oneToOne
+    var layoutVariant: SHDCarouselLayout = .groupHorizonal
+    var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
 
     var body: some View {
         ScrollView(showsIndicators: false) {
