@@ -64,7 +64,6 @@ internal enum SHDShadow {
         switch self {
         case .shadowSM: SHDColor.black.color.opacity(0.08)
         case .shadow, .shadowMD: SHDColor.black.color.opacity(0.12)
-
         }
     }
 }
