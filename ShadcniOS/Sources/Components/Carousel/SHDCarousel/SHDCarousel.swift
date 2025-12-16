@@ -93,35 +93,33 @@ public struct SHDCarousel<Item, Content: View>: View {
     }
 
     public var body: some View {
-        Group {
-            switch layoutVariant {
-            case .groupHorizonal:
-                SHDCarouselHorizontal(
-                    items: items,
-                    content: content,
-                    layoutVariant: layoutVariant,
-                    proportionVariant: proportionVariant
-                )
-            case .singleHorizonal:
-                SHDCarouselTabView(
-                    layoutVariant: layoutVariant,
-                    proportionVariant: proportionVariant,
-                    items: items,
-                    content: content
-                )
-                .singleProportionVariant(
-                    layoutVariant == .groupHorizonal
-                        ? proportionVariant : .threeToFourWithSingleItem
-                )
-
-            case .groupVertical:
-                SHDCarouselVertical(
-                    items: items,
-                    content: content,
-                    layoutVariant: layoutVariant,
-                    proportionVariant: proportionVariant
-                )
-            }
+        switch layoutVariant {
+        case .groupHorizonal:
+            SHDCarouselHorizontal(
+                items: items,
+                content: content,
+                layoutVariant: layoutVariant,
+                proportionVariant: proportionVariant
+            )
+        case .singleHorizonal:
+            SHDCarouselTabView(
+                layoutVariant: layoutVariant,
+                proportionVariant: proportionVariant,
+                items: items,
+                content: content
+            )
+            .singleProportionVariant(
+                layoutVariant == .groupHorizonal
+                ? proportionVariant : .threeToFourWithSingleItem
+            )
+            
+        case .groupVertical:
+            SHDCarouselVertical(
+                items: items,
+                content: content,
+                layoutVariant: layoutVariant,
+                proportionVariant: proportionVariant
+            )
         }
     }
 
