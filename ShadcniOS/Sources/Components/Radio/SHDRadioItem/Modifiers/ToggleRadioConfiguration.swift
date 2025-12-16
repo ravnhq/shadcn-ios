@@ -34,10 +34,9 @@ internal struct ToggleRadioConfiguration: ToggleStyle {
                     Circle()
                         .fill(SHDColor.iconSecondaryDefault.color)
                         .frame(width: size.filledCircle, height: size.filledCircle)
-                        .transition(.scale.animation(.easeInOut(duration: 0.1)))
                 }
             }
-            .padding(.trailing, 8)
+            .padding(.trailing, .xxs)
             configuration.label
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

@@ -62,10 +62,10 @@ public struct SHDRadioGroup: View {
 
     @Binding private var selection: SHDRadioGroupSelection
     private var size: SHDRadioGroupSize = .md
+    private var disable: Bool = false
     private var textOption1: String
     private var textOption2: String
     private var textOption3: String
-    private var disable: Bool = false
 
     public init(
         selection: Binding<SHDRadioGroupSelection>,
