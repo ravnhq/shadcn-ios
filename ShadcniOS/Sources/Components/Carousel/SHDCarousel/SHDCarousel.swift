@@ -81,8 +81,8 @@ public struct SHDCarousel<Item, Content: View>: View {
 
     private var items: [Item]
     private var content: (Item) -> Content
-    private var layoutVariant: SHDCarouselLayoutVariant = .groupHorizonal
-    private var proportionVariant: SHDCarouselProportionVariant = .oneToOne
+    private var layoutVariant: SHDCarouselLayout = .groupHorizonal
+    private var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
 
     public init(
         items: [Item],
@@ -131,9 +131,9 @@ public struct SHDCarousel<Item, Content: View>: View {
     /// while keeping the items and content unchanged.
     ///
     /// - Parameters:
-    ///     - layoutVariant: The `SHDCarouselLayoutVariant`
+    ///     - layoutVariant: The `SHDCarouselLayout`
     ///         to apply (`.groupHorizonal`, `.singleHorizonal`, `.groupVertical`)
-    public func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayoutVariant)
+    public func carouselLayoutVariant(_ layoutVariant: SHDCarouselLayout)
         -> Self {
         mutating(keyPath: \.layoutVariant, value: layoutVariant)
     }
@@ -144,10 +144,10 @@ public struct SHDCarousel<Item, Content: View>: View {
     /// of carousel items while keeping the items and content unchanged.
     ///
     /// - Parameters:
-    ///     - proportionVariant: The `SHDCarouselProportionVariant`
+    ///     - proportionVariant: The `SHDCarouseItemAspectRatio`
     ///         to apply (`.oneToOne`, `.threeToFour`, `.sixteenToNine`, `.threeToFourWithSingleItem`)
     public func carouselProportionVariant(
-        _ proportionVariant: SHDCarouselProportionVariant
+        _ proportionVariant: SHDCarouseItemAspectRatio
     ) -> Self {
         mutating(keyPath: \.proportionVariant, value: proportionVariant)
     }

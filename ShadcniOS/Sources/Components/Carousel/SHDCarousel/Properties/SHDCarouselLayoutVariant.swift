@@ -1,5 +1,5 @@
 //
-//  SHDCarouselLayoutVariant.swift
+//  SHDCarouselLayout.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 12/1/25.
@@ -9,7 +9,7 @@
 ///
 /// ## Discussion
 ///
-/// `SHDCarouselLayoutVariant` controls the presentation mode and scroll direction of carousel items.
+/// `SHDCarouselLayout` controls the presentation mode and scroll direction of carousel items.
 /// The layout variant determines whether multiple items are visible simultaneously or one item at a time,
 /// and whether scrolling occurs horizontally or vertically.
 ///
@@ -44,7 +44,7 @@
 /// .carouselLayoutVariant(.singleHorizonal)
 /// ```
 ///
-public enum SHDCarouselLayoutVariant {
+public enum SHDCarouselLayout {
     /// Multiple items visible in a horizontal scroll.
     ///
     /// Items are displayed side-by-side with `.md` spacing.
