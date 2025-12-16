@@ -114,7 +114,7 @@ public struct SHDCarousel<Item, Content: View>: View {
             )
             
         case .groupVertical:
-            SHDCarouselVertical(
+            SHDVerticalCarousel(
                 items: items,
                 content: content,
                 layoutVariant: layoutVariant,
