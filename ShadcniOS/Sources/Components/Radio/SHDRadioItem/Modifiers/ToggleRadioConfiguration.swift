@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+/// A toggle style that renders a circular radio indicator.
+///
+/// ## Discussion
+/// `ToggleRadioConfiguration` is responsible for drawing the outer and inner
+/// circles used by radio items and wiring tap gestures so the control behaves
+/// like a single-select radio option.
+///
+/// Sizing is driven by ``SHDRadioGroupSize``:
+/// - `outlineCircle` defines the outer ring diameter.
+/// - `filledCircle` defines the inner filled circle when selected.
+///
+/// This style is applied internally by ``SHDRadioItem`` and is not intended
+/// for direct use outside the radio component stack.
 internal struct ToggleRadioConfiguration: ToggleStyle {
     var size: SHDRadioGroupSize = .md
 
