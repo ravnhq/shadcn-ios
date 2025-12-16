@@ -39,8 +39,8 @@ internal struct SHDVerticalCarousel<Item, Content: View>: View {
     var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
+        ScrollView {
+            VStack(spacing: .md) {
                 SHDCarouselItem(
                     layoutVariant: layoutVariant,
                     proportionVariant: proportionVariant,
@@ -48,9 +48,9 @@ internal struct SHDVerticalCarousel<Item, Content: View>: View {
                     content: content
                 )
             }
+            .scrollIndicators(.hidden)
             .padding(.vertical, .xxs)
             .padding(.horizontal, .md)
-
         }
     }
 }

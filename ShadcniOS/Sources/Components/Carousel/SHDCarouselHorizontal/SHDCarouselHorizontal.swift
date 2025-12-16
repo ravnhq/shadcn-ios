@@ -54,13 +54,12 @@ internal struct SHDCarouselHorizontal<Item, Content: View>: View {
                     ? proportionVariant : .threeToFourWithSingleItem
             )
         } else {
-
             GeometryReader { proxy in
                 let containerWidth = proxy.size.width
                 let itemWidth = containerWidth * proportionVariant.widthFactor
                 let itemHeight = itemWidth / proportionVariant.aspectRatio
 
-                ScrollView(.horizontal, showsIndicators: false) {
+                ScrollView(.horizontal) {
                     HStack(spacing: .md) {
                         ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                             content(item)
@@ -68,6 +67,7 @@ internal struct SHDCarouselHorizontal<Item, Content: View>: View {
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
             .aspectRatio(
                 aspectRatio,
