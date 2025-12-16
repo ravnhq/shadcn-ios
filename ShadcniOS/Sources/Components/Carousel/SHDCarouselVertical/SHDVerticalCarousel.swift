@@ -1,5 +1,5 @@
 //
-//  SHDCarouselVertical.swift
+//  SHDVerticalCarousel.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 12/15/25.
@@ -11,7 +11,7 @@ import SwiftUI
 ///
 /// ## Discussion
 ///
-/// `SHDCarouselVertical` renders carousel items inside a vertical `ScrollView`, stacking them
+/// `SHDVerticalCarousel` renders carousel items inside a vertical `ScrollView`, stacking them
 /// in a `VStack`. It delegates the actual item rendering and sizing to `SHDCarouselItem`,
 /// which applies layout- and proportion-aware frames using the provided
 /// `layoutVariant` and `proportionVariant`.
@@ -31,7 +31,7 @@ import SwiftUI
 /// - `content`: A `@ViewBuilder` closure that takes an individual item and returns
 ///     the view to display for that item.
 ///
-internal struct SHDCarouselVertical<Item, Content: View>: View {
+internal struct SHDVerticalCarousel<Item, Content: View>: View {
 
     var items: [Item]
     var content: (Item) -> Content
