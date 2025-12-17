@@ -20,7 +20,9 @@ struct SHDSonnerConfiguration: ViewModifier {
     @State private var toastSize: CGSize = .zero
     private let dismissThreshold: CGFloat = 50
 
-    private let autoDismissDelay: Duration = .seconds(3)
+    private var autoDismissDelay: Duration {
+        variant == .default || variant == .success ? .seconds(3) : .seconds(5)
+    }
     func body(content: Content) -> some View {
         ZStack {
             content
@@ -32,7 +34,7 @@ struct SHDSonnerConfiguration: ViewModifier {
                     sonnerOverlay
                         .background(
                             Color.clear
-                                .frame(height: max(toastSize.height, 53))
+                                .frame(height: toastSize.height)
                                 .contentShape(Rectangle())
                         )
                 }
@@ -52,6 +54,7 @@ struct SHDSonnerConfiguration: ViewModifier {
     private var sonnerOverlay: some View {
         SHDSonner(title: title, subtitle: caption)
             .sonnerVariant(variant: variant, size: size)
+            .frame(minWidth: 320, maxWidth: 520)
             .background(
                 GeometryReader { geometry in
                     Color.clear
