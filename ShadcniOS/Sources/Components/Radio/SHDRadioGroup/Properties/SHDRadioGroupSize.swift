@@ -23,8 +23,9 @@ import Foundation
 /// ## Usage
 /// ```swift
 /// struct ExampleView: View {
-///     @State private var selection: SHDRadioGroupSelection = .firstOption
+///     @State private var selection: Int = 0
 ///     @State private var size: SHDRadioGroupSize = .md
+///     private var options: [String] = ["Option A", "Option B", "Option C"]
 ///
 ///     var body: some View {
 ///         VStack {
@@ -36,9 +37,7 @@ import Foundation
 ///
 ///             SHDRadioGroup(
 ///                 selection: $selection,
-///                 textOption1: "Option A",
-///                 textOption2: "Option B",
-///                 textOption3: "Option C"
+///                 options: options
 ///             )
 ///             .radioGroupStyle(size)
 ///         }

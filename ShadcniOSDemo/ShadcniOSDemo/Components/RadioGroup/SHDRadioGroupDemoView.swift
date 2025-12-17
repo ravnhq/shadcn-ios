@@ -9,9 +9,10 @@ import ShadcniOS
 import SwiftUI
 
 struct SHDRadioGroupDemoView: View {
-    @State var selection: SHDRadioGroupSelection = .firstOption
+    @State var selection: Int = 0
     @State var size: SHDRadioGroupSize = .md
     @State var isDisabled: Bool = false
+    private var options: [String] = ["Accept Terms & Conditions", "Accept Terms", "Accept Conditions"]
 
     var body: some View {
         VStack {
@@ -31,9 +32,7 @@ struct SHDRadioGroupDemoView: View {
             VStack {
                 SHDRadioGroup(
                     selection: $selection,
-                    textOption1: "Accept Terms & Conditions",
-                    textOption2: "Accept Terms",
-                    textOption3: "Accept Conditions"
+                    options: options
                 )
                 .radioGroupStyle(size)
                 .disable(isDisabled)

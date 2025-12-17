@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-/// A three-option radio group used throughout the ShadcniOS design system.
+/// A radio group component used throughout the ShadcniOS design system.
 ///
 /// ## Discussion
-/// `SHDRadioGroup` renders exactly three mutually exclusive options, each labeled by the
-/// provided text values. Selection is controlled externally via a bound
-/// `SHDRadioGroupSelection` value so that parent views can observe and update which
-/// option is currently active.
+/// `SHDRadioGroup` renders mutually exclusive options from a provided array of text labels.
+/// Selection is controlled externally via a bound `Int` value representing the index of
+/// the selected option, allowing parent views to observe and update which option is
+/// currently active.
 ///
 /// Visual styling (size and disabled state) is applied through modifier-style APIs,
 /// keeping the core component focused on layout and behavior:
@@ -21,31 +21,28 @@ import SwiftUI
 ///   `SHDRadioGroupSize`.
 /// - ``disable(_:)`` toggles interactivity while applying a disabled mask.
 ///
-/// Internally, the group composes three `SHDRadioItem` views—one for each case in
-/// `SHDRadioGroupSelection`—and uses the `selection` binding to drive their visual
-/// state. When a user taps an item, the binding is updated to the corresponding case.
+/// Internally, the group composes `SHDRadioItem` views—one for each option in the
+/// provided array—and uses the `selection` binding to drive their visual state.
+/// When a user taps an item, the binding is updated to the corresponding index.
 ///
 /// - Parameters:
-///   - selection: Binding that controls which option is selected.
-///   - textOption1: Label text for the first radio option. Defaults to an empty string.
-///   - textOption2: Label text for the second radio option. Defaults to an empty string.
-///   - textOption3: Label text for the third radio option. Defaults to an empty string.
+///   - selection: Binding to an `Int` that controls which option is selected (0-based index).
+///   - options: Array of label strings for each radio option.
 ///
 /// ## Usage
-/// Basic three-option group:
+/// Basic radio group with multiple options:
 /// ```swift
 /// struct ExampleView: View {
-///     @State private var selection: SHDRadioGroupSelection = .firstOption
+///     @State private var selection: Int = 0
 ///     @State private var size: SHDRadioGroupSize = .md
 ///     @State private var isDisabled: Bool = false
+///     private var options: [String] = ["Option A", "Option B", "Option C"]
 ///
 ///     var body: some View {
 ///         VStack(spacing: 16) {
 ///             SHDRadioGroup(
 ///                 selection: $selection,
-///                 textOption1: "Option A",
-///                 textOption2: "Option B",
-///                 textOption3: "Option C"
+///                 options: options
 ///             )
 ///             .radioGroupStyle(size)
 ///             .disable(isDisabled)
@@ -55,55 +52,34 @@ import SwiftUI
 /// ```
 ///
 /// ## Related Types
-/// - ``SHDRadioGroupSelection``
 /// - ``SHDRadioGroupSize``
 /// - ``SHDRadioItem``
 public struct SHDRadioGroup: View {
 
-    @Binding private var selection: SHDRadioGroupSelection
+    @Binding private var selection: Int
     private var size: SHDRadioGroupSize = .md
     private var disable: Bool = false
-    private var textOption1: String
-    private var textOption2: String
-    private var textOption3: String
+    private var options: [String]
 
     public init(
-        selection: Binding<SHDRadioGroupSelection>,
-        textOption1: String = "",
-        textOption2: String = "",
-        textOption3: String = ""
+        selection: Binding<Int>,
+        options: [String]
     ) {
         self._selection = selection
-        self.textOption1 = textOption1
-        self.textOption2 = textOption2
-        self.textOption3 = textOption3
+        self.options = options
     }
 
     public var body: some View {
         VStack(spacing: .sm) {
-            SHDRadioItem(
-                isSelected: selection == .firstOption,
-                text: textOption1
-            ) {
-                selection = .firstOption
+            ForEach(options.indices, id: \.self) { index in
+                SHDRadioItem(
+                    isSelected: selection == index,
+                    text: options[index]
+                ) {
+                    selection = index
+                }
+                .radioItemStyle(size)
             }
-            .radioItemStyle(size)
-
-            SHDRadioItem(
-                isSelected: selection == .secondOption,
-                text: textOption2
-            ) {
-                selection = .secondOption
-            }
-            .radioItemStyle(size)
-
-            SHDRadioItem(
-                isSelected: selection == .thirdOption,
-                text: textOption3
-            ) {
-                selection = .thirdOption
-            }
-            .radioItemStyle(size)
         }
         .disabledMask()
         .disabled(disable)
