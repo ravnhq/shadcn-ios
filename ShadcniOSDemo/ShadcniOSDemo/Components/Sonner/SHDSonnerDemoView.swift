@@ -22,7 +22,8 @@ struct SHDSonnerDemoView: View {
         .background(.separator)
         .alert("Test", isPresented: $isPresented) {
             SHDSonner(title: "This is a test",
-                      subtitle: "This is a subtitle")
+                      subtitle: "This is a subtitle",
+                      icon: .codingDevelopmentTerminal)
         }
         
     }

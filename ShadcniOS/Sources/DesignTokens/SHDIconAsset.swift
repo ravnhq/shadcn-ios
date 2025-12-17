@@ -24,6 +24,7 @@ public enum SHDIconAsset: String, Codable {
     case mathsX
 
     case codingDevelopmentTerminal
+    case triangleAlert
 
     case cursorLoadingCircle
 
