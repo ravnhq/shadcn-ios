@@ -40,30 +40,30 @@ import SwiftUI
 /// - `color`: The shadow color as a `Color`, typically a semi-transparent black.
 ///
 internal enum SHDShadow {
-    case shadowSM
-    case shadow
-    case shadowMD
+    case xs
+    case sm
+    case md
 
     var offset: CGSize {
         switch self {
-        case .shadowSM: CGSize(width: 0, height: 2)
-        case .shadow: CGSize(width: 0, height: 6)
-        case .shadowMD: CGSize(width: 0, height: 10)
+        case .xs: CGSize(width: 0, height: 2)
+        case .sm: CGSize(width: 0, height: 6)
+        case .md: CGSize(width: 0, height: 10)
         }
     }
 
     var blur: CGFloat {
         switch self {
-        case .shadowSM: 6
-        case .shadow: 16
-        case .shadowMD: 28
+        case .xs: 6
+        case .sm: 16
+        case .md: 28
         }
     }
 
     var color: Color {
         switch self {
-        case .shadowSM: SHDColor.black.color.opacity(0.08)
-        case .shadow, .shadowMD: SHDColor.black.color.opacity(0.12)
+        case .xs: SHDColor.black.color.opacity(0.08)
+        case .sm, .md: SHDColor.black.color.opacity(0.12)
         }
     }
 }
