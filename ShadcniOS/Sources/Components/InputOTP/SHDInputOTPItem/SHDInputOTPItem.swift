@@ -13,14 +13,15 @@ import SwiftUI
 ///
 /// `SHDInputOTPItem` encapsulates the UI and interaction logic for a single OTP character field.
 /// It is intended for internal use by `SHDInputOTP` and coordinates focus, visual state,
-/// sizing, and change propagation for one character in the OTP sequence.
+/// sizing, length-aware grouping, and change propagation for one character in the OTP sequence.
 ///
 /// ## Discussion
 ///
 /// The view uses a `TextField` restricted to a single character and applies a background
-/// border view (`SHDInputSlotBorder`) that adapts its appearance based on focus and error state.
-/// Focus is controlled via a `FocusState` binding passed from the parent, enabling auto-advance
-/// and auto-regress behavior implemented in `SHDInputOTP`.
+/// border view (`SHDInputSlotBorder`) that adapts its appearance based on focus, error state,
+/// and grouping information derived from the variant and length. Focus is controlled via a
+/// `FocusState` binding passed from the parent, enabling auto-advance and auto-regress
+/// behavior implemented in `SHDInputOTP`.
 ///
 /// The component computes a leading padding adjustment to visually collapse adjacent borders
 /// when separators are used or when the field is the first in the sequence.
@@ -33,6 +34,7 @@ import SwiftUI
 /// - `focusedField`: A `FocusState` binding shared with the parent to control keyboard focus.
 /// - `variant`: The selected `SHDInputOTPVariant` determining separators and grouping behavior.
 /// - `size`: The `SHDInputOTPSizing` value that determines field dimensions and typography.
+/// - `length`: The `SHDInputOTPLength` value used together with the variant to compute grouping.
 /// - `onValueChange`: Callback invoked whenever the slot's text changes.
 /// - `isError`: Boolean indicating whether the component should display error styling.
 ///
@@ -56,7 +58,7 @@ import SwiftUI
 ///
 /// ## Variables → Public variables
 ///
-/// - `index`, `count`, `text`, `focusedField`, `variant`, `size`, `onValueChange`, `isError`
+/// - `index`, `count`, `text`, `focusedField`, `variant`, `size`, `length`, `onValueChange`, `isError`
 ///   are provided by the parent; the view does not expose additional public state.
 ///
 /// ## Functions → Public functions
@@ -69,6 +71,7 @@ internal struct SHDInputOTPItem: View {
     let count: Int
     let variant: SHDInputOTPVariant
     let size: SHDInputOTPSizing
+    let length: SHDInputOTPLength
     let focusedField: FocusState<Int?>.Binding
     let onValueChange: (String) -> Void
     let isError: Bool
@@ -86,7 +89,7 @@ internal struct SHDInputOTPItem: View {
 
     private var leadingPadding: CGFloat {
         if index == 0 { return 0 }
-        if variant.shouldShowSeparator(at: index) { return 0 }
+        if variant.shouldShowSeparator(at: index, length: length) { return 0 }
         return -1
     }
 
@@ -100,7 +103,8 @@ internal struct SHDInputOTPItem: View {
                     index: index,
                     count: count,
                     variant: variant,
-                    state: slotState
+                    state: slotState,
+                    length: length
                 )
             )
             .foregroundColor(.primary)

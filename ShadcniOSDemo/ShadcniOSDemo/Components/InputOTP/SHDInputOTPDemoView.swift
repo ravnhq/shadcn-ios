@@ -10,21 +10,40 @@ import SwiftUI
 
 struct SHDInputOTPDemoView: View {
     
-    @State private var variant: SHDInputOTPVariant = .controlled
+    @State private var selectedVariant: SHDInputOTPVariant = .controlled
     @State private var size: SHDInputOTPSizing = .md
     @State private var length: SHDInputOTPLength = .otp6
     @State private var isError: Bool = false
-    @State private var dividedBy: Int = 2
+
+    @State private var otp8GroupOf: Int = 2
     
+    private var resolvedVariant: SHDInputOTPVariant {
+        switch selectedVariant {
+        case .separator:
+            switch length {
+            case .otp4:
+                return .separator(groupOf: 2)
+            case .otp6:
+                return .separator(groupOf: 3)
+            case .otp8:
+                return .separator(groupOf: otp8GroupOf)
+            }
+
+        default:
+            return selectedVariant
+        }
+    }
+
     var body: some View {
-        VStack {
-                Picker("Variant", selection: $variant) {
+        ScrollView {
+            VStack(spacing: 16) {
+                Picker("Variant", selection: $selectedVariant) {
                     Text("Controlled").tag(SHDInputOTPVariant.controlled)
                     Text("Pattern").tag(SHDInputOTPVariant.pattern)
-                    Text("Separator").tag(SHDInputOTPVariant.separator(groupOf: dividedBy))
+                    Text("Separator").tag(SHDInputOTPVariant.separator())
                 }
                 .pickerStyle(.segmented)
-                
+
                 Picker("Size", selection: $size) {
                     Text("SM").tag(SHDInputOTPSizing.sm)
                     Text("MD").tag(SHDInputOTPSizing.md)
@@ -39,25 +58,36 @@ struct SHDInputOTPDemoView: View {
                 }
                 .pickerStyle(.segmented)
 
-            Spacer()
-                .frame(maxHeight: 50)
+                if case .separator = selectedVariant, length == .otp8 {
+                    Picker("OTP8 grouping", selection: $otp8GroupOf) {
+                        Text("2 By 2").tag(2)
+                        Text("4 by 4").tag(4)
+                    }
+                    .pickerStyle(.segmented)
+                }
 
-            SHDInputOTP(caption: "Please put the sended code")
-                .inputOTPVariants(variant: variant, size: size, length: length)
-                .isError(isError)
-            
-            SHDButton(label: "Toggle Error") {
-                isError.toggle()
+                Spacer().frame(height: 40)
+
+                SHDInputOTP(caption: "Please put the sent code")
+                    .inputOTPVariants(
+                        variant: resolvedVariant,
+                        size: size,
+                        length: length
+                    )
+                    .isError(isError)
+
+                SHDButton(label: "Toggle Error") {
+                    isError.toggle()
+                }
+                .buttonVariant(variant: .destructive, size: .md)
             }
-            .buttonVariant(variant: .destructive, size: .md)
-
-            Stepper("Custom chunks: \(dividedBy)", value: $dividedBy, in: 0...100)
-                .padding()
-
+            .padding()
         }
         .navigationTitle("SHDInputOTP")
     }
 }
+
+
 
 #Preview {
     SHDInputOTPDemoView()

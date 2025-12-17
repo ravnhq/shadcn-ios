@@ -19,10 +19,11 @@ import SwiftUI
 /// ## Discussion
 ///
 /// The component determines grouping boundaries using `SHDInputOTPVariant` helper methods
-/// (`isStartOfGroup` / `isEndOfGroup`). When fields are grouped (separator variant), adjacent
-/// fields combine visually by removing internal corner radii so that groups appear as a single
-/// rounded cluster. The stroke color and width are provided by the `SHDInputSlotState`, which
-/// encodes idle, focused, and error styles.
+/// (`isStartOfGroup` / `isEndOfGroup`) together with the configured `SHDInputOTPLength`.
+/// When fields are grouped (separator variant), adjacent fields combine visually by removing
+/// internal corner radii so that groups appear as a single rounded cluster. The stroke color
+/// and width are provided by the `SHDInputSlotState`, which encodes idle, focused, and error
+/// styles.
 ///
 /// ## Parameters → Init
 ///
@@ -30,6 +31,7 @@ import SwiftUI
 /// - `count`: The total number of slots in the OTP.
 /// - `variant`: The `SHDInputOTPVariant` used to determine grouping and separator placement.
 /// - `state`: The `SHDInputSlotState` describing current visual state (idle/focused/error).
+/// - `length`: The `SHDInputOTPLength` describing how many digits are displayed (affects grouping).
 ///
 /// ## Usage
 ///
@@ -46,12 +48,13 @@ internal struct SHDInputSlotBorder: View {
     let count: Int
     let variant: SHDInputOTPVariant
     let state: SHDInputSlotState
+    let length: SHDInputOTPLength
 
     private let cornerRadius: CGFloat = SHDSizing.Radius.md.value
 
     var body: some View {
-        let isStart = variant.isStartOfGroup(index: index)
-        let isEnd = variant.isEndOfGroup(index: index, totalCount: count)
+        let isStart = variant.isStartOfGroup(index: index, length: length)
+        let isEnd = variant.isEndOfGroup(index: index, totalCount: count, length: length)
 
         let shape = UnevenRoundedRectangle(
             topLeadingRadius: isStart ? cornerRadius : 0,

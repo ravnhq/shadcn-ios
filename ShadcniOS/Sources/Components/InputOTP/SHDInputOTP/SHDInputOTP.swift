@@ -11,33 +11,36 @@ import SwiftUI
 ///
 /// ## Description
 ///
-/// `SHDInputOTP` provides a user-friendly interface for entering numeric or alphanumeric verification codes.
-/// The component displays a series of individual input slots, automatically managing keyboard
-/// focus transitions as users type. It supports multiple visual layouts (controlled, pattern,
-/// and separator variants) with customizable sizes and lengths to accommodate
-/// different OTP formats (4, 6, or 8 digits).
+/// `SHDInputOTP` provides a user-friendly interface for entering numeric or alphanumeric
+/// verification codes. The component displays a series of individual input slots, automatically
+/// managing keyboard focus transitions as users type. It supports multiple visual layouts
+/// (controlled, pattern, and separator variants) with customizable sizes and lengths to
+/// accommodate different OTP formats (4, 6, or 8 digits).
 ///
 /// ## Discussion
 ///
-/// The component utilizes SwiftUI's `@State` and `@FocusState` property wrappers to manage the digit array
-/// and keyboard focus respectively. This architecture ensures responsive focus management, allowing users to
-/// navigate fields intuitively using automatic progression when typing and regression when deleting.
+/// The component utilizes SwiftUI's `@State` and `@FocusState` property wrappers to manage
+/// the digit array and keyboard focus respectively. This architecture ensures responsive
+/// focus management, allowing users to navigate fields intuitively using automatic
+/// progression when typing and regression when deleting.
 ///
 /// Key implementation details:
-/// - `Auto-advance`: When a digit is entered, focus automatically moves to the next field
-/// - `Auto-regress`: When the last digit is deleted, focus moves back to the previous field
-/// - `Single-character enforcement`: Each field accepts only one character, with excess input trimmed
+/// - `Auto-advance`: When a digit is entered, focus automatically moves to the next field.
+/// - `Auto-regress`: When the last digit is deleted, focus moves back to the previous field.
+/// - `Single-character enforcement`: Each field accepts only one character, with excess input trimmed.
 /// - `State preservation`: When the OTP length changes, the component resets fields
-///     and refocuses the first input
-/// - `Dynamic layout`: Visual appearance adapts based on variant, size, and length configurations
-/// - `Error feedback`: Visual error styling can be applied for failed validation attempts
+///     and refocuses the first input.
+/// - `Dynamic layout`: Visual appearance adapts based on variant, size, and length configurations.
+/// - `Error feedback`: Visual error styling can be applied for failed validation attempts.
 ///
-/// The component separates rendering concerns by delegating individual slot rendering to `SHDInputOTPItem`
-/// and separator rendering to `SHDInputOTPSeparator`. Captions are shown only in the `.controlled` variant.
+/// The component separates rendering concerns by delegating individual slot rendering to
+/// `SHDInputOTPItem` and separator rendering to `SHDInputOTPSeparator`. Captions are shown
+/// only in the `.controlled` variant.
 ///
-/// When a complete OTP is entered, the component logs the full code to the console.
-/// Production implementations should expose completion callbacks or binding support
-/// for programmatic access to the OTP value.
+/// `SHDInputOTP` manages the per-slot values and focus logic internally, but does not itself
+/// expose a completion callback. Production implementations should wrap or extend this view
+/// to provide completion callbacks or bindings that surface the composed OTP value to
+/// higher-level flows.
 ///
 /// ## Parameters → Init
 ///
@@ -98,7 +101,7 @@ public struct SHDInputOTP: View {
         VStack(spacing: .sm) {
             HStack(spacing: 0) {
                 ForEach(otpDigits.indices, id: \.self) { index in
-                    if variant.shouldShowSeparator(at: index) {
+                    if variant.shouldShowSeparator(at: index, length: length) {
                         SHDInputOTPSeparator()
                     }
 
@@ -108,6 +111,7 @@ public struct SHDInputOTP: View {
                         count: otpDigits.count,
                         variant: variant,
                         size: size,
+                        length: length,
                         focusedField: $focusedField,
                         onValueChange: { newValue in
                             handleLogicChange(newValue, at: index)
@@ -130,23 +134,18 @@ public struct SHDInputOTP: View {
         }
     }
 
-    /// Handles logic when a slot's text value changes.
+/// Handles logic when a slot's text value changes.
     ///
-    /// This function enforces single-character input per slot (trimming excess input), advances
-    /// or regresses keyboard focus appropriately, and notifies when the OTP is complete.
+/// This function enforces single-character input per slot (trimming excess input) and
+/// advances or regresses keyboard focus appropriately.
     ///
     /// ## Behavior
-    /// - Trims any input longer than one character to the first character.
-    /// - When a single character is entered and this is not the last slot, focus advances to the next slot.
-    /// - When the slot is cleared and this is not the first slot, focus moves back to the previous slot.
-    /// - When all slots contain a single character, the full OTP is logged to the console.
-    ///
-    /// - Parameters:
-    ///   - value: The new text value for the slot. May contain more than one character (e.g., paste).
-    ///   - index: The zero-based index of the slot that changed.
-    ///
-    /// - Note: In production, consider replacing the console `print` with a completion callback
-    ///   or binding to expose the entered OTP to the caller.
+/// - Trims any input longer than one character to the first character.
+/// - When a single character is entered and this is not the last slot, focus advances to the next slot.
+/// - When the slot is cleared and this is not the first slot, focus moves back to the previous slot.
+/// - Parameters:
+///   - value: The new text value for the slot. May contain more than one character (e.g., paste).
+///   - index: The zero-based index of the slot that changed.
     private func handleLogicChange(_ value: String, at index: Int) {
         if value.count > 1 {
             otpDigits[index] = String(value.prefix(1))

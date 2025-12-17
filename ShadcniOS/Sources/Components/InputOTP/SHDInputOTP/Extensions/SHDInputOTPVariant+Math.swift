@@ -5,40 +5,135 @@
 //  Created by JoseAlvarez on 12/9/25.
 //
 
-internal extension SHDInputOTPVariant {
-    /// Returns whether a separator should be shown immediately before the field at `index`.
+/// Mathematical and grouping utilities for `SHDInputOTPVariant`.
+///
+/// ## Description
+///
+/// This extension provides helper methods for computing separator positions and group boundaries
+/// in OTP input layouts. It enables the component to determine where visual separators should
+/// appear and which slots belong to the same visual group based on the variant configuration
+/// and OTP length.
+///
+/// ## Discussion
+///
+/// The extension implements length-aware grouping logic that adapts separator placement based
+/// on the configured `SHDInputOTPLength`. For separator variants, the effective group size
+/// varies by OTP length:
+/// - `.otp4`: Always groups by 2 (e.g., "12-34")
+/// - `.otp6`: Always groups by 3 (e.g., "123-456")
+/// - `.otp8`: Supports grouping by 2 or 4 based on the variant's `groupOf` parameter
+///
+/// The grouping logic ensures that separators are placed consistently and that adjacent slots
+/// within the same group share visual styling (rounded corners only at group boundaries).
+///
+/// ## Functions → Public functions
+///
+/// - `shouldShowSeparator(at:length:)`: Determines if a separator should be displayed
+///   before the slot at the given index.
+/// - `isStartOfGroup(index:length:)`: Checks if the slot at the given index is the first
+///   slot in its visual group.
+/// - `isEndOfGroup(index:totalCount:length:)`: Checks if the slot at the given index is
+///   the last slot in its visual group.
+extension SHDInputOTPVariant {
+    /// Determines whether a separator should be displayed before the slot at the given index.
     ///
-    /// - Parameter index: The zero-based slot index within the OTP sequence.
-    /// - Returns: `true` if a separator should appear before the slot at `index`, otherwise `false`.
-    ///
-    /// This helper uses the `dividedBy` value (group size) from the variant to determine
-    /// whether a separator dot should be rendered. It returns `false` for non-separator variants.
-    func shouldShowSeparator(at index: Int) -> Bool {
-        guard dividedBy > 0 else { return false }
-        return index > 0 && index % dividedBy == 0
-    }
-
-    /// Returns whether the field at `index` is the first field in its visual group.
-    ///
-    /// - Parameter index: The zero-based slot index within the OTP sequence.
-    /// - Returns: `true` if the slot is the start of a group; otherwise `false`.
-    ///
-    /// For non-separator variants, the first slot (index == 0) is treated as the start.
-    func isStartOfGroup(index: Int) -> Bool {
-        guard dividedBy > 0 else { return index == 0 }
-        return index % dividedBy == 0
-    }
-
-    /// Returns whether the field at `index` is the last field in its visual group.
+    /// This method checks if the slot at the specified index is the start of a new group
+    /// in separator variants. For non-separator variants, this always returns `false`.
     ///
     /// - Parameters:
-    ///   - index: The zero-based slot index within the OTP sequence.
-    ///   - totalCount: The total number of slots in the OTP.
-    /// - Returns: `true` if the slot is the end of a group; otherwise `false`.
+    ///   - index: The zero-based index of the slot to check.
+    ///   - length: The OTP length configuration.
+    /// - Returns: `true` if a separator should be shown before this slot, `false` otherwise.
     ///
-    /// For non-separator variants, the final slot (index == totalCount - 1) is treated as the end.
-    func isEndOfGroup(index: Int, totalCount: Int) -> Bool {
-        guard dividedBy > 0 else { return index == totalCount - 1 }
-        return (index + 1) % dividedBy == 0 || index == totalCount - 1
+    func shouldShowSeparator(
+        at index: Int,
+        length: SHDInputOTPLength
+    ) -> Bool {
+        separatorIndices(for: length).contains(index)
+    }
+
+    /// Checks if the slot at the given index is the first slot in its visual group.
+    ///
+    /// A slot is considered the start of a group if it's the first slot (index 0) or if
+    /// a separator appears before it. This is used to determine corner radius styling
+    /// for grouped slots.
+    ///
+    /// - Parameters:
+    ///   - index: The zero-based index of the slot to check.
+    ///   - length: The OTP length configuration.
+    /// - Returns: `true` if the slot is at the start of a group, `false` otherwise.
+    ///
+    func isStartOfGroup(
+        index: Int,
+        length: SHDInputOTPLength
+    ) -> Bool {
+        index == 0 || separatorIndices(for: length).contains(index)
+    }
+
+    /// Checks if the slot at the given index is the last slot in its visual group.
+    ///
+    /// A slot is considered the end of a group if it's the last slot overall or if a
+    /// separator appears after it (before the next slot). This is used to determine
+    /// corner radius styling for grouped slots.
+    ///
+    /// - Parameters:
+    ///   - index: The zero-based index of the slot to check.
+    ///   - totalCount: The total number of slots in the OTP input.
+    ///   - length: The OTP length configuration.
+    /// - Returns: `true` if the slot is at the end of a group, `false` otherwise.
+    ///
+
+    func isEndOfGroup(
+        index: Int,
+        totalCount: Int,
+        length: SHDInputOTPLength
+    ) -> Bool {
+        index == totalCount - 1
+            || separatorIndices(for: length).contains(index + 1)
+    }
+
+    /// Computes the effective group size for separator placement based on variant and length.
+    ///
+    /// For `.separator` variants, this method returns the number of digits per group.
+    /// For other variants, it returns `nil` since grouping is not applicable.
+    ///
+    /// - Parameter length: The OTP length configuration.
+    /// - Returns: The effective group size, or `nil` if grouping is not applicable.
+    private func effectiveGroupSize(
+        for length: SHDInputOTPLength
+    ) -> Int? {
+        guard case .separator(let groupOf) = self else {
+            return nil
+        }
+
+        switch length {
+        case .otp4:
+            return 2
+        case .otp6:
+            return 3
+        case .otp8:
+            return [2, 4].contains(groupOf) ? groupOf : 2
+        }
+    }
+
+    /// Computes the set of slot indices where separators should be displayed.
+    ///
+    /// Separators are placed after each complete group, so the returned indices represent
+    /// the positions where a separator should appear before the slot at that index.
+    ///
+    /// - Parameter length: The OTP length configuration.
+    /// - Returns: A set of zero-based indices where separators should be shown.
+    private func separatorIndices(
+        for length: SHDInputOTPLength
+    ) -> Set<Int> {
+        guard let groupSize = effectiveGroupSize(for: length),
+            groupSize > 0
+        else {
+            return []
+        }
+
+        return Set(
+            stride(from: groupSize, to: length.digits, by: groupSize)
+        )
     }
 }
