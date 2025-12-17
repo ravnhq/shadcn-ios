@@ -7,12 +7,32 @@
 
 import SwiftUI
 
-struct SHDSonnerSize: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+public enum SHDSonnerSize {
+    case sm
+    case md
+    case lg
+    
+    var textStyle: SHDTextStyle {
+        switch self {
+        case .sm: .textSMMedium
+        case .md: .textBaseMedium
+        case .lg: .textLGMedium
+        }
     }
-}
-
-#Preview {
-    SHDSonnerSize()
+    
+    var captionStyle: SHDTextStyle {
+        switch self {
+        case .sm: .textSMRegular
+        case .md: .textBaseRegular
+        case .lg: .textLGRegular
+        }
+    }
+    
+    var iconSize: SHDIconSize {
+        switch self {
+        case .sm: .sm
+        case .md: .md
+        case .lg: .lg
+        }
+    }
 }
