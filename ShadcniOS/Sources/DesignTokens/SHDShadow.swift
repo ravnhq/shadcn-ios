@@ -20,9 +20,9 @@ import SwiftUI
 /// The shadows use subtle opacity values on black color to maintain readability and avoid harsh contrasts.
 /// 
 /// The enum cases are ordered from smallest to largest shadow:
-/// - `.shadowSM`: Small shadow for subtle elevation.
-/// - `.shadow`: Default shadow for standard elevation.
-/// - `.shadowMD`: Medium shadow for prominent elevation.
+/// - `.xs`: Extra small shadow for subtle elevation.
+/// - `.sm`: Default(small) shadow for standard elevation.
+/// - `.md`: Medium shadow for prominent elevation.
 ///
 /// ## Parameters → Init
 /// This enum does not have an initializer; use the case values directly.
@@ -31,7 +31,7 @@ import SwiftUI
 /// ```swift
 /// Rectangle()
 ///     .fill(Color.white)
-///     .shadowStyle(.shadow)
+///     .shadowStyle(.sm)
 /// ```
 ///
 /// ## Variables → Public variables
