@@ -44,13 +44,13 @@
 /// .carouselLayoutVariant(.singleHorizonal)
 /// ```
 ///
-public enum SHDCarouselLayout {
+public enum SHDCarouselLayout: Equatable, Hashable {
     /// Multiple items visible in a horizontal scroll.
     ///
     /// Items are displayed side-by-side with `.md` spacing.
     /// When using the `.sixteenToNine` proportion variant,
     /// automatically switches to tab-based (paged) view for full-width presentation.
-    case groupHorizonal
+    case groupHorizonal(SHDCarouseItemAspectRatio)
 
     /// Single item at a time with horizontal paging.
     ///
