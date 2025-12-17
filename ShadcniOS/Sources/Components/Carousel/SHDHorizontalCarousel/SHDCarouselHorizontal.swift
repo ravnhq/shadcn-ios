@@ -1,5 +1,5 @@
 //
-//  SHDCarouselHorizontal.swift
+//  SHDHorizontalCarousel.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 12/11/25.
@@ -11,7 +11,7 @@ import SwiftUI
 ///
 /// ## Discussion
 ///
-/// `SHDCarouselHorizontal` renders carousel items in a horizontal `ScrollView` with multiple
+/// `SHDHorizontalCarousel` renders carousel items in a horizontal `ScrollView` with multiple
 /// items visible simultaneously. Items are arranged in an `HStack` with `.md` spacing and sized
 /// based on the provided `proportionVariant`. This component is used for group horizontal layouts
 /// where users can scroll through items horizontally to see adjacent content.
@@ -31,11 +31,14 @@ import SwiftUI
 /// - `content`: A `@ViewBuilder` closure that takes an individual item and returns
 ///     the view to display for that item.
 ///
-internal struct SHDCarouselHorizontal<Item, Content: View>: View {
+internal struct SHDHorizontalCarousel<Item, Content: View>: View {
     var items: [Item]
-    var content: (Item) -> Content
-    var layoutVariant: SHDCarouselLayout = .groupHorizonal
-    var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
+    var modelItemView: (Item) -> Content
+    var layoutVariant: SHDCarouselLayout = .groupHorizonal(.oneToOne)
+
+    var proportionVariant: SHDCarouseItemAspectRatio {
+        layoutVariant.resolvedProportionVariant
+    }
 
     var aspectRatio: CGFloat {
         proportionVariant.aspectRatio / proportionVariant.widthFactor
@@ -47,12 +50,9 @@ internal struct SHDCarouselHorizontal<Item, Content: View>: View {
                 layoutVariant: layoutVariant,
                 proportionVariant: proportionVariant,
                 items: items,
-                content: content
+                modelItemView: modelItemView
             )
-            .singleProportionVariant(
-                layoutVariant == .groupHorizonal
-                    ? proportionVariant : .threeToFourWithSingleItem
-            )
+            .proportionVariant(proportionVariant)
         } else {
             GeometryReader { proxy in
                 let containerWidth = proxy.size.width
@@ -62,19 +62,27 @@ internal struct SHDCarouselHorizontal<Item, Content: View>: View {
                 ScrollView(.horizontal) {
                     HStack(spacing: .md) {
                         ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-                            content(item)
+                            modelItemView(item)
                                 .frame(width: itemWidth, height: itemHeight)
                         }
                     }
                 }
                 .scrollIndicators(.hidden)
             }
-            .aspectRatio(
-                aspectRatio,
-                contentMode: .fit
-            )
+            .aspectRatio(aspectRatio, contentMode: .fit)
             .padding(.vertical, .xxs)
             .padding(.horizontal, .sm)
+        }
+    }
+}
+
+extension SHDCarouselLayout {
+    var resolvedProportionVariant: SHDCarouseItemAspectRatio {
+        switch self {
+        case .groupHorizonal(let proportion):
+            return proportion
+        default:
+            return .oneToOne
         }
     }
 }

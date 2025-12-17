@@ -34,19 +34,20 @@ import SwiftUI
 internal struct SHDVerticalCarousel<Item, Content: View>: View {
 
     var items: [Item]
-    var content: (Item) -> Content
-    var layoutVariant: SHDCarouselLayout = .groupHorizonal
+    var modelItemView: (Item) -> Content
+    var layoutVariant: SHDCarouselLayout = .groupHorizonal(.oneToOne)
     var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
 
     var body: some View {
         ScrollView {
             VStack(spacing: .md) {
-                SHDCarouselItem(
-                    layoutVariant: layoutVariant,
-                    proportionVariant: proportionVariant,
-                    items: items,
-                    content: content
-                )
+                ForEach(Array(items.enumerated()), id: \.offset) { _, item in
+                    modelItemView(item)
+                        .aspectRatio(
+                            SHDCarouseItemAspectRatio.sixteenToNine.aspectRatio,
+                            contentMode: .fit
+                        )
+                }
             }
             .scrollIndicators(.hidden)
             .padding(.vertical, .xxs)

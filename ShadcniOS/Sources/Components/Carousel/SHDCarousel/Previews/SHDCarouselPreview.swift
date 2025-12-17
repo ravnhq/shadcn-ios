@@ -33,8 +33,7 @@ internal struct SHDCarouselPreview: View {
                     ) { item in
                         itemView(item)
                     }
-                    .carouselLayoutVariant(.groupHorizonal)
-                    .carouselProportionVariant(.threeToFour)
+                    .carouselLayoutVariant(.groupHorizonal(.threeToFour))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -47,8 +46,7 @@ internal struct SHDCarouselPreview: View {
                     ) { item in
                         itemView(item)
                     }
-                    .carouselLayoutVariant(.groupHorizonal)
-                    .carouselProportionVariant(.sixteenToNine)
+                    .carouselLayoutVariant(.groupHorizonal(.sixteenToNine))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {

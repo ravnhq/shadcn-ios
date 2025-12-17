@@ -14,8 +14,7 @@ struct SHDCarouselDemoView: View {
     let numberItems: [Int] = [1, 2, 3, 4, 5]
     let imageItems: [String] = ["star", "heart", "paperplane"]
 
-    @State var layoutVariant: SHDCarouselLayout = .groupHorizonal
-    @State var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
+    @State private var layoutVariant: SHDCarouselLayout = .groupHorizonal(.oneToOne)
 
     enum DataType: String, CaseIterable, Identifiable {
         case text = "Text"
@@ -38,41 +37,22 @@ struct SHDCarouselDemoView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding()
-                
-                HStack {
-                    Text("Layout Variant")
-                    
-                    Spacer()
-                    
-                    Picker("Layout Variant", selection: $layoutVariant) {
-                        Text("Group Horizontal").tag(SHDCarouselLayout.groupHorizonal)
-                        Text("Single Horizontal").tag(SHDCarouselLayout.singleHorizonal)
-                        Text("Group Vertical").tag(SHDCarouselLayout.groupVertical)
-                    }
-                }
-                .padding()
-                .onChange(of: layoutVariant) { _, newValue in
-                    switch newValue {
-                    case .singleHorizonal:
-                        proportionVariant = .threeToFour
-                    case .groupVertical:
-                        proportionVariant = .sixteenToNine
-                    default:
-                        proportionVariant = .oneToOne
-                    }
-                }
 
-                HStack {
-                    Text("Proportion Variant")
-                    
-                    Spacer()
-                    
-                    Picker("Layout Variant", selection: $proportionVariant) {
-                        Text("1:1").tag(SHDCarouseItemAspectRatio.oneToOne)
-                        Text("3:4").tag(SHDCarouseItemAspectRatio.threeToFour)
-                        Text("16:9").tag(SHDCarouseItemAspectRatio.sixteenToNine)
-                    }
-                    .disabled((layoutVariant == .groupVertical || layoutVariant == .singleHorizonal))
+                Picker("Layout Variant", selection: $layoutVariant) {
+                    Text("Group Horizontal 1:1")
+                        .tag(SHDCarouselLayout.groupHorizonal(.oneToOne))
+
+                    Text("Group Horizontal 3:4")
+                        .tag(SHDCarouselLayout.groupHorizonal(.threeToFour))
+
+                    Text("Group Horizontal 16:9")
+                        .tag(SHDCarouselLayout.groupHorizonal(.sixteenToNine))
+
+                    Text("Single Horizontal")
+                        .tag(SHDCarouselLayout.singleHorizonal)
+
+                    Text("Group Vertical")
+                        .tag(SHDCarouselLayout.groupVertical)
                 }
                 .padding()
                 
@@ -90,7 +70,6 @@ struct SHDCarouselDemoView: View {
                             .background(.secondary)
                         }
                         .carouselLayoutVariant(layoutVariant)
-                        .carouselProportionVariant(proportionVariant)
                         
                     case .numbers:
                         SHDCarousel(items: numberItems) { item in
@@ -103,7 +82,6 @@ struct SHDCarouselDemoView: View {
                             
                         }
                         .carouselLayoutVariant(layoutVariant)
-                        .carouselProportionVariant(proportionVariant)
                         
                     case .images:
                         SHDCarousel(items: imageItems) { item in
@@ -117,7 +95,6 @@ struct SHDCarouselDemoView: View {
                             .background(.secondary)
                         }
                         .carouselLayoutVariant(layoutVariant)
-                        .carouselProportionVariant(proportionVariant)
                     }
                 }
             }

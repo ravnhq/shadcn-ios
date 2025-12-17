@@ -45,7 +45,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
     var layoutVariant: SHDCarouselLayout
     var proportionVariant: SHDCarouseItemAspectRatio
     var items: [Item]
-    var content: (Item) -> Content
+    var modelItemView: (Item) -> Content
 
     var body: some View {
         VStack(spacing: .sm) {
@@ -56,7 +56,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
 
                 TabView(selection: $currentPage) {
                     ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-                        content(item)
+                        modelItemView(item)
                             .frame(width: itemWidth, height: itemHeight)
                             .tag(index)
                     }
@@ -68,6 +68,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
                 proportionVariant.aspectRatio / proportionVariant.widthFactor,
                 contentMode: .fit
             )
+
             indicators
         }
         .padding(.vertical, .xxs)
@@ -93,7 +94,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
     ///
     /// - Parameters:
     ///   - proportionVariant: The `SHDCarouseItemAspectRatio` to apply to the carousel items
-    func singleProportionVariant(_ proportionVariant: SHDCarouseItemAspectRatio) -> Self {
+    func proportionVariant(_ proportionVariant: SHDCarouseItemAspectRatio) -> Self {
         mutating(keyPath: \.proportionVariant, value: proportionVariant)
     }
 }
