@@ -14,7 +14,7 @@ public struct SHDSonner: View {
     private var size: SHDSonnerSize = .md
     private var variant: SHDSonnerVariant = .default
 
-    public init(title: String, subtitle: String, icon: SHDIconAsset) {
+    public init(title: String, subtitle: String) {
         self.title = title
         self.subtitle = subtitle
     }
@@ -41,6 +41,11 @@ public struct SHDSonner: View {
         }
         .padding(.all, .sm)
         .backgroundColor(.backgroundDefault)
+        .cornerRadius(.md)
+        .overlay(
+            RoundedRectangle(cornerRadius: .md)
+                .stroke(SHDColor.borderDefault.color, lineWidth: 1)
+        )
     }
 
     public func sonnerVariant(variant: SHDSonnerVariant, size: SHDSonnerSize) -> some View {

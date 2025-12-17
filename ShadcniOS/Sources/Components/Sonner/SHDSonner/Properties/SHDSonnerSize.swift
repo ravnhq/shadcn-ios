@@ -11,7 +11,7 @@ public enum SHDSonnerSize {
     case sm
     case md
     case lg
-    
+
     var textStyle: SHDTextStyle {
         switch self {
         case .sm: .textSMMedium
@@ -19,7 +19,7 @@ public enum SHDSonnerSize {
         case .lg: .textLGMedium
         }
     }
-    
+
     var captionStyle: SHDTextStyle {
         switch self {
         case .sm: .textSMRegular
@@ -27,7 +27,7 @@ public enum SHDSonnerSize {
         case .lg: .textLGRegular
         }
     }
-    
+
     var iconSize: SHDIconSize {
         switch self {
         case .sm: .sm
