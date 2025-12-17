@@ -8,9 +8,15 @@
 import SwiftUI
 
 internal struct SHDRadioGroupPreview: View {
-    @State var selectionGroupMedium: SHDRadioGroupSelection = .thirdOption
-    @State var selectionGroupLarge: SHDRadioGroupSelection = .thirdOption
-    @State var selectionGroupDisabled: SHDRadioGroupSelection = .thirdOption
+    @State var selectecOption1: Int = 0
+    @State var selectecOption2: Int = 0
+    @State var selectecOption3: Int = 0
+
+    var options: [String] = [
+        "This is the 1st option",
+        "This is the 2nd option",
+        "This is the 3rd option"
+    ]
 
     var body: some View {
         VStack(spacing: 20) {
@@ -25,10 +31,8 @@ internal struct SHDRadioGroupPreview: View {
                     Text("Medium: ")
 
                     SHDRadioGroup(
-                        selection: $selectionGroupMedium,
-                        textOption1: "This is the 1st option",
-                        textOption2: "This is the 2nd option",
-                        textOption3: "This is the 3rd option"
+                        selection: $selectecOption1,
+                        options: options
                     )
                     .radioGroupStyle(.md)
                     .padding(.bottom, 10)
@@ -37,10 +41,8 @@ internal struct SHDRadioGroupPreview: View {
                 HStack {
                     Text("Large: ")
                     SHDRadioGroup(
-                        selection: $selectionGroupLarge,
-                        textOption1: "This is the 1st option",
-                        textOption2: "This is the 2nd option",
-                        textOption3: "This is the 3rd option"
+                        selection: $selectecOption2,
+                        options: options
                     )
                     .radioGroupStyle(.lg)
                 }
@@ -52,10 +54,8 @@ internal struct SHDRadioGroupPreview: View {
                     .textStyle(.textBaseSemibold)
 
                 SHDRadioGroup(
-                    selection: $selectionGroupDisabled,
-                    textOption1: "This is the 1st option",
-                    textOption2: "This is the 2nd option",
-                    textOption3: "This is the 3rd option"
+                    selection: $selectecOption3,
+                    options: options
                 )
                 .disable()
             }
