@@ -19,14 +19,14 @@ import SwiftUI
 /// The component uses SwiftUI's `@ViewBuilder` to allow flexible content customization,
 ///     enabling you to render any SwiftUI view for each item in the carousel.
 ///
-/// The carousel adapts its internal structure based on the selected layout and proportion variants:
-/// - `Group Horizontal` displays multiple items in a horizontal scroll, switching to a tab-based
-///     view when the 16:9 proportion is selected for full-width presentation.
-/// - `Single Horizontal` uses a tab-based view (paged scrolling) for a single-item-at-a-time experience.
-/// - `Group Vertical` presents items in a vertical scroll with customizable proportions.
+/// The carousel adapts its internal structure based on the selected layout variant:
+/// - `Group Horizontal` (e.g., `.groupHorizonal(.oneToOne)`) displays multiple items in a horizontal scroll,
+///     switching to a tab-based view when the `.sixteenToNine` proportion is used for full-width presentation.
+/// - `Single Horizontal` (`.singleHorizonal`) uses a tab-based view (paged scrolling) for a single-item-at-a-time experience.
+/// - `Group Vertical` (`.groupVertical`) presents items in a vertical scroll with customizable proportions.
 ///
-/// The component manages internal state for layout and proportion variants through its modifier methods
-///  (`carouselLayoutVariant(_:)` and `carouselProportionVariant(_:)`).
+/// The component manages internal state for layout and proportion variants through its modifier method
+///  (`carouselLayoutVariant(_:)`), which accepts a layout variant that includes the proportion.
 /// This design follows SwiftUI's immutable value semantics while providing a fluent API for configuration.
 ///
 /// Layout and spacing characteristics:
@@ -36,7 +36,7 @@ import SwiftUI
 /// - Items adapt their dimensions based on the selected proportion variant
 ///
 /// The carousel supports three layout variants:
-/// - `.groupHorizonal`: Multiple items visible horizontally, paged for 16:9 proportions
+/// - `.groupHorizonal(SHDCarouseItemAspectRatio)`: Multiple items visible horizontally, paged for `.sixteenToNine` proportion
 /// - `.singleHorizonal`: One item at a time with horizontal paging
 /// - `.groupVertical`: Multiple items visible vertically in a scrollable container
 ///
@@ -49,9 +49,8 @@ import SwiftUI
 ///
 /// Creates a carousel with the specified items and content view builder.
 ///
-/// The carousel will use the default layout (`.groupHorizonal`) and proportion (`.oneToOne`) variants
-/// unless different variants are applied using the `.carouselLayoutVariant(...)` and
-/// `.carouselProportionVariant(...)` modifiers.
+/// The carousel will use the default layout (`.groupHorizonal(.oneToOne)`) variant
+/// unless a different variant is applied using the `.carouselLayoutVariant(...)` modifier.
 ///
 /// - Parameters:
 ///   - items: An array of items to display in the carousel.
@@ -73,8 +72,7 @@ import SwiftUI
 ///     }
 ///     .frame(maxWidth: .infinity, maxHeight: .infinity)
 /// }
-/// .carouselLayoutVariant(.groupHorizonal)
-/// .carouselProportionVariant(.oneToOne)
+/// .carouselLayoutVariant(.groupHorizonal(.oneToOne))
 /// ```
 ///
 public struct SHDCarousel<Item, Content: View>: View {

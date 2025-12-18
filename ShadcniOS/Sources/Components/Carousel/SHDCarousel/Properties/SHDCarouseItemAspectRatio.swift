@@ -37,12 +37,12 @@ import Foundation
 /// SHDCarousel(items: products) { product in
 ///     ProductThumbnail(product: product)
 /// }
-/// .carouselProportionVariant(.threeToFour)
+/// .carouselLayoutVariant(.groupHorizonal(.threeToFour))
 ///
 /// SHDCarousel(items: videos) { video in
 ///     VideoPreview(video: video)
 /// }
-/// .carouselProportionVariant(.sixteenToNine)
+/// .carouselLayoutVariant(.groupHorizonal(.sixteenToNine))
 /// ```
 ///
 public enum SHDCarouseItemAspectRatio {
