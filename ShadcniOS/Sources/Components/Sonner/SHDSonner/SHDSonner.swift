@@ -87,6 +87,7 @@ internal struct SHDSonner: View {
             RoundedRectangle(cornerRadius: .md)
                 .stroke(SHDColor.borderDefault.color, lineWidth: 1)
         )
+        .shadowStyle(.xs)
     }
 
     public func sonnerVariant(variant: SHDSonnerVariant, size: SHDSonnerSize) -> some View {
