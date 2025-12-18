@@ -16,13 +16,18 @@ import SwiftUI
 /// smooth animated transitions between pages, and includes visual page indicators (dots) at the bottom
 /// for user orientation.
 ///
+/// The component uses `ScrollView(.horizontal)` with `scrollTargetBehavior(.viewAligned)` to achieve
+/// page-based navigation, where each item snaps into view when scrolled. The implementation leverages
+/// `scrollPosition(id:)` to track the current page and `scrollTargetLayout()` to
+/// enable view-aligned snapping.
+///
 /// The component is designed for single-item-at-a-time browsing experiences, making it ideal for:
 /// - Photo galleries with featured image display
 /// - Featured content showcases with one prominent item
 /// - Product carousels in e-commerce contexts
 /// - Story-like sequential content navigation
 ///
-/// The component manages internal state (`currentPage`) to track the active page and supports
+/// The component manages internal state (`currentPage` and `scrollID`) to track the active page and supports
 /// customization of proportion variants through the `proportionVariant(_:)` modifier.
 /// This component is used internally by `SHDCarousel` and should not be directly instantiated by consumers.
 ///
@@ -36,11 +41,11 @@ import SwiftUI
 ///     },
 ///     proportion: .threeToFourWithSingleItem
 /// )
-/// .proportionVariant(.threeToFourWithSingleItem)
 /// ```
 ///
 internal struct SHDHorizontalPagedCarousel<Item, Content: View>: View {
 
+    @State private var scrollID: Int? = 0
     @State private var currentPage = 0
     var items: [Item]
     var modelItemView: (Item) -> Content
@@ -53,20 +58,29 @@ internal struct SHDHorizontalPagedCarousel<Item, Content: View>: View {
                 let itemWidth = containerWidth * proportion.widthFactor
                 let itemHeight = itemWidth / proportion.aspectRatio
 
-                TabView(selection: $currentPage) {
-                    ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-                        modelItemView(item)
-                            .frame(width: itemWidth, height: itemHeight)
-                            .tag(index)
+                ScrollView(.horizontal) {
+                    LazyHStack {
+                        ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+                            modelItemView(item)
+                                .frame(width: itemWidth, height: itemHeight)
+                                .id(index)
+                        }
+                    }
+                    .scrollTargetLayout()
+                }
+                .scrollPosition(id: $scrollID)
+                .scrollTargetBehavior(.viewAligned)
+                .scrollIndicators(.hidden)
+                .frame(width: containerWidth, height: itemHeight)
+                .onChange(of: scrollID) { newValue in
+                    if let newValue {
+                        withAnimation(.spring()) {
+                            currentPage = newValue
+                        }
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .frame(width: containerWidth, height: itemHeight)
             }
-            .aspectRatio(
-                proportion.effectiveAspectRatio,
-                contentMode: .fit
-            )
+            .aspectRatio(proportion.effectiveAspectRatio, contentMode: .fit)
 
             indicators
         }
@@ -89,7 +103,9 @@ internal struct SHDHorizontalPagedCarousel<Item, Content: View>: View {
     /// Sets the proportion variant for items displayed in the paged carousel.
     ///
     /// This modifier allows customization of item dimensions specifically for single-item paging layouts,
-    /// such as adjusting the aspect ratio and size for featured content presentation.
+    /// such as adjusting the aspect ratio and size for featured content presentation. The proportion
+    /// affects both the width factor and aspect ratio calculations used to determine item dimensions
+    /// within the scrollable container.
     ///
     /// - Parameters:
     ///   - proportion: The `SHDCarouseItemAspectRatio` to apply to the carousel items
