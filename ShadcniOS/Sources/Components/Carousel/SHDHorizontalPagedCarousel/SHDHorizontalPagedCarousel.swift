@@ -1,5 +1,5 @@
 //
-//  SHDCarouselTabView.swift
+//  SHDHorizontalPagedCarousel.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 12/8/25.
@@ -11,9 +11,10 @@ import SwiftUI
 ///
 /// ## Discussion
 ///
-/// `SHDCarouselTabView` is a specialized carousel container that presents items using SwiftUI's `TabView`
-/// with page-based navigation. This component displays one item at a time with smooth animated transitions
-/// between pages, and includes visual page indicators (dots) at the bottom for user orientation.
+/// `SHDHorizontalPagedCarousel` is a specialized carousel container that presents items using
+/// SwiftUI's `TabView` with page-based navigation. This component displays one item at a time with
+/// smooth animated transitions between pages, and includes visual page indicators (dots) at the bottom
+/// for user orientation.
 ///
 /// The component is designed for single-item-at-a-time browsing experiences, making it ideal for:
 /// - Photo galleries with featured image display
@@ -28,7 +29,7 @@ import SwiftUI
 /// ## Usage
 ///
 /// ```swift
-/// SHDCarouselTabView(
+/// SHDHorizontalPagedCarousel(
 ///     items: photos,
 ///     modelItemView: { photo in
 ///         AsyncImage(url: photo.url)
@@ -38,7 +39,7 @@ import SwiftUI
 /// .proportionVariant(.threeToFourWithSingleItem)
 /// ```
 ///
-internal struct SHDCarouselTabView<Item, Content: View>: View {
+internal struct SHDHorizontalPagedCarousel<Item, Content: View>: View {
 
     @State private var currentPage = 0
     var items: [Item]

@@ -14,7 +14,7 @@ struct SHDCarouselDemoView: View {
     let numberItems: [Int] = [1, 2, 3, 4, 5]
     let imageItems: [String] = ["star", "heart", "paperplane"]
 
-    @State private var layoutVariant: SHDCarouselLayout = .groupHorizonal(.oneToOne)
+    @State private var layoutVariant: SHDCarouselLayout = .groupHorizontal(.oneToOne)
 
     enum DataType: String, CaseIterable, Identifiable {
         case text = "Text"
@@ -40,16 +40,16 @@ struct SHDCarouselDemoView: View {
 
                 Picker("Layout Variant", selection: $layoutVariant) {
                     Text("Group Horizontal 1:1")
-                        .tag(SHDCarouselLayout.groupHorizonal(.oneToOne))
+                        .tag(SHDCarouselLayout.groupHorizontal(.oneToOne))
 
                     Text("Group Horizontal 3:4")
-                        .tag(SHDCarouselLayout.groupHorizonal(.threeToFour))
+                        .tag(SHDCarouselLayout.groupHorizontal(.threeToFour))
 
                     Text("Group Horizontal 16:9")
-                        .tag(SHDCarouselLayout.groupHorizonal(.sixteenToNine))
+                        .tag(SHDCarouselLayout.groupHorizontal(.sixteenToNine))
 
                     Text("Single Horizontal")
-                        .tag(SHDCarouselLayout.singleHorizonal)
+                        .tag(SHDCarouselLayout.singleHorizontal)
 
                     Text("Group Vertical")
                         .tag(SHDCarouselLayout.groupVertical)
@@ -69,7 +69,7 @@ struct SHDCarouselDemoView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.secondary)
                         }
-                        .carouselLayoutVariant(layoutVariant)
+                        .layoutVariant(layoutVariant)
                         
                     case .numbers:
                         SHDCarousel(items: numberItems) { item in
@@ -81,7 +81,7 @@ struct SHDCarouselDemoView: View {
                             .background(.secondary)
                             
                         }
-                        .carouselLayoutVariant(layoutVariant)
+                        .layoutVariant(layoutVariant)
                         
                     case .images:
                         SHDCarousel(items: imageItems) { item in
@@ -94,7 +94,7 @@ struct SHDCarouselDemoView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.secondary)
                         }
-                        .carouselLayoutVariant(layoutVariant)
+                        .layoutVariant(layoutVariant)
                     }
                 }
             }

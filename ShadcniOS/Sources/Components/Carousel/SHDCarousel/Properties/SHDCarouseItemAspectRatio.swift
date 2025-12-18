@@ -37,12 +37,12 @@ import Foundation
 /// SHDCarousel(items: products) { product in
 ///     ProductThumbnail(product: product)
 /// }
-/// .carouselLayoutVariant(.groupHorizonal(.threeToFour))
+/// .layoutVariant(.groupHorizontal(.threeToFour))
 ///
 /// SHDCarousel(items: videos) { video in
 ///     VideoPreview(video: video)
 /// }
-/// .carouselLayoutVariant(.groupHorizonal(.sixteenToNine))
+/// .layoutVariant(.groupHorizontal(.sixteenToNine))
 /// ```
 ///
 public enum SHDCarouseItemAspectRatio {
@@ -61,7 +61,7 @@ public enum SHDCarouseItemAspectRatio {
     /// Landscape aspect ratio (16:9).
     ///
     /// Optimized for video content, movie posters, or landscape imagery.
-    /// When used with `.groupHorizonal` layout, automatically switches to paged tab-based viewing
+    /// When used with `.groupHorizontal` layout, automatically switches to a paged carousel
     /// for optimal full-width presentation.
     case sixteenToNine
 

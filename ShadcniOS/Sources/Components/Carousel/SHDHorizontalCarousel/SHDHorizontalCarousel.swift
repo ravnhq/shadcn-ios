@@ -38,7 +38,7 @@ internal struct SHDHorizontalCarousel<Item, Content: View>: View {
 
     var body: some View {
         if proportion == .sixteenToNine {
-            SHDCarouselTabView(
+            SHDHorizontalPagedCarousel(
                 items: items,
                 modelItemView: modelItemView,
                 proportion: proportion

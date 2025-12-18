@@ -34,7 +34,7 @@ internal struct SHDVerticalCarousel<Item, Content: View>: View {
 
     var items: [Item]
     var modelItemView: (Item) -> Content
-    var layoutVariant: SHDCarouselLayout = .groupHorizonal(.oneToOne)
+    var layoutVariant: SHDCarouselLayout = .groupHorizontal(.oneToOne)
     var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
 
     var body: some View {
