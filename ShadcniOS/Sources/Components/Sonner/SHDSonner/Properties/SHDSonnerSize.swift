@@ -38,7 +38,6 @@ import SwiftUI
 ///     )
 /// ```
 public enum SHDSonnerSize {
-
     /// Small notification size for compact text and icon dimensions.
     case sm
 

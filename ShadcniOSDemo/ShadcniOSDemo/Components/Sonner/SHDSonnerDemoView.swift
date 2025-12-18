@@ -5,14 +5,14 @@
 //  Created by Diego Takaki on 12/16/25.
 //
 
-import SwiftUI
 import ShadcniOS
+import SwiftUI
 
 struct SHDSonnerDemoView: View {
     @State private var isPresented: Bool = false
     @State private var selectedVariant: SHDSonnerVariant = .default
     @State private var selectedSize: SHDSonnerSize = .sm
-    
+
     var body: some View {
         VStack(spacing: 20) {
             VStack(spacing: 16) {
@@ -47,7 +47,7 @@ struct SHDSonnerDemoView: View {
                     .pickerStyle(.segmented)
                 }
                 .padding(.horizontal)
-                
+
                 // Show Button
                 Button {
                     isPresented = true
@@ -62,9 +62,9 @@ struct SHDSonnerDemoView: View {
                 .padding(.horizontal)
                 .padding(.top, 8)
             }
-            
+
             Spacer()
-            
+
             Text("Text to be behind the sonner")
                 .padding(.bottom, 16)
         }

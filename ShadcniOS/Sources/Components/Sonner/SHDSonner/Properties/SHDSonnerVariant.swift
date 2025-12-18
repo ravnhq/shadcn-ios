@@ -41,7 +41,6 @@ import SwiftUI
 ///     )
 /// ```
 public enum SHDSonnerVariant {
-
     /// The standard informational notification style.
     case `default`
 

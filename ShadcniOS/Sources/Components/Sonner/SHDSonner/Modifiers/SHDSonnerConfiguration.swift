@@ -56,7 +56,6 @@ import SwiftUI
 /// }
 /// ```
 struct SHDSonnerConfiguration: ViewModifier {
-
     @Binding var isPresented: Bool
 
     @State private var dragOffset: CGFloat = 0
@@ -191,8 +190,7 @@ struct SHDSonnerConfiguration: ViewModifier {
     }
 }
 
-extension View {
-
+public extension View {
     /// Presents a toast-style notification overlay with automatic dismissal and interactive gestures.
     ///
     /// ## Discussion
@@ -252,16 +250,16 @@ extension View {
     ///     isPresented: $showWarning
     /// )
     /// ```
-    public func showSonner(title: String,
-                           caption: String,
-                           variant: SHDSonnerVariant = .default,
-                           size: SHDSonnerSize = .md,
-                           isPresented: Binding<Bool>) -> some View {
+    func showSonner(title: String,
+                    caption: String,
+                    variant: SHDSonnerVariant = .default,
+                    size: SHDSonnerSize = .md,
+                    isPresented: Binding<Bool>
+    ) -> some View {
         modifier(SHDSonnerConfiguration(isPresented: isPresented,
                                         title: title,
                                         subtitle: caption,
                                         size: size,
-                                        variant: variant
-                                        ))
+                                        variant: variant))
     }
 }
