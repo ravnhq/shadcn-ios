@@ -98,4 +98,8 @@ public enum SHDCarouseItemAspectRatio {
         case .threeToFourWithSingleItem: 0.90
         }
     }
+
+    var effectiveAspectRatio: CGFloat {
+        aspectRatio / widthFactor
+    }
 }
