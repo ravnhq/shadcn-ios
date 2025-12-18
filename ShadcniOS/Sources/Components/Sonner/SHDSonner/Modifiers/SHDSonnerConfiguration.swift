@@ -58,6 +58,7 @@ import SwiftUI
 struct SHDSonnerConfiguration: ViewModifier {
 
     @Binding var isPresented: Bool
+
     @State private var dragOffset: CGFloat = 0
     @State private var dismissTask: Task<Void, Never>?
     @State private var toastSize: CGSize = .zero
