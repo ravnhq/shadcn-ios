@@ -36,10 +36,6 @@ internal struct SHDHorizontalCarousel<Item, Content: View>: View {
     var modelItemView: (Item) -> Content
     var proportion: SHDCarouseItemAspectRatio = .oneToOne
 
-    var aspectRatio: CGFloat {
-        proportion.aspectRatio / proportion.widthFactor
-    }
-
     var body: some View {
         if proportion == .sixteenToNine {
             SHDCarouselTabView(
@@ -64,7 +60,7 @@ internal struct SHDHorizontalCarousel<Item, Content: View>: View {
                 }
                 .scrollIndicators(.hidden)
             }
-            .aspectRatio(aspectRatio, contentMode: .fit)
+            .aspectRatio(proportion.effectiveAspectRatio, contentMode: .fit)
             .padding(.vertical, .xxs)
             .padding(.horizontal, .sm)
         }

@@ -64,7 +64,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
                 .frame(width: containerWidth, height: itemHeight)
             }
             .aspectRatio(
-                proportion.aspectRatio / proportion.widthFactor,
+                proportion.effectiveAspectRatio,
                 contentMode: .fit
             )
 
