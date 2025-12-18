@@ -42,17 +42,16 @@ import SwiftUI
 internal struct SHDCarouselTabView<Item, Content: View>: View {
 
     @State private var currentPage = 0
-    var layoutVariant: SHDCarouselLayout
-    var proportionVariant: SHDCarouseItemAspectRatio
     var items: [Item]
     var modelItemView: (Item) -> Content
+    var proportion: SHDCarouseItemAspectRatio
 
     var body: some View {
         VStack(spacing: .sm) {
             GeometryReader { proxy in
                 let containerWidth = proxy.size.width
-                let itemWidth = containerWidth * proportionVariant.widthFactor
-                let itemHeight = itemWidth / proportionVariant.aspectRatio
+                let itemWidth = containerWidth * proportion.widthFactor
+                let itemHeight = itemWidth / proportion.aspectRatio
 
                 TabView(selection: $currentPage) {
                     ForEach(Array(items.enumerated()), id: \.offset) { index, item in
@@ -65,7 +64,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
                 .frame(width: containerWidth, height: itemHeight)
             }
             .aspectRatio(
-                proportionVariant.aspectRatio / proportionVariant.widthFactor,
+                proportion.aspectRatio / proportion.widthFactor,
                 contentMode: .fit
             )
 
@@ -94,8 +93,8 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
     ///
     /// - Parameters:
     ///   - proportionVariant: The `SHDCarouseItemAspectRatio` to apply to the carousel items
-    func proportionVariant(_ proportionVariant: SHDCarouseItemAspectRatio) -> Self {
-        mutating(keyPath: \.proportionVariant, value: proportionVariant)
+    func proportionVariant(_ proportion: SHDCarouseItemAspectRatio) -> Self {
+        mutating(keyPath: \.proportion, value: proportion)
     }
 }
 

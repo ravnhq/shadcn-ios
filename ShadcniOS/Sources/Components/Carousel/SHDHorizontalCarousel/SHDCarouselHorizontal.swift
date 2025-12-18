@@ -34,30 +34,25 @@ import SwiftUI
 internal struct SHDHorizontalCarousel<Item, Content: View>: View {
     var items: [Item]
     var modelItemView: (Item) -> Content
-    var layoutVariant: SHDCarouselLayout = .groupHorizonal(.oneToOne)
-
-    var proportionVariant: SHDCarouseItemAspectRatio {
-        layoutVariant.resolvedProportionVariant
-    }
+    var proportion: SHDCarouseItemAspectRatio = .oneToOne
 
     var aspectRatio: CGFloat {
-        proportionVariant.aspectRatio / proportionVariant.widthFactor
+        proportion.aspectRatio / proportion.widthFactor
     }
 
     var body: some View {
-        if proportionVariant == .sixteenToNine {
+        if proportion == .sixteenToNine {
             SHDCarouselTabView(
-                layoutVariant: layoutVariant,
-                proportionVariant: proportionVariant,
                 items: items,
-                modelItemView: modelItemView
+                modelItemView: modelItemView,
+                proportion: proportion
             )
-            .proportionVariant(proportionVariant)
+            .proportionVariant(proportion)
         } else {
             GeometryReader { proxy in
                 let containerWidth = proxy.size.width
-                let itemWidth = containerWidth * proportionVariant.widthFactor
-                let itemHeight = itemWidth / proportionVariant.aspectRatio
+                let itemWidth = containerWidth * proportion.widthFactor
+                let itemHeight = itemWidth / proportion.aspectRatio
 
                 ScrollView(.horizontal) {
                     HStack(spacing: .md) {
@@ -72,17 +67,6 @@ internal struct SHDHorizontalCarousel<Item, Content: View>: View {
             .aspectRatio(aspectRatio, contentMode: .fit)
             .padding(.vertical, .xxs)
             .padding(.horizontal, .sm)
-        }
-    }
-}
-
-extension SHDCarouselLayout {
-    var resolvedProportionVariant: SHDCarouseItemAspectRatio {
-        switch self {
-        case .groupHorizonal(let proportion):
-            return proportion
-        default:
-            return .oneToOne
         }
     }
 }

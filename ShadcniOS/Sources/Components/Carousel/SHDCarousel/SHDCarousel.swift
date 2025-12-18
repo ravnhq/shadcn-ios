@@ -93,18 +93,17 @@ public struct SHDCarousel<Item, Content: View>: View {
 
     public var body: some View {
         switch layoutVariant {
-        case .groupHorizonal:
+        case .groupHorizonal(let proportion):
             SHDHorizontalCarousel(
                 items: items,
                 modelItemView: modelItemView,
-                layoutVariant: layoutVariant
+                proportion: proportion
             )
         case .singleHorizonal:
             SHDCarouselTabView(
-                layoutVariant: layoutVariant,
-                proportionVariant: SHDCarouseItemAspectRatio.threeToFourWithSingleItem,
                 items: items,
-                modelItemView: modelItemView
+                modelItemView: modelItemView,
+                proportion: SHDCarouseItemAspectRatio.threeToFourWithSingleItem
             )
         case .groupVertical:
             SHDVerticalCarousel(
