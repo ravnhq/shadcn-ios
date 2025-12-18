@@ -209,7 +209,7 @@ extension View {
     ///
     /// - Parameters:
     ///   - title: The primary message displayed prominently in the notification.
-    ///   - caption: The secondary descriptive text displayed below the title.
+    ///   - subtitle: The secondary descriptive text displayed below the title.
     ///   - variant: The semantic style determining icon and colors. Defaults to `.default`.
     ///   - size: The typography scale for the notification. Defaults to `.md`.
     ///   - isPresented: A binding that controls the notification's presentation state.
@@ -230,7 +230,7 @@ extension View {
     ///         }
     ///         .showSonner(
     ///             title: "Success",
-    ///             caption: "Operation completed",
+    ///             subtitle: "Operation completed",
     ///             variant: .success,
     ///             isPresented: $showToast
     ///         )
@@ -245,7 +245,7 @@ extension View {
     /// }
     /// .showSonner(
     ///     title: "Low storage",
-    ///     caption: "You're running out of space",
+    ///     subtitle: "You're running out of space",
     ///     variant: .warning,
     ///     size: .lg,
     ///     isPresented: $showWarning
