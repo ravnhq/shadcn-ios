@@ -33,7 +33,7 @@ internal struct SHDCarouselPreview: View {
                     ) { item in
                         itemView(item)
                     }
-                    .carouselLayoutVariant(.groupHorizonal(.threeToFour))
+                    .layoutVariant(.groupHorizontal(.threeToFour))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -46,7 +46,7 @@ internal struct SHDCarouselPreview: View {
                     ) { item in
                         itemView(item)
                     }
-                    .carouselLayoutVariant(.groupHorizonal(.sixteenToNine))
+                    .layoutVariant(.groupHorizontal(.sixteenToNine))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -59,7 +59,7 @@ internal struct SHDCarouselPreview: View {
                     ) { item in
                         itemView(item)
                     }
-                    .carouselLayoutVariant(.singleHorizonal)
+                    .layoutVariant(.singleHorizontal)
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -72,7 +72,7 @@ internal struct SHDCarouselPreview: View {
                     ) { item in
                         itemView(item)
                     }
-                    .carouselLayoutVariant(.groupVertical)
+                    .layoutVariant(.groupVertical)
                 }
             }
         }

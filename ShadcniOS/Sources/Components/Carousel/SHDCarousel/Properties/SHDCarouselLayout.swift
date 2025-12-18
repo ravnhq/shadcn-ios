@@ -16,9 +16,9 @@
 /// The three layout variants provide different user experiences:
 /// - `Group Horizontal` displays multiple items visible at once in a horizontal scroll container,
 ///   allowing users to see context from adjacent items. When used with the `.sixteenToNine` proportion
-///   (e.g., `.groupHorizonal(.sixteenToNine)`), it automatically switches to a tab-based (paged) view
+///   (e.g., `.groupHorizontal(.sixteenToNine)`), it automatically switches to a paged carousel
 ///   for a full-width, single-item-at-a-time experience.
-/// - `Single Horizontal` uses a tab-based (paged) scrolling view for horizontal browsing,
+/// - `Single Horizontal` uses a paged carousel for horizontal browsing,
 ///   displaying one item at a time with page indicators. This variant is ideal for photo galleries
 ///   and image-focused carousels.
 /// - `Group Vertical` arranges items vertically in a scrollable container, allowing multiple items
@@ -36,12 +36,12 @@
 /// SHDCarousel(items: products) { product in
 ///     ProductCard(product: product)
 /// }
-/// .carouselLayoutVariant(.groupHorizonal(.threeToFour))
-/// 
+/// .layoutVariant(.groupHorizontal(.threeToFour))
+///
 /// SHDCarousel(items: images) { image in
 ///     AsyncImage(url: image.url)
 /// }
-/// .carouselLayoutVariant(.singleHorizonal)
+/// .layoutVariant(.singleHorizontal)
 /// ```
 ///
 public enum SHDCarouselLayout: Equatable, Hashable {
@@ -49,14 +49,14 @@ public enum SHDCarouselLayout: Equatable, Hashable {
     ///
     /// Items are displayed side-by-side with `.md` spacing.
     /// When using the `.sixteenToNine` proportion variant,
-    /// automatically switches to tab-based (paged) view for full-width presentation.
-    case groupHorizonal(SHDCarouseItemAspectRatio)
+    /// automatically switches to a paged carousel for full-width presentation.
+    case groupHorizontal(SHDCarouseItemAspectRatio)
 
     /// Single item at a time with horizontal paging.
     ///
     /// Items are displayed one per "page" with animated paging transitions and optional page indicators.
     /// This layout is optimal for sequential browsing experiences.
-    case singleHorizonal
+    case singleHorizontal
 
     /// Multiple items visible in a vertical scroll.
     ///
