@@ -15,9 +15,9 @@
 ///
 /// The three layout variants provide different user experiences:
 /// - `Group Horizontal` displays multiple items visible at once in a horizontal scroll container,
-///   allowing users to see context from adjacent items. When used with the 16:9 proportion variant,
-///   it automatically switches to a tab-based (paged) view for a full-width,
-///   single-item-at-a-time experience.
+///   allowing users to see context from adjacent items. When used with the `.sixteenToNine` proportion
+///   (e.g., `.groupHorizonal(.sixteenToNine)`), it automatically switches to a tab-based (paged) view
+///   for a full-width, single-item-at-a-time experience.
 /// - `Single Horizontal` uses a tab-based (paged) scrolling view for horizontal browsing,
 ///   displaying one item at a time with page indicators. This variant is ideal for photo galleries
 ///   and image-focused carousels.
@@ -36,7 +36,7 @@
 /// SHDCarousel(items: products) { product in
 ///     ProductCard(product: product)
 /// }
-/// .carouselLayoutVariant(.groupHorizonal)
+/// .carouselLayoutVariant(.groupHorizonal(.threeToFour))
 /// 
 /// SHDCarousel(items: images) { image in
 ///     AsyncImage(url: image.url)

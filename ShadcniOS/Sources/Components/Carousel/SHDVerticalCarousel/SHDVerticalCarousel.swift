@@ -12,9 +12,8 @@ import SwiftUI
 /// ## Discussion
 ///
 /// `SHDVerticalCarousel` renders carousel items inside a vertical `ScrollView`, stacking them
-/// in a `VStack`. It delegates the actual item rendering and sizing to `SHDCarouselItem`,
-/// which applies layout- and proportion-aware frames using the provided
-/// `layoutVariant` and `proportionVariant`.
+/// in a `VStack`. Items are sized based on the provided `proportionVariant`, which determines
+/// their aspect ratio and dimensions.
 ///
 /// This layout is intended to support the `.groupVertical` case of `SHDCarouselLayout`,
 /// allowing multiple items to be visible at once depending on the selected

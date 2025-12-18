@@ -22,21 +22,20 @@ import SwiftUI
 /// - Story-like sequential content navigation
 ///
 /// The component manages internal state (`currentPage`) to track the active page and supports
-/// customization of proportion variants through the `singleProportionVariant(_:)` modifier.
+/// customization of proportion variants through the `proportionVariant(_:)` modifier.
 /// This component is used internally by `SHDCarousel` and should not be directly instantiated by consumers.
 ///
 /// ## Usage
 ///
 /// ```swift
 /// SHDCarouselTabView(
-///     layoutVariant: .singleHorizonal,
-///     proportionVariant: .threeToFourWithSingleItem,
 ///     items: photos,
-///     content: { photo in
+///     modelItemView: { photo in
 ///         AsyncImage(url: photo.url)
-///     }
+///     },
+///     proportion: .threeToFourWithSingleItem
 /// )
-/// .singleProportionVariant(.threeToFourWithSingleItem)
+/// .proportionVariant(.threeToFourWithSingleItem)
 /// ```
 ///
 internal struct SHDCarouselTabView<Item, Content: View>: View {
@@ -92,7 +91,7 @@ internal struct SHDCarouselTabView<Item, Content: View>: View {
     /// such as adjusting the aspect ratio and size for featured content presentation.
     ///
     /// - Parameters:
-    ///   - proportionVariant: The `SHDCarouseItemAspectRatio` to apply to the carousel items
+    ///   - proportion: The `SHDCarouseItemAspectRatio` to apply to the carousel items
     func proportionVariant(_ proportion: SHDCarouseItemAspectRatio) -> Self {
         mutating(keyPath: \.proportion, value: proportion)
     }
