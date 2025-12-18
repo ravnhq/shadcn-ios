@@ -1,5 +1,5 @@
 //
-//  SHDIconAssets.swift
+//  SHDIconAsset.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 11/5/25.

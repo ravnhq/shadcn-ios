@@ -57,12 +57,12 @@ struct ContentView: View {
                             Text("SHDCheckbox")
                         }
                     }
-                    
+
                     NavigationLink(destination: SHDSliderDemoView()) {
                         HStack {
                             Image(
                                 systemName:
-                                    "slider.horizontal.3"
+                                "slider.horizontal.3"
                             )
                             Text("SHDSlider")
                         }
