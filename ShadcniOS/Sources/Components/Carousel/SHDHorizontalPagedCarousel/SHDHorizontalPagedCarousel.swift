@@ -12,7 +12,7 @@ import SwiftUI
 /// ## Discussion
 ///
 /// `SHDHorizontalPagedCarousel` is a specialized carousel container that presents items using
-/// SwiftUI's `TabView` with page-based navigation. This component displays one item at a time with
+/// SwiftUI's `ScrollView` with page-based navigation. This component displays one item at a time with
 /// smooth animated transitions between pages, and includes visual page indicators (dots) at the bottom
 /// for user orientation.
 ///
@@ -28,42 +28,47 @@ import SwiftUI
 /// - Story-like sequential content navigation
 ///
 /// The component manages internal state (`currentPage` and `scrollID`) to track the active page and supports
-/// customization of proportion variants through the `proportionVariant(_:)` modifier.
+/// customization of aspect ratios through the `aspectRatio(_:)` modifier.
 /// This component is used internally by `SHDCarousel` and should not be directly instantiated by consumers.
 ///
 /// ## Usage
 ///
 /// ```swift
+/// struct PhotoItem: SHDCarouselRepresentable {
+///     var id = UUID()
+///     var url: URL
+///
+///     var content: some View {
+///         AsyncImage(url: url)
+///     }
+/// }
+///
 /// SHDHorizontalPagedCarousel(
-///     items: photos,
-///     modelItemView: { photo in
-///         AsyncImage(url: photo.url)
-///     },
-///     proportion: .threeToFourWithSingleItem
+///     items: photos.map { PhotoItem(url: $0) }
 /// )
+/// .aspectRatio(.threeToFourWithSingleItem)
 /// ```
 ///
-internal struct SHDHorizontalPagedCarousel<Item, Content: View>: View {
+internal struct SHDHorizontalPagedCarousel<Item: SHDCarouselRepresentable >: View {
 
     @State private var scrollID: Int? = 0
     @State private var currentPage = 0
     var items: [Item]
-    var modelItemView: (Item) -> Content
-    var proportion: SHDCarouseItemAspectRatio
+    var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
         VStack(spacing: .sm) {
             GeometryReader { proxy in
                 let containerWidth = proxy.size.width
-                let itemWidth = containerWidth * proportion.widthFactor
-                let itemHeight = itemWidth / proportion.aspectRatio
+                let itemWidth = containerWidth * aspectRatio.widthFactor
+                let itemHeight = itemWidth / aspectRatio.aspectRatio
 
                 ScrollView(.horizontal) {
                     LazyHStack {
-                        ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-                            modelItemView(item)
+                        ForEach(items) { item in
+                            item.content
                                 .frame(width: itemWidth, height: itemHeight)
-                                .id(index)
+                                .id(item.id)
                         }
                     }
                     .scrollTargetLayout()
@@ -80,7 +85,7 @@ internal struct SHDHorizontalPagedCarousel<Item, Content: View>: View {
                     }
                 }
             }
-            .aspectRatio(proportion.effectiveAspectRatio, contentMode: .fit)
+            .aspectRatio(aspectRatio.effectiveAspectRatio, contentMode: .fit)
 
             indicators
         }
@@ -100,17 +105,17 @@ internal struct SHDHorizontalPagedCarousel<Item, Content: View>: View {
         }
     }
 
-    /// Sets the proportion variant for items displayed in the paged carousel.
+    /// Sets the aspect ratio for items displayed in the paged carousel.
     ///
     /// This modifier allows customization of item dimensions specifically for single-item paging layouts,
-    /// such as adjusting the aspect ratio and size for featured content presentation. The proportion
+    /// such as adjusting the aspect ratio and size for featured content presentation. The aspect ratio
     /// affects both the width factor and aspect ratio calculations used to determine item dimensions
     /// within the scrollable container.
     ///
     /// - Parameters:
-    ///   - proportion: The `SHDCarouseItemAspectRatio` to apply to the carousel items
-    func proportionVariant(_ proportion: SHDCarouseItemAspectRatio) -> Self {
-        mutating(keyPath: \.proportion, value: proportion)
+    ///   - aspectRatio: The `SHDCarouselItemAspectRatio` to apply to the carousel items
+    func aspectRatio(_ aspectRatio: SHDCarouselItemAspectRatio) -> Self {
+        mutating(keyPath: \.aspectRatio, value: aspectRatio)
     }
 }
 

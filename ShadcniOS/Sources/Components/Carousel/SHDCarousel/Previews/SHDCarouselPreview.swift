@@ -7,7 +7,29 @@
 
 import SwiftUI
 
+internal struct CarouselContentPreview: SHDCarouselRepresentable {
+    var id = UUID()
+    var number: Int
+
+    var content: some View {
+        HStack {
+            Text("\(number)")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.backgroundAccent)
+        }
+    }
+}
+
 internal struct SHDCarouselPreview: View {
+
+    var items = [
+        CarouselContentPreview(number: 1),
+        CarouselContentPreview(number: 2),
+        CarouselContentPreview(number: 3),
+        CarouselContentPreview(number: 4),
+        CarouselContentPreview(number: 5)
+    ]
+
     var body: some View {
         ScrollView {
             VStack {
@@ -16,11 +38,7 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
-                    }
+                    SHDCarousel(items: items)
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -28,12 +46,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
-                    }
-                    .layoutVariant(.groupHorizontal(.threeToFour))
+                    SHDCarousel(items: items)
+                        .layoutVariant(.groupHorizontal(.threeToFour))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -41,12 +55,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
-                    }
-                    .layoutVariant(.groupHorizontal(.sixteenToNine))
+                    SHDCarousel(items: items)
+                        .layoutVariant(.groupHorizontal(.sixteenToNine))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -54,12 +64,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
-                    }
-                    .layoutVariant(.singleHorizontal)
+                    SHDCarousel(items: items)
+                        .layoutVariant(.singleHorizontal)
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -67,22 +73,11 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
-                    }
-                    .layoutVariant(.groupVertical)
+                    SHDCarousel(items: items)
+                        .layoutVariant(.groupVertical)
                 }
             }
         }
-    }
-
-    private func itemView(_ item: Int) -> some View {
-        Text("\(item)")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .backgroundColor(.backgroundAccent)
-            .cornerRadius(.md)
     }
 }
 

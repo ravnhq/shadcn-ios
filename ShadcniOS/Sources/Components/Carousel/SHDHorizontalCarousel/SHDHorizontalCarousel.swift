@@ -13,12 +13,15 @@ import SwiftUI
 ///
 /// `SHDHorizontalCarousel` renders carousel items in a horizontal `ScrollView` with multiple
 /// items visible simultaneously. Items are arranged in an `HStack` with `.md` spacing and sized
-/// based on the provided `proportion`. This component is used for group horizontal layouts
+/// based on the provided `aspectRatio`. This component is used for group horizontal layouts
 /// where users can scroll through items horizontally to see adjacent content.
 ///
+/// The component automatically switches to `SHDHorizontalPagedCarousel` when the `.sixteenToNine`
+/// aspect ratio is used, providing a full-width, single-item-at-a-time paged experience.
+///
 /// The component calculates item dimensions dynamically based on the container width:
-/// - Item width: `containerWidth * proportion.widthFactor`
-/// - Item height: `itemWidth / proportion.aspectRatio`
+/// - Item width: `containerWidth * aspectRatio.widthFactor`
+/// - Item height: `itemWidth / aspectRatio.aspectRatio`
 ///
 /// This ensures responsive sizing that adapts to different screen sizes while maintaining
 /// the intended aspect ratios. The scroll view hides indicators and applies minimal padding
@@ -26,44 +29,44 @@ import SwiftUI
 ///
 /// ## Parameters → Init
 ///
-/// - `items`: An array of items to display in the horizontal group.
-/// - `proportion`: The `SHDCarouseItemAspectRatio` determining item dimensions and aspect ratios.
-/// - `modelItemView`: A `@ViewBuilder` closure that takes an individual item and returns
-///     the view to display for that item.
+/// - `items`: An array of items conforming to `SHDCarouselRepresentable` to display in the horizontal group.
+///     Each item provides its own content view through the protocol's `content` property.
+/// - `aspectRatio`: The `SHDCarouselItemAspectRatio` determining item dimensions and aspect ratios.
 ///
-internal struct SHDHorizontalCarousel<Item, Content: View>: View {
+internal struct SHDHorizontalCarousel<Item: SHDCarouselRepresentable>: View {
     var items: [Item]
-    var modelItemView: (Item) -> Content
-    var proportion: SHDCarouseItemAspectRatio = .oneToOne
+    var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
-        if proportion == .sixteenToNine {
+        if aspectRatio == .sixteenToNine {
             SHDHorizontalPagedCarousel(
-                items: items,
-                modelItemView: modelItemView,
-                proportion: proportion
+                items: items
             )
-            .proportionVariant(proportion)
+            .aspectRatio(aspectRatio)
         } else {
             GeometryReader { proxy in
                 let containerWidth = proxy.size.width
-                let itemWidth = containerWidth * proportion.widthFactor
-                let itemHeight = itemWidth / proportion.aspectRatio
+                let itemWidth = containerWidth * aspectRatio.widthFactor
+                let itemHeight = itemWidth / aspectRatio.aspectRatio
 
                 ScrollView(.horizontal) {
                     HStack(spacing: .md) {
-                        ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-                            modelItemView(item)
+                        ForEach(items) { item in
+                            item.content
                                 .frame(width: itemWidth, height: itemHeight)
                         }
                     }
                 }
                 .scrollIndicators(.hidden)
             }
-            .aspectRatio(proportion.effectiveAspectRatio, contentMode: .fit)
+            .aspectRatio(aspectRatio.effectiveAspectRatio, contentMode: .fit)
             .padding(.vertical, .xxs)
             .padding(.horizontal, .sm)
         }
+    }
+    
+    func aspectRatio(_ aspectRatio: SHDCarouselItemAspectRatio) -> Self {
+        mutating(keyPath: \.aspectRatio, value: aspectRatio)
     }
 }
 

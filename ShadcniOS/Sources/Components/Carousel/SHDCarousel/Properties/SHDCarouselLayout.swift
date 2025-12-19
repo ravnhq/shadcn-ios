@@ -15,42 +15,57 @@
 ///
 /// The three layout variants provide different user experiences:
 /// - `Group Horizontal` displays multiple items visible at once in a horizontal scroll container,
-///   allowing users to see context from adjacent items. When used with the `.sixteenToNine` proportion
+///   allowing users to see context from adjacent items. When used with the `.sixteenToNine` aspect ratio
 ///   (e.g., `.groupHorizontal(.sixteenToNine)`), it automatically switches to a paged carousel
 ///   for a full-width, single-item-at-a-time experience.
 /// - `Single Horizontal` uses a paged carousel for horizontal browsing,
 ///   displaying one item at a time with page indicators. This variant is ideal for photo galleries
 ///   and image-focused carousels.
 /// - `Group Vertical` arranges items vertically in a scrollable container, allowing multiple items
-///   to be visible at once depending on screen size and item proportions. This variant is useful for
+///   to be visible at once depending on screen size and item aspect ratios. This variant is useful for
 ///   displaying lists of similar items in portrait orientation.
 ///
 /// Layout behavior:
-/// - Horizontal layouts apply `.md` horizontal padding and `.xxs` vertical padding
+/// - Horizontal layouts apply `.sm` horizontal padding and `.xxs` vertical padding
+/// - Vertical layout applies `.md` horizontal padding and `.xxs` vertical padding
 /// - Group layouts use `HStack` (horizontal) or `VStack` (vertical) with `.md` spacing between items
 /// - Single Horizontal automatically provides visual page indicators for navigation
 ///
 /// ## Usage
 ///
 /// ```swift
-/// SHDCarousel(items: products) { product in
-///     ProductCard(product: product)
-/// }
-/// .layoutVariant(.groupHorizontal(.threeToFour))
+/// struct ProductItem: SHDCarouselRepresentable {
+///     var id = UUID()
+///     var product: Product
 ///
-/// SHDCarousel(items: images) { image in
-///     AsyncImage(url: image.url)
+///     var content: some View {
+///         ProductCard(product: product)
+///     }
 /// }
-/// .layoutVariant(.singleHorizontal)
+///
+/// SHDCarousel(items: products.map { ProductItem(product: $0) })
+///     .layoutVariant(.groupHorizontal(.threeToFour))
+///
+/// struct ImageItem: SHDCarouselRepresentable {
+///     var id = UUID()
+///     var url: URL
+///
+///     var content: some View {
+///         AsyncImage(url: url)
+///     }
+/// }
+///
+/// SHDCarousel(items: images.map { ImageItem(url: $0) })
+///     .layoutVariant(.singleHorizontal)
 /// ```
 ///
 public enum SHDCarouselLayout: Equatable, Hashable {
     /// Multiple items visible in a horizontal scroll.
     ///
     /// Items are displayed side-by-side with `.md` spacing.
-    /// When using the `.sixteenToNine` proportion variant,
+    /// When using the `.sixteenToNine` aspect ratio variant,
     /// automatically switches to a paged carousel for full-width presentation.
-    case groupHorizontal(SHDCarouseItemAspectRatio)
+    case groupHorizontal(SHDCarouselItemAspectRatio)
 
     /// Single item at a time with horizontal paging.
     ///
@@ -61,6 +76,6 @@ public enum SHDCarouselLayout: Equatable, Hashable {
     /// Multiple items visible in a vertical scroll.
     ///
     /// Items are stacked vertically with customizable spacing, allowing multiple items to be visible
-    /// depending on proportion variant and device screen size.
+    /// depending on aspect ratio variant and device screen size.
     case groupVertical
 }

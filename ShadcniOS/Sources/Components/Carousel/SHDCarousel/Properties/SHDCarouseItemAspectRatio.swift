@@ -11,11 +11,11 @@ import Foundation
 ///
 /// ## Discussion
 ///
-/// `SHDCarouseItemAspectRatio` controls the visual dimensions and aspect ratios of items displayed
+/// `SHDCarouselItemAspectRatio` controls the visual dimensions and aspect ratios of items displayed
 /// in a carousel. Each variant provides preset width and height values optimized for different content types
 /// and use cases.
 ///
-/// The four proportion variants balance content visibility with design flexibility:
+/// The four aspect ratio variants balance content visibility with design flexibility:
 /// - `One to One` (1:1) creates square items ideal for avatars, icons, or uniform grid layouts.
 /// - `Three to Four` (3:4) provides a portrait-oriented rectangle suitable for profile
 ///     cards or product thumbnails.
@@ -34,18 +34,32 @@ import Foundation
 /// ## Usage
 ///
 /// ```swift
-/// SHDCarousel(items: products) { product in
-///     ProductThumbnail(product: product)
-/// }
-/// .layoutVariant(.groupHorizontal(.threeToFour))
+/// struct ProductItem: SHDCarouselRepresentable {
+///     var id = UUID()
+///     var product: Product
 ///
-/// SHDCarousel(items: videos) { video in
-///     VideoPreview(video: video)
+///     var content: some View {
+///         ProductThumbnail(product: product)
+///     }
 /// }
-/// .layoutVariant(.groupHorizontal(.sixteenToNine))
+///
+/// SHDCarousel(items: products.map { ProductItem(product: $0) })
+///     .layoutVariant(.groupHorizontal(.threeToFour))
+///
+/// struct VideoItem: SHDCarouselRepresentable {
+///     var id = UUID()
+///     var video: Video
+///
+///     var content: some View {
+///         VideoPreview(video: video)
+///     }
+/// }
+///
+/// SHDCarousel(items: videos.map { VideoItem(video: $0) })
+///     .layoutVariant(.groupHorizontal(.sixteenToNine))
 /// ```
 ///
-public enum SHDCarouseItemAspectRatio {
+public enum SHDCarouselItemAspectRatio {
     /// Square aspect ratio (1:1).
     ///
     /// Ideal for displaying avatars, icons, or uniform square content in grid-like arrangements.
@@ -61,8 +75,8 @@ public enum SHDCarouseItemAspectRatio {
     /// Landscape aspect ratio (16:9).
     ///
     /// Optimized for video content, movie posters, or landscape imagery.
-    /// When used with `.groupHorizontal` layout, automatically switches to a paged carousel
-    /// for optimal full-width presentation.
+    /// When used with `.groupHorizontal` layout in `SHDHorizontalCarousel`, automatically switches
+    /// to `SHDHorizontalPagedCarousel` for optimal full-width, single-item presentation.
     case sixteenToNine
 
     /// Tall portrait aspect ratio (3:4) optimized for single-item layouts .

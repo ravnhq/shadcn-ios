@@ -12,38 +12,33 @@ import SwiftUI
 /// ## Discussion
 ///
 /// `SHDVerticalCarousel` renders carousel items inside a vertical `ScrollView`, stacking them
-/// in a `VStack`. Items are sized based on the provided `proportionVariant`, which determines
+/// in a `VStack`. Items are sized based on the provided `aspectRatio`, which determines
 /// their aspect ratio and dimensions.
 ///
 /// This layout is intended to support the `.groupVertical` case of `SHDCarouselLayout`,
 /// allowing multiple items to be visible at once depending on the selected
-/// `SHDCarouseItemAspectRatio` and device size. Vertical scrolling hides indicators for a
+/// `SHDCarouselItemAspectRatio` and device size. Vertical scrolling hides indicators for a
 /// clean, content-focused browsing experience, while horizontal and vertical padding create
 /// consistent spacing with other carousel layouts.
 ///
 /// ## Parameters → Init
 ///
-/// - `items`: An array of items to display in the vertical list.
-/// - `layoutVariant`: The `SHDCarouselLayout` controlling layout semantics
-///     (typically `.groupVertical` for this type).
-/// - `proportionVariant`: The `SHDCarouseItemAspectRatio` determining item dimensions.
-/// - `content`: A `@ViewBuilder` closure that takes an individual item and returns
-///     the view to display for that item.
+/// - `items`: An array of items conforming to `SHDCarouselRepresentable` to display in the vertical list.
+///     Each item provides its own content view through the protocol's `content` property.
+/// - `aspectRatio`: The `SHDCarouselItemAspectRatio` determining item dimensions and aspect ratios.
 ///
-internal struct SHDVerticalCarousel<Item, Content: View>: View {
+internal struct SHDVerticalCarousel<Item: SHDCarouselRepresentable>: View {
 
     var items: [Item]
-    var modelItemView: (Item) -> Content
-    var layoutVariant: SHDCarouselLayout = .groupHorizontal(.oneToOne)
-    var proportionVariant: SHDCarouseItemAspectRatio = .oneToOne
+    var aspectRation: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
         ScrollView {
             VStack(spacing: .md) {
-                ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-                    modelItemView(item)
+                ForEach(items) { item in
+                    item.content
                         .aspectRatio(
-                            SHDCarouseItemAspectRatio.sixteenToNine.aspectRatio,
+                            aspectRation.aspectRatio,
                             contentMode: .fit
                         )
                 }
@@ -52,5 +47,9 @@ internal struct SHDVerticalCarousel<Item, Content: View>: View {
             .padding(.vertical, .xxs)
             .padding(.horizontal, .md)
         }
+    }
+    
+    func aspectRatio(_ aspectRation: SHDCarouselItemAspectRatio) -> Self {
+        mutating(keyPath: \.aspectRation, value: aspectRation)
     }
 }
