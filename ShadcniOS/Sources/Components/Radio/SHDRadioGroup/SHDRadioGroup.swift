@@ -106,7 +106,5 @@ public struct SHDRadioGroup<Item: SHDRadioGroupRepresentable>: View {
 }
 
 #Preview {
-  //  SHDRadioGroupPreview()
+    SHDRadioGroupPreview()
 }
-
-
