@@ -23,6 +23,7 @@ import Foundation
 /// ## Usage
 /// ```swift
 /// struct RadioOption: SHDRadioGroupRepresentable {
+///     var id: UUID = UUID()
 ///     var title: String
 /// }
 ///

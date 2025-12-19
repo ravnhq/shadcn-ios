@@ -8,6 +8,7 @@
 import SwiftUI
 
 internal struct RadioOptionPreview: SHDRadioGroupRepresentable {
+    var id: Int
     var title: String
 }
 
@@ -17,9 +18,9 @@ internal struct SHDRadioGroupPreview: View {
     @State var selectecOption3: RadioOptionPreview?
 
     var items = [
-        RadioOptionPreview(title: "This is the 1st option"),
-        RadioOptionPreview(title: "This is the 2nd option"),
-        RadioOptionPreview(title: "This is the 3th option")
+        RadioOptionPreview(id: 1, title: "This is the 1st option"),
+        RadioOptionPreview(id: 2, title: "This is the 2nd option"),
+        RadioOptionPreview(id: 3, title: "This is the 3th option")
     ]
 
     var body: some View {

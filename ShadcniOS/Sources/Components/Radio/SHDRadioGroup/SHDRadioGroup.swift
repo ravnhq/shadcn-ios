@@ -33,6 +33,7 @@ import SwiftUI
 /// Basic radio group with a custom type:
 /// ```swift
 /// struct RadioOption: SHDRadioGroupRepresentable {
+///     var id: UUID = UUID()
 ///     var title: String
 /// }
 ///
@@ -72,7 +73,6 @@ public struct SHDRadioGroup<Item: SHDRadioGroupRepresentable>: View {
     public init(
         items: [Item],
         selection: Binding<Item?>
-
     ) {
         self.items = items
         self._selection = selection
@@ -80,7 +80,7 @@ public struct SHDRadioGroup<Item: SHDRadioGroupRepresentable>: View {
 
     public var body: some View {
         VStack(spacing: .sm) {
-            ForEach(items, id: \.self) { item in
+            ForEach(items) { item in
                 SHDRadioItem(
                     isSelected: selection == item,
                     text: item.title

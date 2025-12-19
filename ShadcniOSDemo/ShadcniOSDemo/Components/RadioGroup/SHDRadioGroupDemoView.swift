@@ -9,6 +9,7 @@ import ShadcniOS
 import SwiftUI
 
 struct RadioOptionDemo: SHDRadioGroupRepresentable {
+    var id: UUID = UUID()
     var title: String
 }
 struct SHDRadioGroupDemoView: View {
@@ -19,7 +20,6 @@ struct SHDRadioGroupDemoView: View {
         RadioOptionDemo(title: "Accept Terms & Conditions"),
         RadioOptionDemo(title: "Accept Terms"),
         RadioOptionDemo(title: "Accept Conditions")
-
     ]
 
     var body: some View {
