@@ -16,46 +16,53 @@ internal struct SHDInputPreview: View {
             Text("Text Inputs")
                 .font(.headline)
 
-            SHDTextInput(
+            SHDTextField(
                 text: .constant(""),
                 placeholder: "Email address"
             )
+            .inputStyle(.sm)
 
-            SHDTextInput(
+            SHDTextField(
                 text: $filledValue,
                 placeholder: "Email address"
             )
+            .inputStyle(.md)
 
-            SHDTextInput(
+            SHDTextField(
                 text: .constant(""),
                 placeholder: "Email address"
             )
+            .inputStyle(.lg)
             .disabled(true)
 
-            SHDTextInput(
+            SHDTextField(
                 text: $disabledFilledValue,
                 placeholder: "Email address"
             )
+            .inputStyle(.md)
             .disabled(true)
 
-            SHDTextInput(
+            SHDTextField(
                 text: .constant(""),
                 placeholder: "Search",
                 leadingIcon: .notificationBellRing,
                 trailingIcon: .mathsX
             )
+            .inputStyle(.sm)
 
-            SHDTextInput(
+            SHDTextField(
                 text: .constant(""),
                 placeholder: "Search",
                 trailingIcon: .mathsX
             )
+            .inputStyle(.md)
 
-            SHDTextInput(
+            SHDTextField(
                 text: .constant(""),
                 placeholder: "Search",
                 leadingIcon: .notificationBellRing
             )
+            .inputStyle(.sm)
 
             Spacer()
         }

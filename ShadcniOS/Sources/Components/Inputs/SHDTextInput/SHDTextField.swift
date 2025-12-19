@@ -10,28 +10,31 @@ import SwiftUI
 /// A foundational text input used throughout the ShadcniOS design system.
 ///
 /// ## Discussion
-/// `SHDTextInput` provides a minimal, composable base for all input variants.
-/// It accepts a bound text value, supports a placeholder, and applies the core
-/// layout and surface styling expected by the design system.
+/// `SHDTextField` binds to external text, renders a placeholder when empty, and
+/// supports optional leading/trailing icons. Size and typography are driven by
+/// the `inputStyle` modifier, following design tokens for height, padding, and type.
+///
+/// - Parameters:
+///   - text: Bound text value for the field.
+///   - placeholder: Placeholder text displayed when the input is empty.
+///   - leadingIcon: Optional icon displayed at the leading edge of the field.
+///   - trailingIcon: Optional icon displayed at the trailing edge of the field.
 ///
 /// ## Usage
 /// ```swift
 /// @State private var value = ""
-/// SHDTextInput(text: $value, placeholder: "Email address")
+/// SHDTextField(text: $value, placeholder: "Email address")
+///     .inputStyle(.md)
 /// ```
-public struct SHDTextInput: View {
+public struct SHDTextField: View {
+    @Environment(\.inputTextStyle) private var inputTextStyle
+    @State private var size: SHDInputSize = .md
+
     @Binding private var text: String
     private let placeholder: String
     private let leadingIcon: SHDIconAsset?
     private let trailingIcon: SHDIconAsset?
 
-    /// Creates a ShadcniOS text input.
-    ///
-    /// - Parameters:
-    ///   - text: Bound text value for the field.
-    ///   - placeholder: Placeholder text displayed when the input is empty.
-    ///   - leadingIcon: Optional icon displayed at the leading edge of the field.
-    ///   - trailingIcon: Optional icon displayed at the trailing edge of the field.
     public init(
         text: Binding<String>,
         placeholder: String,
@@ -53,13 +56,13 @@ public struct SHDTextInput: View {
             ZStack(alignment: .leading) {
                 if text.isEmpty {
                     Text(placeholder)
-                        .textStyle(.textBaseRegular)
+                        .textStyle(inputTextStyle)
                         .foregroundColor(.foregroundMuted)
                         .allowsHitTesting(false)
                 }
 
                 TextField("", text: $text)
-                    .textStyle(.textBaseRegular)
+                    .textStyle(inputTextStyle)
                     .foregroundColor(.foregroundDefault)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -69,9 +72,22 @@ public struct SHDTextInput: View {
             }
         }
         .padding(.horizontal, .xs)
-        .padding(.vertical, .xs)
+        .padding(.vertical, size.paddingStyle)
         .backgroundColor(.backgroundDefault)
         .overlay(inputBorder)
+            .cornerRadius(.md)
+            .disabledMask()
+    }
+
+    /// Applies the input size, updating text style, icon size, and height tokens.
+    ///
+    /// - Parameter size: Desired input size. Defaults to `.md`.
+    /// - Returns: A text input configured with the given size.
+    public func inputStyle(_ size: SHDInputSize = .md) -> some View {
+        mutating { input in
+            input.size = size
+        }
+        .environment(\.inputTextStyle, size.textStyle)
         .cornerRadius(.md)
         .disabledMask()
     }
@@ -83,7 +99,7 @@ public struct SHDTextInput: View {
 
     private func iconView(_ icon: SHDIconAsset) -> some View {
         SHDIcon(icon)
-            .iconSize(.lg)
+            .iconSize(size.iconSize)
             .foregroundColor(.iconDefault)
     }
 }
