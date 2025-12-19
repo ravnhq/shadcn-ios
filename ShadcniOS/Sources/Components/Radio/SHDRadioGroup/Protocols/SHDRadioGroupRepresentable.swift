@@ -48,11 +48,13 @@
 ///
 /// ## Requirements
 /// - `title: String`: The text label displayed for this radio option
+/// - `id`: An identifier property required by `Identifiable` conformance
 /// - `Hashable`: Conformance required for item identification and selection comparison
+/// - `Identifiable`: Conformance required for unique item identification in SwiftUI's `ForEach`
 ///
 /// ## Related Types
 /// - ``SHDRadioGroup``
-public protocol SHDRadioGroupRepresentable: Hashable {
+public protocol SHDRadioGroupRepresentable: Hashable, Identifiable {
     /// The text label displayed for this radio option.
     var title: String { get }
 }

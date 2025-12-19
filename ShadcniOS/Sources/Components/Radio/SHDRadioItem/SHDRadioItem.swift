@@ -28,10 +28,10 @@ import SwiftUI
 ///   - size: The visual size configuration, defaulting to `.md`.
 ///   - onTap: Closure invoked when the user selects this item.
 internal struct SHDRadioItem: View {
-    var isSelected: Bool
-    var text: String?
+    let isSelected: Bool
+    let text: String?
+    let onTap: () -> Void
     var size: SHDRadioGroupSize = .md
-    var onTap: () -> Void
 
     var body: some View {
         Toggle(
