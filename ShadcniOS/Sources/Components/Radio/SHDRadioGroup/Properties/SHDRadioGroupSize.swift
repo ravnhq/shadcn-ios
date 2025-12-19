@@ -22,10 +22,18 @@ import Foundation
 ///
 /// ## Usage
 /// ```swift
+/// struct RadioOption: SHDRadioGroupRepresentable {
+///     var title: String
+/// }
+///
 /// struct ExampleView: View {
-///     @State private var selection: Int = 0
+///     @State private var selection: RadioOption?
 ///     @State private var size: SHDRadioGroupSize = .md
-///     private var options: [String] = ["Option A", "Option B", "Option C"]
+///     private var items = [
+///         RadioOption(title: "Option A"),
+///         RadioOption(title: "Option B"),
+///         RadioOption(title: "Option C")
+///     ]
 ///
 ///     var body: some View {
 ///         VStack {
@@ -36,8 +44,8 @@ import Foundation
 ///             .pickerStyle(.segmented)
 ///
 ///             SHDRadioGroup(
-///                 selection: $selection,
-///                 options: options
+///                 items: items,
+///                 selection: $selection
 ///             )
 ///             .radioGroupStyle(size)
 ///         }
@@ -54,14 +62,14 @@ public enum SHDRadioGroupSize {
     /// Large radio size for emphasized options.
     case lg
 
-    var outlineCircle: CGFloat {
+    var outlineCircleSize: CGFloat {
         switch self {
         case .md: 20
         case .lg: 24
         }
     }
 
-    var filledCircle: CGFloat {
+    var filledCircleSize: CGFloat {
         switch self {
         case .md: 14
         case .lg: 18
