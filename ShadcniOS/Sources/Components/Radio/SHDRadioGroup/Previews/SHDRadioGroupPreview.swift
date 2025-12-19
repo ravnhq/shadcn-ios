@@ -7,15 +7,19 @@
 
 import SwiftUI
 
-internal struct SHDRadioGroupPreview: View {
-    @State var selectecOption1: Int = 0
-    @State var selectecOption2: Int = 0
-    @State var selectecOption3: Int = 0
+internal struct RadioOptionPreview: SHDRadioGroupRepresentable {
+    var title: String
+}
 
-    var options: [String] = [
-        "This is the 1st option",
-        "This is the 2nd option",
-        "This is the 3rd option"
+internal struct SHDRadioGroupPreview: View {
+    @State var selectecOption1: RadioOptionPreview?
+    @State var selectecOption2: RadioOptionPreview?
+    @State var selectecOption3: RadioOptionPreview?
+
+    var items = [
+        RadioOptionPreview(title: "This is the 1st option"),
+        RadioOptionPreview(title: "This is the 2nd option"),
+        RadioOptionPreview(title: "This is the 3th option")
     ]
 
     var body: some View {
@@ -31,8 +35,8 @@ internal struct SHDRadioGroupPreview: View {
                     Text("Medium: ")
 
                     SHDRadioGroup(
-                        selection: $selectecOption1,
-                        options: options
+                        items: items,
+                        selection: $selectecOption1
                     )
                     .radioGroupStyle(.md)
                     .padding(.bottom, 10)
@@ -41,8 +45,8 @@ internal struct SHDRadioGroupPreview: View {
                 HStack {
                     Text("Large: ")
                     SHDRadioGroup(
-                        selection: $selectecOption2,
-                        options: options
+                        items: items,
+                        selection: $selectecOption2
                     )
                     .radioGroupStyle(.lg)
                 }
@@ -54,10 +58,10 @@ internal struct SHDRadioGroupPreview: View {
                     .textStyle(.textBaseSemibold)
 
                 SHDRadioGroup(
-                    selection: $selectecOption3,
-                    options: options
+                    items: items,
+                    selection: $selectecOption3
                 )
-                .disable()
+                .disabled(true)
             }
             .padding(.horizontal, 90)
         }

@@ -10,79 +10,87 @@ import SwiftUI
 /// A radio group component used throughout the ShadcniOS design system.
 ///
 /// ## Discussion
-/// `SHDRadioGroup` renders mutually exclusive options from a provided array of text labels.
-/// Selection is controlled externally via a bound `Int` value representing the index of
-/// the selected option, allowing parent views to observe and update which option is
-/// currently active.
+/// `SHDRadioGroup` renders mutually exclusive options from a provided array of items
+/// conforming to ``SHDRadioGroupRepresentable``. Selection is controlled externally via
+/// a bound optional value of the item type, allowing parent views to observe and update
+/// which option is currently active.
 ///
 /// Visual styling (size and disabled state) is applied through modifier-style APIs,
 /// keeping the core component focused on layout and behavior:
 /// - ``radioGroupStyle(_:)`` controls control dimensions and typography using
 ///   `SHDRadioGroupSize`.
-/// - ``disable(_:)`` toggles interactivity while applying a disabled mask.
+/// - ``disabled(_:)`` toggles interactivity while applying a disabled mask.
 ///
-/// Internally, the group composes `SHDRadioItem` views—one for each option in the
+/// Internally, the group composes `SHDRadioItem` views—one for each item in the
 /// provided array—and uses the `selection` binding to drive their visual state.
-/// When a user taps an item, the binding is updated to the corresponding index.
+/// When a user taps an item, the binding is updated to the corresponding item instance.
 ///
 /// - Parameters:
-///   - selection: Binding to an `Int` that controls which option is selected (0-based index).
-///   - options: Array of label strings for each radio option.
+///   - items: Array of items conforming to `SHDRadioGroupRepresentable` for each radio option.
+///   - selection: Binding to an optional item that controls which option is selected.
 ///
 /// ## Usage
-/// Basic radio group with multiple options:
+/// Basic radio group with a custom type:
 /// ```swift
+/// struct RadioOption: SHDRadioGroupRepresentable {
+///     var title: String
+/// }
+///
 /// struct ExampleView: View {
-///     @State private var selection: Int = 0
+///     @State private var selection: RadioOption?
 ///     @State private var size: SHDRadioGroupSize = .md
 ///     @State private var isDisabled: Bool = false
-///     private var options: [String] = ["Option A", "Option B", "Option C"]
+///     private var items = [
+///         RadioOption(title: "Option A"),
+///         RadioOption(title: "Option B"),
+///         RadioOption(title: "Option C")
+///     ]
 ///
 ///     var body: some View {
 ///         VStack(spacing: 16) {
 ///             SHDRadioGroup(
-///                 selection: $selection,
-///                 options: options
+///                 items: items,
+///                 selection: $selection
 ///             )
 ///             .radioGroupStyle(size)
-///             .disable(isDisabled)
+///             .disabled(isDisabled)
 ///         }
 ///     }
 /// }
 /// ```
 ///
 /// ## Related Types
+/// - ``SHDRadioGroupRepresentable``
 /// - ``SHDRadioGroupSize``
 /// - ``SHDRadioItem``
-public struct SHDRadioGroup: View {
+public struct SHDRadioGroup<Item: SHDRadioGroupRepresentable>: View {
 
-    @Binding private var selection: Int
+    @Binding private var selection: Item?
     private var size: SHDRadioGroupSize = .md
-    private var disable: Bool = false
-    private var options: [String]
+    private var items: [Item]
 
     public init(
-        selection: Binding<Int>,
-        options: [String]
+        items: [Item],
+        selection: Binding<Item?>
+
     ) {
+        self.items = items
         self._selection = selection
-        self.options = options
     }
 
     public var body: some View {
         VStack(spacing: .sm) {
-            ForEach(options.indices, id: \.self) { index in
+            ForEach(items, id: \.self) { item in
                 SHDRadioItem(
-                    isSelected: selection == index,
-                    text: options[index]
+                    isSelected: selection == item,
+                    text: item.title
                 ) {
-                    selection = index
+                    selection = item
                 }
                 .radioItemStyle(size)
             }
         }
         .disabledMask()
-        .disabled(disable)
     }
 
     /// Applies a visual size to the radio group.
@@ -95,19 +103,10 @@ public struct SHDRadioGroup: View {
     public func radioGroupStyle(_ size: SHDRadioGroupSize) -> Self {
         mutating(keyPath: \.size, value: size)
     }
-
-    /// Enables or disables user interaction for the radio group.
-    ///
-    /// When disabled, the group applies a visual disabled mask and prevents
-    /// changes to the selection in response to user taps.
-    ///
-    /// - Parameter disable: Pass `true` to disable the group, `false` to enable it.
-    /// - Returns: A modified `SHDRadioGroup` with the disabled state applied.
-    public func disable(_ disable: Bool = true) -> Self {
-        mutating(keyPath: \.disable, value: disable)
-    }
 }
 
 #Preview {
-    SHDRadioGroupPreview()
+  //  SHDRadioGroupPreview()
 }
+
+
