@@ -50,10 +50,7 @@ internal struct SHDRadioItem: View {
                     .textStyle(size.textStyle)
             }
         }
-        .toggleStyle(
-            ToggleRadioConfiguration()
-                .size(size)
-        )
+        .toggleRadioStyle(size)
     }
 
     /// Applies the given size to this radio item.

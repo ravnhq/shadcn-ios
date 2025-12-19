@@ -27,13 +27,22 @@ internal struct ToggleRadioConfiguration: ToggleStyle {
         HStack(spacing: .sm) {
             ZStack {
                 Circle()
-                    .strokeBorder(SHDColor.borderPrimaryDefault.color, lineWidth: 1)
-                    .frame(width: size.outlineCircleSize, height: size.outlineCircleSize)
+                    .strokeBorder(
+                        SHDColor.borderPrimaryDefault.color,
+                        lineWidth: 1
+                    )
+                    .frame(
+                        width: size.outlineCircleSize,
+                        height: size.outlineCircleSize
+                    )
 
                 if configuration.isOn {
                     Circle()
                         .fill(SHDColor.iconSecondaryDefault.color)
-                        .frame(width: size.filledCircleSize, height: size.filledCircleSize)
+                        .frame(
+                            width: size.filledCircleSize,
+                            height: size.filledCircleSize
+                        )
                 }
             }
             .padding(.trailing, .xxs)
@@ -47,14 +56,26 @@ internal struct ToggleRadioConfiguration: ToggleStyle {
             }
         }
     }
-
-    func size(_ size: SHDRadioGroupSize) -> Self {
-        var copy = self
-        copy.size = size
-        return copy
-    }
 }
 
-#Preview {
-    //SHDRadioGroupPreview()
+extension View {
+    /// Applies the ShadcniOS radio toggle style using the provided size.
+    ///
+    /// ## Discussion
+    /// Mirrors other design-system helpers (such as `backgroundColor`) to keep styling
+    /// centralized and readable. This attaches the custom `ToggleRadioConfiguration` style
+    /// so the toggle renders with a circular radio indicator using the correct sizing tokens.
+    ///
+    /// ## Usage
+    /// ```swift
+    /// Toggle("Option 1", isOn: $isSelected)
+    ///     .toggleRadioStyle(.md)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - size: Radio group sizing preset that controls both outline and filled circle dimensions.
+    /// - Returns: A view with the radio toggle style applied.
+    func toggleRadioStyle(_ size: SHDRadioGroupSize) -> some View {
+        toggleStyle(ToggleRadioConfiguration(size: size))
+    }
 }
