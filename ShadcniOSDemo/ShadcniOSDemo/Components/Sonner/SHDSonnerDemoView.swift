@@ -62,7 +62,6 @@ struct SHDSonnerDemoView: View {
                 }
                 .padding(.horizontal)
 
-                // Show Button
                 Button {
                     isPresented = true
                 } label: {
@@ -84,7 +83,8 @@ struct SHDSonnerDemoView: View {
         }
         .showSonner(isPresented: $isPresented, from: position) {
             SHDSonner(title: "Event has been created",
-                      subtitle: "Sunday, December 03, 2023 at 9:00 AM",)
+                      subtitle: "Sunday, December 03, 2023 at 9:00 AM"
+            )
             .sonnerVariant(variant: selectedVariant, size: selectedSize)
         }
     }
