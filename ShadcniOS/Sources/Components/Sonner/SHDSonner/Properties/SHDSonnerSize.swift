@@ -65,9 +65,8 @@ public enum SHDSonnerSize {
 
     var iconSize: SHDIconSize {
         switch self {
-        case .sm: .sm
-        case .md: .md
-        case .lg: .lg
+        case .sm, .md: .lg
+        case .lg: .xl
         }
     }
 }

@@ -56,26 +56,26 @@ public enum SHDSonnerVariant {
     var icon: SHDIconAsset {
         switch self {
         case .default:
-            return .codingDevelopmentTerminal
+            .codingDevelopmentTerminal
         case .success:
-            return .notificationCircleCheckBig
+            .notificationCircleCheckBig
         case .warning:
-            return .triangleAlert
+            .triangleAlert
         case .destructive:
-            return .notificationCircleAlert
+            .notificationCircleAlert
         }
     }
 
     var foregroundColor: SHDColor {
         switch self {
         case .default:
-            return .foregroundDefault
+            .foregroundDefault
         case .success:
-            return .iconSuccessDefault
+            .iconSuccessDefault
         case .warning:
-            return .iconWarningDefault
+            .iconWarningDefault
         case .destructive:
-            return .iconDestructiveDefault
+            .iconDestructiveDefault
         }
     }
 }
