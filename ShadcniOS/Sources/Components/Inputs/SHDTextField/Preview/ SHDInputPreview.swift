@@ -17,50 +17,50 @@ internal struct SHDInputPreview: View {
                 .font(.headline)
 
             SHDTextField(
-                text: .constant(""),
-                placeholder: "Email address"
+                placeholder: "Email address",
+                text: .constant("")
             )
             .inputStyle(.sm)
 
             SHDTextField(
-                text: $filledValue,
-                placeholder: "Email address"
+                placeholder: "Email address",
+                text: $filledValue
             )
             .inputStyle(.md)
 
             SHDTextField(
-                text: .constant(""),
-                placeholder: "Email address"
+                placeholder: "Email address",
+                text: .constant("")
             )
             .inputStyle(.lg)
             .disabled(true)
 
             SHDTextField(
-                text: $disabledFilledValue,
-                placeholder: "Email address"
+                placeholder: "Email address",
+                text: $disabledFilledValue
             )
             .inputStyle(.md)
             .disabled(true)
 
             SHDTextField(
-                text: .constant(""),
                 placeholder: "Search",
                 leadingIcon: .notificationBellRing,
-                trailingIcon: .mathsX
+                trailingIcon: .mathsX,
+                text: .constant("")
             )
             .inputStyle(.sm)
 
             SHDTextField(
-                text: .constant(""),
                 placeholder: "Search",
-                trailingIcon: .mathsX
+                trailingIcon: .mathsX,
+                text: .constant("")
             )
             .inputStyle(.md)
 
             SHDTextField(
-                text: .constant(""),
                 placeholder: "Search",
-                leadingIcon: .notificationBellRing
+                leadingIcon: .notificationBellRing,
+                text: .constant("")
             )
             .inputStyle(.sm)
 

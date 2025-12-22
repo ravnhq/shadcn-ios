@@ -42,10 +42,10 @@ struct SHDTextInputDemoView: View {
                         .font(.headline)
 
                     SHDTextField(
-                        text: $text,
                         placeholder: "Email address",
                         leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
-                        trailingIcon: hasTrailingIcon ? .mathsX : nil
+                        trailingIcon: hasTrailingIcon ? .mathsX : nil,
+                        text: $text
                     )
                     .inputStyle(size)
                     .disabled(isDisabled)

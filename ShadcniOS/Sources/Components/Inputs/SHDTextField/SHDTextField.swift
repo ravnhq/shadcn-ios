@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A foundational text input used throughout the ShadcniOS design system.
+/// A foundational textfield used throughout the ShadcniOS design system.
 ///
 /// ## Discussion
 /// `SHDTextField` binds to external text, renders a placeholder when empty, and
@@ -15,10 +15,10 @@ import SwiftUI
 /// the `inputStyle` modifier, following design tokens for height, padding, and type.
 ///
 /// - Parameters:
-///   - text: Bound text value for the field.
 ///   - placeholder: Placeholder text displayed when the input is empty.
 ///   - leadingIcon: Optional icon displayed at the leading edge of the field.
 ///   - trailingIcon: Optional icon displayed at the trailing edge of the field.
+///   - text: Bound text value for the field.
 ///
 /// ## Usage
 /// ```swift
@@ -28,18 +28,18 @@ import SwiftUI
 /// ```
 public struct SHDTextField: View {
     @Environment(\.inputTextStyle) private var inputTextStyle
-    @State private var size: SHDInputSize = .md
-
     @Binding private var text: String
+
     private let placeholder: String
     private let leadingIcon: SHDIconAsset?
     private let trailingIcon: SHDIconAsset?
+    private var size: SHDInputSize = .md
 
     public init(
-        text: Binding<String>,
         placeholder: String,
         leadingIcon: SHDIconAsset? = nil,
-        trailingIcon: SHDIconAsset? = nil
+        trailingIcon: SHDIconAsset? = nil,
+        text: Binding<String>
     ) {
         _text = text
         self.placeholder = placeholder
@@ -74,9 +74,10 @@ public struct SHDTextField: View {
         .padding(.horizontal, .xs)
         .padding(.vertical, size.paddingStyle)
         .backgroundColor(.backgroundDefault)
-        .overlay(inputBorder)
-            .cornerRadius(.md)
-            .disabledMask()
+        .overlay(
+            RoundedRectangle(cornerRadius: .md)
+                .stroke(.borderDefault, lineWidth: 1)
+        )
     }
 
     /// Applies the input size, updating text style, icon size, and height tokens.
@@ -90,11 +91,6 @@ public struct SHDTextField: View {
         .environment(\.inputTextStyle, size.textStyle)
         .cornerRadius(.md)
         .disabledMask()
-    }
-
-    private var inputBorder: some View {
-        RoundedRectangle(cornerRadius: .md)
-            .stroke(.borderDefault, lineWidth: 1)
     }
 
     private func iconView(_ icon: SHDIconAsset) -> some View {
