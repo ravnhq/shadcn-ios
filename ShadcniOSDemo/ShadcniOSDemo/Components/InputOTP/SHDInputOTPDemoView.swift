@@ -69,7 +69,7 @@ struct SHDInputOTPDemoView: View {
                 Spacer().frame(height: 40)
 
                 SHDInputOTP(caption: "Please put the sent code")
-                    .inputOTPVariants(
+                    .inputOTPConfiguration(
                         variant: resolvedVariant,
                         size: size,
                         length: length

@@ -34,7 +34,7 @@
 ///   slot in its visual group.
 /// - `isEndOfGroup(index:totalCount:length:)`: Checks if the slot at the given index is
 ///   the last slot in its visual group.
-extension SHDInputOTPVariant {
+internal extension SHDInputOTPVariant {
     /// Determines whether a separator should be displayed before the slot at the given index.
     ///
     /// This method checks if the slot at the specified index is the start of a new group
@@ -105,14 +105,10 @@ extension SHDInputOTPVariant {
         guard case .separator(let groupOf) = self else {
             return nil
         }
-
-        switch length {
-        case .otp4:
-            return 2
-        case .otp6:
-            return 3
-        case .otp8:
-            return [2, 4].contains(groupOf) ? groupOf : 2
+       return switch length {
+        case .otp4: 2
+        case .otp6: 3
+        case .otp8: [2, 4].contains(groupOf) ? groupOf : 2
         }
     }
 

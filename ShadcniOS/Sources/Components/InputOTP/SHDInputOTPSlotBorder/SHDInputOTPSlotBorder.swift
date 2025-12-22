@@ -46,9 +46,9 @@ import SwiftUI
 internal struct SHDInputSlotBorder: View {
     let index: Int
     let count: Int
-    let variant: SHDInputOTPVariant
-    let state: SHDInputSlotState
-    let length: SHDInputOTPLength
+    var variant: SHDInputOTPVariant = .controlled
+    var state: SHDInputSlotState = .idle
+    var length: SHDInputOTPLength = .otp6
 
     private let cornerRadius: CGFloat = SHDSizing.Radius.md.value
 
@@ -70,6 +70,18 @@ internal struct SHDInputSlotBorder: View {
                 state.borderColor.color,
                 lineWidth: state.borderWidth
             )
+        }
+    }
+
+    func inputSlotBorderConfiguration(
+        variant: SHDInputOTPVariant,
+        state: SHDInputSlotState,
+        length: SHDInputOTPLength
+    ) -> Self {
+        mutating { inputSlotBorder in
+            inputSlotBorder.variant = variant
+            inputSlotBorder.state = state
+            inputSlotBorder.length = length
         }
     }
 }

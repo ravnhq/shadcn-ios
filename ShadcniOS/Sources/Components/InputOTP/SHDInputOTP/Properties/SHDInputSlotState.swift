@@ -59,14 +59,18 @@ public enum SHDInputSlotState {
 
     var zIndex: Double {
         switch self {
-        case .focused: return 1
-        default: return 0
+        case .focused: 1
+        default: 0
         }
     }
 
     static func currentState(isFocused: Bool, isError: Bool) -> SHDInputSlotState {
-        if isFocused { return .focused }
-        if isError { return .error }
-        return .idle
+        if isFocused {
+            .focused
+        } else if isError {
+            .error
+        } else {
+            .idle
+        }
     }
 }

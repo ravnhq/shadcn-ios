@@ -109,15 +109,13 @@ public struct SHDInputOTP: View {
                         text: $otpDigits[index],
                         index: index,
                         count: otpDigits.count,
-                        variant: variant,
-                        size: size,
-                        length: length,
                         focusedField: $focusedField,
                         onValueChange: { newValue in
                             handleLogicChange(newValue, at: index)
-                        },
-                        isError: isError
+                        }
                     )
+                    .inputOTPItemConfiguration(variant: variant, size: size, length: length)
+                    .isError(isError)
                 }
             }
             if variant == .controlled {
@@ -181,7 +179,7 @@ public struct SHDInputOTP: View {
     /// - Returns: A configured instance of `SHDInputOTP`.
     ///
     /// - Note: Changing the length resets all input fields and refocuses the first field.
-    public func inputOTPVariants(
+    public func inputOTPConfiguration(
         variant: SHDInputOTPVariant = .controlled,
         size: SHDInputOTPSizing = .md,
         length: SHDInputOTPLength = .otp6

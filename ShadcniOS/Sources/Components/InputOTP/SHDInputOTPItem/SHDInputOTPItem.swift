@@ -19,9 +19,8 @@ import SwiftUI
 ///
 /// The view uses a `TextField` restricted to a single character and applies a background
 /// border view (`SHDInputSlotBorder`) that adapts its appearance based on focus, error state,
-/// and grouping information derived from the variant and length. Focus is controlled via a
-/// `FocusState` binding passed from the parent, enabling auto-advance and auto-regress
-/// behavior implemented in `SHDInputOTP`.
+/// and grouping information derived from the variant and length. Focus is controlled internally
+/// via a `@FocusState` property, enabling auto-advance and auto-regress behavior implemented in `SHDInputOTP`.
 ///
 /// The component computes a leading padding adjustment to visually collapse adjacent borders
 /// when separators are used or when the field is the first in the sequence.
@@ -31,7 +30,6 @@ import SwiftUI
 /// - `index`: The zero-based position of this slot within the OTP sequence.
 /// - `count`: The total number of OTP slots being displayed.
 /// - `text`: A two-way binding to the slot's text value (single character).
-/// - `focusedField`: A `FocusState` binding shared with the parent to control keyboard focus.
 /// - `variant`: The selected `SHDInputOTPVariant` determining separators and grouping behavior.
 /// - `size`: The `SHDInputOTPSizing` value that determines field dimensions and typography.
 /// - `length`: The `SHDInputOTPLength` value used together with the variant to compute grouping.
@@ -48,7 +46,6 @@ import SwiftUI
 ///   index: 0,
 ///   count: 6,
 ///   text: $otpDigits[0],
-///   focusedField: $focusedField,
 ///   variant: .controlled,
 ///   size: .md,
 ///   onValueChange: { newValue in /* parent logic */ },
@@ -58,7 +55,7 @@ import SwiftUI
 ///
 /// ## Variables → Public variables
 ///
-/// - `index`, `count`, `text`, `focusedField`, `variant`, `size`, `length`, `onValueChange`, `isError`
+/// - `index`, `count`, `text`, `variant`, `size`, `length`, `onValueChange`, `isError`
 ///   are provided by the parent; the view does not expose additional public state.
 ///
 /// ## Functions → Public functions
@@ -69,12 +66,13 @@ internal struct SHDInputOTPItem: View {
 
     let index: Int
     let count: Int
-    let variant: SHDInputOTPVariant
-    let size: SHDInputOTPSizing
-    let length: SHDInputOTPLength
     let focusedField: FocusState<Int?>.Binding
     let onValueChange: (String) -> Void
-    let isError: Bool
+
+    var variant: SHDInputOTPVariant = .controlled
+    var size: SHDInputOTPSizing = .md
+    var length: SHDInputOTPLength = .otp6
+    var isError: Bool = false
 
     private var isActive: Bool {
         focusedField.wrappedValue == index
@@ -95,17 +93,15 @@ internal struct SHDInputOTPItem: View {
 
     var body: some View {
         TextField("", text: $text)
-            .frame(width: size.size, height: size.size)
+            .frame(width: size.textFieldSize, height: size.textFieldSize)
             .multilineTextAlignment(.center)
             .tint(SHDColor.borderPrimaryDefault.color)
             .background(
                 SHDInputSlotBorder(
                     index: index,
-                    count: count,
-                    variant: variant,
-                    state: slotState,
-                    length: length
+                    count: count
                 )
+                .inputSlotBorderConfiguration(variant: variant, state: slotState, length: length)
             )
             .foregroundColor(.primary)
             .focused(focusedField, equals: index)
@@ -114,5 +110,21 @@ internal struct SHDInputOTPItem: View {
             .onChange(of: text) { newValue in
                 onValueChange(newValue)
             }
+    }
+
+    public func inputOTPItemConfiguration(
+        variant: SHDInputOTPVariant = .controlled,
+        size: SHDInputOTPSizing = .md,
+        length: SHDInputOTPLength = .otp6
+    ) -> Self {
+        mutating { inputOTP in
+            inputOTP.variant = variant
+            inputOTP.size = size
+            inputOTP.length = length
+        }
+    }
+
+    public func isError(_ isError: Bool = true) -> Self {
+        mutating(keyPath: \.isError, value: isError)
     }
 }

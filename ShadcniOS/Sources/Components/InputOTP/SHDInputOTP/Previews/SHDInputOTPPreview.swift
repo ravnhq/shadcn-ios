@@ -31,41 +31,41 @@ internal struct SHDInputOTPPreview: View {
             section("Sizes:") {
                 row("SM:") {
                     SHDInputOTP()
-                        .inputOTPVariants(variant: .pattern, size: .sm)
+                        .inputOTPConfiguration(variant: .pattern, size: .sm)
                 }
 
                 row("MD:") {
                     SHDInputOTP()
-                        .inputOTPVariants(variant: .pattern)
+                        .inputOTPConfiguration(variant: .pattern)
                 }
 
                 row("LG:") {
                     SHDInputOTP()
-                        .inputOTPVariants(variant: .pattern, size: .lg)
+                        .inputOTPConfiguration(variant: .pattern, size: .lg)
                 }
             }
 
             section("Variants:") {
                 row("Controlled:") {
                     SHDInputOTP(caption: "You can add a caption in this variant")
-                        .inputOTPVariants(size: .sm)
+                        .inputOTPConfiguration(size: .sm)
                 }
 
                 row("Pattern:") {
                     SHDInputOTP()
-                        .inputOTPVariants(variant: .pattern, size: .sm)
+                        .inputOTPConfiguration(variant: .pattern, size: .sm)
                 }
 
                 row("Separator:") {
                     SHDInputOTP()
-                        .inputOTPVariants(variant: .separator(), size: .sm)
+                        .inputOTPConfiguration(variant: .separator(), size: .sm)
                 }
             }
 
             section("Length:") {
                 row("4 inputs:") {
                     SHDInputOTP()
-                        .inputOTPVariants(length: .otp4)
+                        .inputOTPConfiguration(length: .otp4)
                 }
 
                 row("6 inputs:") {
@@ -75,7 +75,7 @@ internal struct SHDInputOTPPreview: View {
                 ScrollView(.horizontal) {
                     row("8 inputs:") {
                         SHDInputOTP()
-                            .inputOTPVariants(length: .otp8)
+                            .inputOTPConfiguration(length: .otp8)
                     }
                 }
             }

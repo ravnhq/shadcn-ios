@@ -49,7 +49,7 @@ public enum SHDInputOTPSizing {
     /// Large input fields (48×48 points) with `.textLGRegular` typography.
     case lg
 
-    var size: CGFloat {
+    var textFieldSize: CGFloat {
         switch self {
         case .sm: 40
         case .md: 44
