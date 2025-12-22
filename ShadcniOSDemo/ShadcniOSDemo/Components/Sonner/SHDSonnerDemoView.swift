@@ -68,13 +68,10 @@ struct SHDSonnerDemoView: View {
             Text("Text to be behind the sonner")
                 .padding(.bottom, 16)
         }
-        .showSonner(
-            title: "Event has been created",
-            caption: "Sunday, December 03, 2023 at 9:00 AM",
-            variant: selectedVariant,
-            size: selectedSize,
-            isPresented: $isPresented
-        )
+        .showSonner(isPresented: $isPresented) {
+            SHDSonner(title: "Event has been created",
+                      subtitle: "Sunday, December 03, 2023 at 9:00 AM",)
+        }
     }
 }
 

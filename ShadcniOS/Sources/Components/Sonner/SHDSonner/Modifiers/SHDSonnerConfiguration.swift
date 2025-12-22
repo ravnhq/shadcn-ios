@@ -55,7 +55,7 @@ import SwiftUI
 ///     }
 /// }
 /// ```
-struct SHDSonnerConfiguration: ViewModifier {
+public struct SHDSonnerConfiguration: ViewModifier {
     @Binding var isPresented: Bool
 
     @State private var dragOffset: CGFloat = 0
@@ -64,46 +64,52 @@ struct SHDSonnerConfiguration: ViewModifier {
 
     private let dismissThreshold: CGFloat = 50
 
-    let title: String
-    let subtitle: String
-    let size: SHDSonnerSize
-    let variant: SHDSonnerVariant
+    let sonner: SHDSonner
 
     private var autoDismissDelay: Duration {
-        variant == .default || variant == .success ? .seconds(3) : .seconds(5)
+        sonner.variant == .default || sonner.variant == .success ? .seconds(3) : .seconds(5)
     }
 
-    init(isPresented: Binding<Bool>,
-         title: String,
-         subtitle: String,
-         size: SHDSonnerSize,
-         variant: SHDSonnerVariant
+    init(
+        sonner: SHDSonner,
+        isPresented: Binding<Bool>,
     ) {
+        self.sonner = sonner
         _isPresented = isPresented
-        self.title = title
-        self.subtitle = subtitle
-        self.size = size
-        self.variant = variant
     }
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         ZStack {
             content
 
-            VStack {
-                Spacer()
-
-                if isPresented {
-                    sonnerOverlay
-                        .background(
-                            Color.clear
-                                .frame(height: toastSize.height)
-                                .contentShape(Rectangle())
-                        )
+            if isPresented {
+                VStack {
+                    Spacer()
+                    sonner
+                        .frame(minWidth: 320, maxWidth: 520)
+                        .offset(y: dragOffset)
+                        .padding(.horizontal, .sm)
+                        .padding(.bottom, .xxl)
+                        .gesture(dragGesture)
+                        .onTapGesture {
+                            dismissToast()
+                        }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .zIndex(100)
             }
         }
         .animation(.smooth, value: isPresented)
+        .onAppear {
+            if isPresented {
+                startAutoDismissTimer()
+            }
+        }
+        .onDisappear {
+            cancelAutoDismissTimer()
+        }
         .onChange(of: isPresented) { _, isPresented in
             if isPresented {
                 startAutoDismissTimer()
@@ -111,36 +117,6 @@ struct SHDSonnerConfiguration: ViewModifier {
                 cancelAutoDismissTimer()
             }
         }
-    }
-
-    @ViewBuilder
-    private var sonnerOverlay: some View {
-        SHDSonner(title: title, subtitle: subtitle)
-            .sonnerVariant(variant: variant, size: size)
-            .frame(minWidth: 320, maxWidth: 520)
-            .background(
-                GeometryReader { geometry in
-                    Color.clear
-                        .onAppear {
-                            toastSize = geometry.size
-                        }
-                        .onChange(of: geometry.size) { _, newSize in
-                            toastSize = newSize
-                        }
-                }
-            )
-            .offset(y: dragOffset)
-            .padding(.all, .sm)
-            .transition(
-                .asymmetric(
-                    insertion: .move(edge: .bottom).combined(with: .opacity),
-                    removal: .move(edge: .bottom).combined(with: .opacity)
-                )
-            )
-            .gesture(dragGesture)
-            .onTapGesture {
-                dismissToast()
-            }
     }
 
     private var dragGesture: some Gesture {
@@ -154,7 +130,9 @@ struct SHDSonnerConfiguration: ViewModifier {
                 if value.translation.height >= dismissThreshold {
                     dismissToast()
                 } else {
-                    dragOffset = 0
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                        dragOffset = 0
+                    }
                 }
             }
     }
@@ -168,10 +146,17 @@ struct SHDSonnerConfiguration: ViewModifier {
             do {
                 try await Task.sleep(for: autoDismissDelay)
 
+                // Only dismiss if still presented and not cancelled
                 if !Task.isCancelled && isPresented {
                     dismissToast()
                 }
-            } catch {}
+            } catch is CancellationError {
+                // Task was cancelled - this is expected, do nothing
+            } catch {
+                #if DEBUG
+                print("[SHDSonner] Unexpected error in auto-dismiss: \(error)")
+                #endif
+            }
         }
     }
 
@@ -250,16 +235,12 @@ public extension View {
     ///     isPresented: $showWarning
     /// )
     /// ```
-    func showSonner(title: String,
-                    caption: String,
-                    variant: SHDSonnerVariant = .default,
-                    size: SHDSonnerSize = .md,
-                    isPresented: Binding<Bool>
+    func showSonner(
+        isPresented: Binding<Bool>,
+        @ViewBuilder content: @escaping () -> SHDSonner,
     ) -> some View {
-        modifier(SHDSonnerConfiguration(isPresented: isPresented,
-                                        title: title,
-                                        subtitle: caption,
-                                        size: size,
-                                        variant: variant))
+        self.modifier(
+            SHDSonnerConfiguration(sonner: content(), isPresented: isPresented)
+        )
     }
 }
