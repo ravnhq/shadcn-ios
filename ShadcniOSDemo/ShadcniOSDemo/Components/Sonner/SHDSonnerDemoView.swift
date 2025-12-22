@@ -12,6 +12,7 @@ struct SHDSonnerDemoView: View {
     @State private var isPresented: Bool = false
     @State private var selectedVariant: SHDSonnerVariant = .default
     @State private var selectedSize: SHDSonnerSize = .sm
+    @State private var position: SHDSonnerPosition = .bottom
 
     var body: some View {
         VStack(spacing: 20) {
@@ -47,6 +48,19 @@ struct SHDSonnerDemoView: View {
                     .pickerStyle(.segmented)
                 }
                 .padding(.horizontal)
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Position")
+                        .font(.headline)
+                    Picker("Position", selection: $position) {
+                        Text("top")
+                            .tag(SHDSonnerPosition.top)
+                        Text("bottom")
+                            .tag(SHDSonnerPosition.bottom)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding(.horizontal)
 
                 // Show Button
                 Button {
@@ -68,9 +82,10 @@ struct SHDSonnerDemoView: View {
             Text("Text to be behind the sonner")
                 .padding(.bottom, 16)
         }
-        .showSonner(isPresented: $isPresented) {
+        .showSonner(isPresented: $isPresented, position: position) {
             SHDSonner(title: "Event has been created",
                       subtitle: "Sunday, December 03, 2023 at 9:00 AM",)
+            .sonnerVariant(variant: selectedVariant, size: selectedSize)
         }
     }
 }

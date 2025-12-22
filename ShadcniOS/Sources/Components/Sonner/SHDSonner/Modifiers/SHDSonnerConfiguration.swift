@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+/// Determines the screen edge where the notification appears.
+public enum SHDSonnerPosition {
+    case top
+    case bottom
+}
+
 /// A view modifier that presents toast-style notifications with automatic dismissal and gestures.
 ///
 /// ## Discussion
@@ -65,6 +71,7 @@ public struct SHDSonnerConfiguration: ViewModifier {
     private let dismissThreshold: CGFloat = 50
 
     let sonner: SHDSonner
+    let position: SHDSonnerPosition
 
     private var autoDismissDelay: Duration {
         sonner.variant == .default || sonner.variant == .success ? .seconds(3) : .seconds(5)
@@ -73,9 +80,11 @@ public struct SHDSonnerConfiguration: ViewModifier {
     init(
         sonner: SHDSonner,
         isPresented: Binding<Bool>,
+        position: SHDSonnerPosition = .bottom
     ) {
         self.sonner = sonner
         _isPresented = isPresented
+        self.position = position
     }
 
     public func body(content: Content) -> some View {
@@ -84,21 +93,28 @@ public struct SHDSonnerConfiguration: ViewModifier {
 
             if isPresented {
                 VStack {
-                    Spacer()
+                    if position == .bottom {
+                        Spacer()
+                    }
+
                     sonner
                         .frame(minWidth: 320, maxWidth: 520)
                         .offset(y: dragOffset)
                         .padding(.horizontal, .sm)
-                        .padding(.bottom, .xxl)
+                        .padding(position == .top ? .top : .bottom, .xxl)
                         .gesture(dragGesture)
                         .onTapGesture {
                             dismissToast()
                         }
+
+                    if position == .top {
+                        Spacer()
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-                .zIndex(100)
+                .transition(.move(edge: position == .top ? .top : .bottom).combined(with: .opacity))
+                .zIndex(0)
             }
         }
         .animation(.smooth, value: isPresented)
@@ -122,12 +138,27 @@ public struct SHDSonnerConfiguration: ViewModifier {
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
-                if value.translation.height >= 0 {
-                    dragOffset = value.translation.height
+                // For top position: drag up (negative) to dismiss
+                // For bottom position: drag down (positive) to dismiss
+                let translation = value.translation.height
+                
+                if position == .top {
+                    if translation <= 0 {
+                        dragOffset = translation
+                    }
+                } else {
+                    if translation >= 0 {
+                        dragOffset = translation
+                    }
                 }
             }
             .onEnded { value in
-                if value.translation.height >= dismissThreshold {
+                let translation = abs(value.translation.height)
+                let shouldDismiss = position == .top
+                    ? value.translation.height <= -dismissThreshold
+                    : value.translation.height >= dismissThreshold
+
+                if shouldDismiss {
                     dismissToast()
                 } else {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
@@ -185,10 +216,10 @@ public extension View {
     /// ## Behavior
     ///
     /// The notification:
-    /// - Appears at the bottom of the screen with slide-up animation
+    /// - Appears at the specified screen edge (top or bottom) with slide animation
     /// - Auto-dismisses based on variant (3s for default/success, 5s for warning/destructive)
     /// - Can be dismissed by tapping anywhere on the notification
-    /// - Can be dismissed by dragging down 50 points or more
+    /// - Can be dismissed by dragging in the appropriate direction (down for bottom, up for top)
     /// - Springs back if drag is released before the threshold
     ///
     /// - Parameters:
@@ -196,6 +227,7 @@ public extension View {
     ///   - subtitle: The secondary descriptive text displayed below the title.
     ///   - variant: The semantic style determining icon and colors. Defaults to `.default`.
     ///   - size: The typography scale for the notification. Defaults to `.md`.
+    ///   - position: The screen edge where the notification appears. Defaults to `.bottom`.
     ///   - isPresented: A binding that controls the notification's presentation state.
     ///     Set to `true` to show the notification, `false` to dismiss it.
     ///
@@ -222,7 +254,7 @@ public extension View {
     /// }
     /// ```
     ///
-    /// Warning notification with custom size:
+    /// Top-positioned notification:
     /// ```swift
     /// VStack {
     ///     // Your content
@@ -231,16 +263,21 @@ public extension View {
     ///     title: "Low storage",
     ///     subtitle: "You're running out of space",
     ///     variant: .warning,
-    ///     size: .lg,
+    ///     position: .top,
     ///     isPresented: $showWarning
     /// )
     /// ```
     func showSonner(
         isPresented: Binding<Bool>,
-        @ViewBuilder content: @escaping () -> SHDSonner,
+        position: SHDSonnerPosition = .bottom,
+        @ViewBuilder content: @escaping () -> SHDSonner
     ) -> some View {
         self.modifier(
-            SHDSonnerConfiguration(sonner: content(), isPresented: isPresented)
+            SHDSonnerConfiguration(
+                sonner: content(),
+                isPresented: isPresented,
+                position: position
+            )
         )
     }
 }
