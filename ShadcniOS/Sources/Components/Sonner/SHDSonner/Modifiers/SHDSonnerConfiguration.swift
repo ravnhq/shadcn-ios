@@ -141,7 +141,7 @@ public struct SHDSonnerConfiguration: ViewModifier {
                 // For top position: drag up (negative) to dismiss
                 // For bottom position: drag down (positive) to dismiss
                 let translation = value.translation.height
-                
+
                 if position == .top {
                     if translation <= 0 {
                         dragOffset = translation
@@ -269,14 +269,14 @@ public extension View {
     /// ```
     func showSonner(
         isPresented: Binding<Bool>,
-        position: SHDSonnerPosition = .bottom,
+        from: SHDSonnerPosition = .bottom,
         @ViewBuilder content: @escaping () -> SHDSonner
     ) -> some View {
-        self.modifier(
+        modifier(
             SHDSonnerConfiguration(
                 sonner: content(),
                 isPresented: isPresented,
-                position: position
+                position: from
             )
         )
     }
