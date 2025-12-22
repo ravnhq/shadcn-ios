@@ -27,7 +27,6 @@ import SwiftUI
 ///     .inputStyle(.md)
 /// ```
 public struct SHDTextField: View {
-    @Environment(\.inputTextStyle) private var inputTextStyle
     @Binding private var text: String
 
     private let placeholder: String
@@ -56,13 +55,13 @@ public struct SHDTextField: View {
             ZStack(alignment: .leading) {
                 if text.isEmpty {
                     Text(placeholder)
-                        .textStyle(inputTextStyle)
+                        .textStyle(size.textStyle)
                         .foregroundColor(.foregroundMuted)
                         .allowsHitTesting(false)
                 }
 
                 TextField("", text: $text)
-                    .textStyle(inputTextStyle)
+                    .textStyle(size.textStyle)
                     .foregroundColor(.foregroundDefault)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,6 +77,7 @@ public struct SHDTextField: View {
             RoundedRectangle(cornerRadius: .md)
                 .stroke(.borderDefault, lineWidth: 1)
         )
+        .disabledMask()
     }
 
     /// Applies the input size, updating text style, icon size, and height tokens.
@@ -85,12 +85,7 @@ public struct SHDTextField: View {
     /// - Parameter size: Desired input size. Defaults to `.md`.
     /// - Returns: A text input configured with the given size.
     public func inputStyle(_ size: SHDInputSize = .md) -> some View {
-        mutating { input in
-            input.size = size
-        }
-        .environment(\.inputTextStyle, size.textStyle)
-        .cornerRadius(.md)
-        .disabledMask()
+        mutating(keyPath: \.size, value: size)
     }
 
     private func iconView(_ icon: SHDIconAsset) -> some View {

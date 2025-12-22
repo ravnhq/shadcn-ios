@@ -14,7 +14,7 @@ internal struct SHDInputPreview: View {
     internal var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Text Inputs")
-                .font(.headline)
+                .textStyle(.textBaseSemibold)
 
             SHDTextField(
                 placeholder: "Email address",
