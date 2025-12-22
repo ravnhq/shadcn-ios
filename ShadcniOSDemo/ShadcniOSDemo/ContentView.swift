@@ -75,6 +75,12 @@ struct ContentView: View {
                         }
                     }
 
+                    NavigationLink(destination: SHDRadioGroupDemoView()) {
+                        HStack {
+                            Image(systemName: "sensor.tag.radiowaves.forward")
+                            Text("SHDRadioGroup")
+                        }
+
                     NavigationLink(destination: SHDTextInputDemoView()) {
                         HStack {
                             Image(systemName: "character.textbox")
