@@ -12,20 +12,28 @@ struct SHDSonnerPreview: View {
 
     var body: some View {
         VStack(spacing: .md) {
-            SHDSonner(title: "Event has been created",
-                      subtitle: "Sunday, December 03,  2023 at 9:00 AM")
+            SHDSonner(
+                title: "Event has been created",
+                      subtitle: "Sunday, December 03,  2023 at 9:00 AM"
+            )
                 .sonnerVariant(variant: .default, size: .sm)
 
-            SHDSonner(title: "Event has been created",
-                      subtitle: "Sunday, December 03,  2023 at 9:00 AM")
+            SHDSonner(
+                title: "Event has been created",
+                      subtitle: "Sunday, December 03,  2023 at 9:00 AM"
+            )
                 .sonnerVariant(variant: .destructive, size: .md)
 
-            SHDSonner(title: "Event has been created",
-                      subtitle: "Sunday, December 03,  2023 at 9:00 AM")
+            SHDSonner(
+                title: "Event has been created",
+                      subtitle: "Sunday, December 03,  2023 at 9:00 AM"
+            )
                 .sonnerVariant(variant: .warning, size: .md)
 
-            SHDSonner(title: "Event has been created",
-                      subtitle: "Sunday, December 03,  2023 at 9:00 AM")
+            SHDSonner(
+                title: "Event has been created",
+                      subtitle: "Sunday, December 03,  2023 at 9:00 AM"
+            )
                 .sonnerVariant(variant: .success, size: .lg)
 
             Button {
@@ -35,8 +43,10 @@ struct SHDSonnerPreview: View {
             }
         }
         .showSonner(isPresented: $isSonnerPresented) {
-            SHDSonner(title: "Event has been created",
-                      subtitle: "Sunday, December 03,  2023 at 9:00 AM")
+            SHDSonner(
+                title: "Event has been created",
+                      subtitle: "Sunday, December 03,  2023 at 9:00 AM"
+            )
         }
     }
 }
