@@ -48,18 +48,18 @@ import SwiftUI
 ///         isPresented: $showNotification
 ///     )
 /// ```
-struct SHDSonner: View {
-    private var title: String
-    private var subtitle: String
-    private var size: SHDSonnerSize = .md
-    private var variant: SHDSonnerVariant = .default
+public struct SHDSonner: View {
+    let title: String
+    let subtitle: String
+    var size: SHDSonnerSize = .md
+    var variant: SHDSonnerVariant = .default
 
-    init(title: String, subtitle: String) {
+    public init(title: String, subtitle: String) {
         self.title = title
         self.subtitle = subtitle
     }
 
-    var body: some View {
+    public var body: some View {
         HStack(alignment: .top, spacing: .sm) {
             SHDIcon(variant.icon)
                 .iconSize(size.iconSize)
@@ -88,7 +88,7 @@ struct SHDSonner: View {
         .shadowStyle(.xs)
     }
 
-    func sonnerVariant(variant: SHDSonnerVariant, size: SHDSonnerSize) -> some View {
+    public func sonnerVariant(variant: SHDSonnerVariant, size: SHDSonnerSize) -> Self {
         mutating { sonner in
             sonner.variant = variant
             sonner.size = size
