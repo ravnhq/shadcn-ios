@@ -34,26 +34,26 @@ import SwiftUI
 /// ## Usage
 ///
 /// ```swift
-/// struct PhotoItem: SHDCarouselRepresentable {
+/// struct PhotoItem: Identifiable {
 ///     var id = UUID()
 ///     var url: URL
-///
-///     var content: some View {
-///         AsyncImage(url: url)
-///     }
 /// }
 ///
 /// SHDHorizontalPagedCarousel(
-///     items: photos.map { PhotoItem(url: $0) }
-/// )
+///     data: photos
+/// ) { photo in
+///     AsyncImage(url: photo)
+/// }
 /// .aspectRatio(.threeToFourWithSingleItem)
 /// ```
 ///
-internal struct SHDHorizontalPagedCarousel<Item: SHDCarouselRepresentable >: View {
+internal struct SHDHorizontalPagedCarousel<Data, Content>: View
+where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
-    @State private var scrollID: Int? = 0
+    @State private var scrollID: Data.Element.ID?
     @State private var currentPage = 0
-    var items: [Item]
+    var data: Data
+    var content: (Data.Element) -> Content
     var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
@@ -65,8 +65,8 @@ internal struct SHDHorizontalPagedCarousel<Item: SHDCarouselRepresentable >: Vie
 
                 ScrollView(.horizontal) {
                     LazyHStack {
-                        ForEach(items) { item in
-                            item.content
+                        ForEach(data) { item in
+                            content(item)
                                 .frame(width: itemWidth, height: itemHeight)
                                 .id(item.id)
                         }
@@ -78,9 +78,10 @@ internal struct SHDHorizontalPagedCarousel<Item: SHDCarouselRepresentable >: Vie
                 .scrollIndicators(.hidden)
                 .frame(width: containerWidth, height: itemHeight)
                 .onChange(of: scrollID) { newValue in
-                    if let newValue {
+                    guard let newValue else { return }
+                    if let index = data.firstIndex(where: { $0.id == newValue }) {
                         withAnimation(.spring()) {
-                            currentPage = newValue
+                            currentPage = data.distance(from: data.startIndex, to: index)
                         }
                     }
                 }
@@ -89,13 +90,16 @@ internal struct SHDHorizontalPagedCarousel<Item: SHDCarouselRepresentable >: Vie
 
             indicators
         }
+        .onAppear {
+            scrollID = data.first?.id
+        }
         .padding(.vertical, .xxs)
         .padding(.horizontal, .sm)
     }
 
     private var indicators: some View {
         HStack(spacing: .sm) {
-            ForEach(0..<items.count, id: \.self) { idx in
+            ForEach(0..<data.count) { idx in
                 Circle()
                     .fill(idx == currentPage
                           ? SHDColor.foregroundDefault.color

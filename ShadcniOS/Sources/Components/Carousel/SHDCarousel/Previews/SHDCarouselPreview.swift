@@ -7,17 +7,9 @@
 
 import SwiftUI
 
-internal struct CarouselContentPreview: SHDCarouselRepresentable {
+internal struct CarouselContentPreview: Identifiable {
     var id = UUID()
     var number: Int
-
-    var content: some View {
-        HStack {
-            Text("\(number)")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.backgroundAccent)
-        }
-    }
 }
 
 internal struct SHDCarouselPreview: View {
@@ -38,7 +30,9 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(items: items)
+                    SHDCarousel(items) { item in
+                        Text("\(item)")
+                    }
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -46,8 +40,10 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(items: items)
-                        .layoutVariant(.groupHorizontal(.threeToFour))
+                    SHDCarousel(items) { item in
+                        Text("\(item)")
+                    }
+                    .layoutVariant(.groupHorizontal(.threeToFour))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -55,8 +51,10 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(items: items)
-                        .layoutVariant(.groupHorizontal(.sixteenToNine))
+                    SHDCarousel(items) { item in
+                        Text("\(item)")
+                    }
+                    .layoutVariant(.groupHorizontal(.sixteenToNine))
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -64,8 +62,10 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(items: items)
-                        .layoutVariant(.singleHorizontal)
+                    SHDCarousel(items) { item in
+                        Text("\(item)")
+                    }
+                    .layoutVariant(.singleHorizontal)
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
@@ -73,8 +73,10 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(items: items)
-                        .layoutVariant(.groupVertical)
+                    SHDCarousel(items) { item in
+                        Text("\(item)")
+                    }
+                    .layoutVariant(.groupVertical)
                 }
             }
         }

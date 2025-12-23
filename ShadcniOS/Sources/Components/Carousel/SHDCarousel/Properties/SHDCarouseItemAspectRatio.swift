@@ -34,29 +34,25 @@ import Foundation
 /// ## Usage
 ///
 /// ```swift
-/// struct ProductItem: SHDCarouselRepresentable {
+/// struct ProductItem: Identifiable {
 ///     var id = UUID()
 ///     var product: Product
-///
-///     var content: some View {
-///         ProductThumbnail(product: product)
-///     }
 /// }
 ///
-/// SHDCarousel(items: products.map { ProductItem(product: $0) })
-///     .layoutVariant(.groupHorizontal(.threeToFour))
+/// SHDCarousel(products) { item in
+///     ProductThumbnail(product: item.product)
+/// }
+/// .layoutVariant(.groupHorizontal(.threeToFour))
 ///
-/// struct VideoItem: SHDCarouselRepresentable {
+/// struct VideoItem: Identifiable {
 ///     var id = UUID()
 ///     var video: Video
-///
-///     var content: some View {
-///         VideoPreview(video: video)
-///     }
 /// }
 ///
-/// SHDCarousel(items: videos.map { VideoItem(video: $0) })
-///     .layoutVariant(.groupHorizontal(.sixteenToNine))
+/// SHDCarousel(videos) { item in
+///     VideoPreview(video: item.video)
+/// }
+/// .layoutVariant(.groupHorizontal(.sixteenToNine))
 /// ```
 ///
 public enum SHDCarouselItemAspectRatio {

@@ -48,7 +48,8 @@ import SwiftUI
 /// - `.oneToOne`: Square items (45% container width × 45% width)
 /// - `.threeToFour`: 3:4 aspect ratio items (40% width × 53% width)
 /// - `.sixteenToNine`: 16:9 aspect ratio items (85% width × 48% width), commonly used for video content.
-///     When used with `.groupHorizontal`, automatically switches to a paged carousel for optimal presentation.
+///     When used with `.groupHorizontal`, automatically switches to a paged carousel
+///     for optimal presentation.
 /// - `.threeToFourWithSingleItem`: Tall 3:4 aspect ratio optimized for
 ///     single-item layouts (90% width × 120% width)
 ///
@@ -57,31 +58,20 @@ import SwiftUI
 /// The carousel will use the default layout (`.groupHorizontal(.oneToOne)`) variant
 /// unless a different variant is applied using the `.layoutVariant(...)` modifier.
 ///
-/// Items must conform to `SHDCarouselRepresentable`, which requires:
-/// - `Identifiable` conformance (for unique item identification)
-/// - A `content` property that returns the view to display for that item
+/// Items are provided as a `RandomAccessCollection` whose elements conform to `Identifiable`.
+/// The visual content for each element is supplied via the initializer's `content` closure.
 ///
 /// - Parameters:
-///   - items: An array of items conforming to `SHDCarouselRepresentable` to display in the carousel.
-///     Each item provides its own content view through the protocol's `content` property.
+///   - data: A `RandomAccessCollection` of `Identifiable` elements to display in the carousel.
+///     The `content` closure is invoked for each element to produce its view.
 ///
 /// ## Usage
 ///
 /// ```swift
-/// struct ColorItem: SHDCarouselRepresentable {
+/// struct ColorItem: Identifiable {
 ///     var id = UUID()
 ///     var name: String
 ///     var color: Color
-///
-///     var content: some View {
-///         VStack {
-///             Rectangle()
-///                 .fill(color)
-///             Text(name)
-///                 .font(.headline)
-///         }
-///         .frame(maxWidth: .infinity, maxHeight: .infinity)
-///     }
 /// }
 ///
 /// let colors = [
@@ -90,36 +80,51 @@ import SwiftUI
 ///     ColorItem(name: "Blue", color: .blue)
 /// ]
 ///
-/// SHDCarousel(items: colors)
-///     .layoutVariant(.groupHorizontal(.oneToOne))
+/// SHDCarousel(colors) { item in
+///     VStack {
+///         Rectangle()
+///             .fill(item.color)
+///         Text(item.name)
+///             .font(.headline)
+///     }
+///     .frame(maxWidth: .infinity, maxHeight: .infinity)
+/// }
+/// .layoutVariant(.groupHorizontal(.oneToOne))
 /// ```
 ///
-public struct SHDCarousel<Item: SHDCarouselRepresentable>: View {
+public struct SHDCarousel<Data, Content>: View
+where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
-    private var items: [Item]
+    private var data: Data
+    private var content: (Data.Element) -> Content
     private var layoutVariant: SHDCarouselLayout = .groupHorizontal(.oneToOne)
 
     public init(
-        items: [Item]
+        _ data: Data,
+        @ViewBuilder _ content: @escaping (Data.Element) -> Content
     ) {
-        self.items = items
+        self.data = data
+        self.content = content
     }
 
     public var body: some View {
         switch layoutVariant {
         case .groupHorizontal(let proportion):
             SHDHorizontalCarousel(
-                items: items,
+                data: data,
+                content: content
             )
             .aspectRatio(proportion)
         case .singleHorizontal:
             SHDHorizontalPagedCarousel(
-                items: items
+                data: data,
+                content: content
             )
             .aspectRatio(.threeToFourWithSingleItem)
         case .groupVertical:
             SHDVerticalCarousel(
-                items: items
+                data: data,
+                content: content
             )
             .aspectRatio(.sixteenToNine)
         }

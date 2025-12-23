@@ -34,29 +34,25 @@
 /// ## Usage
 ///
 /// ```swift
-/// struct ProductItem: SHDCarouselRepresentable {
+/// struct ProductItem: Identifiable {
 ///     var id = UUID()
 ///     var product: Product
-///
-///     var content: some View {
-///         ProductCard(product: product)
-///     }
 /// }
 ///
-/// SHDCarousel(items: products.map { ProductItem(product: $0) })
-///     .layoutVariant(.groupHorizontal(.threeToFour))
+/// SHDCarousel(products) { item in
+///     ProductCard(product: item.product)
+/// }
+/// .layoutVariant(.groupHorizontal(.threeToFour))
 ///
-/// struct ImageItem: SHDCarouselRepresentable {
+/// struct ImageItem: Identifiable {
 ///     var id = UUID()
 ///     var url: URL
-///
-///     var content: some View {
-///         AsyncImage(url: url)
-///     }
 /// }
 ///
-/// SHDCarousel(items: images.map { ImageItem(url: $0) })
-///     .layoutVariant(.singleHorizontal)
+/// SHDCarousel(images) { item in
+///     AsyncImage(url: item.url)
+/// }
+/// .layoutVariant(.singleHorizontal)
 /// ```
 ///
 public enum SHDCarouselLayout: Equatable, Hashable {

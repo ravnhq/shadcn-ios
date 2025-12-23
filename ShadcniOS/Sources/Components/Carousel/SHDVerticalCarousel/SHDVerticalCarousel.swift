@@ -23,20 +23,22 @@ import SwiftUI
 ///
 /// ## Parameters → Init
 ///
-/// - `items`: An array of items conforming to `SHDCarouselRepresentable` to display in the vertical list.
-///     Each item provides its own content view through the protocol's `content` property.
+/// - `data`: A `RandomAccessCollection` of `Identifiable` elements to display in the vertical list.
+/// - `content`: A view-builder closure that returns the view for a given element.
 /// - `aspectRatio`: The `SHDCarouselItemAspectRatio` determining item dimensions and aspect ratios.
 ///
-internal struct SHDVerticalCarousel<Item: SHDCarouselRepresentable>: View {
+internal struct SHDVerticalCarousel<Data, Content>: View
+where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
-    var items: [Item]
+    var data: Data
+    var content: (Data.Element) -> Content
     var aspectRation: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
         ScrollView {
             VStack(spacing: .md) {
-                ForEach(items) { item in
-                    item.content
+                ForEach(data) { item in
+                    content(item)
                         .aspectRatio(
                             aspectRation.aspectRatio,
                             contentMode: .fit
@@ -48,7 +50,7 @@ internal struct SHDVerticalCarousel<Item: SHDCarouselRepresentable>: View {
             .padding(.horizontal, .md)
         }
     }
-    
+
     func aspectRatio(_ aspectRation: SHDCarouselItemAspectRatio) -> Self {
         mutating(keyPath: \.aspectRation, value: aspectRation)
     }

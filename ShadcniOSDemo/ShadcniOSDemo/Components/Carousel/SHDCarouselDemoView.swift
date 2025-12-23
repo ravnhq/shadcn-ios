@@ -8,50 +8,19 @@
 import ShadcniOS
 import SwiftUI
 
-struct CarouselText: SHDCarouselRepresentable {
+struct CarouselText: Identifiable {
     var id = UUID()
     var text: String
-
-    var content: some View {
-        HStack {
-            Text(text)
-                .font(.title2)
-                .padding()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.secondary)
-    }
 }
 
-struct CarouselNumber: SHDCarouselRepresentable {
+struct CarouselNumber: Identifiable {
     var id = UUID()
     var number: Int
-
-    var content: some View {
-        HStack {
-            Text("\(number)")
-                .font(.system(size: 40, weight: .bold))
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.secondary)
-
-    }
 }
 
-struct CarouselImage: SHDCarouselRepresentable {
+struct CarouselImage: Identifiable {
     var id = UUID()
     var imageName: String
-
-    var content: some View {
-        HStack {
-            Image(systemName: imageName)
-                .resizable()
-                .scaledToFit()
-                .padding()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.secondary)
-    }
 }
 
 struct SHDCarouselDemoView: View {
@@ -118,15 +87,39 @@ struct SHDCarouselDemoView: View {
                     switch selectedType {
 
                     case .text:
-                        SHDCarousel(items: textItems)
+                        SHDCarousel(textItems) { textItem in
+                            HStack {
+                                Text(textItem.text)
+                                    .font(.title2)
+                                    .padding()
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.secondary)                            
+                        }
                             .layoutVariant(layoutVariant)
 
                     case .numbers:
-                        SHDCarousel(items: numberItems)
+                        SHDCarousel(numberItems) { numberItem in
+                            HStack {
+                                Text("\(numberItem.number)")
+                                    .font(.system(size: 40, weight: .bold))
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.secondary)
+                        }
                             .layoutVariant(layoutVariant)
 
                     case .images:
-                        SHDCarousel(items: imageItems)
+                        SHDCarousel(imageItems) { itemImage in
+                            HStack {
+                                Image(systemName: itemImage.imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.secondary)
+                        }
                             .layoutVariant(layoutVariant)
                     }
                 }
