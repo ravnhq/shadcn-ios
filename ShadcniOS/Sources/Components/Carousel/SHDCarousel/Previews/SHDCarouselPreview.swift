@@ -31,7 +31,7 @@ internal struct SHDCarouselPreview: View {
                         .padding()
 
                     SHDCarousel(items) { item in
-                        Text("\(item)")
+                        createCard(number: item.number)
                     }
                 }
 
@@ -41,7 +41,7 @@ internal struct SHDCarouselPreview: View {
                         .padding()
 
                     SHDCarousel(items) { item in
-                        Text("\(item)")
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.groupHorizontal(.threeToFour))
                 }
@@ -52,7 +52,7 @@ internal struct SHDCarouselPreview: View {
                         .padding()
 
                     SHDCarousel(items) { item in
-                        Text("\(item)")
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.groupHorizontal(.sixteenToNine))
                 }
@@ -63,7 +63,7 @@ internal struct SHDCarouselPreview: View {
                         .padding()
 
                     SHDCarousel(items) { item in
-                        Text("\(item)")
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.singleHorizontal)
                 }
@@ -74,12 +74,19 @@ internal struct SHDCarouselPreview: View {
                         .padding()
 
                     SHDCarousel(items) { item in
-                        Text("\(item)")
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.groupVertical)
                 }
             }
         }
+    }
+
+    func createCard(number: Int) -> some View {
+        Text("\(number)")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .backgroundColor(.backgroundAccent)
+            .cornerRadius(8)
     }
 }
 
