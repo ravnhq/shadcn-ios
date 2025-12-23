@@ -41,14 +41,19 @@ struct SHDTextInputDemoView: View {
                     Text("Preview")
                         .font(.headline)
 
-                    SHDTextField(
-                        placeholder: "Email address",
-                        leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
-                        trailingIcon: hasTrailingIcon ? .mathsX : nil,
-                        text: $text
-                    )
-                    .inputStyle(size)
-                    .disabled(isDisabled)
+                    SHDFormInput(
+                        label: "Email",
+                        caption: "Helper text"
+                    ) {
+                        SHDTextField(
+                            placeholder: "Email address",
+                            leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
+                            trailingIcon: hasTrailingIcon ? .mathsX : nil,
+                            text: $text
+                        )
+                        .inputStyle(size)
+                        .disabled(isDisabled)
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

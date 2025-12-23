@@ -16,53 +16,88 @@ internal struct SHDInputPreview: View {
             Text("Text Inputs")
                 .textStyle(.textBaseSemibold)
 
-            SHDTextField(
-                placeholder: "Email address",
-                text: .constant("")
-            )
-            .inputStyle(.sm)
+            SHDFormInput(
+                label: "Email",
+                caption: "We will never share your email."
+            ) {
+                SHDTextField(
+                    placeholder: "Email address",
+                    text: .constant("")
+                )
+                .inputStyle(.sm)
+            }
 
-            SHDTextField(
-                placeholder: "Email address",
-                text: $filledValue
-            )
-            .inputStyle(.md)
+            SHDFormInput(
+                label: "Email",
+                caption: "Use your work email."
+            ) {
+                SHDTextField(
+                    placeholder: "Email address",
+                    text: $filledValue
+                )
+                .inputStyle(.md)
+            }
 
-            SHDTextField(
-                placeholder: "Email address",
-                text: .constant("")
-            )
-            .inputStyle(.lg)
-            .disabled(true)
+            SHDFormInput(
+                label: "Email",
+                caption: "Disabled example."
+            ) {
+                SHDTextField(
+                    placeholder: "Email address",
+                    text: .constant("")
+                )
+                .inputStyle(.lg)
+                .disabled(true)
+            }
 
-            SHDTextField(
-                placeholder: "Email address",
-                text: $disabledFilledValue
-            )
-            .inputStyle(.md)
-            .disabled(true)
+            SHDFormInput(
+                label: "Email",
+                caption: "Disabled with text."
+            ) {
+                SHDTextField(
+                    placeholder: "Email address",
+                    text: $disabledFilledValue
+                )
+                .inputStyle(.md)
+                .disabled(true)
+            }
 
-            SHDTextField(
-                placeholder: "Search",
-                leadingIcon: .notificationBellRing,
-                trailingIcon: .mathsX,
-                text: .constant("")
-            )
-            .inputStyle(.sm)
+            SHDFormInput(
+                label: "Search",
+                caption: "With leading and trailing icons."
+            ) {
+                SHDTextField(
+                    placeholder: "Search",
+                    leadingIcon: .notificationBellRing,
+                    trailingIcon: .mathsX,
+                    text: .constant("")
+                )
+                .inputStyle(.sm)
+            }
 
-            SHDTextField(
-                placeholder: "Search",
-                trailingIcon: .mathsX,
-                text: .constant("")
-            )
-            .inputStyle(.md)
+            SHDFormInput(
+                label: "Search",
+                caption: "Trailing icon only."
+            ) {
+                SHDTextField(
+                    placeholder: "Search",
+                    trailingIcon: .mathsX,
+                    text: .constant("")
+                )
+                .inputStyle(.md)
+            }
 
-            SHDTextField(
-                placeholder: "Search",
-                leadingIcon: .notificationBellRing,
-                text: .constant("")
-            )
-            .inputStyle(.sm)
+            SHDFormInput(
+                label: "Search",
+                caption: "Leading icon only."
+            ) {
+                SHDTextField(
+                    placeholder: "Search",
+                    leadingIcon: .notificationBellRing,
+                    text: .constant("")
+                )
+                .inputStyle(.sm)
+            }
 
             Spacer()
         }
