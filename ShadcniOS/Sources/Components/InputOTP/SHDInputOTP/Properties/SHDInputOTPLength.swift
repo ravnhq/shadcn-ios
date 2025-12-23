@@ -27,11 +27,11 @@
 ///
 /// // Shorter 4-digit code
 /// SHDInputOTP()
-///     .inputOTPVariants(length: .otp4)
+///     .inputOTPConfiguration(length: .otp4)
 ///
 /// // Extended 8-digit code for high security
 /// SHDInputOTP(caption: "Enter the 8-digit verification code")
-///     .inputOTPVariants(variant: .separator(groupOf: 2), length: .otp8)
+///     .inputOTPConfiguration(variant: .separator(groupOf: 2), length: .otp8)
 /// ```
 ///
 public enum SHDInputOTPLength {

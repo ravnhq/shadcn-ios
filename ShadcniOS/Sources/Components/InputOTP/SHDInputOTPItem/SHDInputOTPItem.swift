@@ -28,29 +28,31 @@ import SwiftUI
 ///
 /// ## Parameters → Init
 ///
-/// - `index`: The zero-based position of this slot within the OTP sequence.
-/// - `count`: The total number of OTP slots being displayed.
-/// - `text`: A two-way binding to the slot's text value (single character).
-/// - `variant`: The selected `SHDInputOTPVariant` determining separators and grouping behavior.
-/// - `size`: The `SHDInputOTPSizing` value that determines field dimensions and typography.
-/// - `length`: The `SHDInputOTPLength` value used together with the variant to compute grouping.
+/// - `text`: A two-way `Binding<String>` to the slot's text value (single character).
+/// - `tag`: The zero-based tag/index for this slot used with the focus binding.
+/// - `focusedField`: A `FocusState<Int?>.Binding` used to control per-slot focus from the parent.
 /// - `onValueChange`: Callback invoked whenever the slot's text changes.
-/// - `isError`: Boolean indicating whether the component should display error styling.
+/// - `variant`, `size`, `length`: Visual/configuration values applied via the
+///   `inputOTPItemConfiguration(...)` modifier from the parent.
+/// - `isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`:
+///   Flags provided by the parent to indicate position and grouping for styling.
 ///
 /// ## Usage
 ///
 /// This is used internally by `SHDInputOTP` and is not typically constructed directly by consumers.
-/// Example (internal usage):
+/// Example (internal usage by `SHDInputOTP`):
 ///
 /// ```swift
 /// SHDInputOTPItem(
-///   index: 0,
-///   count: 6,
 ///   text: $otpDigits[0],
-///   variant: .controlled,
-///   size: .md,
+///   tag: 0,
+///   focusedField: $focusedField,
 ///   onValueChange: { newValue in /* parent logic */ },
-///   isError: false
+///   isFirst: true,
+///   isLast: false,
+///   showLeftSeparator: false,
+///   isStartOfGroup: true,
+///   isEndOfGroup: false
 /// )
 /// ```
 ///

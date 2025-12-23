@@ -37,23 +37,27 @@ import SwiftUI
 /// `SHDInputOTPItem` and separator rendering to `SHDInputOTPSeparator`. Captions are shown
 /// only in the `.controlled` variant.
 ///
-/// `SHDInputOTP` manages the per-slot values and focus logic internally, but does not itself
-/// expose a completion callback. Production implementations should wrap or extend this view
-/// to provide completion callbacks or bindings that surface the composed OTP value to
-/// higher-level flows.
+/// `SHDInputOTP` exposes a two-way `code` binding (see initializer) which is kept in sync
+/// with the composed OTP value as the user types. Consumers can bind a `@State` or
+/// `@Binding` to `code` to observe the full OTP string and implement completion handling,
+/// validation, or submission logic in their parent view.
 ///
 /// ## Parameters → Init
 ///
 /// - `caption`: An optional descriptive text displayed below the input fields when using the `.controlled`
 ///   variant. Use this to provide instructions or context about the OTP. Default is an empty string.
+/// - `code`: A `Binding<String>` that receives the concatenated OTP value as the user enters
+///   characters. Bind a `@State` or `@Binding` value from the parent to observe changes and
+///   react to completion or validation events.
 ///
 /// ## Variables → Public variables
 ///
-/// None. All public variables are configured through modifier methods.
+/// - `code` (via initializer): A two-way binding that contains the full composed OTP string.
+///   All other visual and behavioral options are configured through modifier methods.
 ///
 /// ## Functions → Public functions
 ///
-/// - `inputOTPVariants(variant:size:length:)`: Configures the visual style, size
+/// - `inputOTPConfiguration(variant:size:length:)`: Configures the visual style, size
 ///      and length of the OTP input.
 /// - `isError(_:)`: Sets the error state for visual feedback.
 ///
@@ -71,15 +75,15 @@ import SwiftUI
 ///
 /// // OTP input with caption
 /// SHDInputOTP(caption: "Enter the 6-digit code sent to your email")
-///     .inputOTPVariants(variant: .controlled, size: .md, length: .otp6)
+///     .inputOTPConfiguration(variant: .controlled, size: .md, length: .otp6)
 ///
 /// // Separator variant for longer codes
 /// SHDInputOTP(caption: "Verification code")
-///     .inputOTPVariants(variant: .separator(groupOf: 3), size: .lg, length: .otp8)
+///     .inputOTPConfiguration(variant: .separator(groupOf: 3), size: .lg, length: .otp8)
 ///
 /// // Pattern variant with error state
 /// SHDInputOTP()
-///     .inputOTPVariants(variant: .pattern, size: .sm, length: .otp4)
+///     .inputOTPConfiguration(variant: .pattern, size: .sm, length: .otp4)
 ///     .isError(true)
 /// ```
 
@@ -222,7 +226,7 @@ public struct SHDInputOTP: View {
     /// @State private var hasError = false
     ///
     /// SHDInputOTP(caption: "Enter verification code")
-    ///     .inputOTPVariants(variant: .controlled, length: .otp6)
+    ///     .inputOTPConfiguration(variant: .controlled, length: .otp6)
     ///     .isError(hasError)
     /// ```
     public func isError(_ isError: Bool = true) -> Self {
