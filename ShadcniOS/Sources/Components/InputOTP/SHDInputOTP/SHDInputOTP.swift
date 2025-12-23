@@ -85,6 +85,7 @@ import SwiftUI
 
 public struct SHDInputOTP: View {
     @State private var otpDigits: [String] = []
+    @Binding private var code: String
     @FocusState private var focusedField: Int?
 
     private var caption: String = ""
@@ -93,8 +94,9 @@ public struct SHDInputOTP: View {
     private var isError: Bool = false
     private var length: SHDInputOTPLength = .otp6
 
-    public init(caption: String = "") {
+    public init(caption: String = "", code: Binding<String>) {
         self.caption = caption
+        self._code = code
     }
 
     public var body: some View {
@@ -129,6 +131,9 @@ public struct SHDInputOTP: View {
         .onChange(of: length) { newLength in
             otpDigits = Array(repeating: "", count: newLength.digits)
             focusedField = 0
+        }
+        .onChange(of: otpDigits) { newValue in
+            code = newValue.joined()
         }
     }
 

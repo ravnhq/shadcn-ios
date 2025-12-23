@@ -8,6 +8,8 @@
 import SwiftUI
 
 internal struct SHDInputOTPPreview: View {
+    @State var extractedCode: String = ""
+    
     private func row(_ title: String, @ViewBuilder content: () -> some View) -> some View {
         HStack {
             Text(title)
@@ -30,51 +32,51 @@ internal struct SHDInputOTPPreview: View {
 
             section("Sizes:") {
                 row("SM:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                         .inputOTPConfiguration(variant: .pattern, size: .sm)
                 }
 
                 row("MD:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                         .inputOTPConfiguration(variant: .pattern)
                 }
 
                 row("LG:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                         .inputOTPConfiguration(variant: .pattern, size: .lg)
                 }
             }
 
             section("Variants:") {
                 row("Controlled:") {
-                    SHDInputOTP(caption: "You can add a caption in this variant")
+                    SHDInputOTP(caption: "You can add a caption in this variant", code: $extractedCode)
                         .inputOTPConfiguration(size: .sm)
                 }
 
                 row("Pattern:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                         .inputOTPConfiguration(variant: .pattern, size: .sm)
                 }
 
                 row("Separator:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                         .inputOTPConfiguration(variant: .separator(), size: .sm)
                 }
             }
 
             section("Length:") {
                 row("4 inputs:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                         .inputOTPConfiguration(length: .otp4)
                 }
 
                 row("6 inputs:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                 }
 
                 ScrollView(.horizontal) {
                     row("8 inputs:") {
-                        SHDInputOTP()
+                        SHDInputOTP(code: $extractedCode)
                             .inputOTPConfiguration(length: .otp8)
                     }
                 }
@@ -82,11 +84,11 @@ internal struct SHDInputOTPPreview: View {
 
             section("States:") {
                 row("Default:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                 }
 
                 row("Error:") {
-                    SHDInputOTP()
+                    SHDInputOTP(code: $extractedCode)
                         .isError()
                 }
             }

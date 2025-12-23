@@ -20,7 +20,8 @@ import SwiftUI
 /// The view uses a `TextField` restricted to a single character and applies a background
 /// border view (`SHDInputSlotBorder`) that adapts its appearance based on focus, error state,
 /// and grouping information derived from the variant and length. Focus is controlled internally
-/// via a `@FocusState` property, enabling auto-advance and auto-regress behavior implemented in `SHDInputOTP`.
+/// via a `@FocusState` property, enabling auto-advance and auto-regress
+/// behavior implemented in `SHDInputOTP`.
 ///
 /// The component computes a leading padding adjustment to visually collapse adjacent borders
 /// when separators are used or when the field is the first in the sequence.

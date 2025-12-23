@@ -14,7 +14,7 @@ struct SHDInputOTPDemoView: View {
     @State private var size: SHDInputOTPSizing = .md
     @State private var length: SHDInputOTPLength = .otp6
     @State private var isError: Bool = false
-
+    @State private var textExtracted: String = ""
     @State private var otp8GroupOf: Int = 2
     
     private var resolvedVariant: SHDInputOTPVariant {
@@ -68,7 +68,7 @@ struct SHDInputOTPDemoView: View {
 
                 Spacer().frame(height: 40)
 
-                SHDInputOTP(caption: "Please put the sent code")
+                SHDInputOTP(caption: "Please put the sent code", code: $textExtracted)
                     .inputOTPConfiguration(
                         variant: resolvedVariant,
                         size: size,
@@ -80,6 +80,8 @@ struct SHDInputOTPDemoView: View {
                     isError.toggle()
                 }
                 .buttonVariant(variant: .destructive, size: .md)
+
+                Text("Code generated: \(textExtracted)")
             }
             .padding()
         }
