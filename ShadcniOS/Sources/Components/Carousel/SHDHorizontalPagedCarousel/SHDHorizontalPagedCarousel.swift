@@ -42,7 +42,7 @@ import SwiftUI
 /// SHDHorizontalPagedCarousel(
 ///     data: photos
 /// ) { photo in
-///     AsyncImage(url: photo)
+///     AsyncImage(url: photo.url)
 /// }
 /// .aspectRatio(.threeToFourWithSingleItem)
 /// ```
@@ -55,6 +55,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
     var data: Data
     var content: (Data.Element) -> Content
     var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
+    private let spacing: CGFloat = 12
 
     var body: some View {
         VStack(spacing: .sm) {
@@ -62,9 +63,10 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                 let containerWidth = proxy.size.width
                 let itemWidth = containerWidth * aspectRatio.widthFactor
                 let itemHeight = itemWidth / aspectRatio.aspectRatio
+                let sideInsight = (containerWidth - itemWidth) / 2
 
                 ScrollView(.horizontal) {
-                    LazyHStack {
+                    LazyHStack(spacing: spacing) {
                         ForEach(data) { item in
                             content(item)
                                 .frame(width: itemWidth, height: itemHeight)
@@ -73,10 +75,11 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                     }
                     .scrollTargetLayout()
                 }
+                .contentMargins(.horizontal, sideInsight, for: .scrollContent)
                 .scrollPosition(id: $scrollID)
                 .scrollTargetBehavior(.viewAligned)
                 .scrollIndicators(.hidden)
-                .frame(width: containerWidth, height: itemHeight)
+                .frame(height: itemHeight)
                 .onChange(of: scrollID) { newValue in
                     guard let newValue else { return }
                     if let index = data.firstIndex(where: { $0.id == newValue }) {
