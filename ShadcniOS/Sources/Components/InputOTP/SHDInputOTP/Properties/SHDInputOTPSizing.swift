@@ -28,15 +28,15 @@ import Foundation
 /// ```swift
 /// // Small compact OTP for limited space
 /// SHDInputOTP()
-///     .inputOTPVariants(size: .sm, length: .otp6)
+///     .inputOTPConfiguration(size: .sm, length: .otp6)
 ///
 /// // Medium default size (recommended)
 /// SHDInputOTP()
-///     .inputOTPVariants(size: .md, length: .otp6)
+///     .inputOTPConfiguration(size: .md, length: .otp6)
 ///
 /// // Large accessible OTP
 /// SHDInputOTP(caption: "Enter code")
-///     .inputOTPVariants(size: .lg, length: .otp4)
+///     .inputOTPConfiguration(size: .lg, length: .otp4)
 /// ```
 ///
 public enum SHDInputOTPSizing {

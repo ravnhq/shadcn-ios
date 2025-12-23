@@ -121,8 +121,6 @@ public struct SHDInputOTP: View {
 
                     SHDInputOTPItem(
                         text: $otpDigits[index],
-                        tag: index,
-                        focusedField: $focusedField,
                         onValueChange: { newValue in
                             handleLogicChange(newValue, at: index)
                         }, isFirst: isFirst,
@@ -133,6 +131,7 @@ public struct SHDInputOTP: View {
                     )
                     .inputOTPItemConfiguration(variant: variant, size: size, length: length)
                     .isError(isError)
+                    .focused($focusedField, equals: index)
                 }
             }
             if variant == .controlled {

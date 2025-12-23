@@ -33,7 +33,7 @@
 ///
 /// // Pattern variant for minimal, clean design
 /// SHDInputOTP()
-///     .inputOTPVariants(variant: .pattern, size: .sm, length: .otp6)
+///     .inputOTPConfiguration(variant: .pattern, size: .sm, length: .otp6)
 /// ```
 ///
 public enum SHDInputOTPVariant: Equatable, Hashable {

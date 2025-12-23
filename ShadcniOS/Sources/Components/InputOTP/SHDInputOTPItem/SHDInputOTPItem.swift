@@ -36,6 +36,11 @@ import SwiftUI
 ///   `inputOTPItemConfiguration(...)` modifier from the parent.
 /// - `isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`:
 ///   Flags provided by the parent to indicate position and grouping for styling.
+/// - `onValueChange`: Callback invoked whenever the slot's text changes.
+/// - `variant`, `size`, `length`: Visual/configuration values applied via the
+///   `inputOTPItemConfiguration(...)` modifier from the parent.
+/// - `isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`:
+///   Flags provided by the parent to indicate position and grouping for styling.
 ///
 /// ## Usage
 ///
@@ -54,6 +59,12 @@ import SwiftUI
 ///   isStartOfGroup: true,
 ///   isEndOfGroup: false
 /// )
+///   onValueChange: { newValue in /* parent logic */ },
+///   isFirst: true,
+///   isLast: false,
+///   showLeftSeparator: false,
+///   isStartOfGroup: true,
+///   isEndOfGroup: false
 /// ```
 ///
 /// ## Variables → Public variables
@@ -64,12 +75,14 @@ import SwiftUI
 /// ## Functions → Public functions
 ///
 /// No public functions. Interaction is driven by bindings and the `onValueChange` callback.
+/// - `text`, `variant`, `size`, `length`, `onValueChange`, `isError`, and positional
+///   flags (`isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`)
+///   are provided by the parent; the view does not expose additional public state.
 internal struct SHDInputOTPItem: View {
+    @Environment(\.isFocused) private var isFocused
     @Binding var text: String
-    let tag: Int
-    let focusedField: FocusState<Int?>.Binding
+    @FocusState private var internalFocus: Bool
     let onValueChange: (String) -> Void
-
     var variant: SHDInputOTPVariant = .controlled
     var size: SHDInputOTPSizing = .md
     var length: SHDInputOTPLength = .otp6
@@ -80,13 +93,9 @@ internal struct SHDInputOTPItem: View {
     var isStartOfGroup: Bool = false
     var isEndOfGroup: Bool = false
 
-    private var isActive: Bool {
-        focusedField.wrappedValue == tag
-    }
-
     private var slotState: SHDInputSlotState {
         SHDInputSlotState.currentState(
-            isFocused: isActive,
+            isFocused: internalFocus,
             isError: isError
         )
     }
@@ -102,6 +111,7 @@ internal struct SHDInputOTPItem: View {
             .frame(width: size.textFieldSize, height: size.textFieldSize)
             .multilineTextAlignment(.center)
             .tint(SHDColor.borderPrimaryDefault.color)
+            .focused($internalFocus)
             .background(
                 SHDInputSlotBorder()
                     .inputSlotBorderConfiguration(
@@ -111,7 +121,6 @@ internal struct SHDInputOTPItem: View {
                     )
             )
             .foregroundColor(.primary)
-            .focused(focusedField, equals: tag)
             .padding(.leading, leadingPadding)
             .zIndex(slotState.zIndex)
             .onChange(of: text) { newValue in
