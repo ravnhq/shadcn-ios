@@ -96,6 +96,7 @@ internal struct SHDInputOTPItem: View {
 
     var body: some View {
         TextField("", text: $text)
+            .lineLimit(1)
             .frame(width: size.textFieldSize, height: size.textFieldSize)
             .multilineTextAlignment(.center)
             .tint(SHDColor.borderPrimaryDefault.color)
