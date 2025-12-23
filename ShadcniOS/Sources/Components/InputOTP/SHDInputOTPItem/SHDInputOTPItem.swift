@@ -64,9 +64,7 @@ import SwiftUI
 /// No public functions. Interaction is driven by bindings and the `onValueChange` callback.
 internal struct SHDInputOTPItem: View {
     @Binding var text: String
-
-    let index: Int
-    let count: Int
+    let tag: Int
     let focusedField: FocusState<Int?>.Binding
     let onValueChange: (String) -> Void
 
@@ -74,9 +72,14 @@ internal struct SHDInputOTPItem: View {
     var size: SHDInputOTPSizing = .md
     var length: SHDInputOTPLength = .otp6
     var isError: Bool = false
+    var isFirst: Bool = false
+    var isLast: Bool = false
+    var showLeftSeparator: Bool = false
+    var isStartOfGroup: Bool = false
+    var isEndOfGroup: Bool = false
 
     private var isActive: Bool {
-        focusedField.wrappedValue == index
+        focusedField.wrappedValue == tag
     }
 
     private var slotState: SHDInputSlotState {
@@ -87,8 +90,7 @@ internal struct SHDInputOTPItem: View {
     }
 
     private var leadingPadding: CGFloat {
-        if index == 0 { return 0 }
-        if variant.shouldShowSeparator(at: index, length: length) { return 0 }
+        if isFirst || showLeftSeparator { return 0 }
         return -1
     }
 
@@ -98,14 +100,15 @@ internal struct SHDInputOTPItem: View {
             .multilineTextAlignment(.center)
             .tint(SHDColor.borderPrimaryDefault.color)
             .background(
-                SHDInputSlotBorder(
-                    index: index,
-                    count: count
-                )
-                .inputSlotBorderConfiguration(variant: variant, state: slotState, length: length)
+                SHDInputSlotBorder()
+                    .inputSlotBorderConfiguration(
+                        state: slotState,
+                        isStartOfGroup: isStartOfGroup,
+                        isEndOfGroup: isEndOfGroup
+                    )
             )
             .foregroundColor(.primary)
-            .focused(focusedField, equals: index)
+            .focused(focusedField, equals: tag)
             .padding(.leading, leadingPadding)
             .zIndex(slotState.zIndex)
             .onChange(of: text) { newValue in

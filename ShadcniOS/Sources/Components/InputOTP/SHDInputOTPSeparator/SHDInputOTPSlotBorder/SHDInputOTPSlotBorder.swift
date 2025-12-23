@@ -44,23 +44,18 @@ import SwiftUI
 /// )
 /// ```
 internal struct SHDInputSlotBorder: View {
-    let index: Int
-    let count: Int
-    var variant: SHDInputOTPVariant = .controlled
     var state: SHDInputSlotState = .idle
-    var length: SHDInputOTPLength = .otp6
+    var isStartOfGroup: Bool = false
+    var isEndOfGroup: Bool = false
 
     private let cornerRadius: CGFloat = SHDSizing.Radius.md.value
 
     var body: some View {
-        let isStart = variant.isStartOfGroup(index: index, length: length)
-        let isEnd = variant.isEndOfGroup(index: index, totalCount: count, length: length)
-
         let shape = UnevenRoundedRectangle(
-            topLeadingRadius: isStart ? cornerRadius : 0,
-            bottomLeadingRadius: isStart ? cornerRadius : 0,
-            bottomTrailingRadius: isEnd ? cornerRadius : 0,
-            topTrailingRadius: isEnd ? cornerRadius : 0
+            topLeadingRadius: isStartOfGroup ? cornerRadius : 0,
+            bottomLeadingRadius: isStartOfGroup ? cornerRadius : 0,
+            bottomTrailingRadius: isEndOfGroup ? cornerRadius : 0,
+            topTrailingRadius: isEndOfGroup ? cornerRadius : 0
         )
 
         ZStack {
@@ -74,14 +69,14 @@ internal struct SHDInputSlotBorder: View {
     }
 
     func inputSlotBorderConfiguration(
-        variant: SHDInputOTPVariant,
         state: SHDInputSlotState,
-        length: SHDInputOTPLength
+        isStartOfGroup: Bool,
+        isEndOfGroup: Bool
     ) -> Self {
         mutating { inputSlotBorder in
-            inputSlotBorder.variant = variant
             inputSlotBorder.state = state
-            inputSlotBorder.length = length
+            inputSlotBorder.isStartOfGroup = isStartOfGroup
+            inputSlotBorder.isEndOfGroup = isEndOfGroup
         }
     }
 }

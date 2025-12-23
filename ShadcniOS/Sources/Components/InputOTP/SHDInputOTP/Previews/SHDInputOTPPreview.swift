@@ -9,7 +9,7 @@ import SwiftUI
 
 internal struct SHDInputOTPPreview: View {
     @State var extractedCode: String = ""
-    
+
     private func row(_ title: String, @ViewBuilder content: () -> some View) -> some View {
         HStack {
             Text(title)

@@ -107,14 +107,25 @@ public struct SHDInputOTP: View {
                         SHDInputOTPSeparator()
                     }
 
+                    let isFirst = index == 0
+                    let isLast = index == otpDigits.count - 1
+                    let isStart = variant.isStartOfGroup(index: index, length: length)
+                    let isEnd = variant.isEndOfGroup(index: index,
+                                                     totalCount: otpDigits.count,
+                                                     length: length)
+                    let showSeparator = variant.shouldShowSeparator(at: index, length: length)
+
                     SHDInputOTPItem(
                         text: $otpDigits[index],
-                        index: index,
-                        count: otpDigits.count,
+                        tag: index,
                         focusedField: $focusedField,
                         onValueChange: { newValue in
                             handleLogicChange(newValue, at: index)
-                        }
+                        }, isFirst: isFirst,
+                        isLast: isLast,
+                        showLeftSeparator: showSeparator,
+                        isStartOfGroup: isStart,
+                        isEndOfGroup: isEnd
                     )
                     .inputOTPItemConfiguration(variant: variant, size: size, length: length)
                     .isError(isError)
@@ -137,18 +148,18 @@ public struct SHDInputOTP: View {
         }
     }
 
-/// Handles logic when a slot's text value changes.
+    /// Handles logic when a slot's text value changes.
     ///
-/// This function enforces single-character input per slot (trimming excess input) and
-/// advances or regresses keyboard focus appropriately.
+    /// This function enforces single-character input per slot (trimming excess input) and
+    /// advances or regresses keyboard focus appropriately.
     ///
     /// ## Behavior
-/// - Trims any input longer than one character to the first character.
-/// - When a single character is entered and this is not the last slot, focus advances to the next slot.
-/// - When the slot is cleared and this is not the first slot, focus moves back to the previous slot.
-/// - Parameters:
-///   - value: The new text value for the slot. May contain more than one character (e.g., paste).
-///   - index: The zero-based index of the slot that changed.
+    /// - Trims any input longer than one character to the first character.
+    /// - When a single character is entered and this is not the last slot, focus advances to the next slot.
+    /// - When the slot is cleared and this is not the first slot, focus moves back to the previous slot.
+    /// - Parameters:
+    ///   - value: The new text value for the slot. May contain more than one character (e.g., paste).
+    ///   - index: The zero-based index of the slot that changed.
     private func handleLogicChange(_ value: String, at index: Int) {
         if value.count > 1 {
             otpDigits[index] = String(value.prefix(1))
