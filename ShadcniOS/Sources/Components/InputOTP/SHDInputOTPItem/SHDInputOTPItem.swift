@@ -87,7 +87,7 @@ internal struct SHDInputOTPItem: View {
     var onBackspace: () -> Void = {}
     var variant: SHDInputOTPVariant = .controlled
     var size: SHDInputOTPSizing = .md
-    var length: SHDInputOTPLength = .otp6
+    var length: SHDInputOTPLength = .standard
     var isError: Bool = false
     var isFirst: Bool = false
     var isLast: Bool = false
@@ -158,7 +158,7 @@ internal struct SHDInputOTPItem: View {
     public func inputOTPItemConfiguration(
         variant: SHDInputOTPVariant = .controlled,
         size: SHDInputOTPSizing = .md,
-        length: SHDInputOTPLength = .otp6
+        length: SHDInputOTPLength = .standard
     ) -> Self {
         mutating { inputOTP in
             inputOTP.variant = variant

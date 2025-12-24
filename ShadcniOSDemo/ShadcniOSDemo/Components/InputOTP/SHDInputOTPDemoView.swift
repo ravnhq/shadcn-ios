@@ -12,17 +12,17 @@ struct SHDInputOTPDemoView: View {
     
     @State private var selectedVariant: SHDInputOTPVariant = .controlled
     @State private var size: SHDInputOTPSizing = .md
-    @State private var length: SHDInputOTPLength = .otp6
+    @State private var length: SHDInputOTPLength = .standard
     @State private var isError: Bool = false
     @State private var textExtracted: String = ""
     @State private var otp8GroupOf: Int = 2
     
     private var resolvedVariant: SHDInputOTPVariant {
-        if length == .otp8 { return .controlled }
+        if length == .extended { return .controlled }
         switch selectedVariant {
         case .separator:
             switch length {
-            case .otp4, .otp6, .otp8:
+            case .short, .standard, .extended:
                 return .separator
             }
         default:
@@ -42,7 +42,7 @@ struct SHDInputOTPDemoView: View {
                     Text("Separator").tag(SHDInputOTPVariant.separator)
                 }
                 .pickerStyle(.segmented)
-                .disabled(length == .otp8)
+                .disabled(length == .extended)
 
                 Text("Sizes")
                     .font(.headline)
@@ -58,9 +58,9 @@ struct SHDInputOTPDemoView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 Picker("Length", selection: $length) {
-                    Text("4 digits").tag(SHDInputOTPLength.otp4)
-                    Text("6 digits").tag(SHDInputOTPLength.otp6)
-                    Text("8 digits").tag(SHDInputOTPLength.otp8)
+                    Text("Short").tag(SHDInputOTPLength.short)
+                    Text("Standard").tag(SHDInputOTPLength.standard)
+                    Text("Extended").tag(SHDInputOTPLength.extended)
                 }
                 .pickerStyle(.segmented)
                 
@@ -84,7 +84,7 @@ struct SHDInputOTPDemoView: View {
             }
             .padding()
             .onChange(of: length) { _, newValue in
-                if newValue == .otp8 {
+                if newValue == .extended {
                     selectedVariant = .controlled
                 }
             }

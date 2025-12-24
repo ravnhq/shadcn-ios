@@ -67,7 +67,7 @@ internal struct SHDInputOTPPreview: View {
             section("Length:") {
                 row("4 inputs:") {
                     SHDInputOTP(code: $extractedCode)
-                        .inputOTPConfiguration(length: .otp4)
+                        .inputOTPConfiguration(length: .short)
                 }
 
                 row("6 inputs:") {
@@ -77,7 +77,7 @@ internal struct SHDInputOTPPreview: View {
                 ScrollView(.horizontal) {
                     row("8 inputs:") {
                         SHDInputOTP(code: $extractedCode)
-                            .inputOTPConfiguration(length: .otp8)
+                            .inputOTPConfiguration(length: .extended)
                     }
                 }
             }

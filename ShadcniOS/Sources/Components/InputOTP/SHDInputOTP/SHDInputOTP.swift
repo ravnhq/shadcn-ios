@@ -75,15 +75,15 @@ import SwiftUI
 ///
 /// // OTP input with caption
 /// SHDInputOTP(caption: "Enter the 6-digit code sent to your email")
-///     .inputOTPConfiguration(variant: .controlled, size: .md, length: .otp6)
+///     .inputOTPConfiguration(variant: .controlled, size: .md, length: .standard)
 ///
 /// // Separator variant for longer codes
 /// SHDInputOTP(caption: "Verification code")
-///     .inputOTPConfiguration(variant: .separator(groupOf: 3), size: .lg, length: .otp8)
+///     .inputOTPConfiguration(variant: .controlled, size: .lg, length: .extended)
 ///
 /// // Pattern variant with error state
 /// SHDInputOTP()
-///     .inputOTPConfiguration(variant: .pattern, size: .sm, length: .otp4)
+///     .inputOTPConfiguration(variant: .pattern, size: .sm, length: .short)
 ///     .isError(true)
 /// ```
 
@@ -96,7 +96,7 @@ public struct SHDInputOTP: View {
     private var variant: SHDInputOTPVariant = .controlled
     private var size: SHDInputOTPSizing = .md
     private var isError: Bool = false
-    private var length: SHDInputOTPLength = .otp6
+    private var length: SHDInputOTPLength = .standard
 
     private var firstEmptyIndex: Int {
         otpDigits.firstIndex(where: { $0.isEmpty }) ?? (otpDigits.count - 1)
@@ -228,10 +228,10 @@ public struct SHDInputOTP: View {
     ///     - `.sm`: 40pt fields with small text style
     ///     - `.md`: 44pt fields with base text style
     ///     - `.lg`: 48pt fields with large text style
-    ///   - length: The number of input digits (default: `.otp6`):
-    ///     - `.otp4`: 4-digit OTP
-    ///     - `.otp6`: 6-digit OTP (standard)
-    ///     - `.otp8`: 8-digit OTP
+    ///   - length: The number of input digits (default: `.standard`):
+    ///     - `.short`: 4-digit OTP
+    ///     - `.standard`: 6-digit OTP (standard)
+    ///     - `.extended`: 8-digit OTP
     ///
     /// - Returns: A configured instance of `SHDInputOTP`.
     ///
@@ -239,7 +239,7 @@ public struct SHDInputOTP: View {
     public func inputOTPConfiguration(
         variant: SHDInputOTPVariant = .controlled,
         size: SHDInputOTPSizing = .md,
-        length: SHDInputOTPLength = .otp6
+        length: SHDInputOTPLength = .standard
     ) -> Self {
         let (validatedVariant, warning) = variant.validations(
             for: length,
@@ -270,7 +270,7 @@ public struct SHDInputOTP: View {
     /// @State private var hasError = false
     ///
     /// SHDInputOTP(caption: "Enter verification code")
-    ///     .inputOTPConfiguration(variant: .controlled, length: .otp6)
+    ///     .inputOTPConfiguration(variant: .controlled, length: .standard)
     ///     .isError(hasError)
     /// ```
     public func isError(_ isError: Bool = true) -> Self {

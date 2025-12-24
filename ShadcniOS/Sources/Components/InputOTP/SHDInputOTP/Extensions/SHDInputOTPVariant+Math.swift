@@ -19,9 +19,9 @@
 /// The extension implements length-aware grouping logic that adapts separator placement based
 /// on the configured `SHDInputOTPLength`. For separator variants, the effective group size
 /// varies by OTP length:
-/// - `.otp4`: Always groups by 2 (e.g., "12-34")
-/// - `.otp6`: Always groups by 3 (e.g., "123-456")
-/// - `.otp8`: Supports grouping by 2 or 4 based on the variant's `groupOf` parameter
+/// - `.short`: Always groups by 2 (e.g., "12-34")
+/// - `.standard`: Always groups by 3 (e.g., "123-456")
+/// - `.extended`: Supports grouping by 2 or 4 based on the variant's `groupOf` parameter
 ///
 /// The grouping logic ensures that separators are placed consistently and that adjacent slots
 /// within the same group share visual styling (rounded corners only at group boundaries).
@@ -106,9 +106,9 @@ internal extension SHDInputOTPVariant {
             return nil
         }
         return switch length {
-        case .otp4: 2
-        case .otp6: 3
-        case .otp8: 0
+        case .short: 2
+        case .standard: 3
+        case .extended: 0
         }
     }
 
@@ -140,17 +140,17 @@ internal extension SHDInputOTPVariant {
         size: SHDInputOTPSizing
     ) -> (SHDInputOTPVariant, String?) {
 
-        if length == .otp8 && self != .controlled {
+        if length == .extended && self != .controlled {
             return (
                 .controlled,
-                "Fallback: Pattern/Separator Variants do not support 8 digits. Switched to 'controlled' to prevent overflow"
+                "Fallback: Pattern/Separator Variants do not support extended length. Switched to 'controlled' to prevent overflow"
             )
         }
 
-        if length == .otp8 && size == .lg {
+        if length == .extended && size == .lg {
             return (
                 self,
-                "Note: The combination of 8 digits with 'Large' size may overflow on small screens"
+                "Note: The combination of extended length with 'Large' size may overflow on small screens"
             )
         }
 
