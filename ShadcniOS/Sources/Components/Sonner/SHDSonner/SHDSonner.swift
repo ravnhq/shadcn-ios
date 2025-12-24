@@ -64,7 +64,6 @@ public struct SHDSonner: View {
             SHDIcon(variant.icon)
                 .iconSize(size.iconSize)
                 .foregroundColor(variant.foregroundColor)
-                .padding(.top, .xxxxs)
 
             VStack(alignment: .leading, spacing: .sm) {
                 Text(title)

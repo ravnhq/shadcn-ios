@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-/// Determines the screen edge where the notification appears.
-public enum SHDSonnerPosition {
-    case top
-    case bottom
-}
-
 /// A view modifier that presents toast-style notifications with automatic dismissal and gestures.
 ///
 /// ## Discussion
@@ -62,29 +56,40 @@ public enum SHDSonnerPosition {
 /// }
 /// ```
 public struct SHDSonnerConfiguration: ViewModifier {
+    // MARK: Properties
+    
     @Binding var isPresented: Bool
 
     @State private var dragOffset: CGFloat = 0
     @State private var dismissTask: Task<Void, Never>?
     @State private var toastSize: CGSize = .zero
 
+    @Environment(\.horizontalSizeClass) private var availableWidth
+
     private let dismissThreshold: CGFloat = 50
 
     let sonner: SHDSonner
     let position: SHDSonnerPosition
-
+    
+    
+    // MARK: Computed properties
+    
     private var autoDismissDelay: Duration {
         sonner.variant == .default || sonner.variant == .success ? .seconds(3) : .seconds(5)
     }
 
+    private var isIpadInSmallFormFactor: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad && availableWidth == .regular
+    }
+
     init(
         sonner: SHDSonner,
+        position: SHDSonnerPosition = .bottom,
         isPresented: Binding<Bool>,
-        position: SHDSonnerPosition = .bottom
     ) {
         self.sonner = sonner
-        _isPresented = isPresented
         self.position = position
+        _isPresented = isPresented
     }
 
     public func body(content: Content) -> some View {
@@ -98,10 +103,12 @@ public struct SHDSonnerConfiguration: ViewModifier {
                     }
 
                     sonner
-                        .frame(minWidth: 320, maxWidth: 520)
+                        .frame(
+                            minWidth: isIpadInSmallFormFactor ? .infinity : 320,
+                            maxWidth: isIpadInSmallFormFactor ? .infinity : 520
+                        )
                         .offset(y: dragOffset)
                         .padding(.horizontal, .sm)
-                        .padding(position == .top ? .top : .bottom, .xxl)
                         .gesture(dragGesture)
                         .onTapGesture {
                             dismissToast()
@@ -112,25 +119,17 @@ public struct SHDSonnerConfiguration: ViewModifier {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
                 .transition(.move(edge: position == .top ? .top : .bottom).combined(with: .opacity))
-                .zIndex(0)
+                .zIndex(999)
             }
         }
-        .animation(.smooth, value: isPresented)
-        .onAppear {
-            if isPresented {
-                startAutoDismissTimer()
-            }
-        }
+        .animation(.smooth(duration: 0.5), value: isPresented)
         .onDisappear {
             cancelAutoDismissTimer()
         }
         .onChange(of: isPresented) { _, isPresented in
             if isPresented {
                 startAutoDismissTimer()
-            } else {
-                cancelAutoDismissTimer()
             }
         }
     }
@@ -161,7 +160,7 @@ public struct SHDSonnerConfiguration: ViewModifier {
                 if shouldDismiss {
                     dismissToast()
                 } else {
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
                         dragOffset = 0
                     }
                 }
@@ -198,8 +197,7 @@ public struct SHDSonnerConfiguration: ViewModifier {
 
     private func dismissToast() {
         cancelAutoDismissTimer()
-
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+        withAnimation(.smooth(duration: 0.8)) {
             isPresented = false
             dragOffset = 0
         }
