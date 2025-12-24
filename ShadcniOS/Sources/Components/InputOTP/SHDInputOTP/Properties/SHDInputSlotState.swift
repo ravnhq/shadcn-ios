@@ -35,45 +35,40 @@ import SwiftUI
 public enum SHDInputSlotState {
     /// The default idle state when the field is not focused and has no validation errors.
     case idle
-    
+
     /// The active focused state when the field has keyboard focus.
     case focused
-    
+
     /// The error state when the field has validation errors.
     case error
-    
-    case full
-    
+
     var borderColor: SHDColor {
         switch self {
         case .focused: .borderPrimaryDefault
         case .error: .borderDestructiveDefault
         case .idle: .borderDefault
-        case .full: .borderSuccessDefault
         }
     }
-    
+
     var borderWidth: CGFloat {
         switch self {
         case .focused: 2
         default: 1
         }
     }
-    
+
     var zIndex: Double {
         switch self {
         case .focused: 1
         default: 0
         }
     }
-    
-    static func currentState(isFocused: Bool, isError: Bool, isFull: Bool) -> SHDInputSlotState {
+
+    static func currentState(isFocused: Bool, isError: Bool) -> SHDInputSlotState {
         if isFocused {
             .focused
         } else if isError {
             .error
-        } else if isFull {
-            .full
         } else {
             .idle
         }

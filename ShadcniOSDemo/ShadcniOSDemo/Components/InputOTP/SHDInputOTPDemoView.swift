@@ -33,6 +33,9 @@ struct SHDInputOTPDemoView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                Text("Variants")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 Picker("Variant", selection: $selectedVariant) {
                     Text("Controlled").tag(SHDInputOTPVariant.controlled)
                     Text("Pattern").tag(SHDInputOTPVariant.pattern)
@@ -41,6 +44,9 @@ struct SHDInputOTPDemoView: View {
                 .pickerStyle(.segmented)
                 .disabled(length == .otp8)
 
+                Text("Sizes")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 Picker("Size", selection: $size) {
                     Text("SM").tag(SHDInputOTPSizing.sm)
                     Text("MD").tag(SHDInputOTPSizing.md)
@@ -48,15 +54,24 @@ struct SHDInputOTPDemoView: View {
                 }
                 .pickerStyle(.segmented)
 
+                Text("Lengths")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 Picker("Length", selection: $length) {
                     Text("4 digits").tag(SHDInputOTPLength.otp4)
                     Text("6 digits").tag(SHDInputOTPLength.otp6)
                     Text("8 digits").tag(SHDInputOTPLength.otp8)
                 }
                 .pickerStyle(.segmented)
+                
+                Spacer()
+                
+                Toggle("Toggle Error", isOn: $isError)
 
                 Spacer().frame(height: 40)
 
+                Text("Preview:")
+                    .font(.headline)
                 SHDInputOTP(caption: "Please put the sent code", code: $textExtracted)
                     .inputOTPConfiguration(
                         variant: resolvedVariant,
@@ -64,11 +79,6 @@ struct SHDInputOTPDemoView: View {
                         length: length
                     )
                     .isError(isError)
-
-                SHDButton(label: "Toggle Error") {
-                    isError.toggle()
-                }
-                .buttonVariant(variant: .destructive, size: .md)
 
                 Text("Code generated: \(textExtracted)")
             }

@@ -97,9 +97,6 @@ public struct SHDInputOTP: View {
     private var size: SHDInputOTPSizing = .md
     private var isError: Bool = false
     private var length: SHDInputOTPLength = .otp6
-    private var isFull: Bool {
-        !isError && otpDigits.allSatisfy { !$0.isEmpty }
-    }
 
     private var firstEmptyIndex: Int {
         otpDigits.firstIndex(where: { $0.isEmpty }) ?? (otpDigits.count - 1)
@@ -152,27 +149,39 @@ public struct SHDInputOTP: View {
             let isFirst = index == 0
             let isLast = index == otpDigits.count - 1
             let isStart = variant.isStartOfGroup(index: index, length: length)
-            let isEnd = variant.isEndOfGroup(index: index,
-                                             totalCount: otpDigits.count,
-                                             length: length)
-            let showSeparator = variant.shouldShowSeparator(at: index, length: length)
+            let isEnd = variant.isEndOfGroup(
+                index: index,
+                totalCount: otpDigits.count,
+                length: length
+            )
+            let showSeparator = variant.shouldShowSeparator(
+                at: index,
+                length: length
+            )
 
             SHDInputOTPItem(
                 text: $otpDigits[index],
                 onValueChange: { newValue in
                     handleLogicChange(newValue, at: index)
                 },
-                isFull: isFull,
                 isFirst: isFirst,
                 isLast: isLast,
                 showLeftSeparator: showSeparator,
                 isStartOfGroup: isStart,
                 isEndOfGroup: isEnd
             )
-            .inputOTPItemConfiguration(variant: variant, size: size, length: length)
+            .inputOTPItemConfiguration(
+                variant: variant,
+                size: size,
+                length: length
+            )
             .isError(isError)
+            .onBackspace {
+                if index > 0 {
+                    focusedField = index - 1
+                }
+            }
             .focused($focusedField, equals: index)
-
         }
     }
 
@@ -189,11 +198,15 @@ public struct SHDInputOTP: View {
     ///   - value: The new text value for the slot. May contain more than one character (e.g., paste).
     ///   - index: The zero-based index of the slot that changed.
     private func handleLogicChange(_ value: String, at index: Int) {
+        var newValue = value
+
         if value.count > 1 {
-            otpDigits[index] = String(value.prefix(1))
+            newValue = String(value.suffix(1))
         }
 
-        if value.count == 1, index < otpDigits.count - 1 {
+        otpDigits[index] = newValue
+
+        if newValue.count == 1, index < otpDigits.count - 1 {
             focusedField = index + 1
         } else if value.isEmpty, index > 0 {
             focusedField = index - 1

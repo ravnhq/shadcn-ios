@@ -82,8 +82,9 @@ internal struct SHDInputOTPItem: View {
     @Environment(\.isFocused) private var isFocused
     @Binding var text: String
     @FocusState private var internalFocus: Bool
+    private let zws = "\u{200B}"
     let onValueChange: (String) -> Void
-    let isFull: Bool
+    var onBackspace: () -> Void = {}
     var variant: SHDInputOTPVariant = .controlled
     var size: SHDInputOTPSizing = .md
     var length: SHDInputOTPLength = .otp6
@@ -97,8 +98,7 @@ internal struct SHDInputOTPItem: View {
     private var slotState: SHDInputSlotState {
         SHDInputSlotState.currentState(
             isFocused: internalFocus,
-            isError: isError,
-            isFull: isFull
+            isError: isError
         )
     }
 
@@ -108,27 +108,51 @@ internal struct SHDInputOTPItem: View {
     }
 
     var body: some View {
-        TextField("", text: $text)
-            .lineLimit(1)
-            .frame(width: size.textFieldSize, height: size.textFieldSize)
-            .multilineTextAlignment(.center)
-            .tint(SHDColor.borderPrimaryDefault.color)
-            .focused($internalFocus)
-            .background(
-                SHDInputSlotBorder()
-                    .inputSlotBorderConfiguration(
-                        state: slotState,
-                        isStartOfGroup: isStartOfGroup,
-                        isEndOfGroup: isEndOfGroup
+        TextField(
+            "",
+            text: Binding(
+                get: {
+                    text.isEmpty ? zws : text
+                },
+                set: { newValue in
+                    if newValue.isEmpty {
+                        text = ""
+                        onBackspace()
+                        return
+                    }
+                    let cleanValue = newValue.replacingOccurrences(
+                        of: zws,
+                        with: ""
                     )
+
+                    if cleanValue != text {
+                        text = cleanValue
+                    }
+                }
             )
-            .contentShape(Rectangle())
-            .foregroundColor(.foregroundPrimaryDefault)
-            .padding(.leading, leadingPadding)
-            .zIndex(slotState.zIndex)
-            .onChange(of: text) { newValue in
-                onValueChange(newValue)
-            }
+        )
+        .lineLimit(1)
+        .frame(width: size.textFieldSize, height: size.textFieldSize)
+        .multilineTextAlignment(.center)
+        .textInputAutocapitalization(.characters)
+        .tint(SHDColor.borderPrimaryDefault.color)
+        .focused($internalFocus)
+        .background(
+            SHDInputSlotBorder()
+                .inputSlotBorderConfiguration(
+                    state: slotState,
+                    isStartOfGroup: isStartOfGroup,
+                    isEndOfGroup: isEndOfGroup
+                )
+        )
+        .contentShape(Rectangle())
+        .foregroundColor(.foregroundDefault)
+        .padding(.leading, leadingPadding)
+        .zIndex(slotState.zIndex)
+        .onChange(of: text) { newValue in
+            if newValue == zws { return }
+            onValueChange(newValue)
+        }
     }
 
     public func inputOTPItemConfiguration(
@@ -145,5 +169,9 @@ internal struct SHDInputOTPItem: View {
 
     public func isError(_ isError: Bool = true) -> Self {
         mutating(keyPath: \.isError, value: isError)
+    }
+    
+    public func onBackspace(_ action: @escaping () -> Void) -> Self {
+        mutating(keyPath: \.onBackspace, value: action)
     }
 }
