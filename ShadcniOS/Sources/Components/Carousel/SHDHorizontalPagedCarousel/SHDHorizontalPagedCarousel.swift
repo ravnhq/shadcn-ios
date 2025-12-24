@@ -52,10 +52,10 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
     @State private var scrollID: Data.Element.ID?
     @State private var currentPage = 0
+    private let spacingRatio: CGFloat = 0.03
     var data: Data
     var content: (Data.Element) -> Content
     var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
-    private let spacing: CGFloat = 12
 
     var body: some View {
         VStack(spacing: .sm) {
@@ -64,6 +64,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                 let itemWidth = containerWidth * aspectRatio.widthFactor
                 let itemHeight = itemWidth / aspectRatio.aspectRatio
                 let sideInsight = (containerWidth - itemWidth) / 2
+                let spacing = containerWidth * spacingRatio
 
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: spacing) {
