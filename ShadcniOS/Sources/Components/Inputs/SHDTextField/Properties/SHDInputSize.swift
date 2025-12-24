@@ -1,5 +1,5 @@
 //
-//  InputSize.swift
+//  SHDInputSize.swift
 //  ShadcniOS
 //
 //  Created by Concepción Orellana on 12/4/25.
@@ -33,11 +33,13 @@ public enum SHDInputSize {
 
     /// Vertical padding used inside the field.
     var paddingStyle: CGFloat {
-        switch self {
-        case .sm: 10
-        case .md: 12
-        case .lg: 14
+        let padding: SHDSizing.Padding = switch self {
+            case .sm: .xxs
+            case .md: .xs
+            case .lg: .sm
         }
+
+        return padding.value
     }
 
     /// Icon size for leading/trailing adornments (fixed at 20pt).
