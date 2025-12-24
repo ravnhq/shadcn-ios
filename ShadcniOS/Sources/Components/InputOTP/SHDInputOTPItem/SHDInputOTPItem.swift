@@ -7,77 +7,53 @@
 
 import SwiftUI
 
-/// A single input slot used by `SHDInputOTP` to render and manage one character of the OTP.
+/// A single input field used by `SHDInputOTP` to render and manage one character in an OTP code.
 ///
-/// ## Description
+/// ## Overview
 ///
-/// `SHDInputOTPItem` encapsulates the UI and interaction logic for a single OTP character field.
-/// It is intended for internal use by `SHDInputOTP` and coordinates focus, visual state,
-/// sizing, length-aware grouping, and change propagation for one character in the OTP sequence.
+/// `SHDInputOTPItem` is an internal view representing a single text field for one character
+/// of a One-Time Password. It handles visual state, error indication, and sizing. Focus and
+/// value propagation are managed by the parent `SHDInputOTP`; this component itself no longer manages
+/// focus, group/slot position, or custom per-slot background styling.
 ///
-/// ## Discussion
+/// - The only state managed internally is the size, error, and the field text binding.
+/// - Sizing can be set with `.itemSize(_:)`.
+/// - Error state can be set with `.isError(_:)`.
 ///
-/// The view uses a `TextField` restricted to a single character and applies a background
-/// border view (`SHDInputSlotBorder`) that adapts its appearance based on focus, error state,
-/// and grouping information derived from the variant and length. Focus is controlled internally
-/// via a `@FocusState` property, enabling auto-advance and auto-regress
-/// behavior implemented in `SHDInputOTP`.
+/// ## Initialization
 ///
-/// The component computes a leading padding adjustment to visually collapse adjacent borders
-/// when separators are used or when the field is the first in the sequence.
+/// - `isInitialField`: Whether this item is visually the first input slot.
+/// - `isFinalField`: Whether this item is visually the last input slot.
+/// - `text`: A two-way `Binding<String>` for this slot's text value (should be a single character).
 ///
-/// ## Parameters → Init
+/// ## Modifiers
 ///
-/// - `text`: A two-way `Binding<String>` to the slot's text value (single character).
-/// - `tag`: The zero-based tag/index for this slot used with the focus binding.
-/// - `focusedField`: A `FocusState<Int?>.Binding` used to control per-slot focus from the parent.
-/// - `onValueChange`: Callback invoked whenever the slot's text changes.
-/// - `variant`, `size`, `length`: Visual/configuration values applied via the
-///   `inputOTPItemConfiguration(...)` modifier from the parent.
-/// - `isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`:
-///   Flags provided by the parent to indicate position and grouping for styling.
-/// - `onValueChange`: Callback invoked whenever the slot's text changes.
-/// - `variant`, `size`, `length`: Visual/configuration values applied via the
-///   `inputOTPItemConfiguration(...)` modifier from the parent.
-/// - `isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`:
-///   Flags provided by the parent to indicate position and grouping for styling.
+/// - `.itemSize(_:)`: Sets the visual size of the input field.
+/// - `.isError(_:)`: Sets the error visual state of the input field.
 ///
 /// ## Usage
 ///
-/// This is used internally by `SHDInputOTP` and is not typically constructed directly by consumers.
-/// Example (internal usage by `SHDInputOTP`):
+/// This component is intended for internal use by `SHDInputOTP`. Typical usage (internal to the parent):
 ///
 /// ```swift
 /// SHDInputOTPItem(
-///   text: $otpDigits[0],
-///   tag: 0,
-///   focusedField: $focusedField,
-///   onValueChange: { newValue in /* parent logic */ },
-///   isFirst: true,
-///   isLast: false,
-///   showLeftSeparator: false,
-///   isStartOfGroup: true,
-///   isEndOfGroup: false
+///   isInitialField: true,
+///   isFinalField: false,
+///   text: $otpDigits[0]
 /// )
-///   onValueChange: { newValue in /* parent logic */ },
-///   isFirst: true,
-///   isLast: false,
-///   showLeftSeparator: false,
-///   isStartOfGroup: true,
-///   isEndOfGroup: false
+/// .itemSize(.md)
+/// .isError(isError)
 /// ```
 ///
-/// ## Variables → Public variables
+/// ## Public API
 ///
-/// - `index`, `count`, `text`, `variant`, `size`, `length`, `onValueChange`, `isError`
-///   are provided by the parent; the view does not expose additional public state.
-///
-/// ## Functions → Public functions
-///
-/// No public functions. Interaction is driven by bindings and the `onValueChange` callback.
-/// - `text`, `variant`, `size`, `length`, `onValueChange`, `isError`, and positional
-///   flags (`isFirst`, `isLast`, `showLeftSeparator`, `isStartOfGroup`, `isEndOfGroup`)
-///   are provided by the parent; the view does not expose additional public state.
+/// - Properties: None exposed beyond those passed in the initializer.
+/// - Modifiers:
+///     - `itemSize(_:)`: Set the size.
+///     - `isError(_:)`: Set the error visual.
+/// - All other visual and behavioral concerns (focus, grouping, separators, callbacks) are now
+///   managed by the parent `SHDInputOTP` and not exposed here.
+//
 internal struct SHDInputOTPItem: View {
     // MARK: Properties
 
@@ -163,60 +139,4 @@ internal struct SHDInputOTPItem: View {
     @Previewable @State var text: String = "1"
 
     SHDInputOTPItem(isInitialField: true, text: $text)
-}
-
-struct SHDInputSlotBorder: ViewModifier {
-    // MARK: Properties
-
-    @FocusState private var isFocused: Bool
-
-    private var borderColor: SHDColor {
-        if isFocused {
-            .borderPrimaryDefault
-        } else if isError {
-            .borderDestructiveDefault
-        } else {
-            .borderDefault
-        }
-    }
-
-    let isInitialField: Bool
-    let isFinalField: Bool
-    let isError: Bool
-
-    func body(content: Content) -> some View {
-        content
-            .focused($isFocused)
-            .zIndex(isFocused ? 1 : 0)
-            .background {
-                UnevenRoundedRectangle(
-                    topLeadingRadius: calculateRadius(isInitialField),
-                    bottomLeadingRadius: calculateRadius(isInitialField),
-                    bottomTrailingRadius: calculateRadius(isFinalField),
-                    topTrailingRadius: calculateRadius(isFinalField)
-                )
-                .fill(.white)
-                .stroke(borderColor.color, lineWidth: isFocused ? 2 : 1)
-            }
-    }
-
-    // MARK: Private Methods
-
-    private func calculateRadius(_ shouldBend: Bool) -> CGFloat {
-        shouldBend ? SHDSizing.Radius.md.value : 0
-    }
-}
-
-extension View {
-    func border(isInitialField: Bool, isFinalField: Bool, isError: Bool)
-        -> some View
-    {
-        modifier(
-            SHDInputSlotBorder(
-                isInitialField: isInitialField,
-                isFinalField: isFinalField,
-                isError: isError
-            )
-        )
-    }
 }
