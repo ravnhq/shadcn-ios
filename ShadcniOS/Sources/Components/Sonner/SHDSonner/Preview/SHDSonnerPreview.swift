@@ -42,12 +42,13 @@ struct SHDSonnerPreview: View {
                 Text("Show sonner")
             }
         }
-        .showSonner(isPresented: $isSonnerPresented) {
-            SHDSonner(
+        .sonner(
+            configuration: SHDSonnerConfiguration(
                 title: "Event has been created",
-                      subtitle: "Sunday, December 03,  2023 at 9:00 AM"
-            )
-        }
+                subtitle: "Sunday, December 03,  2023 at 9:00 AM"
+            ),
+            isPresented: $isSonnerPresented
+        )
     }
 }
 

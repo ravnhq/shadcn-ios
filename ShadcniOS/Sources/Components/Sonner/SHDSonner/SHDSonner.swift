@@ -7,59 +7,67 @@
 
 import SwiftUI
 
-/// A notification toast component used to display brief messages and alerts.
+/// A toast-style notification component for displaying temporary messages to users.
+///
+/// `SHDSonner` is a core component of the ShadcniOS design system that provides
+/// elegant, non-intrusive notifications. It combines a title, subtitle, and contextual
+/// icon to communicate information, confirmations, warnings, or errors to users.
 ///
 /// ## Discussion
-/// `SHDSonner` provides a toast-style notification view that supports:
-/// - Title and subtitle text
-/// - Contextual variants (default, success, warning, destructive)
-/// - Multiple size configurations
-/// - Icon indicators based on variant
 ///
-/// Visual styling (colors, borders, typography, icons) is handled through
-/// the design system's variant and size types:
-///
-/// - `.sonnerVariant(variant:size:)`
-/// - `SHDSonnerVariant` for semantic colors and icons
-/// - `SHDSonnerSize` for typography scales
-///
-/// This component follows the ShadcniOS design system pattern of separating
-/// content composition from styling, ensuring predictable and centralized
-/// visual presentation.
-/// The component is typically presented using the `.showSonner()` view modifier
-/// which handles animation, positioning, and dismissal behavior.
-///
-/// Creates a ShadcniOS toast notification.
-///
-/// - Parameters:
-///   - title: The primary message text displayed prominently.
-///   - subtitle: The secondary descriptive text displayed below the title.
-///
+/// The sonner component is designed to provide brief, actionable feedback without
+/// interrupting the user's workflow. It automatically dismisses after a contextual
+/// delay and supports interactive dismissal through tap and drag gestures.
 ///
 /// ## Usage
 ///
 /// ```swift
-/// ContentView()
-///     .showSonner(
-///         title: "Event has been created",
-///         caption: "Sunday, December 03, 2023 at 9:00 AM",
-///         variant: .success,
-///         size: .md,
-///         isPresented: $showNotification
-///     )
+/// struct ContentView: View {
+///     @State private var showNotification = false
+///
+///     var body: some View {
+///         VStack {
+///             Button("Save Changes") {
+///                 saveData()
+///                 showNotification = true
+///             }
+///         }
+///         .sonner(
+///             configuration: SHDSonnerConfiguration(
+///                 title: "Changes saved",
+///                 subtitle: "Your settings have been updated successfully"
+///             ),
+///             isPresented: $showNotification
+///         )
+///     }
+/// }
 /// ```
-public struct SHDSonner: View {
+///
+/// ### Success Notification
+///
+/// ```swift
+/// .sonner(
+///     configuration: SHDSonnerConfiguration(
+///         title: "Event created",
+///         subtitle: "Sunday, December 03, 2023 at 9:00 AM",
+///         variant: .success,
+///         size: .md
+///     ),
+///     isPresented: $showSuccess
+/// )
+/// ```
+internal struct SHDSonner: View {
     let title: String
     let subtitle: String
     var size: SHDSonnerSize = .md
     var variant: SHDSonnerVariant = .default
 
-    public init(title: String, subtitle: String) {
+    init(title: String, subtitle: String) {
         self.title = title
         self.subtitle = subtitle
     }
 
-    public var body: some View {
+    var body: some View {
         HStack(alignment: .top, spacing: .sm) {
             SHDIcon(variant.icon)
                 .iconSize(size.iconSize)
@@ -87,7 +95,28 @@ public struct SHDSonner: View {
         .shadowStyle(.xs)
     }
 
-    public func sonnerVariant(variant: SHDSonnerVariant, size: SHDSonnerSize) -> Self {
+    /// Applies a visual variant and size to the notification.
+    ///
+    /// This method configures the notification's appearance by setting both its
+    /// semantic variant (which determines color and icon) and size (which controls
+    /// typography and icon dimensions).
+    ///
+    /// - Parameters:
+    ///   - variant: The semantic style that determines the icon and color scheme.
+    ///   - size: The size configuration that controls typography scale and icon size.
+    ///
+    /// - Returns: A modified sonner with the specified variant and size applied.
+    ///
+    /// ## Usage
+    ///
+    /// ```swift
+    /// let sonner = SHDSonner(
+    ///     title: "Upload complete",
+    ///     subtitle: "3 files uploaded successfully"
+    /// )
+    /// .sonnerVariant(variant: .success, size: .lg)
+    /// ```
+    func sonnerVariant(variant: SHDSonnerVariant, size: SHDSonnerSize) -> Self {
         mutating { sonner in
             sonner.variant = variant
             sonner.size = size

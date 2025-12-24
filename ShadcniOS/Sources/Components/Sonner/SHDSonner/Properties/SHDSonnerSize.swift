@@ -7,38 +7,28 @@
 
 import SwiftUI
 
-/// Defines the available size variants for ShadcniOS toast notifications.
-///
+/// Size configurations for toast notifications.
 /// ## Discussion
-/// `SHDSonnerSize` standardizes the typography and icon sizing for toast/sonner
-/// components in the ShadcniOS design system. Each case corresponds to specific
-/// `SHDTextStyle` values for both title and subtitle text, as well as an
-/// `SHDIconSize`, ensuring consistent visual hierarchy across different
-/// notification sizes.
 ///
-/// Each size provides three coordinated properties:
-/// - `textStyle`: Typography for the notification title (medium weight)
-/// - `captionStyle`: Typography for the notification subtitle (regular weight)
-/// - `iconSize`: Icon dimensions matching the text scale
+/// `SHDSonnerSize` provides three standardized size options for sonner notifications,
+/// each coordinating typography, icon sizing, and visual hierarchy to create cohesive
+/// notification experiences at different scales.
 ///
-/// Size selection guidelines:
-/// - `.sm`: Use for subtle, non-critical notifications in dense interfaces
-/// - `.md`: Default size for standard toast messages
-/// - `.lg`: Use for prominent notifications requiring immediate attention
+/// All sizes use the ShadcniOS design system's typography scale (``SHDTextStyle``)
+/// and icon sizing (``SHDIconSize``) to ensure consistent visual relationships.
 ///
 /// ## Usage
+///
+///
 /// ```swift
-/// ContentView()
-///     .showSonner(
-///         title: "Settings saved",
-///         caption: "Your preferences have been updated",
-///         variant: .success,
-///         size: .md,
-///         isPresented: $showNotification
-///     )
+/// SHDSonnerConfiguration(
+///     title: "Draft saved",
+///     subtitle: "Last saved at 3:24 PM",
+///     size: .sm
+/// )
 /// ```
-public enum SHDSonnerSize {
-    /// Small notification size for compact text and icon dimensions.
+public enum SHDSonnerSize: Sendable {
+    /// Small notification size for compact and subtle messages.
     case sm
 
     /// Medium notification size, the default for standard toast messages.
