@@ -57,11 +57,10 @@ import SwiftUI
 /// ```
 public struct SHDSonnerConfiguration: ViewModifier {
     // MARK: Properties
-    
+
     @Binding var isPresented: Bool
 
     @State private var dragOffset: CGFloat = 0
-    @State private var dismissTask: Task<Void, Never>?
     @State private var toastSize: CGSize = .zero
 
     @Environment(\.horizontalSizeClass) private var availableWidth
@@ -70,10 +69,9 @@ public struct SHDSonnerConfiguration: ViewModifier {
 
     let sonner: SHDSonner
     let position: SHDSonnerPosition
-    
-    
+
     // MARK: Computed properties
-    
+
     private var autoDismissDelay: Duration {
         sonner.variant == .default || sonner.variant == .success ? .seconds(3) : .seconds(5)
     }
@@ -85,7 +83,7 @@ public struct SHDSonnerConfiguration: ViewModifier {
     init(
         sonner: SHDSonner,
         position: SHDSonnerPosition = .bottom,
-        isPresented: Binding<Bool>,
+        isPresented: Binding<Bool>
     ) {
         self.sonner = sonner
         self.position = position
@@ -110,6 +108,9 @@ public struct SHDSonnerConfiguration: ViewModifier {
                         .offset(y: dragOffset)
                         .padding(.horizontal, .sm)
                         .gesture(dragGesture)
+                        .autoDismiss(after: autoDismissDelay) {
+                            dismissToast()
+                        }
                         .onTapGesture {
                             dismissToast()
                         }
@@ -124,14 +125,6 @@ public struct SHDSonnerConfiguration: ViewModifier {
             }
         }
         .animation(.smooth(duration: 0.5), value: isPresented)
-        .onDisappear {
-            cancelAutoDismissTimer()
-        }
-        .onChange(of: isPresented) { _, isPresented in
-            if isPresented {
-                startAutoDismissTimer()
-            }
-        }
     }
 
     private var dragGesture: some Gesture {
@@ -167,36 +160,7 @@ public struct SHDSonnerConfiguration: ViewModifier {
             }
     }
 
-    private func startAutoDismissTimer() {
-        cancelAutoDismissTimer()
-
-        guard isPresented else { return }
-
-        dismissTask = Task { @MainActor in
-            do {
-                try await Task.sleep(for: autoDismissDelay)
-
-                // Only dismiss if still presented and not cancelled
-                if !Task.isCancelled && isPresented {
-                    dismissToast()
-                }
-            } catch is CancellationError {
-                // Task was cancelled - this is expected, do nothing
-            } catch {
-                #if DEBUG
-                print("[SHDSonner] Unexpected error in auto-dismiss: \(error)")
-                #endif
-            }
-        }
-    }
-
-    private func cancelAutoDismissTimer() {
-        dismissTask?.cancel()
-        dismissTask = nil
-    }
-
     private func dismissToast() {
-        cancelAutoDismissTimer()
         withAnimation(.smooth(duration: 0.8)) {
             isPresented = false
             dragOffset = 0
@@ -273,8 +237,8 @@ public extension View {
         modifier(
             SHDSonnerConfiguration(
                 sonner: content(),
-                isPresented: isPresented,
-                position: from
+                position: from,
+                isPresented: isPresented
             )
         )
     }
