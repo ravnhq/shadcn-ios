@@ -102,13 +102,13 @@ internal extension SHDInputOTPVariant {
     private func effectiveGroupSize(
         for length: SHDInputOTPLength
     ) -> Int? {
-        guard case .separator(let groupOf) = self else {
+        guard case .separator = self else {
             return nil
         }
-       return switch length {
+        return switch length {
         case .otp4: 2
         case .otp6: 3
-        case .otp8: [2, 4].contains(groupOf) ? groupOf : 2
+        case .otp8: 0
         }
     }
 
@@ -131,5 +131,29 @@ internal extension SHDInputOTPVariant {
         return Set(
             stride(from: groupSize, to: length.digits, by: groupSize)
         )
+    }
+
+    /// Validates the combination of variant and length.
+    /// - Returns: A tuple with the validated (or fallback) variant and an optional message.
+    func validations(
+        for length: SHDInputOTPLength,
+        size: SHDInputOTPSizing
+    ) -> (SHDInputOTPVariant, String?) {
+
+        if length == .otp8 && self != .controlled {
+            return (
+                .controlled,
+                "Fallback: Pattern/Separator Variants do not support 8 digits. Switched to 'controlled' to prevent overflow"
+            )
+        }
+
+        if length == .otp8 && size == .lg {
+            return (
+                self,
+                "Note: The combination of 8 digits with 'Large' size may overflow on small screens"
+            )
+        }
+
+        return (self, nil)
     }
 }

@@ -47,13 +47,5 @@ public enum SHDInputOTPVariant: Equatable, Hashable {
     ///
     /// - Parameter groupOf: The number of digits in each group before a separator appears.
     ///   Default is 2 (e.g., "12-34-56" for a 6-digit OTP). Common values are 2, 3, or 4.
-    case separator(groupOf: Int = 2)
-
-    var dividedBy: Int {
-        switch self {
-        case .controlled: 0
-        case .pattern: 0
-        case .separator(let groupOf): groupOf
-        }
-    }
+    case separator
 }

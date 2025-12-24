@@ -18,17 +18,13 @@ struct SHDInputOTPDemoView: View {
     @State private var otp8GroupOf: Int = 2
     
     private var resolvedVariant: SHDInputOTPVariant {
+        if length == .otp8 { return .controlled }
         switch selectedVariant {
         case .separator:
             switch length {
-            case .otp4:
-                return .separator(groupOf: 2)
-            case .otp6:
-                return .separator(groupOf: 3)
-            case .otp8:
-                return .separator(groupOf: otp8GroupOf)
+            case .otp4, .otp6, .otp8:
+                return .separator
             }
-
         default:
             return selectedVariant
         }
@@ -40,9 +36,10 @@ struct SHDInputOTPDemoView: View {
                 Picker("Variant", selection: $selectedVariant) {
                     Text("Controlled").tag(SHDInputOTPVariant.controlled)
                     Text("Pattern").tag(SHDInputOTPVariant.pattern)
-                    Text("Separator").tag(SHDInputOTPVariant.separator())
+                    Text("Separator").tag(SHDInputOTPVariant.separator)
                 }
                 .pickerStyle(.segmented)
+                .disabled(length == .otp8)
 
                 Picker("Size", selection: $size) {
                     Text("SM").tag(SHDInputOTPSizing.sm)
@@ -57,14 +54,6 @@ struct SHDInputOTPDemoView: View {
                     Text("8 digits").tag(SHDInputOTPLength.otp8)
                 }
                 .pickerStyle(.segmented)
-
-                if case .separator = selectedVariant, length == .otp8 {
-                    Picker("OTP8 grouping", selection: $otp8GroupOf) {
-                        Text("2 By 2").tag(2)
-                        Text("4 by 4").tag(4)
-                    }
-                    .pickerStyle(.segmented)
-                }
 
                 Spacer().frame(height: 40)
 
@@ -84,13 +73,18 @@ struct SHDInputOTPDemoView: View {
                 Text("Code generated: \(textExtracted)")
             }
             .padding()
+            .onChange(of: length) { _, newValue in
+                if newValue == .otp8 {
+                    selectedVariant = .controlled
+                }
+            }
         }
         .navigationTitle("SHDInputOTP")
     }
 }
 
-
-
 #Preview {
     SHDInputOTPDemoView()
 }
+
+

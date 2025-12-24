@@ -83,6 +83,7 @@ internal struct SHDInputOTPItem: View {
     @Binding var text: String
     @FocusState private var internalFocus: Bool
     let onValueChange: (String) -> Void
+    let isFull: Bool
     var variant: SHDInputOTPVariant = .controlled
     var size: SHDInputOTPSizing = .md
     var length: SHDInputOTPLength = .otp6
@@ -96,7 +97,8 @@ internal struct SHDInputOTPItem: View {
     private var slotState: SHDInputSlotState {
         SHDInputSlotState.currentState(
             isFocused: internalFocus,
-            isError: isError
+            isError: isError,
+            isFull: isFull
         )
     }
 
@@ -120,7 +122,8 @@ internal struct SHDInputOTPItem: View {
                         isEndOfGroup: isEndOfGroup
                     )
             )
-            .foregroundColor(.primary)
+            .contentShape(Rectangle())
+            .foregroundColor(.foregroundPrimaryDefault)
             .padding(.leading, leadingPadding)
             .zIndex(slotState.zIndex)
             .onChange(of: text) { newValue in

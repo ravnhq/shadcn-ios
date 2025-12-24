@@ -97,6 +97,13 @@ public struct SHDInputOTP: View {
     private var size: SHDInputOTPSizing = .md
     private var isError: Bool = false
     private var length: SHDInputOTPLength = .otp6
+    private var isFull: Bool {
+        !isError && otpDigits.allSatisfy { !$0.isEmpty }
+    }
+
+    private var firstEmptyIndex: Int {
+        otpDigits.firstIndex(where: { $0.isEmpty }) ?? (otpDigits.count - 1)
+    }
 
     public init(caption: String = "", code: Binding<String>) {
         self.caption = caption
@@ -105,49 +112,67 @@ public struct SHDInputOTP: View {
 
     public var body: some View {
         VStack(spacing: .sm) {
-            HStack(spacing: 0) {
-                ForEach(otpDigits.indices, id: \.self) { index in
-                    if variant.shouldShowSeparator(at: index, length: length) {
-                        SHDInputOTPSeparator()
-                    }
-
-                    let isFirst = index == 0
-                    let isLast = index == otpDigits.count - 1
-                    let isStart = variant.isStartOfGroup(index: index, length: length)
-                    let isEnd = variant.isEndOfGroup(index: index,
-                                                     totalCount: otpDigits.count,
-                                                     length: length)
-                    let showSeparator = variant.shouldShowSeparator(at: index, length: length)
-
-                    SHDInputOTPItem(
-                        text: $otpDigits[index],
-                        onValueChange: { newValue in
-                            handleLogicChange(newValue, at: index)
-                        }, isFirst: isFirst,
-                        isLast: isLast,
-                        showLeftSeparator: showSeparator,
-                        isStartOfGroup: isStart,
-                        isEndOfGroup: isEnd
-                    )
-                    .inputOTPItemConfiguration(variant: variant, size: size, length: length)
-                    .isError(isError)
-                    .focused($focusedField, equals: index)
-                }
+            HStack(spacing: SHDSizing.Spacing.none.value) {
+                otpFields
             }
-            if variant == .controlled {
+
+            if variant == .controlled && !caption.isEmpty {
                 Text(caption)
                     .textStyle(size.textStyle)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, .xxxs)
             }
         }
+        .padding(.horizontal, .sm)
         .onAppear {
             otpDigits = Array(repeating: "", count: length.digits)
         }
-        .onChange(of: length) { newLength in
+        .onChange(of: focusedField) { newValue in
+            guard let newValue = newValue else { return }
+
+            if newValue > firstEmptyIndex {
+                focusedField = firstEmptyIndex
+            }
+        }.onChange(of: length) { newLength in
             otpDigits = Array(repeating: "", count: newLength.digits)
             focusedField = 0
         }
         .onChange(of: otpDigits) { newValue in
             code = newValue.joined()
+        }
+    }
+
+    @ViewBuilder
+    private var otpFields: some View {
+        ForEach(otpDigits.indices, id: \.self) { index in
+            if variant.shouldShowSeparator(at: index, length: length) {
+                SHDInputOTPSeparator()
+            }
+
+            let isFirst = index == 0
+            let isLast = index == otpDigits.count - 1
+            let isStart = variant.isStartOfGroup(index: index, length: length)
+            let isEnd = variant.isEndOfGroup(index: index,
+                                             totalCount: otpDigits.count,
+                                             length: length)
+            let showSeparator = variant.shouldShowSeparator(at: index, length: length)
+
+            SHDInputOTPItem(
+                text: $otpDigits[index],
+                onValueChange: { newValue in
+                    handleLogicChange(newValue, at: index)
+                },
+                isFull: isFull,
+                isFirst: isFirst,
+                isLast: isLast,
+                showLeftSeparator: showSeparator,
+                isStartOfGroup: isStart,
+                isEndOfGroup: isEnd
+            )
+            .inputOTPItemConfiguration(variant: variant, size: size, length: length)
+            .isError(isError)
+            .focused($focusedField, equals: index)
+
         }
     }
 
@@ -203,8 +228,15 @@ public struct SHDInputOTP: View {
         size: SHDInputOTPSizing = .md,
         length: SHDInputOTPLength = .otp6
     ) -> Self {
-        mutating { inputOTP in
-            inputOTP.variant = variant
+        let (validatedVariant, warning) = variant.validations(
+            for: length,
+            size: size
+        )
+        if let warning {
+            print("⚠️ [SHDInputOTP]: \(warning)")
+        }
+        return mutating { inputOTP in
+            inputOTP.variant = validatedVariant
             inputOTP.size = size
             inputOTP.length = length
         }

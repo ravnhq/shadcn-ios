@@ -60,7 +60,7 @@ internal struct SHDInputOTPPreview: View {
 
                 row("Separator:") {
                     SHDInputOTP(code: $extractedCode)
-                        .inputOTPConfiguration(variant: .separator(), size: .sm)
+                        .inputOTPConfiguration(variant: .separator, size: .sm)
                 }
             }
 
