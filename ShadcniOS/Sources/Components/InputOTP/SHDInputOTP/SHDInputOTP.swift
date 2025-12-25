@@ -109,17 +109,19 @@ public struct SHDInputOTP: View {
         VStack(spacing: .sm) {
             HStack(spacing: SHDSizing.Spacing.none.value) {
                 ForEach(vm.otpDigits.indices, id: \.self) { index in
-                    if variant.shouldShowSeparator(at: index, length: length) {
+                    if viewModel.shouldShowSeparator(at: index, variant: variant, length: length) {
                         SHDInputOTPSeparator()
                     }
 
-                    let isInitialField = variant.isStartOfGroup(
+                    let isInitialField = viewModel.isStartOfGroup(
                         index: index,
+                        variant: variant,
                         length: length
                     )
-                    let isFinalField = variant.isEndOfGroup(
+                    let isFinalField = viewModel.isEndOfGroup(
                         index: index,
                         totalCount: vm.otpDigits.count,
+                        variant: variant,
                         length: length
                     )
 
@@ -156,8 +158,8 @@ public struct SHDInputOTP: View {
             viewModel.setup(length: length.digits)
         }
         .onChange(of: length) { _, newLength in
+            viewModel.otpDigits.removeAll()
             viewModel.setup(length: newLength.digits)
-            focusedField = 0
         }
         .onChange(of: viewModel.otpDigits) { _, _ in
             code = viewModel.currentCode
@@ -199,8 +201,9 @@ public struct SHDInputOTP: View {
         size: SHDInputOTPSizing = .md,
         length: SHDInputOTPLength = .standard
     ) -> Self {
-        let (validatedVariant, warning) = variant.validations(
-            for: length,
+        let (validatedVariant, warning) = SHDInputOTPViewModel.validateConfiguration(
+            variant: variant,
+            length: length,
             size: size
         )
         if let warning {
