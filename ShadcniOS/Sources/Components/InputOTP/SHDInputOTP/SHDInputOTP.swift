@@ -113,21 +113,15 @@ public struct SHDInputOTP: View {
                         SHDInputOTPSeparator()
                     }
 
-                    let isInitialField = viewModel.isStartOfGroup(
-                        index: index,
-                        variant: variant,
-                        length: length
-                    )
-                    let isFinalField = viewModel.isEndOfGroup(
-                        index: index,
-                        totalCount: vm.otpDigits.count,
+                    let style = viewModel.slotStyle(
+                        at: index,
+                        totalCount: viewModel.otpDigits.count,
                         variant: variant,
                         length: length
                     )
 
                     SHDInputOTPItem(
-                        isInitialField: isInitialField,
-                        isFinalField: isFinalField,
+                        position: style.position,
                         text: $vm.otpDigits[index]
                     )
                     .itemSize(size)
@@ -138,7 +132,7 @@ public struct SHDInputOTP: View {
                         }
                     }
                     .focused($focusedField, equals: index)
-                    .onChange(of: vm.otpDigits[index]) { _, newValue in
+                    .onChange(of: viewModel.otpDigits[index]) { _, newValue in
                         if let nextFocus = viewModel.handleInputChange(
                             newValue,
                             at: index
@@ -201,11 +195,12 @@ public struct SHDInputOTP: View {
         size: SHDInputOTPSizing = .md,
         length: SHDInputOTPLength = .standard
     ) -> Self {
-        let (validatedVariant, warning) = SHDInputOTPViewModel.validateConfiguration(
-            variant: variant,
-            length: length,
-            size: size
-        )
+        let (validatedVariant, warning) =
+            SHDInputOTPViewModel.validateConfiguration(
+                variant: variant,
+                length: length,
+                size: size
+            )
         if let warning {
             print("⚠️ [SHDInputOTP]: \(warning)")
         }

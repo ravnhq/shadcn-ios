@@ -8,24 +8,47 @@
 import Foundation
 import Observation
 
+/// Represents the styling information for an OTP slot, including whether to show a separator and the position.
+internal struct OTPSlotStyle {
+    let showSeparator: Bool
+    let position: OTPSlotPosition
+}
+
+/// ViewModel for managing the state and logic of the SHDInputOTP component.
+///
+/// This class handles the OTP digits array, input validation, focus management, and styling calculations.
+/// It uses the `@Observable` macro for reactive updates in SwiftUI.
 @Observable
-final class SHDInputOTPViewModel {
+final internal class SHDInputOTPViewModel {
+    /// The array of OTP digits, each as a string (empty or single character).
     var otpDigits: [String] = []
 
+    /// The index of the first empty slot in the OTP digits array.
+    /// If all slots are filled, returns the last index.
     var firstEmptyIndex: Int {
         otpDigits.firstIndex(where: { $0.isEmpty }) ?? (otpDigits.count - 1)
     }
 
+    /// The concatenated string of all OTP digits.
     var currentCode: String {
         otpDigits.joined()
     }
 
+    /// Initializes or resets the OTP digits array to the specified length.
+    ///
+    /// - Parameter length: The number of digits in the OTP.
     func setup(length: Int) {
         if otpDigits.count != length {
             otpDigits = Array(repeating: "", count: length)
         }
     }
 
+    /// Handles input changes for a specific slot, enforcing single-character input and determining focus movement.
+    ///
+    /// - Parameters:
+    ///   - value: The new input value for the slot.
+    ///   - index: The index of the slot being updated.
+    /// - Returns: The index to focus next, or `nil` if no focus change is needed.
     func handleInputChange(_ value: String, at index: Int) -> Int? {
         var newValue = value
 
@@ -44,6 +67,10 @@ final class SHDInputOTPViewModel {
         return nil
     }
 
+    /// Validates and corrects the target focus index to prevent jumping ahead of empty slots.
+    ///
+    /// - Parameter targetIndex: The proposed focus index.
+    /// - Returns: The corrected focus index, or `nil` if no correction is needed.
     func validateFocus(targetIndex: Int?) -> Int? {
         guard let target = targetIndex else { return nil }
 
@@ -119,7 +146,9 @@ final class SHDInputOTPViewModel {
     /// Separators are placed after each complete group, so the returned indices represent
     /// the positions where a separator should appear before the slot at that index.
     ///
-    /// - Parameter length: The OTP length configuration.
+    /// - Parameters:
+    ///   - length: The OTP length configuration.
+    ///   - variant: The OTP variant configuration.
     /// - Returns: A set of zero-based indices where separators should be shown.
     private func separatorIndices(
         for length: SHDInputOTPLength,
@@ -138,7 +167,9 @@ final class SHDInputOTPViewModel {
     /// For `.separator` variants, this method returns the number of digits per group.
     /// For other variants, it returns `nil` since grouping is not applicable.
     ///
-    /// - Parameter length: The OTP length configuration.
+    /// - Parameters:
+    ///   - length: The OTP length configuration.
+    ///   - variant: The OTP variant configuration.
     /// - Returns: The effective group size, or `nil` if grouping is not applicable.
     private func effectiveGroupSize(
         for length: SHDInputOTPLength,
@@ -151,12 +182,20 @@ final class SHDInputOTPViewModel {
         switch length {
         case .short: return 2
         case .standard: return 3
-        case .extended: return 0 
+        case .extended: return 0
         }
     }
 
-    /// Validates the combination of variant and length.
-    /// - Returns: A tuple with the validated (or fallback) variant and an optional message.
+    /// Validates the combination of variant, length, and size configurations.
+    ///
+    /// This method checks for incompatible combinations and provides fallbacks or warnings.
+    /// For example, extended length only supports the controlled variant.
+    ///
+    /// - Parameters:
+    ///   - variant: The OTP variant configuration.
+    ///   - length: The OTP length configuration.
+    ///   - size: The OTP sizing configuration.
+    /// - Returns: A tuple with the validated (or fallback) variant and an optional warning message.
     static func validateConfiguration(
         variant: SHDInputOTPVariant,
         length: SHDInputOTPLength,
@@ -178,5 +217,53 @@ final class SHDInputOTPViewModel {
         }
 
         return (variant, nil)
+    }
+
+    /// Computes the styling information for the slot at the given index.
+    ///
+    /// This includes determining the position (start, middle, end, single) and whether
+    /// a separator should be shown before this slot.
+    ///
+    /// - Parameters:
+    ///   - index: The zero-based index of the slot.
+    ///   - totalCount: The total number of slots.
+    ///   - variant: The OTP variant configuration.
+    ///   - length: The OTP length configuration.
+    /// - Returns: An `OTPSlotStyle` containing the position and separator flag.
+    func slotStyle(
+        at index: Int,
+        totalCount: Int,
+        variant: SHDInputOTPVariant,
+        length: SHDInputOTPLength
+    ) -> OTPSlotStyle {
+        let isStart = isStartOfGroup(
+            index: index,
+            variant: variant,
+            length: length
+        )
+
+        let isEnd = isEndOfGroup(
+            index: index,
+            totalCount: totalCount,
+            variant: variant,
+            length: length
+        )
+
+        let position: OTPSlotPosition
+        switch (isStart, isEnd) {
+        case (true, true): position = .single
+        case (true, false): position = .start
+        case (false, true): position = .end
+        case (false, false): position = .middle
+        }
+
+        return OTPSlotStyle(
+            showSeparator: shouldShowSeparator(
+                at: index,
+                variant: variant,
+                length: length
+            ),
+            position: position
+        )
     }
 }

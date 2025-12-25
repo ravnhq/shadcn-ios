@@ -13,23 +13,24 @@ import SwiftUI
 ///
 /// `SHDInputOTPItem` is an internal view representing a single text field for one character
 /// of a One-Time Password. It handles visual state, error indication, and sizing. Focus and
-/// value propagation are managed by the parent `SHDInputOTP`; this component itself no longer manages
-/// focus, group/slot position, or custom per-slot background styling.
+/// value propagation are managed by the parent `SHDInputOTP`; this component itself manages
+/// the text input and backspace handling.
 ///
-/// - The only state managed internally is the size, error, and the field text binding.
+/// - The component manages the text binding and applies visual styling including size, error state, and border.
 /// - Sizing can be set with `.itemSize(_:)`.
 /// - Error state can be set with `.isError(_:)`.
+/// - Backspace handling can be set with `.onBackspace(_:)`.
 ///
 /// ## Initialization
 ///
-/// - `isInitialField`: Whether this item is visually the first input slot.
-/// - `isFinalField`: Whether this item is visually the last input slot.
+/// - `position`: The position of the slot within the group (start, middle, end, single) to determine border rounding.
 /// - `text`: A two-way `Binding<String>` for this slot's text value (should be a single character).
 ///
 /// ## Modifiers
 ///
 /// - `.itemSize(_:)`: Sets the visual size of the input field.
 /// - `.isError(_:)`: Sets the error visual state of the input field.
+/// - `.onBackspace(_:)`: Sets the action to perform when backspace is pressed on an empty field.
 ///
 /// ## Usage
 ///
@@ -37,12 +38,14 @@ import SwiftUI
 ///
 /// ```swift
 /// SHDInputOTPItem(
-///   isInitialField: true,
-///   isFinalField: false,
+///   position: .start,
 ///   text: $otpDigits[0]
 /// )
 /// .itemSize(.md)
 /// .isError(isError)
+/// .onBackspace {
+///     // Handle backspace
+/// }
 /// ```
 ///
 /// ## Public API
@@ -51,9 +54,8 @@ import SwiftUI
 /// - Modifiers:
 ///     - `itemSize(_:)`: Set the size.
 ///     - `isError(_:)`: Set the error visual.
-/// - All other visual and behavioral concerns (focus, grouping, separators, callbacks) are now
-///   managed by the parent `SHDInputOTP` and not exposed here.
-//
+///     - `onBackspace(_:)`: Set the backspace action.
+/// - Focus and grouping are managed by the parent `SHDInputOTP`.
 internal struct SHDInputOTPItem: View {
     // MARK: Properties
 
@@ -62,8 +64,7 @@ internal struct SHDInputOTPItem: View {
     private var onBackspace: () -> Void = {}
     let onValueChange: (String) -> Void = { _ in }
     private var zws = "\u{200B}"
-    private let isInitialField: Bool
-    private let isFinalField: Bool
+    private let position: OTPSlotPosition
 
     @Binding private var text: String
 
@@ -98,8 +99,7 @@ internal struct SHDInputOTPItem: View {
         .frame(width: size.textFieldSize, height: size.textFieldSize)
         .tint(.borderPrimaryDefault)
         .border(
-            isInitialField: isInitialField,
-            isFinalField: isFinalField,
+            position: position,
             isError: isError
         )
         .onChange(of: text) { newValue in
@@ -111,15 +111,12 @@ internal struct SHDInputOTPItem: View {
     // MARK: Initializer
 
     init(
-        isInitialField: Bool = false,
-        isFinalField: Bool = false,
+        position: OTPSlotPosition,
         text: Binding<String>
     ) {
-        self.isInitialField = isInitialField
-        self.isFinalField = isFinalField
+        self.position = position
         _text = text
     }
-
     // MARK: Public Methods
 
     func itemSize(_ size: SHDInputOTPSizing = .md) -> Self {
@@ -138,5 +135,5 @@ internal struct SHDInputOTPItem: View {
 #Preview {
     @Previewable @State var text: String = "1"
 
-    SHDInputOTPItem(isInitialField: true, text: $text)
+    SHDInputOTPItem(position: .start, text: $text)
 }
