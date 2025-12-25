@@ -129,7 +129,7 @@ internal struct SHDInputOTPItem: View {
     func isError(_ isError: Bool = true) -> Self {
         mutating(keyPath: \.isError, value: isError)
     }
-    
+
     public func onBackspace(_ action: @escaping () -> Void) -> Self {
         mutating(keyPath: \.onBackspace, value: action)
     }

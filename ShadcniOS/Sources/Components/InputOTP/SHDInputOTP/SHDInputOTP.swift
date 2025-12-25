@@ -88,7 +88,7 @@ import SwiftUI
 /// ```
 
 public struct SHDInputOTP: View {
-    @State private var otpDigits: [String] = []
+    @State private var viewModel = SHDInputOTPViewModel()
     @Binding private var code: String
     @FocusState private var focusedField: Int?
 
@@ -98,33 +98,35 @@ public struct SHDInputOTP: View {
     private var isError: Bool = false
     private var length: SHDInputOTPLength = .standard
 
-    private var firstEmptyIndex: Int {
-        otpDigits.firstIndex(where: { $0.isEmpty }) ?? (otpDigits.count - 1)
-    }
-
-    public init(caption: String = "", code: Binding<String>) {
-        self.caption = caption
+    public init(code: Binding<String>, caption: String = "") {
         self._code = code
+        self.caption = caption
     }
 
     public var body: some View {
+        @Bindable var vm = viewModel
+
         VStack(spacing: .sm) {
             HStack(spacing: SHDSizing.Spacing.none.value) {
-                ForEach(otpDigits.indices, id: \.self) { index in
+                ForEach(vm.otpDigits.indices, id: \.self) { index in
                     if variant.shouldShowSeparator(at: index, length: length) {
                         SHDInputOTPSeparator()
                     }
 
-                    let isInitialField = variant.isStartOfGroup(index: index, length: length)
-                    let isFinalField = variant.isEndOfGroup(
+                    let isInitialField = variant.isStartOfGroup(
                         index: index,
-                        totalCount: otpDigits.count,
                         length: length
                     )
+                    let isFinalField = variant.isEndOfGroup(
+                        index: index,
+                        totalCount: vm.otpDigits.count,
+                        length: length
+                    )
+
                     SHDInputOTPItem(
                         isInitialField: isInitialField,
                         isFinalField: isFinalField,
-                        text: $otpDigits[index]
+                        text: $vm.otpDigits[index]
                     )
                     .itemSize(size)
                     .isError(isError)
@@ -134,59 +136,38 @@ public struct SHDInputOTP: View {
                         }
                     }
                     .focused($focusedField, equals: index)
-                    .onChange(of: otpDigits[index]) { newValue in
-                        handleLogicChange(newValue, at: index)
+                    .onChange(of: vm.otpDigits[index]) { _, newValue in
+                        if let nextFocus = viewModel.handleInputChange(
+                            newValue,
+                            at: index
+                        ) {
+                            focusedField = nextFocus
+                        }
                     }
                 }
             }
+
             if variant == .controlled {
                 Text(caption)
                     .textStyle(size.textStyle)
             }
         }
         .onAppear {
-            otpDigits = Array(repeating: "", count: length.digits)
+            viewModel.setup(length: length.digits)
         }
-        .onChange(of: focusedField) { newValue in
-            guard let newValue = newValue else { return }
-
-            if newValue > firstEmptyIndex {
-                focusedField = firstEmptyIndex
-            }
-        }.onChange(of: length) { newLength in
-            otpDigits = Array(repeating: "", count: newLength.digits)
+        .onChange(of: length) { _, newLength in
+            viewModel.setup(length: newLength.digits)
             focusedField = 0
         }
-        .onChange(of: otpDigits) { newValue in
-            code = newValue.joined()
+        .onChange(of: viewModel.otpDigits) { _, _ in
+            code = viewModel.currentCode
         }
-    }
-
-    /// Handles logic when a slot's text value changes.
-    ///
-    /// This function enforces single-character input per slot (trimming excess input) and
-    /// advances or regresses keyboard focus appropriately.
-    ///
-    /// ## Behavior
-    /// - Trims any input longer than one character to the first character.
-    /// - When a single character is entered and this is not the last slot, focus advances to the next slot.
-    /// - When the slot is cleared and this is not the first slot, focus moves back to the previous slot.
-    /// - Parameters:
-    ///   - value: The new text value for the slot. May contain more than one character (e.g., paste).
-    ///   - index: The zero-based index of the slot that changed.
-    private func handleLogicChange(_ value: String, at index: Int) {
-        var newValue = value
-
-        if value.count > 1 {
-            newValue = String(value.suffix(1))
-        }
-
-        otpDigits[index] = newValue
-
-        if newValue.count == 1, index < otpDigits.count - 1 {
-            focusedField = index + 1
-        } else if value.isEmpty, index > 0 {
-            focusedField = index - 1
+        .onChange(of: focusedField) { _, newFocus in
+            if let correctedFocus = viewModel.validateFocus(
+                targetIndex: newFocus
+            ) {
+                focusedField = correctedFocus
+            }
         }
     }
 

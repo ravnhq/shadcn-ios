@@ -72,7 +72,7 @@ struct SHDInputOTPDemoView: View {
 
                 Text("Preview:")
                     .font(.headline)
-                SHDInputOTP(caption: "Please put the sent code", code: $textExtracted)
+                SHDInputOTP(code: $textExtracted, caption: "Please put the sent code")
                     .inputOTPConfiguration(
                         variant: resolvedVariant,
                         size: size,

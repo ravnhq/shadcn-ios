@@ -49,7 +49,7 @@ internal struct SHDInputOTPPreview: View {
 
             section("Variants:") {
                 row("Controlled:") {
-                    SHDInputOTP(caption: "You can add a caption in this variant", code: $extractedCode)
+                    SHDInputOTP(code: $extractedCode, caption: "You can add a caption in this variant")
                         .inputOTPConfiguration(size: .sm)
                 }
 
