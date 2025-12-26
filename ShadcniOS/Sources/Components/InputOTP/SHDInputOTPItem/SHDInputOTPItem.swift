@@ -16,14 +16,16 @@ import SwiftUI
 /// value propagation are managed by the parent `SHDInputOTP`; this component itself manages
 /// the text input and backspace handling.
 ///
-/// - The component manages the text binding and applies visual styling including size, error state, and border.
+/// - The component manages the text binding and applies visual styling
+///     including size, error state, and border.
 /// - Sizing can be set with `.itemSize(_:)`.
 /// - Error state can be set with `.isError(_:)`.
 /// - Backspace handling can be set with `.onBackspace(_:)`.
 ///
 /// ## Initialization
 ///
-/// - `position`: The position of the slot within the group (start, middle, end, single) to determine border rounding.
+/// - `position`: The position of the slot within the group
+///      (start, middle, end, single) to determine border rounding.
 /// - `text`: A two-way `Binding<String>` for this slot's text value (should be a single character).
 ///
 /// ## Modifiers
@@ -48,8 +50,6 @@ import SwiftUI
 /// }
 /// ```
 ///
-/// ## Public API
-///
 /// - Properties: None exposed beyond those passed in the initializer.
 /// - Modifiers:
 ///     - `itemSize(_:)`: Set the size.
@@ -64,7 +64,7 @@ internal struct SHDInputOTPItem: View {
     private var onBackspace: () -> Void = {}
     let onValueChange: (String) -> Void = { _ in }
     private var zws = "\u{200B}"
-    private let position: OTPSlotPosition
+    private let position: SHDInputOTPSlotPosition
 
     @Binding private var text: String
 
@@ -111,7 +111,7 @@ internal struct SHDInputOTPItem: View {
     // MARK: Initializer
 
     init(
-        position: OTPSlotPosition,
+        position: SHDInputOTPSlotPosition,
         text: Binding<String>
     ) {
         self.position = position

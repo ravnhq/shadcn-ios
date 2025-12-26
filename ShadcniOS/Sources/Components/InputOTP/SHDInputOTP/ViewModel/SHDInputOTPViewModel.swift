@@ -8,12 +8,6 @@
 import Foundation
 import Observation
 
-/// Represents the styling information for an OTP slot, including whether to show a separator and the position.
-internal struct OTPSlotStyle {
-    let showSeparator: Bool
-    let position: OTPSlotPosition
-}
-
 /// ViewModel for managing the state and logic of the SHDInputOTP component.
 ///
 /// This class handles the OTP digits array, input validation, focus management, and styling calculations.
@@ -43,7 +37,8 @@ final internal class SHDInputOTPViewModel {
         }
     }
 
-    /// Handles input changes for a specific slot, enforcing single-character input and determining focus movement.
+    /// Handles input changes for a specific slot, enforcing single-character
+    /// input and determining focus movement.
     ///
     /// - Parameters:
     ///   - value: The new input value for the slot.
@@ -141,6 +136,54 @@ final internal class SHDInputOTPViewModel {
             )
     }
 
+    /// Computes the styling information for the slot at the given index.
+    ///
+    /// This includes determining the position (start, middle, end, single) and whether
+    /// a separator should be shown before this slot.
+    ///
+    /// - Parameters:
+    ///   - index: The zero-based index of the slot.
+    ///   - totalCount: The total number of slots.
+    ///   - variant: The OTP variant configuration.
+    ///   - length: The OTP length configuration.
+    /// - Returns: An `OTPSlotStyle` containing the position and separator flag.
+    func slotStyle(
+        at index: Int,
+        totalCount: Int,
+        variant: SHDInputOTPVariant,
+        length: SHDInputOTPLength
+    ) -> SHDInputOTPSlotStyle {
+        let isStart = isStartOfGroup(
+            index: index,
+            variant: variant,
+            length: length
+        )
+
+        let isEnd = isEndOfGroup(
+            index: index,
+            totalCount: totalCount,
+            variant: variant,
+            length: length
+        )
+
+        let position: SHDInputOTPSlotPosition
+        switch (isStart, isEnd) {
+        case (true, true): position = .single
+        case (true, false): position = .start
+        case (false, true): position = .end
+        case (false, false): position = .middle
+        }
+
+        return SHDInputOTPSlotStyle(
+            showSeparator: shouldShowSeparator(
+                at: index,
+                variant: variant,
+                length: length
+            ),
+            position: position
+        )
+    }
+
     /// Computes the set of slot indices where separators should be displayed.
     ///
     /// Separators are placed after each complete group, so the returned indices represent
@@ -205,7 +248,10 @@ final internal class SHDInputOTPViewModel {
         if length == .extended && variant != .controlled {
             return (
                 .controlled,
-                "Fallback: Pattern/Separator Variants do not support extended length. Switched to 'controlled' to prevent overflow"
+                """
+                    Fallback: Pattern/Separator Variants do not support extended length.
+                    Switched to 'controlled' to prevent overflow
+                """
             )
         }
 
@@ -217,53 +263,5 @@ final internal class SHDInputOTPViewModel {
         }
 
         return (variant, nil)
-    }
-
-    /// Computes the styling information for the slot at the given index.
-    ///
-    /// This includes determining the position (start, middle, end, single) and whether
-    /// a separator should be shown before this slot.
-    ///
-    /// - Parameters:
-    ///   - index: The zero-based index of the slot.
-    ///   - totalCount: The total number of slots.
-    ///   - variant: The OTP variant configuration.
-    ///   - length: The OTP length configuration.
-    /// - Returns: An `OTPSlotStyle` containing the position and separator flag.
-    func slotStyle(
-        at index: Int,
-        totalCount: Int,
-        variant: SHDInputOTPVariant,
-        length: SHDInputOTPLength
-    ) -> OTPSlotStyle {
-        let isStart = isStartOfGroup(
-            index: index,
-            variant: variant,
-            length: length
-        )
-
-        let isEnd = isEndOfGroup(
-            index: index,
-            totalCount: totalCount,
-            variant: variant,
-            length: length
-        )
-
-        let position: OTPSlotPosition
-        switch (isStart, isEnd) {
-        case (true, true): position = .single
-        case (true, false): position = .start
-        case (false, true): position = .end
-        case (false, false): position = .middle
-        }
-
-        return OTPSlotStyle(
-            showSeparator: shouldShowSeparator(
-                at: index,
-                variant: variant,
-                length: length
-            ),
-            position: position
-        )
     }
 }

@@ -20,7 +20,8 @@ import SwiftUI
 ///
 /// ## Parameters
 ///
-/// - `position`: The position of the slot (start, middle, end, single) to determine which corners should be rounded.
+/// - `position`: The position of the slot (start, middle, end, single)
+///      to determine which corners should be rounded.
 /// - `isError`: A Boolean indicating whether the slot should display an error state.
 ///
 /// ## Usage
@@ -43,7 +44,7 @@ struct SHDInputSlotBorder: ViewModifier {
 
     @FocusState private var isFocused: Bool
 
-    let position: OTPSlotPosition
+    let position: SHDInputOTPSlotPosition
     let isError: Bool
 
     private var borderColor: SHDColor {
@@ -55,11 +56,11 @@ struct SHDInputSlotBorder: ViewModifier {
             .borderDefault
         }
     }
-    
+
     private var shouldRoundStart: Bool {
         position == .start || position == .single
     }
-    
+
     private var shouldRoundEnd: Bool {
         position == .end || position == .single
     }
@@ -88,7 +89,7 @@ struct SHDInputSlotBorder: ViewModifier {
 }
 
 extension View {
-    func border(position: OTPSlotPosition, isError: Bool) -> some View {
+    func border(position: SHDInputOTPSlotPosition, isError: Bool) -> some View {
         modifier(
             SHDInputSlotBorder(
                 position: position,

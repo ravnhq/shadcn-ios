@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Defines the visual size of individual OTP input fields.
 ///
 /// ## Discussion
