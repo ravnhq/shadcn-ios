@@ -25,22 +25,6 @@ import SwiftUI
 ///     variant: .default
 /// )
 /// ```
-///
-/// ### Success
-///
-/// Use for positive confirmations and successfully completed actions:
-/// - Form submissions
-/// - Save confirmations
-/// - Upload completions
-/// - Task completions
-///
-/// ```swift
-/// SHDSonnerConfiguration(
-///     title: "Payment successful",
-///     subtitle: "Your order has been confirmed",
-///     variant: .success
-/// )
-/// ```
 public enum SHDSonnerVariant: Sendable {
     /// The standard informational notification style.
     case `default`
