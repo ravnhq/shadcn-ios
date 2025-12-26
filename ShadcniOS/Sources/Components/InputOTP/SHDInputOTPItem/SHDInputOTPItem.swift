@@ -57,16 +57,23 @@ import SwiftUI
 ///     - `onBackspace(_:)`: Set the backspace action.
 /// - Focus and grouping are managed by the parent `SHDInputOTP`.
 internal struct SHDInputOTPItem: View {
-    // MARK: Properties
 
+    private let position: SHDInputOTPSlotPosition
+    private let onValueChange: (String) -> Void = { _ in }
+    private let zws = "\u{200B}"
+    private var onBackspace: () -> Void = {}
     private var size: SHDInputOTPSizing = .md
     private var isError: Bool = false
-    private var onBackspace: () -> Void = {}
-    let onValueChange: (String) -> Void = { _ in }
-    private var zws = "\u{200B}"
-    private let position: SHDInputOTPSlotPosition
 
     @Binding private var text: String
+
+    init(
+        position: SHDInputOTPSlotPosition,
+        text: Binding<String>
+    ) {
+        self.position = position
+        _text = text
+    }
 
     var body: some View {
         TextField(
@@ -107,17 +114,6 @@ internal struct SHDInputOTPItem: View {
             onValueChange(newValue)
         }
     }
-
-    // MARK: Initializer
-
-    init(
-        position: SHDInputOTPSlotPosition,
-        text: Binding<String>
-    ) {
-        self.position = position
-        _text = text
-    }
-    // MARK: Public Methods
 
     func itemSize(_ size: SHDInputOTPSizing = .md) -> Self {
         mutating(keyPath: \.size, value: size)

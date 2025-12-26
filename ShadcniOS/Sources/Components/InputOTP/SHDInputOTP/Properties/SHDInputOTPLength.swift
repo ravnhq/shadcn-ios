@@ -31,7 +31,7 @@
 ///
 /// // Extended 8-digit code for high security
 /// SHDInputOTP(caption: "Enter the 8-digit verification code")
-///     .inputOTPConfiguration(variant: .separator(groupOf: 2), length: .extended)
+///     .inputOTPConfiguration(variant: .separator, length: .extended)
 /// ```
 ///
 public enum SHDInputOTPLength {
