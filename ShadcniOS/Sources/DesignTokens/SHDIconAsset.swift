@@ -1,5 +1,5 @@
 //
-//  SHDIconAssets.swift
+//  SHDIconAsset.swift
 //  ShadcniOS
 //
 //  Created by JoseAlvarez on 11/5/25.
@@ -24,6 +24,7 @@ public enum SHDIconAsset: String, Codable {
     case mathsX
 
     case codingDevelopmentTerminal
+    case triangleAlert
 
     case cursorLoadingCircle
 

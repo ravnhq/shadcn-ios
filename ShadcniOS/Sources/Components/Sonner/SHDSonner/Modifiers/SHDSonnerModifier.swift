@@ -1,0 +1,143 @@
+//
+//  SHDSonnerConfiguration.swift
+//  ShadcniOS
+//
+//  Created by Diego Takaki on 12/17/25.
+//
+
+import SwiftUI
+
+/// `SHDSonnerModifier` is the internal implementation that powers the `.sonner()` view modifier.
+/// It handles all aspects of notification presentation, including animations, gestures, timing,
+/// and layout adaptation across different devices and orientations.
+/// ## Internal Implementation
+///
+/// This modifier is an internal type that should not be used directly. Instead,
+/// use the public `.sonner(configuration:isPresented:)` view modifier provided
+/// by the ``SHDSonnerConfiguration`` extension.
+///
+/// ## Example Usage (Internal)
+///
+/// ```swift
+/// // Don't use directly - use .sonner() instead
+/// content
+///     .modifier(
+///         SHDSonnerModifier(
+///             sonner: sonner,
+///             position: .bottom,
+///             isPresented: $isPresented
+///         )
+///     )
+/// ```
+internal struct SHDSonnerModifier: ViewModifier {
+    // MARK: Properties
+
+    @Binding var isPresented: Bool
+
+    @State private var dragOffset: CGFloat = 0
+    @State private var toastSize: CGSize = .zero
+
+    @Environment(\.horizontalSizeClass) private var availableWidth
+
+    private let dismissThreshold: CGFloat = 50
+
+    let sonner: SHDSonner
+    let position: SHDSonnerPosition
+
+    // MARK: Computed properties
+
+    private var autoDismissDelay: Duration {
+        sonner.variant == .default || sonner.variant == .success ? .seconds(3) : .seconds(5)
+    }
+
+    private var isIpadInSmallFormFactor: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad && availableWidth == .regular
+    }
+
+    init(
+        sonner: SHDSonner,
+        position: SHDSonnerPosition = .bottom,
+        isPresented: Binding<Bool>
+    ) {
+        self.sonner = sonner
+        self.position = position
+        _isPresented = isPresented
+    }
+
+    public func body(content: Content) -> some View {
+        ZStack {
+            content
+
+            if isPresented {
+                VStack {
+                    if position == .bottom {
+                        Spacer()
+                    }
+
+                    sonner
+                        .frame(
+                            minWidth: isIpadInSmallFormFactor ? .infinity : 320,
+                            maxWidth: isIpadInSmallFormFactor ? .infinity : 520
+                        )
+                        .offset(y: dragOffset)
+                        .padding(.horizontal, .sm)
+                        .gesture(dragGesture)
+                        .autoDismiss(after: autoDismissDelay) {
+                            dismissToast()
+                        }
+                        .onTapGesture {
+                            dismissToast()
+                        }
+
+                    if position == .top {
+                        Spacer()
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .transition(.move(edge: position == .top ? .top : .bottom).combined(with: .opacity))
+                .zIndex(999)
+            }
+        }
+        .animation(.smooth(duration: 0.5), value: isPresented)
+    }
+
+    private var dragGesture: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                // For top position: drag up (negative) to dismiss
+                // For bottom position: drag down (positive) to dismiss
+                let translation = value.translation.height
+
+                if position == .top {
+                    if translation <= 0 {
+                        dragOffset = translation
+                    }
+                } else {
+                    if translation >= 0 {
+                        dragOffset = translation
+                    }
+                }
+            }
+            .onEnded { value in
+                let translation = abs(value.translation.height)
+                let shouldDismiss = position == .top
+                    ? value.translation.height <= -dismissThreshold
+                    : value.translation.height >= dismissThreshold
+
+                if shouldDismiss {
+                    dismissToast()
+                } else {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                        dragOffset = 0
+                    }
+                }
+            }
+    }
+
+    private func dismissToast() {
+        withAnimation(.smooth(duration: 0.8)) {
+            isPresented = false
+            dragOffset = 0
+        }
+    }
+}
