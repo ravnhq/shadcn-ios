@@ -24,25 +24,10 @@ import SwiftUI
 ///
 /// Notifications slide in from the top edge and require an upward drag to dismiss.
 ///
-/// ```swift
-/// SHDSonnerConfiguration(
-///     title: "New message",
-///     subtitle: "You have 3 unread messages",
-///     position: .top
-/// )
-/// ```
-///
 /// ### Bottom (Default)
 ///
 /// Notifications slide in from the bottom edge and require a downward drag to dismiss.
-///
-/// ```swift
-/// SHDSonnerConfiguration(
-///     title: "Changes saved",
-///     subtitle: "All settings have been updated",
-///     position: .bottom  // Default
-/// )
-/// ```
+/// 
 public enum SHDSonnerPosition {
     case top
     case bottom

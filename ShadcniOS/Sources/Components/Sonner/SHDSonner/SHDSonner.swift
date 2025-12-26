@@ -42,20 +42,6 @@ import SwiftUI
 ///     }
 /// }
 /// ```
-///
-/// ### Success Notification
-///
-/// ```swift
-/// .sonner(
-///     configuration: SHDSonnerConfiguration(
-///         title: "Event created",
-///         subtitle: "Sunday, December 03, 2023 at 9:00 AM",
-///         variant: .success,
-///         size: .md
-///     ),
-///     isPresented: $showSuccess
-/// )
-/// ```
 internal struct SHDSonner: View {
     let title: String
     let subtitle: String
