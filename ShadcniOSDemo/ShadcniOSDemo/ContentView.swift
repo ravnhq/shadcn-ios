@@ -81,6 +81,14 @@ struct ContentView: View {
                             Text("SHDRadioGroup")
                         }
                     }
+                    
+                    NavigationLink(destination: SHDToggleDemoView()) {
+                        HStack {
+                            Image(systemName: "checkmark.square")
+                            Text("SHDToggle")
+                        }
+                    }
+                    
                 }
                 .navigationTitle(Text("ShadcniOS Demo"))
                 .listStyle(SidebarListStyle())

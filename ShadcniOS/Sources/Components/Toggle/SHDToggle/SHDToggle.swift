@@ -64,7 +64,6 @@ public struct SHDToggle: View {
     private let text: String?
     private let icon: SHDIconAsset?
 
-    // Private initializer used internally
     private init(
         isActive: Binding<Bool>,
         text: String?,
