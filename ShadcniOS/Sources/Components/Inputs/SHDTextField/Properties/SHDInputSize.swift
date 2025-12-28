@@ -34,9 +34,9 @@ public enum SHDInputSize {
     /// Vertical padding used inside the field.
     var paddingStyle: CGFloat {
         let padding: SHDSizing.Padding = switch self {
-            case .sm: .xxs
-            case .md: .xs
-            case .lg: .sm
+        case .sm: .xxs
+        case .md: .xs
+        case .lg: .sm
         }
 
         return padding.value

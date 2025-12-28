@@ -41,10 +41,10 @@ public struct SHDTextField: View {
         trailingIcon: SHDIconAsset? = nil,
         text: Binding<String>
     ) {
-        _text = text
         self.placeholder = placeholder
         self.leadingIcon = leadingIcon
         self.trailingIcon = trailingIcon
+        _text = text
     }
 
     public var body: some View {
@@ -75,19 +75,7 @@ public struct SHDTextField: View {
         .padding(.horizontal, .xs)
         .padding(.vertical, size.paddingStyle)
         .backgroundColor(.backgroundDefault)
-        .overlay(
-            RoundedRectangle(cornerRadius: .md)
-                .inset(by: 1)
-                .stroke(.borderDefault, lineWidth: 1)
-        )
-        .padding(.all, .xxxs)
-        .overlay {
-            if isFocused {
-                RoundedRectangle(cornerRadius: .md)
-                    .inset(by: 1)
-                    .stroke(.borderPrimaryDefault, lineWidth: 2)
-            }
-        }
+        .inputBorder(isFocused: isFocused)
         .disabledMask()
     }
 
