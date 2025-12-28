@@ -28,12 +28,17 @@ import SwiftUI
 /// ```
 public struct SHDTextField: View {
     @Binding private var text: String
+    @Environment(\.inlineError) private var inlineError
     @FocusState private var isFocused: Bool
 
     private let placeholder: String
     private let leadingIcon: SHDIconAsset?
     private let trailingIcon: SHDIconAsset?
     private var size: SHDInputSize = .md
+
+    private var textColor: Color {
+        inlineError != nil ? .foregroundDestructiveDefault : .foregroundDefault
+    }
 
     public init(
         placeholder: String,
@@ -63,7 +68,7 @@ public struct SHDTextField: View {
 
                 TextField("", text: $text)
                     .textStyle(size.textStyle)
-                    .foregroundColor(.foregroundDefault)
+                    .foregroundColor(textColor)
                     .focused($isFocused)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -75,7 +80,7 @@ public struct SHDTextField: View {
         .padding(.horizontal, .xs)
         .padding(.vertical, size.paddingStyle)
         .backgroundColor(.backgroundDefault)
-        .inputBorder(isFocused: isFocused)
+        .inputBorder(isFocused: isFocused, hasError: inlineError != nil)
         .disabledMask()
     }
 

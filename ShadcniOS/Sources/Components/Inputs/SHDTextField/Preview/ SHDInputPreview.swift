@@ -10,6 +10,7 @@ import SwiftUI
 internal struct SHDInputPreview: View {
     @State private var filledValue = "hello@shadcn.com"
     @State private var disabledFilledValue = "hello@shadcn.com"
+    @State private var errorValue = "invalid-email"
 
     internal var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -63,6 +64,16 @@ internal struct SHDInputPreview: View {
                 text: .constant("")
             )
             .inputStyle(.sm)
+
+            Text("With Inline Error")
+                .textStyle(.textBaseSemibold)
+
+            SHDTextField(
+                placeholder: "Email address",
+                text: $errorValue
+            )
+            .inputStyle(.md)
+            .shdInlineError("Please enter a valid email address")
 
             Spacer()
         }
