@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-/// A view modifier that configures a `SHDTextField` to display its contents as secure (obscured) text, such as for
-/// passwords.
+/// A view modifier that configures a `SHDTextField` to display its contents as
+/// secure (obscured) text, such as for passwords.
 ///
 /// ### Overview
-/// Applying `SecureTextField` to a view sets the `.isSecureField` environment value, which instructs any nested
+/// Applying `SecureTextField` to a view sets the `.isSecureField` environment value,
+/// which instructs any nested
 /// `SHDTextField` to render as a secure input field (hiding the entered text).
 public struct SecureTextField: ViewModifier {
     // MARK: Properties
@@ -30,9 +31,11 @@ public struct SecureTextField: ViewModifier {
 public extension View {
     /// Configures any nested `SHDTextField` to display as a secure (obscured) field, such as for passwords.
     ///
-    /// - Parameter isSecure: A Boolean value indicating whether the text field should obscure its input. Defaults to
+    /// - Parameter isSecure: A Boolean value indicating whether the text field should
+    /// obscure its input. Defaults to
     /// `true`.
-    /// - Returns: A view with the `.isSecureField` environment value set, affecting any nested `SHDTextField`.
+    /// - Returns: A view with the `.isSecureField` environment value set,
+    /// affecting any nested `SHDTextField`.
     func isSecure(_ isSecure: Bool = true) -> some View {
         modifier(SecureTextField(isSecure: isSecure))
     }

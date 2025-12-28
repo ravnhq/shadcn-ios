@@ -16,6 +16,7 @@ struct SHDTextInputDemoView: View {
     @State private var hasLeadingIcon: Bool = true
     @State private var hasTrailingIcon: Bool = false
     @State private var hasInlineError: Bool = false
+    @State private var isSecureField: Bool = false
 
     var body: some View {
         ScrollView {
@@ -23,7 +24,9 @@ struct SHDTextInputDemoView: View {
                 configSection(title: "Input Size") {
                     Picker("Input Size", selection: $size) {
                         Text("SM").tag(SHDInputSize.sm)
+
                         Text("MD").tag(SHDInputSize.md)
+
                         Text("LG").tag(SHDInputSize.lg)
                     }
                     .pickerStyle(.segmented)
@@ -31,9 +34,15 @@ struct SHDTextInputDemoView: View {
 
                 configSection(title: "Options") {
                     Toggle("Leading icon", isOn: $hasLeadingIcon)
+
                     Toggle("Trailing icon", isOn: $hasTrailingIcon)
+                        .disabled(isSecureField)
+
                     Toggle("Disabled", isOn: $isDisabled)
+
                     Toggle("Inline Error", isOn: $hasInlineError)
+
+                    Toggle("Secure Field", isOn: $isSecureField)
                 }
                 .scaleEffect(0.9)
 
@@ -48,13 +57,14 @@ struct SHDTextInputDemoView: View {
                         caption: "Helper text"
                     ) {
                         SHDTextField(
-                        placeholder: "Email address",
+                        placeholder: isSecureField ? "Password" : "Email address",
                         leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
                         trailingIcon: hasTrailingIcon ? .mathsX : nil,
                         text: $text
                     )
                     .inputStyle(size)
                     .shdInlineError(hasInlineError ? "Please enter a valid email address" : nil)
+                    .shdSecureField(isSecureField)
                     .disabled(isDisabled)
                     .onChange(of: text) {
                         if hasInlineError {

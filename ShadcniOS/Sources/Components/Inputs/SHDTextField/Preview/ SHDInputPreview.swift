@@ -11,6 +11,7 @@ internal struct SHDInputPreview: View {
     @State private var filledValue = "hello@shadcn.com"
     @State private var disabledFilledValue = "hello@shadcn.com"
     @State private var errorValue = "invalid-email"
+    @State private var passwordValue = "password123"
 
     internal var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -109,6 +110,16 @@ internal struct SHDInputPreview: View {
             )
             .inputStyle(.md)
             .shdInlineError("Please enter a valid email address")
+
+            Text("Secure Field")
+                .textStyle(.textBaseSemibold)
+
+            SHDTextField(
+                placeholder: "Password",
+                text: $passwordValue
+            )
+            .inputStyle(.md)
+            .shdSecureField(true)
 
             Spacer()
         }
