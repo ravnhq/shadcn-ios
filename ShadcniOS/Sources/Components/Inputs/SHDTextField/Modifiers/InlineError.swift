@@ -27,7 +27,8 @@ public struct InlineError: ViewModifier {
 public extension View {
     /// Applies an inline error message to the view.
     ///
-    /// - Parameter inlineError: The optional error message to display. If `nil`, no error message is displayed.
+    /// - Parameter inlineError: The optional error message to display. If `nil`,
+    /// no error message is displayed.
     /// - Returns: A view with the inline error message applied.
     func shdInlineError(_ inlineError: LocalizedStringKey?) -> some View {
         modifier(InlineError(inlineError: inlineError))
