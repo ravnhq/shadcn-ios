@@ -15,6 +15,7 @@ struct SHDTextInputDemoView: View {
     @State private var isDisabled: Bool = false
     @State private var hasLeadingIcon: Bool = true
     @State private var hasTrailingIcon: Bool = false
+    @State private var hasInlineError: Bool = false
 
     var body: some View {
         ScrollView {
@@ -32,6 +33,7 @@ struct SHDTextInputDemoView: View {
                     Toggle("Leading icon", isOn: $hasLeadingIcon)
                     Toggle("Trailing icon", isOn: $hasTrailingIcon)
                     Toggle("Disabled", isOn: $isDisabled)
+                    Toggle("Inline Error", isOn: $hasInlineError)
                 }
                 .scaleEffect(0.9)
 
@@ -46,13 +48,18 @@ struct SHDTextInputDemoView: View {
                         caption: "Helper text"
                     ) {
                         SHDTextField(
-                            placeholder: "Email address",
-                            leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
-                            trailingIcon: hasTrailingIcon ? .mathsX : nil,
-                            text: $text
-                        )
-                        .inputStyle(size)
-                        .disabled(isDisabled)
+                        placeholder: "Email address",
+                        leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
+                        trailingIcon: hasTrailingIcon ? .mathsX : nil,
+                        text: $text
+                    )
+                    .inputStyle(size)
+                    .shdInlineError(hasInlineError ? "Please enter a valid email address" : nil)
+                    .disabled(isDisabled)
+                    .onChange(of: text) {
+                        if hasInlineError {
+                            hasInlineError.toggle()
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
