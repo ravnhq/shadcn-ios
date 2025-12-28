@@ -28,6 +28,7 @@ import SwiftUI
 /// ```
 public struct SHDTextField: View {
     @Binding private var text: String
+    @FocusState private var isFocused: Bool
 
     private let placeholder: String
     private let leadingIcon: SHDIconAsset?
@@ -63,6 +64,7 @@ public struct SHDTextField: View {
                 TextField("", text: $text)
                     .textStyle(size.textStyle)
                     .foregroundColor(.foregroundDefault)
+                    .focused($isFocused)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -75,8 +77,17 @@ public struct SHDTextField: View {
         .backgroundColor(.backgroundDefault)
         .overlay(
             RoundedRectangle(cornerRadius: .md)
+                .inset(by: 1)
                 .stroke(.borderDefault, lineWidth: 1)
         )
+        .padding(.all, .xxxs)
+        .overlay {
+            if isFocused {
+                RoundedRectangle(cornerRadius: .md)
+                    .inset(by: 1)
+                    .stroke(.borderPrimaryDefault, lineWidth: 2)
+            }
+        }
         .disabledMask()
     }
 
