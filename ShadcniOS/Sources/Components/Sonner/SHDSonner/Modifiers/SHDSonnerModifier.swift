@@ -42,12 +42,13 @@ internal struct SHDSonnerModifier: ViewModifier {
     private let dismissThreshold: CGFloat = 50
 
     let sonner: SHDSonner
+    let variant: SHDSonnerVariant
     let position: SHDSonnerPosition
 
     // MARK: Computed properties
 
     private var autoDismissDelay: Duration {
-        sonner.variant == .default || sonner.variant == .success ? .seconds(3) : .seconds(5)
+        variant == .default || variant == .success ? .seconds(3) : .seconds(5)
     }
 
     private var isIpadInSmallFormFactor: Bool {
@@ -55,12 +56,14 @@ internal struct SHDSonnerModifier: ViewModifier {
     }
 
     init(
-        sonner: SHDSonner,
         position: SHDSonnerPosition = .bottom,
+        sonner: SHDSonner,
+        variant: SHDSonnerVariant,
         isPresented: Binding<Bool>
     ) {
-        self.sonner = sonner
         self.position = position
+        self.sonner = sonner
+        self.variant = variant
         _isPresented = isPresented
     }
 
@@ -94,7 +97,7 @@ internal struct SHDSonnerModifier: ViewModifier {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .transition(.move(edge: position == .top ? .top : .bottom).combined(with: .opacity))
+                .transition(.move(edge: position.edge).combined(with: .opacity))
                 .zIndex(999)
             }
         }
@@ -108,23 +111,14 @@ internal struct SHDSonnerModifier: ViewModifier {
                 // For bottom position: drag down (positive) to dismiss
                 let translation = value.translation.height
 
-                if position == .top {
-                    if translation <= 0 {
-                        dragOffset = translation
-                    }
-                } else {
-                    if translation >= 0 {
-                        dragOffset = translation
-                    }
+                if position.allowsDrag(translation) {
+                    dragOffset = translation
                 }
             }
             .onEnded { value in
                 let translation = abs(value.translation.height)
-                let shouldDismiss = position == .top
-                    ? value.translation.height <= -dismissThreshold
-                    : value.translation.height >= dismissThreshold
 
-                if shouldDismiss {
+                if position.shouldDismiss(translation, threshold: dismissThreshold) {
                     dismissToast()
                 } else {
                     withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {

@@ -98,10 +98,10 @@ public struct SHDSonnerConfiguration {
 
     internal func makeSonner() -> SHDSonner {
         SHDSonner(
-            title: title,
-            subtitle: subtitle
+            description: subtitle,
+            title: title
         )
-        .sonnerVariant(variant: variant, size: size)
+        .sonnerConfiguration(variant: variant, size: size)
     }
 }
 
@@ -147,8 +147,9 @@ public extension View {
     ) -> some View {
         modifier(
             SHDSonnerModifier(
-                sonner: configuration.makeSonner(),
                 position: configuration.position,
+                sonner: configuration.makeSonner(),
+                variant: configuration.variant,
                 isPresented: isPresented
             )
         )
