@@ -43,43 +43,22 @@ import SwiftUI
 /// }
 /// ```
 internal struct AutoDismissModifier: ViewModifier {
-    @State private var dismissTask: Task<Void, Never>?
 
     let delay: Duration
+    let id: UUID
     let onDismiss: () -> Void
 
     internal func body(content: Content) -> some View {
         content
-            .onAppear {
-                startAutoDismissTimer()
-            }
-            .onDisappear {
-                cancelAutoDismissTimer()
-            }
-    }
-
-    private func startAutoDismissTimer() {
-        cancelAutoDismissTimer()
-
-        dismissTask = Task { @MainActor in
-            do {
-                try await Task.sleep(for: delay)
-
-                if !Task.isCancelled {
+            .task(id: id) {
+                do {
+                    try await Task.sleep(for: delay)
                     onDismiss()
+                } catch {
+                    #if DEBUG
+                    print("[AutoDismiss] Task cancelled (id: \(id.uuidString.prefix(8)))")
+                    #endif
                 }
-            } catch is CancellationError {
-                // Task was cancelled - this is expected, do nothing
-            } catch {
-                #if DEBUG
-                print("[AutoDismiss] Unexpected error in auto-dismiss: \(error)")
-                #endif
             }
-        }
-    }
-
-    private func cancelAutoDismissTimer() {
-        dismissTask?.cancel()
-        dismissTask = nil
     }
 }
