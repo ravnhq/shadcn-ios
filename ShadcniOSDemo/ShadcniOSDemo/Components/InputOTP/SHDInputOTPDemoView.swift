@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SHDInputOTPDemoView: View {
 
-    @State private var variant: SHDInputOTPVariant = .controlled
+    @State private var variant: SHDInputOTPVariant = .joined
     @State private var size: SHDInputOTPSizing = .md
     @State private var length: SHDInputOTPLength = .standard
     @State private var isError: Bool = false
@@ -18,7 +18,7 @@ struct SHDInputOTPDemoView: View {
     @State private var otp8GroupOf: Int = 2
 
     private var resolvedVariant: SHDInputOTPVariant {
-        if length == .extended { return .controlled }
+        if length == .extended { return .joined }
         switch variant {
         case .separator:
             switch length {
@@ -41,8 +41,7 @@ struct SHDInputOTPDemoView: View {
                         alignment: .leading
                     )
                 Picker("Variant", selection: $variant) {
-                    Text("Controlled").tag(SHDInputOTPVariant.controlled)
-                    Text("Pattern").tag(SHDInputOTPVariant.pattern)
+                    Text("Controlled").tag(SHDInputOTPVariant.joined)
                     Text("Separator").tag(SHDInputOTPVariant.separator)
                 }
                 .pickerStyle(.segmented)
@@ -101,7 +100,7 @@ struct SHDInputOTPDemoView: View {
             .padding()
             .onChange(of: length) { _, newValue in
                 if newValue == .extended {
-                    variant = .controlled
+                    variant = .joined
                 }
             }
         }

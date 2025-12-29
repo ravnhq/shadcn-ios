@@ -10,7 +10,7 @@ import SwiftUI
 internal struct SHDInputOTP: View {
     @State private var viewModel = SHDInputOTPViewModel()
     @FocusState private var focusedField: Int?
-    @Binding  var code: String
+    @Binding var code: String
 
     let caption: String
     let variant: SHDInputOTPVariant
@@ -30,20 +30,16 @@ internal struct SHDInputOTP: View {
         VStack(spacing: .sm) {
             HStack(spacing: SHDSizing.Spacing.none.value) {
                 ForEach(vm.otpDigits.indices, id: \.self) { index in
-                    if viewModel.shouldShowSeparator(
-                        at: index,
-                        variant: variant,
-                        length: length
-                    ) {
-                        SHDInputOTPSeparator()
-                    }
-
                     let style = viewModel.slotStyle(
                         at: index,
                         totalCount: viewModel.otpDigits.count,
                         variant: variant,
                         length: length
                     )
+
+                    if style.showSeparator {
+                        SHDInputOTPSeparator()
+                    }
 
                     SHDInputOTPItem(
                         position: style.position,
@@ -71,10 +67,8 @@ internal struct SHDInputOTP: View {
                 }
             }
 
-            if variant == .controlled {
-                Text(caption)
-                    .textStyle(size.textStyle)
-            }
+            Text(caption)
+                .textStyle(size.textStyle)
         }
         .onAppear {
             viewModel.setup(length: length.digits)

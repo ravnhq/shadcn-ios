@@ -2,14 +2,13 @@
 //  SHDInputOTPControlled.swift
 //  ShadcniOS
 //
-//  Created by JoseAlvarez on 12/26/25.
+//  Created by JoseAlvarez on 12/29/25.
 //
 
 import SwiftUI
 
-public struct SHDInputOTPPattern: View {
+public struct SHDInputOTPControlled: View {
     @Binding private var code: String
-    private let pattern: SHDInputOTPRegex
 
     private var caption: String
     private var variant: SHDInputOTPVariant = .joined
@@ -19,12 +18,10 @@ public struct SHDInputOTPPattern: View {
 
     public init(
         code: Binding<String>,
-        caption: String = "",
-        pattern: SHDInputOTPRegex
+        caption: String = ""
     ) {
         self._code = code
         self.caption = caption
-        self.pattern = pattern
     }
 
     public var body: some View {
@@ -35,7 +32,7 @@ public struct SHDInputOTPPattern: View {
             size: size,
             length: length,
             isError: isError,
-            pattern: pattern
+            pattern: nil
         )
     }
 
@@ -58,11 +55,9 @@ public struct SHDInputOTPPattern: View {
 
 #Preview {
     @Previewable @State var text: String = ""
-    let hexPattern: SHDInputOTPRegex = .custom("[0-9A-F]")
 
-    SHDInputOTPPattern(
+    SHDInputOTPControlled(
         code: $text,
-        caption: "This is pattern",
-        pattern: hexPattern
+        caption: "This is controlled",
     )
 }

@@ -38,10 +38,7 @@
 ///
 public enum SHDInputOTPVariant: Equatable, Hashable {
     /// Standard layout with caption text displayed below the input fields.
-    case controlled
-
-    /// Minimal layout without separators or caption text.
-    case pattern
+    case joined
 
     /// Grouped layout with visual separators (dots) dividing input fields into segments.
     ///

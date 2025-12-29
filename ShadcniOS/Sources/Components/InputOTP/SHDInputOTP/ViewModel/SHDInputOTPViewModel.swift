@@ -75,220 +75,102 @@ final internal class SHDInputOTPViewModel {
         return nil
     }
 
-    /// Determines whether a separator should be displayed before the slot at the given index.
-    ///
-    /// This method checks if the slot at the specified index is the start of a new group
-    /// in separator variants. For non-separator variants, this always returns `false`.
-    ///
-    /// - Parameters:
-    ///   - index: The zero-based index of the slot to check.
-    ///   - length: The OTP length configuration.
-    /// - Returns: `true` if a separator should be shown before this slot, `false` otherwise.
-    ///
-    func shouldShowSeparator(
-        at index: Int,
-        variant: SHDInputOTPVariant,
-        length: SHDInputOTPLength
-    ) -> Bool {
-        separatorIndices(for: length, variant: variant).contains(index)
-    }
-
-    /// Checks if the slot at the given index is the first slot in its visual group.
-    ///
-    /// A slot is considered the start of a group if it's the first slot (index 0) or if
-    /// a separator appears before it. This is used to determine corner radius styling
-    /// for grouped slots.
-    ///
-    /// - Parameters:
-    ///   - index: The zero-based index of the slot to check.
-    ///   - length: The OTP length configuration.
-    /// - Returns: `true` if the slot is at the start of a group, `false` otherwise.
-    ///
-    func isStartOfGroup(
-        index: Int,
-        variant: SHDInputOTPVariant,
-        length: SHDInputOTPLength
-    ) -> Bool {
-        index == 0
-            || separatorIndices(for: length, variant: variant).contains(index)
-    }
-
-    /// Checks if the slot at the given index is the last slot in its visual group.
-    ///
-    /// A slot is considered the end of a group if it's the last slot overall or if a
-    /// separator appears after it (before the next slot). This is used to determine
-    /// corner radius styling for grouped slots.
-    ///
-    /// - Parameters:
-    ///   - index: The zero-based index of the slot to check.
-    ///   - totalCount: The total number of slots in the OTP input.
-    ///   - length: The OTP length configuration.
-    /// - Returns: `true` if the slot is at the end of a group, `false` otherwise.
-    func isEndOfGroup(
-        index: Int,
-        totalCount: Int,
-        variant: SHDInputOTPVariant,
-        length: SHDInputOTPLength
-    ) -> Bool {
-        index == totalCount - 1
-            || separatorIndices(for: length, variant: variant).contains(
-                index + 1
-            )
-    }
+    // MARK: - Styling Logic Refactored
 
     /// Computes the styling information for the slot at the given index.
-    ///
-    /// This includes determining the position (start, middle, end, single) and whether
-    /// a separator should be shown before this slot.
-    ///
-    /// - Parameters:
-    ///   - index: The zero-based index of the slot.
-    ///   - totalCount: The total number of slots.
-    ///   - variant: The OTP variant configuration.
-    ///   - length: The OTP length configuration.
-    /// - Returns: An `OTPSlotStyle` containing the position and separator flag.
+    /// Optimized for static grouping:
+    /// - Length 4: Split at 2 (Groups of 2)
+    /// - Length 6: Split at 3 (Groups of 3)
+    /// - Length 8: No Split (Single group of 8)
     func slotStyle(
         at index: Int,
         totalCount: Int,
         variant: SHDInputOTPVariant,
         length: SHDInputOTPLength
     ) -> SHDInputOTPSlotStyle {
-        let isStart = isStartOfGroup(
-            index: index,
-            variant: variant,
-            length: length
-        )
 
-        let isEnd = isEndOfGroup(
-            index: index,
-            totalCount: totalCount,
-            variant: variant,
-            length: length
-        )
-
-        let position: SHDInputOTPSlotPosition
-        switch (isStart, isEnd) {
-        case (true, true): position = .single
-        case (true, false): position = .start
-        case (false, true): position = .end
-        case (false, false): position = .middle
+        guard case .separator = variant else {
+            return calculateSimpleStyle(at: index, totalCount: totalCount)
         }
+
+        let splitIndex: Int
+        switch length {
+        case .short: splitIndex = 2
+        case .standard: splitIndex = 3
+        case .extended: splitIndex = totalCount
+        }
+
+        let isStart = index == 0 || index == splitIndex
+        let isEnd = index == splitIndex - 1 || index == totalCount - 1
+
+        let showSeparator = index == splitIndex
 
         return SHDInputOTPSlotStyle(
-            showSeparator: shouldShowSeparator(
-                at: index,
-                variant: variant,
-                length: length
-            ),
-            position: position
+            showSeparator: showSeparator,
+            position: determinePosition(isStart: isStart, isEnd: isEnd)
         )
     }
 
-    /// Computes the set of slot indices where separators should be displayed.
-    ///
-    /// Separators are placed after each complete group, so the returned indices represent
-    /// the positions where a separator should appear before the slot at that index.
-    ///
-    /// - Parameters:
-    ///   - length: The OTP length configuration.
-    ///   - variant: The OTP variant configuration.
-    /// - Returns: A set of zero-based indices where separators should be shown.
-    private func separatorIndices(
-        for length: SHDInputOTPLength,
-        variant: SHDInputOTPVariant
-    ) -> Set<Int> {
-        guard let groupSize = effectiveGroupSize(for: length, variant: variant),
-            groupSize > 0
-        else {
-            return []
-        }
-        return Set(stride(from: groupSize, to: length.digits, by: groupSize))
+    /// Helper for non-separator variants or basic single-group logic
+    private func calculateSimpleStyle(at index: Int, totalCount: Int)
+        -> SHDInputOTPSlotStyle
+    {
+        let isStart = index == 0
+        let isEnd = index == totalCount - 1
+        return SHDInputOTPSlotStyle(
+            showSeparator: false,
+            position: determinePosition(isStart: isStart, isEnd: isEnd)
+        )
     }
 
-    /// Computes the effective group size for separator placement based on variant and length.
-    ///
-    /// For `.separator` variants, this method returns the number of digits per group.
-    /// For other variants, it returns `nil` since grouping is not applicable.
-    ///
-    /// - Parameters:
-    ///   - length: The OTP length configuration.
-    ///   - variant: The OTP variant configuration.
-    /// - Returns: The effective group size, or `nil` if grouping is not applicable.
-    private func effectiveGroupSize(
-        for length: SHDInputOTPLength,
-        variant: SHDInputOTPVariant
-    ) -> Int? {
-        guard case .separator = variant else {
-            return nil
-        }
-
-        switch length {
-        case .short: return 2
-        case .standard: return 3
-        case .extended: return 0
+    /// Maps start/end booleans to the position enum
+    private func determinePosition(isStart: Bool, isEnd: Bool)
+        -> SHDInputOTPSlotPosition
+    {
+        switch (isStart, isEnd) {
+        case (true, true): return .single
+        case (true, false): return .start
+        case (false, true): return .end
+        case (false, false): return .middle
         }
     }
 
-    /// Validates the combination of variant, length, and size configurations.
-    ///
-    /// This method checks for incompatible combinations and provides fallbacks or warnings.
-    /// For example, extended length only supports the controlled variant.
-    ///
-    /// - Parameters:
-    ///   - variant: The OTP variant configuration.
-    ///   - length: The OTP length configuration.
-    ///   - size: The OTP sizing configuration.
-    /// - Returns: A tuple with the validated (or fallback) variant and an optional warning message.
+    // MARK: - Validation & Config
+
     static func validateConfiguration(
         variant: SHDInputOTPVariant,
         length: SHDInputOTPLength,
         size: SHDInputOTPSizing
     ) -> (SHDInputOTPVariant, String?) {
-
-        if length == .extended && variant != .controlled {
+        if length == .extended && variant != .joined {
             return (
-                .controlled,
+                .joined,
                 """
                     Fallback: Pattern/Separator Variants do not support extended length.
                     Switched to 'controlled' to prevent overflow
                 """
             )
         }
-
         if length == .extended && size == .lg {
             return (
                 variant,
                 "Note: The combination of extended length with 'Large' size may overflow on small screens"
             )
         }
-
         return (variant, nil)
     }
 
     func validate(_ value: String, with pattern: SHDInputOTPRegex) -> Bool {
         guard !value.isEmpty else { return true }
-
         switch pattern {
-        case .onlyNumbers:
-            let result = value.allSatisfy { $0.isNumber }
-            return result
-
-        case .onlyLetters:
-            let result = value.allSatisfy { $0.isLetter }
-            return result
-
+        case .onlyNumbers: return value.allSatisfy { $0.isNumber }
+        case .onlyLetters: return value.allSatisfy { $0.isLetter }
         case .onlyNumbersAndLetters:
-            let result = value.allSatisfy { $0.isLetter || $0.isNumber }
-            return result
-
+            return value.allSatisfy { $0.isLetter || $0.isNumber }
         case .custom(let regex):
             let fullRegex = "^\(regex)+$"
-            let matches =
-                value.range(
-                    of: fullRegex,
-                    options: .regularExpression
-                ) != nil
-            return matches
+            return value.range(of: fullRegex, options: .regularExpression)
+                != nil
         }
     }
 }
