@@ -37,7 +37,7 @@ public enum SHDSonnerSize: Sendable {
     /// Large notification size for emphasized, attention-required messages.
     case lg
 
-    var textStyle: SHDTextStyle {
+    var titleStyle: SHDTextStyle {
         switch self {
         case .sm: .textSMMedium
         case .md: .textBaseMedium
@@ -45,7 +45,7 @@ public enum SHDSonnerSize: Sendable {
         }
     }
 
-    var captionStyle: SHDTextStyle {
+    var descriptionStyle: SHDTextStyle {
         switch self {
         case .sm: .textSMRegular
         case .md: .textBaseRegular

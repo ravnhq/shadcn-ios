@@ -43,30 +43,31 @@ import SwiftUI
 /// }
 /// ```
 internal struct SHDSonner: View {
+
+    let description: String
     let title: String
-    let subtitle: String
     var size: SHDSonnerSize = .md
     var variant: SHDSonnerVariant = .default
 
-    init(title: String, subtitle: String) {
+    init(description: String, title: String) {
         self.title = title
-        self.subtitle = subtitle
+        self.description = description
     }
 
     var body: some View {
         HStack(alignment: .top, spacing: .sm) {
             SHDIcon(variant.icon)
                 .iconSize(size.iconSize)
-                .foregroundColor(variant.foregroundColor)
+                .foregroundColor(variant.foregroundIconColor)
 
             VStack(alignment: .leading, spacing: .sm) {
                 Text(title)
                     .foregroundStyle(.foregroundDefault)
-                    .textStyle(size.textStyle)
+                    .textStyle(size.titleStyle)
 
-                Text(subtitle)
+                Text(description)
                     .foregroundStyle(.foregroundMuted)
-                    .textStyle(size.captionStyle)
+                    .textStyle(size.descriptionStyle)
             }
 
             Spacer()
@@ -100,9 +101,9 @@ internal struct SHDSonner: View {
     ///     title: "Upload complete",
     ///     subtitle: "3 files uploaded successfully"
     /// )
-    /// .sonnerVariant(variant: .success, size: .lg)
+    /// .sonnerConfiguration(variant: .success, size: .lg)
     /// ```
-    func sonnerVariant(variant: SHDSonnerVariant, size: SHDSonnerSize) -> Self {
+    func sonnerConfiguration(variant: SHDSonnerVariant, size: SHDSonnerSize) -> Self {
         mutating { sonner in
             sonner.variant = variant
             sonner.size = size

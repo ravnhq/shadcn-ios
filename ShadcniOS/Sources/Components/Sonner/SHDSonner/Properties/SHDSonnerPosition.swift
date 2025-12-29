@@ -31,4 +31,23 @@ import SwiftUI
 public enum SHDSonnerPosition {
     case top
     case bottom
+
+    var edge: Edge {
+    switch self {
+      case .top: .top
+      case .bottom: .bottom
+      }
+    }
+
+    private var dragDirection: CGFloat {
+        self == .top ? -1 : 1
+    }
+
+    func allowsDrag(_ translation: CGFloat) -> Bool {
+        translation * dragDirection >= 0
+    }
+
+    func shouldDismiss(_ translation: CGFloat, threshold: CGFloat) -> Bool {
+        translation * dragDirection >= threshold
+    }
 }

@@ -51,7 +51,7 @@ public enum SHDSonnerVariant: Sendable {
         }
     }
 
-    var foregroundColor: SHDColor {
+    var foregroundIconColor: SHDColor {
         switch self {
         case .default:
             .foregroundDefault
