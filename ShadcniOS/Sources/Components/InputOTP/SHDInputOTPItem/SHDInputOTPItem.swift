@@ -58,21 +58,21 @@ import SwiftUI
 /// - Focus and grouping are managed by the parent `SHDInputOTP`.
 internal struct SHDInputOTPItem: View {
 
-    private let position: SHDInputOTPSlotPosition
+    // MARK: - Properties
+
     private let onValueChange: (String) -> Void = { _ in }
     private let zws = "\u{200B}"
     private var onBackspace: () -> Void = {}
     private var size: SHDInputOTPSizing = .md
+    private var state: (isStart: Bool, isEnd: Bool, showSeparator: Bool)
+
     private var isError: Bool = false
 
     @Binding private var text: String
 
-    init(
-        position: SHDInputOTPSlotPosition,
-        text: Binding<String>
-    ) {
-        self.position = position
+    init(text: Binding<String>, state: (isStart: Bool, isEnd: Bool, showSeparator: Bool)) {
         _text = text
+        self.state = state
     }
 
     var body: some View {
@@ -104,8 +104,9 @@ internal struct SHDInputOTPItem: View {
         .multilineTextAlignment(.center)
         .frame(width: size.textFieldSize, height: size.textFieldSize)
         .tint(.borderPrimaryDefault)
-        .border(
-            position: position,
+        .otpBorder(
+            isStart: state.isStart,
+            isEnd: state.isEnd,
             isError: isError
         )
         .onChange(of: text) { newValue in
@@ -126,9 +127,8 @@ internal struct SHDInputOTPItem: View {
         mutating(keyPath: \.onBackspace, value: action)
     }
 }
-
 #Preview {
     @Previewable @State var text: String = "1"
 
-    SHDInputOTPItem(position: .start, text: $text)
+    SHDInputOTPItem(text: $text, state: (isStart: true, isEnd: true, showSeparator: false))
 }

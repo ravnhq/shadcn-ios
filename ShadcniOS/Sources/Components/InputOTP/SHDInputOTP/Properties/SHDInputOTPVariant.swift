@@ -38,11 +38,18 @@
 ///
 public enum SHDInputOTPVariant: Equatable, Hashable {
     /// Standard layout with caption text displayed below the input fields.
-    case joined
+    case controlled
 
     /// Grouped layout with visual separators (dots) dividing input fields into segments.
     ///
     /// - Parameter groupOf: The number of digits in each group before a separator appears.
     ///   This variant only works with lengths of 4 (using 2 chunks of 2 digits) and 6 (using 2 chunks of 3 digits).
     case separator
+
+    case pattern(SHDInputOTPRegex)
 }
+//
+//enum SeparationState {
+//    case separated
+//    case together
+//}

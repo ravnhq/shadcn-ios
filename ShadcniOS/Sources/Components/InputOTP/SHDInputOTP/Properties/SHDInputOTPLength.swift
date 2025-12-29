@@ -51,4 +51,12 @@ public enum SHDInputOTPLength {
         case .extended: 8
         }
     }
+
+    var groupSize: Int {
+        switch self {
+        case .short: return 2
+        case .standard: return 3
+        case .extended: return 8
+        }
+    }
 }

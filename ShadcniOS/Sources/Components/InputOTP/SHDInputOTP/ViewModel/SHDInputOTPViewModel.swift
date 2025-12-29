@@ -75,60 +75,32 @@ final internal class SHDInputOTPViewModel {
         return nil
     }
 
-    // MARK: - Styling Logic Refactored
-
-    /// Computes the styling information for the slot at the given index.
-    /// Optimized for static grouping:
-    /// - Length 4: Split at 2 (Groups of 2)
-    /// - Length 6: Split at 3 (Groups of 3)
-    /// - Length 8: No Split (Single group of 8)
-    func slotStyle(
+    func bordersState(
         at index: Int,
-        totalCount: Int,
         variant: SHDInputOTPVariant,
         length: SHDInputOTPLength
-    ) -> SHDInputOTPSlotStyle {
+    ) -> (isStart: Bool, isEnd: Bool, showSeparator: Bool) {
 
-        guard case .separator = variant else {
-            return calculateSimpleStyle(at: index, totalCount: totalCount)
+        let groupSize: Int
+        if variant == .separator {
+            switch length {
+            case .short: groupSize = 2
+            case .standard: groupSize = 3
+            case .extended: groupSize = 8
+            }
+        } else {
+            groupSize = length.digits
         }
 
-        let splitIndex: Int
-        switch length {
-        case .short: splitIndex = 2
-        case .standard: splitIndex = 3
-        case .extended: splitIndex = totalCount
-        }
+        let isStart = index % groupSize == 0
 
-        let isStart = index == 0 || index == splitIndex
-        let isEnd = index == splitIndex - 1 || index == totalCount - 1
+        let isEnd = (index + 1) % groupSize == 0 || index == length.digits - 1
 
-        let showSeparator = index == splitIndex
+        let showSeparator =
+            (variant == .separator) && ((index + 1) % groupSize == 0)
+            && (index != length.digits - 1)
 
-        return SHDInputOTPSlotStyle(
-            showSeparator: showSeparator,
-            position: determinePosition(isStart: isStart, isEnd: isEnd)
-        )
-    }
-
-    /// Helper for non-separator variants or basic single-group logic
-    private func calculateSimpleStyle(at index: Int, totalCount: Int) -> SHDInputOTPSlotStyle {
-        let isStart = index == 0
-        let isEnd = index == totalCount - 1
-        return SHDInputOTPSlotStyle(
-            showSeparator: false,
-            position: determinePosition(isStart: isStart, isEnd: isEnd)
-        )
-    }
-
-    /// Maps start/end booleans to the position enum
-    private func determinePosition(isStart: Bool, isEnd: Bool) -> SHDInputOTPSlotPosition {
-        switch (isStart, isEnd) {
-        case (true, true): return .single
-        case (true, false): return .start
-        case (false, true): return .end
-        case (false, false): return .middle
-        }
+        return (isStart, isEnd, showSeparator)
     }
 
     // MARK: - Validation & Config
@@ -138,9 +110,9 @@ final internal class SHDInputOTPViewModel {
         length: SHDInputOTPLength,
         size: SHDInputOTPSizing
     ) -> (SHDInputOTPVariant, String?) {
-        if length == .extended && variant != .joined {
+        if length == .extended && variant != .controlled {
             return (
-                .joined,
+                .controlled,
                 """
                     Fallback: Pattern/Separator Variants do not support extended length.
                     Switched to 'controlled' to prevent overflow

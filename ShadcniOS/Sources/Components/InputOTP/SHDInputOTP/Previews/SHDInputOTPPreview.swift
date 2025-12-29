@@ -32,24 +32,24 @@ internal struct SHDInputOTPPreview: View {
 
             section("Sizes:") {
                 row("SM:") {
-                    SHDInputOTPControlled(code: $extractedCode)
-                        .inputOTPConfiguration(variant: .joined, size: .sm)
+                    SHDInputOTP(code: $extractedCode)
+                        .inputOTPConfiguration(variant: .controlled, size: .sm)
                 }
 
                 row("MD:") {
-                    SHDInputOTPControlled(code: $extractedCode)
-                        .inputOTPConfiguration(variant: .joined)
+                    SHDInputOTP(code: $extractedCode)
+                        .inputOTPConfiguration(variant: .controlled)
                 }
 
                 row("LG:") {
-                    SHDInputOTPControlled(code: $extractedCode)
-                        .inputOTPConfiguration(variant: .joined, size: .lg)
+                    SHDInputOTP(code: $extractedCode)
+                        .inputOTPConfiguration(variant: .controlled, size: .lg)
                 }
             }
 
             section("Variants:") {
                 row("Controlled:") {
-                    SHDInputOTPControlled(
+                    SHDInputOTP(
                         code: $extractedCode,
                         caption: "This input OTP has no restrictions"
                     )
@@ -57,33 +57,32 @@ internal struct SHDInputOTPPreview: View {
                 }
 
                 row("Pattern:") {
-                    SHDInputOTPPattern(
+                    SHDInputOTP(
                         code: $extractedCode,
                         caption: "This input OTP only accepts numbers",
-                        pattern: .onlyNumbers
                     )
-                    .inputOTPConfiguration()
+                    .inputOTPConfiguration(variant: .pattern(.onlyLetters))
                 }
 
                 row("Separator:") {
-                    SHDInputOTPControlled(code: $extractedCode, caption: "This input OTP is separated by a dot")
+                    SHDInputOTP(code: $extractedCode, caption: "This input OTP is separated by a dot")
                         .inputOTPConfiguration(variant: .separator)
                 }
             }
 
             section("Length:") {
                 row("4 inputs:") {
-                    SHDInputOTPControlled(code: $extractedCode)
+                    SHDInputOTP(code: $extractedCode)
                         .inputOTPConfiguration(length: .short)
                 }
 
                 row("6 inputs:") {
-                    SHDInputOTPControlled(code: $extractedCode)
+                    SHDInputOTP(code: $extractedCode)
                 }
 
                 ScrollView(.horizontal) {
                     row("8 inputs:") {
-                        SHDInputOTPControlled(code: $extractedCode)
+                        SHDInputOTP(code: $extractedCode)
                             .inputOTPConfiguration(length: .extended)
                     }
                 }
@@ -91,11 +90,11 @@ internal struct SHDInputOTPPreview: View {
 
             section("States:") {
                 row("Default:") {
-                    SHDInputOTPControlled(code: $extractedCode)
+                    SHDInputOTP(code: $extractedCode)
                 }
 
                 row("Error:") {
-                    SHDInputOTPControlled(code: $extractedCode)
+                    SHDInputOTP(code: $extractedCode)
                         .isError()
                 }
             }
