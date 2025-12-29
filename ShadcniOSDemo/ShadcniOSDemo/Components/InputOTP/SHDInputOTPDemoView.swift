@@ -9,14 +9,14 @@ import ShadcniOS
 import SwiftUI
 
 struct SHDInputOTPDemoView: View {
-    
+
     @State private var variant: SHDInputOTPVariant = .controlled
     @State private var size: SHDInputOTPSizing = .md
     @State private var length: SHDInputOTPLength = .standard
     @State private var isError: Bool = false
     @State private var textExtracted: String = ""
     @State private var otp8GroupOf: Int = 2
-    
+
     private var resolvedVariant: SHDInputOTPVariant {
         if length == .extended { return .controlled }
         switch variant {
@@ -35,7 +35,11 @@ struct SHDInputOTPDemoView: View {
             VStack(spacing: 16) {
                 Text("Variants")
                     .font(.headline)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .leading
+                    )
                 Picker("Variant", selection: $variant) {
                     Text("Controlled").tag(SHDInputOTPVariant.controlled)
                     Text("Pattern").tag(SHDInputOTPVariant.pattern)
@@ -46,7 +50,11 @@ struct SHDInputOTPDemoView: View {
 
                 Text("Sizes")
                     .font(.headline)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .leading
+                    )
                 Picker("Size", selection: $size) {
                     Text("SM").tag(SHDInputOTPSizing.sm)
                     Text("MD").tag(SHDInputOTPSizing.md)
@@ -56,29 +64,37 @@ struct SHDInputOTPDemoView: View {
 
                 Text("Lengths")
                     .font(.headline)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .leading
+                    )
                 Picker("Length", selection: $length) {
                     Text("Short").tag(SHDInputOTPLength.short)
                     Text("Standard").tag(SHDInputOTPLength.standard)
                     Text("Extended").tag(SHDInputOTPLength.extended)
                 }
                 .pickerStyle(.segmented)
-                
+
                 Spacer()
-                
+
                 Toggle("Toggle Error", isOn: $isError)
 
                 Spacer().frame(height: 40)
 
                 Text("Preview:")
                     .font(.headline)
-                SHDInputOTP(code: $textExtracted, caption: "Please put the sent code")
-                    .inputOTPConfiguration(
-                        variant: resolvedVariant,
-                        size: size,
-                        length: length
-                    )
-                    .isError(isError)
+                SHDInputOTPPattern(
+                    code: $textExtracted,
+                    caption: "Please put the sent code",
+                    pattern: .custom("[0-9A-F]")
+                )
+                .inputOTPConfiguration(
+                    variant: resolvedVariant,
+                    size: size,
+                    length: length
+                )
+                .isError(isError)
 
                 Text("Code generated: \(textExtracted)")
             }

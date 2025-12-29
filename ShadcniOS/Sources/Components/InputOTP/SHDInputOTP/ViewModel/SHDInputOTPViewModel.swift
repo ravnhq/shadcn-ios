@@ -264,4 +264,31 @@ final internal class SHDInputOTPViewModel {
 
         return (variant, nil)
     }
+
+    func validate(_ value: String, with pattern: SHDInputOTPRegex) -> Bool {
+        guard !value.isEmpty else { return true }
+
+        switch pattern {
+        case .onlyNumbers:
+            let result = value.allSatisfy { $0.isNumber }
+            return result
+
+        case .onlyLetters:
+            let result = value.allSatisfy { $0.isLetter }
+            return result
+
+        case .onlyNumbersAndLetters:
+            let result = value.allSatisfy { $0.isLetter || $0.isNumber }
+            return result
+
+        case .custom(let regex):
+            let fullRegex = "^\(regex)+$"
+            let matches =
+                value.range(
+                    of: fullRegex,
+                    options: .regularExpression
+                ) != nil
+            return matches
+        }
+    }
 }

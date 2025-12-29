@@ -102,7 +102,6 @@ internal struct SHDInputOTPItem: View {
         .contentShape(Rectangle())
         .lineLimit(1)
         .multilineTextAlignment(.center)
-        .textInputAutocapitalization(.characters)
         .frame(width: size.textFieldSize, height: size.textFieldSize)
         .tint(.borderPrimaryDefault)
         .border(
