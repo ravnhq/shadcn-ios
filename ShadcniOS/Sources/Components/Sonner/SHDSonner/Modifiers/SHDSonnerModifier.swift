@@ -35,6 +35,7 @@ internal struct SHDSonnerModifier: ViewModifier {
     @Binding var isPresented: Bool
 
     @State private var dragOffset: CGFloat = 0
+    @State private var sonnerId = UUID()
     @State private var toastSize: CGSize = .zero
 
     @Environment(\.horizontalSizeClass) private var availableWidth
@@ -85,7 +86,7 @@ internal struct SHDSonnerModifier: ViewModifier {
                         .offset(y: dragOffset)
                         .padding(.horizontal, .sm)
                         .gesture(dragGesture)
-                        .autoDismiss(after: autoDismissDelay) {
+                        .autoDismiss(after: autoDismissDelay, id: sonnerId) {
                             dismissToast()
                         }
                         .onTapGesture {
@@ -102,6 +103,11 @@ internal struct SHDSonnerModifier: ViewModifier {
             }
         }
         .animation(.smooth(duration: 0.5), value: isPresented)
+        .onChange(of: isPresented) { _, newValue in
+            if newValue {
+                sonnerId = UUID()
+            }
+        }
     }
 
     private var dragGesture: some Gesture {

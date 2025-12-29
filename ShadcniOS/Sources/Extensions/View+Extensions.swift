@@ -432,11 +432,13 @@ internal extension View {
     /// ```
     func autoDismiss(
         after delay: Duration,
+        id: UUID = UUID(),
         onDismiss: @escaping () -> Void
     ) -> some View {
         modifier(
             AutoDismissModifier(
                 delay: delay,
+                id: id,
                 onDismiss: onDismiss
             )
         )
