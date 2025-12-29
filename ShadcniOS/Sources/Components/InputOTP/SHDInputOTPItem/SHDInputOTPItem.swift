@@ -58,8 +58,6 @@ import SwiftUI
 /// - Focus and grouping are managed by the parent `SHDInputOTP`.
 internal struct SHDInputOTPItem: View {
 
-    // MARK: - Properties
-
     private let onValueChange: (String) -> Void = { _ in }
     private let zws = "\u{200B}"
     private var onBackspace: () -> Void = {}
@@ -70,7 +68,10 @@ internal struct SHDInputOTPItem: View {
 
     @Binding private var text: String
 
-    init(text: Binding<String>, state: (isStart: Bool, isEnd: Bool, showSeparator: Bool)) {
+    init(
+        text: Binding<String>,
+        state: (isStart: Bool, isEnd: Bool, showSeparator: Bool)
+    ) {
         _text = text
         self.state = state
     }
@@ -127,8 +128,12 @@ internal struct SHDInputOTPItem: View {
         mutating(keyPath: \.onBackspace, value: action)
     }
 }
+
 #Preview {
     @Previewable @State var text: String = "1"
 
-    SHDInputOTPItem(text: $text, state: (isStart: true, isEnd: true, showSeparator: false))
+    SHDInputOTPItem(
+        text: $text,
+        state: (isStart: true, isEnd: true, showSeparator: false)
+    )
 }

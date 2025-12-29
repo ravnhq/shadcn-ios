@@ -93,12 +93,11 @@ final internal class SHDInputOTPViewModel {
         }
 
         let isStart = index % groupSize == 0
-
         let isEnd = (index + 1) % groupSize == 0 || index == length.digits - 1
 
         let showSeparator =
-            (variant == .separator) && ((index + 1) % groupSize == 0)
-            && (index != length.digits - 1)
+            variant == .separator && (index + 1) % groupSize == 0
+            && index != length.digits - 1
 
         return (isStart, isEnd, showSeparator)
     }
@@ -126,19 +125,5 @@ final internal class SHDInputOTPViewModel {
             )
         }
         return (variant, nil)
-    }
-
-    func validate(_ value: String, with pattern: SHDInputOTPRegex) -> Bool {
-        guard !value.isEmpty else { return true }
-        switch pattern {
-        case .onlyNumbers: return value.allSatisfy { $0.isNumber }
-        case .onlyLetters: return value.allSatisfy { $0.isLetter }
-        case .onlyNumbersAndLetters:
-            return value.allSatisfy { $0.isLetter || $0.isNumber }
-        case .custom(let regex):
-            let fullRegex = "^\(regex)+$"
-            return value.range(of: fullRegex, options: .regularExpression)
-                != nil
-        }
     }
 }

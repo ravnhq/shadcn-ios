@@ -11,6 +11,7 @@ public struct SHDInputOTP: View {
     @State private var viewModel = SHDInputOTPViewModel()
     @FocusState private var focusedField: Int?
     @Binding var code: String
+    @State private var validationErrorMessage: String?
 
     var caption: String = ""
     var variant: SHDInputOTPVariant = .controlled
@@ -18,24 +19,25 @@ public struct SHDInputOTP: View {
     var length: SHDInputOTPLength = .standard
     var isError: Bool = false
 
-    private var pattern: SHDInputOTPRegex? {
-        if case .pattern(let regex) = variant {
-            return regex
-        }
-        return nil
+    private let validateError: (String) -> String?
+
+    private var resolvedIsError: Bool {
+        isError || validationErrorMessage != nil
     }
 
-    private var isPatternValid: Bool {
-        guard let pattern else { return true }
-        return viewModel.validate(code, with: pattern)
+    private var resolvedCaption: String {
+        validationErrorMessage ?? caption
     }
 
     public init(
         code: Binding<String>,
-        caption: String = ""
+        caption: String = "",
+        validateError: @escaping (String) -> String? = { _ in nil } // ✅ NEW
+
     ) {
         self._code = code
         self.caption = caption
+        self.validateError = validateError
     }
 
     public var body: some View {
@@ -51,23 +53,16 @@ public struct SHDInputOTP: View {
                         length: length
                     )
 
-                    if state.showSeparator {
-                        SHDInputOTPSeparator()
-                    }
-
                     SHDInputOTPItem(
                         text: $vm.otpDigits[index],
                         state: state
                     )
                     .itemSize(size)
-                    .isError(isError || !isPatternValid)
+                    .isError(resolvedIsError)
                     .onBackspace {
                         if index > 0 {
                             focusedField = index - 1
                         }
-                    }
-                    .ifLet(pattern) { view, pattern in
-                        view.otpPattern(pattern, text: $vm.otpDigits[index])
                     }
                     .focused($focusedField, equals: index)
                     .onChange(of: viewModel.otpDigits[index]) { _, newValue in
@@ -78,10 +73,14 @@ public struct SHDInputOTP: View {
                             focusedField = nextFocus
                         }
                     }
+
+                    if state.showSeparator {
+                        SHDInputOTPSeparator()
+                    }
                 }
             }
 
-            Text(caption)
+            Text(resolvedCaption)
                 .textStyle(size.textStyle)
         }
         .onAppear {
@@ -90,9 +89,14 @@ public struct SHDInputOTP: View {
         .onChange(of: length) { _, newLength in
             viewModel.otpDigits.removeAll()
             viewModel.setup(length: newLength.digits)
+
+            validationErrorMessage = nil
         }
         .onChange(of: viewModel.otpDigits) { _, _ in
-            code = viewModel.currentCode
+            let current = viewModel.currentCode
+            code = current
+
+            validationErrorMessage = validateError(current)
         }
         .onChange(of: focusedField) { _, newFocus in
             if let correctedFocus = viewModel.validateFocus(

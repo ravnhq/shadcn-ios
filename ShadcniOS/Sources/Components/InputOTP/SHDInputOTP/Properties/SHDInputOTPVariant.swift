@@ -46,10 +46,5 @@ public enum SHDInputOTPVariant: Equatable, Hashable {
     ///   This variant only works with lengths of 4 (using 2 chunks of 2 digits) and 6 (using 2 chunks of 3 digits).
     case separator
 
-    case pattern(SHDInputOTPRegex)
+    case pattern
 }
-//
-//enum SeparationState {
-//    case separated
-//    case together
-//}

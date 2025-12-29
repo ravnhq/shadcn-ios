@@ -61,7 +61,7 @@ internal struct SHDInputOTPPreview: View {
                         code: $extractedCode,
                         caption: "This input OTP only accepts numbers",
                     )
-                    .inputOTPConfiguration(variant: .pattern(.onlyLetters))
+                    .inputOTPConfiguration(variant: .pattern)
                 }
 
                 row("Separator:") {
