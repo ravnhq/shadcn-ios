@@ -112,9 +112,7 @@ final internal class SHDInputOTPViewModel {
     }
 
     /// Helper for non-separator variants or basic single-group logic
-    private func calculateSimpleStyle(at index: Int, totalCount: Int)
-        -> SHDInputOTPSlotStyle
-    {
+    private func calculateSimpleStyle(at index: Int, totalCount: Int) -> SHDInputOTPSlotStyle {
         let isStart = index == 0
         let isEnd = index == totalCount - 1
         return SHDInputOTPSlotStyle(
@@ -124,9 +122,7 @@ final internal class SHDInputOTPViewModel {
     }
 
     /// Maps start/end booleans to the position enum
-    private func determinePosition(isStart: Bool, isEnd: Bool)
-        -> SHDInputOTPSlotPosition
-    {
+    private func determinePosition(isStart: Bool, isEnd: Bool) -> SHDInputOTPSlotPosition {
         switch (isStart, isEnd) {
         case (true, true): return .single
         case (true, false): return .start

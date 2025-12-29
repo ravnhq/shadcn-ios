@@ -93,8 +93,7 @@ internal struct SHDInputOTP: View {
 extension View {
     @ViewBuilder
     func ifLet<Content: View, T>(_ value: T?, transform: (Self, T) -> Content)
-        -> some View
-    {
+        -> some View {
         if let value = value {
             transform(self, value)
         } else {
