@@ -121,6 +121,26 @@ internal struct SHDInputPreview: View {
             .inputStyle(.md)
             .shdSecureField(true)
 
+            Text("With Inline Error")
+                .textStyle(.textBaseSemibold)
+
+            SHDTextField(
+                placeholder: "Email address",
+                text: $errorValue
+            )
+            .inputStyle(.md)
+            .shdInlineError("Please enter a valid email address")
+
+            Text("Secure Field")
+                .textStyle(.textBaseSemibold)
+
+            SHDTextField(
+                placeholder: "Password",
+                text: $passwordValue
+            )
+            .inputStyle(.md)
+            .shdSecureField(true)
+
             Spacer()
         }
         .padding()
