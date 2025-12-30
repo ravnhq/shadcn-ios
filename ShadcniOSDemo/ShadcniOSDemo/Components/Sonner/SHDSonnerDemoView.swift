@@ -15,73 +15,85 @@ struct SHDSonnerDemoView: View {
     @State private var position: SHDSonnerPosition = .bottom
 
     var body: some View {
-        VStack(spacing: 20) {
-            VStack(spacing: 16) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Variant")
-                        .font(.headline)
-                    Picker("Variant", selection: $selectedVariant) {
-                        Text("default")
-                            .tag(SHDSonnerVariant.default)
-                        Text("success")
-                            .tag(SHDSonnerVariant.success)
-                        Text("warning")
-                            .tag(SHDSonnerVariant.warning)
-                        Text("destructive")
-                            .tag(SHDSonnerVariant.destructive)
+        ScrollView {
+            VStack(spacing: 20) {
+                VStack(spacing: 16) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Variant")
+                            .font(.headline)
+                        Picker("Variant", selection: $selectedVariant) {
+                            Text("default")
+                                .tag(SHDSonnerVariant.default)
+                            Text("success")
+                                .tag(SHDSonnerVariant.success)
+                            Text("warning")
+                                .tag(SHDSonnerVariant.warning)
+                            Text("destructive")
+                                .tag(SHDSonnerVariant.destructive)
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
-                }
-                .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Size")
-                        .font(.headline)
-                    Picker("Size", selection: $selectedSize) {
-                        Text("sm")
-                            .tag(SHDSonnerSize.sm)
-                        Text("md")
-                            .tag(SHDSonnerSize.md)
-                        Text("lg")
-                            .tag(SHDSonnerSize.lg)
+                    .padding(.horizontal)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Size")
+                            .font(.headline)
+                        Picker("Size", selection: $selectedSize) {
+                            Text("sm")
+                                .tag(SHDSonnerSize.sm)
+                            Text("md")
+                                .tag(SHDSonnerSize.md)
+                            Text("lg")
+                                .tag(SHDSonnerSize.lg)
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Position")
+                            .font(.headline)
+                        Picker("Position", selection: $position) {
+                            Text("top")
+                                .tag(SHDSonnerPosition.top)
+                            Text("bottom")
+                                .tag(SHDSonnerPosition.bottom)
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    .padding(.horizontal)
+                    
+                    Button {
+                        isPresented = true
+                    } label: {
+                        Text("Show Sonner")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(.separator)
+                            .foregroundColor(.black)
+                            .cornerRadius(8)
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 8)
                 }
-                .padding(.horizontal)
                 
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Position")
-                        .font(.headline)
-                    Picker("Position", selection: $position) {
-                        Text("top")
-                            .tag(SHDSonnerPosition.top)
-                        Text("bottom")
-                            .tag(SHDSonnerPosition.bottom)
-                    }
-                    .pickerStyle(.segmented)
-                }
-                .padding(.horizontal)
-
-                Button {
-                    isPresented = true
-                } label: {
-                    Text("Show Sonner")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.separator)
-                        .foregroundColor(.black)
-                        .cornerRadius(8)
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
+                Spacer()
+                
+                Text("Text to be behind the sonner")
+                    .padding(.bottom, 16)
             }
-
-            Spacer()
-
-            Text("Text to be behind the sonner")
-                .padding(.bottom, 16)
         }
-        .sonner(configuration: SHDSonnerConfiguration(title: "Event has been created", subtitle: "Sunday, December 03, 2023 at 9:00 AM", position: position, size: selectedSize, variant: selectedVariant), isPresented: $isPresented)
+        .sonner(
+            configuration: SHDSonnerConfiguration(
+                title: "Event has been created",
+                subtitle: "Sunday, December 03, 2023 at 9:00 AM",
+                position: position,
+                size: selectedSize,
+                variant: selectedVariant
+            ),
+            isPresented: $isPresented
+        )
+        .navigationTitle("SHDSonner")
     }
 }
 

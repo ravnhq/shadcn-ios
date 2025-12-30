@@ -44,17 +44,17 @@ import SwiftUI
 /// ```
 internal struct SHDSonner: View {
 
-    let description: String
-    let title: String
-    var size: SHDSonnerSize = .md
-    var variant: SHDSonnerVariant = .default
+    private let description: String
+    private let title: String
+    private var size: SHDSonnerSize = .md
+    private var variant: SHDSonnerVariant = .default
 
-    init(description: String, title: String) {
+    internal init(description: String, title: String) {
         self.title = title
         self.description = description
     }
 
-    var body: some View {
+    internal var body: some View {
         HStack(alignment: .top, spacing: .sm) {
             SHDIcon(variant.icon)
                 .iconSize(size.iconSize)
@@ -70,8 +70,8 @@ internal struct SHDSonner: View {
                     .textStyle(size.descriptionStyle)
             }
 
-            Spacer()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.all, .sm)
         .backgroundColor(.backgroundDefault)
         .cornerRadius(.md)
