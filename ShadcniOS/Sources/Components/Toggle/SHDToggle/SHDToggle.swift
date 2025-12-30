@@ -26,23 +26,7 @@ import SwiftUI
 /// - environment values like `buttonSize`
 ///
 /// ## Usage
-///
-/// Text-only toggle:
-/// ```swift
-/// @State private var isItalic = false
-///
-/// SHDToggle(isActive: $isItalic, label: "Italic")
-///     .toggleVariant()
-/// ```
-///
-/// Icon-only toggle:
-/// ```swift
-/// @State private var isBookmarked = false
-///
-/// SHDToggle(isActive: $isBookmarked, icon: .bookmark)
-///     .toggleVariant(variant: .outline)
-/// ```
-///
+/// 
 /// Icon + text toggle:
 /// ```swift
 /// @State private var isActive = false
@@ -58,11 +42,15 @@ public struct SHDToggle: View {
 
     @Binding private var isActive: Bool
 
-    private var variant: SHDButtonVariant = .outline
-    private var activeVariant: SHDButtonVariant = .default
+    private var variant: SHDToggleVariant = .default
+    private var activeVariant: SHDToggleVariant = .active
     private var size: SHDButtonSize = .md
     private let text: String?
     private let icon: SHDIconAsset?
+
+    private var currentVariant: SHDToggleVariant {
+        isActive ? activeVariant : variant
+    }
 
     private init(
         isActive: Binding<Bool>,
@@ -89,10 +77,6 @@ public struct SHDToggle: View {
     }
 
     /// Creates a toggle with only a label.
-    ///
-    /// - Parameters:
-    ///   - isActive: A binding to control the toggle state.
-    ///   - label: The text to display.
     public init(
         isActive: Binding<Bool>,
         label: String
@@ -101,10 +85,6 @@ public struct SHDToggle: View {
     }
 
     /// Creates a toggle with only an icon.
-    ///
-    /// - Parameters:
-    ///   - isActive: A binding to control the toggle state.
-    ///   - icon: The icon to display.
     public init(
         isActive: Binding<Bool>,
         icon: SHDIconAsset
@@ -137,10 +117,6 @@ public struct SHDToggle: View {
         .baseButtonStyle()
     }
 
-    private var currentVariant: SHDButtonVariant {
-        isActive ? activeVariant : variant
-    }
-
     private var overlay: some View {
         RoundedRectangle(cornerRadius: .md)
             .stroke(
@@ -157,13 +133,11 @@ public struct SHDToggle: View {
     ///   - size: The typography and icon size of the toggle.
     /// - Returns: A view styled according to the ShadcniOS design system.
     public func toggleVariant(
-        variant: SHDButtonVariant = .outline,
-        activeVariant: SHDButtonVariant = .default,
+        variant: SHDToggleVariant = .default,
         size: SHDButtonSize = .md
     ) -> some View {
         mutating { toggle in
             toggle.variant = variant
-            toggle.activeVariant = activeVariant
             toggle.size = size
         }
     }

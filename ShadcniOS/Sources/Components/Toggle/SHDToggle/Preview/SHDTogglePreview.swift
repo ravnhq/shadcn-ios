@@ -8,28 +8,37 @@
 import SwiftUI
 
 struct SHDTogglePreview: View {
-    @State private var isItalic = false
-    @State private var isBold = false
-    @State private var isBookmarked = false
-    @State private var isFavorite = true
+    @State private var isFullActive = false
+    @State private var isFullActiveOutline = false
+    @State private var isIconActive = false
+    @State private var isIconActiveOutline = false
+    @State private var isTextActive = false
+    @State private var isTextActiveOutline = false
 
     var body: some View {
         VStack(spacing: 24) {
             Text("SHDToggle Examples")
                 .font(.headline)
 
-            // Icon + Text
             VStack(alignment: .leading, spacing: 8) {
                 Text("Icon + Text")
                     .font(.caption)
                     .foregroundColor(.secondary)
 
                 HStack {
-                    SHDToggle(isActive: $isItalic, label: "Italic", icon: .arrowChevronDown)
-                        .toggleVariant()
+                    SHDToggle(
+                        isActive: $isFullActive,
+                        label: "Italic",
+                        icon: .arrowChevronDown
+                    )
+                    .toggleVariant(variant: .default)
 
-                    SHDToggle(isActive: $isBold, label: "Bold", icon: .arrowChevronDown)
-                        .toggleVariant(variant: .ghost, activeVariant: .secondary)
+                    SHDToggle(
+                        isActive: $isFullActiveOutline,
+                        label: "Bold",
+                        icon: .arrowChevronDown
+                    )
+                    .toggleVariant(variant: .outline)
                 }
             }
 
@@ -42,11 +51,16 @@ struct SHDTogglePreview: View {
                     .foregroundColor(.secondary)
 
                 HStack {
-                    SHDToggle(isActive: $isBookmarked, icon: .arrowChevronDown)
-                        .toggleVariant()
+                    SHDToggle(
+                        isActive: $isIconActive,
+                        icon: .arrowChevronDown
+                    )
 
-                    SHDToggle(isActive: $isFavorite, icon: .arrowChevronDown)
-                        .toggleVariant(variant: .outline, activeVariant: .destructive, size: .lg)
+                    SHDToggle(
+                        isActive: $isIconActiveOutline,
+                        icon: .arrowChevronDown
+                    )
+                    .toggleVariant(variant: .outline)
                 }
             }
 
@@ -59,11 +73,16 @@ struct SHDTogglePreview: View {
                     .foregroundColor(.secondary)
 
                 HStack {
-                    SHDToggle(isActive: $isItalic, label: "Italic")
-                        .toggleVariant(size: .sm)
+                    SHDToggle(
+                        isActive: $isTextActive,
+                        label: "Italic"
+                    )
 
-                    SHDToggle(isActive: $isBold, label: "Bold")
-                        .toggleVariant()
+                    SHDToggle(
+                        isActive: $isTextActiveOutline,
+                        label: "Bold"
+                    )
+                        .toggleVariant(variant: .outline)
                 }
             }
         }
