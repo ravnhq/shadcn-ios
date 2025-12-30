@@ -82,21 +82,16 @@ final internal class SHDInputOTPViewModel {
     ) -> (isStart: Bool, isEnd: Bool, showSeparator: Bool) {
 
         let groupSize: Int
-        if variant == .separator {
-            switch length {
-            case .short: groupSize = 2
-            case .standard: groupSize = 3
-            case .extended: groupSize = 8
-            }
-        } else {
-            groupSize = length.digits
+        switch length {
+        case .short: groupSize = 2
+        case .standard: groupSize = 3
+        case .extended: groupSize = 8
         }
 
         let isStart = index % groupSize == 0
         let isEnd = (index + 1) % groupSize == 0 || index == length.digits - 1
 
-        let showSeparator =
-            variant == .separator && (index + 1) % groupSize == 0
+        let showSeparator = (index + 1) % groupSize == 0
             && index != length.digits - 1
 
         return (isStart, isEnd, showSeparator)

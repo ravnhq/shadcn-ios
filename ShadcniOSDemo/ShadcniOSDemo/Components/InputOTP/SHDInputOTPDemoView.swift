@@ -32,19 +32,7 @@ struct SHDInputOTPDemoView: View {
     @State private var isError: Bool = false
     @State private var textExtracted: String = ""
     @State private var selectedPatternOption: PatternOption = .onlyNumbers
-
-    private var resolvedVariant: SHDInputOTPVariant {
-        if length == .extended { return .controlled }
-        switch variant {
-        case .separator:
-            switch length {
-            case .short, .standard, .extended:
-                return .separator
-            }
-        default:
-            return .controlled
-        }
-    }
+    @State private var isSeparated: Bool = false
 
     var body: some View {
         ScrollView {
@@ -55,7 +43,6 @@ struct SHDInputOTPDemoView: View {
                     Picker("Variant", selection: $variant) {
                         Text("Controlled").tag(SHDInputOTPVariant.controlled)
                         Text("Pattern").tag(SHDInputOTPVariant.pattern)
-                        Text("Separator").tag(SHDInputOTPVariant.separator)
                     }
                     .pickerStyle(.segmented)
                     .disabled(length == .extended)
@@ -111,6 +98,8 @@ struct SHDInputOTPDemoView: View {
                 Spacer().frame(height: 20)
 
                 Toggle("Toggle Error State", isOn: $isError)
+                
+                Toggle("Set separators", isOn: $isSeparated)
 
                 Spacer().frame(height: 40)
 
@@ -120,13 +109,15 @@ struct SHDInputOTPDemoView: View {
                 SHDInputOTP(
                     code: $textExtracted,
                     caption:
-                        "This caption can be applied for all input variants"
+                        "This caption can be applied for all input variants",
+                    validateError: validateOTP
                 )
                 .inputOTPConfiguration(
-                    variant: resolvedVariant,
+                    variant: variant,
                     size: size,
                     length: length
                 )
+                .otpSeparatorStyle(isSeparated)
                 .isError(isError)
                 .keyboardType(selectedPatternOption.keyboardType)
 
@@ -142,6 +133,24 @@ struct SHDInputOTPDemoView: View {
             }
         }
         .navigationTitle("SHDInputOTP")
+    }
+
+    func validateOTP(_ value: String) -> String? {
+        if value.isEmpty { return nil }
+
+        if selectedPatternOption == .onlyNumbers {
+            if value.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted)
+                != nil
+            {
+                return "Only numbers are allowed."
+            }
+        }
+
+        if Set(value).count == 1, value.first == "0" {
+            return "Invalid code."
+        }
+
+        return nil
     }
 }
 

@@ -66,7 +66,8 @@ internal struct SHDInputOTPPreview: View {
 
                 row("Separator:") {
                     SHDInputOTP(code: $extractedCode, caption: "This input OTP is separated by a dot")
-                        .inputOTPConfiguration(variant: .separator)
+                        .inputOTPConfiguration()
+                        .otpSeparatorStyle()
                 }
             }
 

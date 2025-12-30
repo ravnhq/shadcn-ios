@@ -13,12 +13,12 @@ public struct SHDInputOTP: View {
     @Binding var code: String
     @State private var validationErrorMessage: String?
 
-    var caption: String = ""
-    var variant: SHDInputOTPVariant = .controlled
-    var size: SHDInputOTPSizing = .md
-    var length: SHDInputOTPLength = .standard
-    var isError: Bool = false
-
+    private var caption: String = ""
+    private var variant: SHDInputOTPVariant = .controlled
+    private var size: SHDInputOTPSizing = .md
+    private var length: SHDInputOTPLength = .standard
+    private var isError: Bool = false
+    private var isSeparated: Bool = false
     private let validateError: (String) -> String?
 
     private var resolvedIsError: Bool {
@@ -32,7 +32,7 @@ public struct SHDInputOTP: View {
     public init(
         code: Binding<String>,
         caption: String = "",
-        validateError: @escaping (String) -> String? = { _ in nil } // ✅ NEW
+        validateError: @escaping (String) -> String? = { _ in nil }
 
     ) {
         self._code = code
@@ -74,7 +74,7 @@ public struct SHDInputOTP: View {
                         }
                     }
 
-                    if state.showSeparator {
+                    if state.showSeparator && isSeparated {
                         SHDInputOTPSeparator()
                     }
                 }
@@ -121,6 +121,10 @@ public struct SHDInputOTP: View {
 
     public func isError(_ isError: Bool = true) -> Self {
         mutating(keyPath: \.isError, value: isError)
+    }
+
+    public func otpSeparatorStyle(_ isSeparaed: Bool = true) -> Self {
+        mutating(keyPath: \.isSeparated, value: isSeparaed)
     }
 }
 
