@@ -32,19 +32,18 @@ import SwiftUI
 internal struct SHDSonnerModifier: ViewModifier {
     // MARK: Properties
 
+    @Environment(\.horizontalSizeClass) private var availableWidth
+
     @Binding var isPresented: Bool
 
     @State private var dragOffset: CGFloat = 0
     @State private var sonnerId = UUID()
     @State private var toastSize: CGSize = .zero
 
-    @Environment(\.horizontalSizeClass) private var availableWidth
-
     private let dismissThreshold: CGFloat = 50
-
-    let sonner: SHDSonner
-    let variant: SHDSonnerVariant
-    let position: SHDSonnerPosition
+    private let position: SHDSonnerPosition
+    private let sonner: SHDSonner
+    private let variant: SHDSonnerVariant
 
     // MARK: Computed properties
 
@@ -53,7 +52,7 @@ internal struct SHDSonnerModifier: ViewModifier {
     }
 
     private var isIpadInSmallFormFactor: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad && availableWidth == .regular
+        UIDevice.current.userInterfaceIdiom == .pad && availableWidth == .compact
     }
 
     init(
@@ -85,7 +84,7 @@ internal struct SHDSonnerModifier: ViewModifier {
                         )
                         .offset(y: dragOffset)
                         .padding(.horizontal, .sm)
-                        .gesture(dragGesture)
+                        .gesture(dragGesture())
                         .autoDismiss(after: autoDismissDelay, id: sonnerId) {
                             dismissToast()
                         }
@@ -110,7 +109,7 @@ internal struct SHDSonnerModifier: ViewModifier {
         }
     }
 
-    private var dragGesture: some Gesture {
+    private func dragGesture() -> some Gesture {
         DragGesture()
             .onChanged { value in
                 // For top position: drag up (negative) to dismiss

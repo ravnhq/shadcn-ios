@@ -32,11 +32,18 @@ public enum SHDSonnerPosition {
     case top
     case bottom
 
+    var alignment: Alignment {
+        switch self {
+        case .top: .top
+        case .bottom: .bottom
+        }
+    }
+
     var edge: Edge {
-    switch self {
-      case .top: .top
-      case .bottom: .bottom
-      }
+        switch self {
+        case .top: .top
+        case .bottom: .bottom
+        }
     }
 
     private var dragDirection: CGFloat {

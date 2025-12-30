@@ -16,25 +16,25 @@ struct SHDSonnerPreview: View {
                 description: "Sunday, December 03,  2023 at 9:00 AM",
                 title: "Event has been created"
             )
-                .sonnerConfiguration(variant: .default, size: .sm)
+            .sonnerConfiguration(variant: .default, size: .sm)
 
             SHDSonner(
                 description: "Sunday, December 03,  2023 at 9:00 AM",
                 title: "Event has been created"
             )
-                .sonnerConfiguration(variant: .destructive, size: .md)
+            .sonnerConfiguration(variant: .destructive, size: .md)
 
             SHDSonner(
                 description: "Sunday, December 03,  2023 at 9:00 AM",
                 title: "Event has been created",
             )
-                .sonnerConfiguration(variant: .warning, size: .md)
+            .sonnerConfiguration(variant: .warning, size: .md)
 
             SHDSonner(
                 description: "Sunday, December 03,  2023 at 9:00 AM",
                 title: "Event has been created"
             )
-                .sonnerConfiguration(variant: .success, size: .lg)
+            .sonnerConfiguration(variant: .success, size: .lg)
 
             Button {
                 isSonnerPresented.toggle()
