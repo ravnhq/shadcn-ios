@@ -78,13 +78,14 @@ final internal class SHDInputOTPViewModel {
     func bordersState(
         at index: Int,
         variant: SHDInputOTPVariant,
-        length: SHDInputOTPLength
+        length: SHDInputOTPLength,
+        isSeparated: Bool
     ) -> (isStart: Bool, isEnd: Bool, showSeparator: Bool) {
 
         let groupSize: Int
         switch length {
-        case .short: groupSize = 2
-        case .standard: groupSize = 3
+        case .short: groupSize = isSeparated == true ? 2 : 4
+        case .standard: groupSize = isSeparated == true ? 3 : 6
         case .extended: groupSize = 8
         }
 

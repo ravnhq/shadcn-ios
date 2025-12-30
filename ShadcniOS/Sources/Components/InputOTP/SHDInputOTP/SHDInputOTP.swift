@@ -50,7 +50,8 @@ public struct SHDInputOTP: View {
                     let state = viewModel.bordersState(
                         at: index,
                         variant: variant,
-                        length: length
+                        length: length,
+                        isSeparated: isSeparated
                     )
 
                     SHDInputOTPItem(
