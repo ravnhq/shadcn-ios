@@ -17,9 +17,11 @@ struct SHDTextInputDemoView: View {
     @State private var hasTrailingIcon: Bool = false
     @State private var hasInlineError: Bool = false
     @State private var isSecureField: Bool = false
+    @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
-        ScrollView {
+        ScrollViewReader { proxy in
+            ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 configSection(title: "Input Size") {
                     Picker("Input Size", selection: $size) {
@@ -31,6 +33,7 @@ struct SHDTextInputDemoView: View {
                     }
                     .pickerStyle(.segmented)
                 }
+                .padding(.horizontal)
 
                 configSection(title: "Options") {
                     Toggle("Leading icon", isOn: $hasLeadingIcon)
@@ -57,26 +60,43 @@ struct SHDTextInputDemoView: View {
                         caption: "Helper text"
                     ) {
                         SHDTextField(
-                        placeholder: isSecureField ? "Password" : "Email address",
-                        leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
-                        trailingIcon: hasTrailingIcon ? .mathsX : nil,
-                        text: $text
-                    )
-                    .inputStyle(size)
-                    .shdInlineError(hasInlineError ? "Please enter a valid email address" : nil)
-                    .shdSecureField(isSecureField)
-                    .disabled(isDisabled)
-                    .onChange(of: text) {
-                        if hasInlineError {
-                            hasInlineError.toggle()
+                            placeholder: isSecureField ? "Password" : "Email address",
+                            leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
+                            trailingIcon: hasTrailingIcon ? .mathsX : nil,
+                            text: $text
+                        )
+                        .inputStyle(size)
+                        .shdInlineError(hasInlineError ? "Please enter a valid email address" : nil)
+                        .shdSecureField(isSecureField)
+                        .disabled(isDisabled)
+                        .focused($isTextFieldFocused)
+                        .onChange(of: text) {
+                            if hasInlineError {
+                                hasInlineError.toggle()
+                            }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .id("textFieldContainer")
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                
+                // Add extra spacing at the bottom to ensure full visibility
+                Color.clear
+                    .frame(height: 8)
             }
-            .padding()
+            .navigationTitle("SHDTextInput")
         }
-        .navigationTitle("SHDTextInput")
+        .onChange(of: isTextFieldFocused) { _, isFocused in
+            if isFocused {
+                // Scroll to the text field with animation when keyboard appears
+                withAnimation {
+                    proxy.scrollTo("textFieldContainer", anchor: .center)
+                }
+            }
+        }
+        .scrollDismissesKeyboard(.interactively)
+        }
     }
 
     @ViewBuilder
