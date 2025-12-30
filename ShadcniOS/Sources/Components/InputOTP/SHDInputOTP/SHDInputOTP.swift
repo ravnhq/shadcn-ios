@@ -8,9 +8,9 @@
 import SwiftUI
 
 public struct SHDInputOTP: View {
-    @State private var viewModel = SHDInputOTPViewModel()
-    @FocusState private var focusedField: Int?
     @Binding var code: String
+    @FocusState private var focusedField: Int?
+    @State private var viewModel = SHDInputOTPViewModel()
     @State private var validationErrorMessage: String?
 
     private var caption: String = ""
@@ -76,7 +76,10 @@ public struct SHDInputOTP: View {
                     }
 
                     if state.showSeparator && isSeparated {
-                        SHDInputOTPSeparator()
+                        Circle()
+                            .fill(SHDColor.iconDefault.color)
+                            .frame(width: 4, height: 4)
+                            .padding(.horizontal, 8)
                     }
                 }
             }
@@ -90,13 +93,11 @@ public struct SHDInputOTP: View {
         .onChange(of: length) { _, newLength in
             viewModel.otpDigits.removeAll()
             viewModel.setup(length: newLength.digits)
-
             validationErrorMessage = nil
         }
         .onChange(of: viewModel.otpDigits) { _, _ in
             let current = viewModel.currentCode
             code = current
-
             validationErrorMessage = validateError(current)
         }
         .onChange(of: focusedField) { _, newFocus in
@@ -131,16 +132,4 @@ public struct SHDInputOTP: View {
 
 #Preview {
     SHDInputOTPPreview()
-}
-
-extension View {
-    @ViewBuilder
-    func ifLet<Content: View, T>(_ value: T?, transform: (Self, T) -> Content)
-        -> some View {
-        if let value = value {
-            transform(self, value)
-        } else {
-            self
-        }
-    }
 }

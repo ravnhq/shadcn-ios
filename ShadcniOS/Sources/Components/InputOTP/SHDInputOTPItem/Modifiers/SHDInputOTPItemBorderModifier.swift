@@ -1,5 +1,5 @@
 //
-//  SHDInputItemBorderModifier.swift
+//  SHDInputOTPItemBorderModifier.swift
 //  ShadcniOS
 //
 //  Created by Samuel Cornejo on 2025-12-24.
@@ -39,7 +39,7 @@ import SwiftUI
 /// TextField("", text: $text)
 ///     .border(position: .start, isError: false)
 /// ``
-struct SHDInputItemBorderModifier: ViewModifier {
+struct SHDInputOTPItemBorderModifier: ViewModifier {
     @FocusState private var isFocused: Bool
 
     let state: SHDInputOTPItemBorderStyle
@@ -82,7 +82,7 @@ struct SHDInputItemBorderModifier: ViewModifier {
 extension View {
     func otpBorder(state: SHDInputOTPItemBorderStyle, isError: Bool) -> some View {
         modifier(
-            SHDInputItemBorderModifier(
+            SHDInputOTPItemBorderModifier(
                 state: state,
                 isError: isError
             )
