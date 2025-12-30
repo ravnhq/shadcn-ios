@@ -57,12 +57,12 @@ struct ContentView: View {
                             Text("SHDCheckbox")
                         }
                     }
-                    
+
                     NavigationLink(destination: SHDSliderDemoView()) {
                         HStack {
                             Image(
                                 systemName:
-                                    "slider.horizontal.3"
+                                "slider.horizontal.3"
                             )
                             Text("SHDSlider")
                         }
@@ -79,6 +79,13 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "sensor.tag.radiowaves.forward")
                             Text("SHDRadioGroup")
+                        }
+                    }
+
+                    NavigationLink(destination: SHDToggleDemoView()) {
+                        HStack {
+                            Image(systemName: "checkmark.square")
+                            Text("SHDToggle")
                         }
                     }
                 }
