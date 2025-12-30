@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  SHDToggleVariant.swift
 //  ShadcniOS
 //
 //  Created by Diego Takaki on 12/29/25.
@@ -19,16 +19,15 @@ import Foundation
 ///
 /// Choose a variant based on your toggle's purpose and visual hierarchy:
 ///
-///``` swift
-///SHDToggle(
-///     isActive: $isActive,
+/// ``` swift
+/// SHDToggle(
+///     icon: .arrowChevronDown,
 ///     label: "Label + Icon",
-///     icon: .arrowChevronDown
-///)
-///.toggleVariant(variant: toggleVariant, size: toggleSize)
-///```
+///     isActive: $isActive
+/// )
+/// .toggleVariant(variant: toggleVariant, size: toggleSize)
+/// ```
 public enum SHDToggleVariant {
-
     /// The default toggle variant with a clear background and no border.
     case `default`
 

@@ -27,16 +27,16 @@ struct SHDTogglePreview: View {
 
                 HStack {
                     SHDToggle(
-                        isActive: $isFullActive,
+                        icon: .arrowChevronDown,
                         label: "Italic",
-                        icon: .arrowChevronDown
+                        isActive: $isFullActive
                     )
                     .toggleVariant(variant: .default)
 
                     SHDToggle(
-                        isActive: $isFullActiveOutline,
+                        icon: .arrowChevronDown,
                         label: "Bold",
-                        icon: .arrowChevronDown
+                        isActive: $isFullActiveOutline
                     )
                     .toggleVariant(variant: .outline)
                 }
@@ -52,13 +52,13 @@ struct SHDTogglePreview: View {
 
                 HStack {
                     SHDToggle(
-                        isActive: $isIconActive,
-                        icon: .arrowChevronDown
+                        icon: .arrowChevronDown,
+                        isActive: $isIconActive
                     )
 
                     SHDToggle(
-                        isActive: $isIconActiveOutline,
-                        icon: .arrowChevronDown
+                        icon: .arrowChevronDown,
+                        isActive: $isIconActiveOutline
                     )
                     .toggleVariant(variant: .outline)
                 }
@@ -74,13 +74,13 @@ struct SHDTogglePreview: View {
 
                 HStack {
                     SHDToggle(
-                        isActive: $isTextActive,
-                        label: "Italic"
+                        label: "Italic",
+                        isActive: $isTextActive
                     )
 
                     SHDToggle(
-                        isActive: $isTextActiveOutline,
-                        label: "Bold"
+                        label: "Bold",
+                        isActive: $isTextActiveOutline
                     )
                     .toggleVariant(variant: .outline)
                 }

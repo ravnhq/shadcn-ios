@@ -20,40 +20,39 @@ import SwiftUI
 /// - `.toggleVariant(variant:size:)`
 ///
 /// ## Usage
-/// 
+///
 /// Icon + text toggle:
 /// ```swift
 /// @State private var isActive = false
 ///
 /// SHDToggle(
-///     isActive: $isActive,
+///     icon: .bookmark,
 ///     label: "Bookmark",
-///     icon: .bookmark
+///     isActive: $isActive
 /// )
 /// .toggleVariant(size: .md)
 /// ```
 public struct SHDToggle: View {
-
     @Binding private var isActive: Bool
 
-    private var variant: SHDToggleVariant = .default
     private let activeVariant: SHDToggleVariant = .active
+    private let icon: SHDIconAsset?
     private var size: SHDButtonSize = .md
     private let text: String?
-    private let icon: SHDIconAsset?
+    private var variant: SHDToggleVariant = .default
 
     private var currentVariant: SHDToggleVariant {
         isActive ? activeVariant : variant
     }
 
     private init(
-        isActive: Binding<Bool>,
+        icon: SHDIconAsset?,
         text: String?,
-        icon: SHDIconAsset?
+        isActive: Binding<Bool>
     ) {
-        self._isActive = isActive
         self.text = text
         self.icon = icon
+        _isActive = isActive
     }
 
     /// Creates a toggle with both label and icon.
@@ -63,51 +62,63 @@ public struct SHDToggle: View {
     ///   - label: The text to display.
     ///   - icon: The icon to display.
     public init(
-        isActive: Binding<Bool>,
+        icon: SHDIconAsset,
         label: String,
-        icon: SHDIconAsset
+        isActive: Binding<Bool>
     ) {
-        self.init(isActive: isActive, text: label, icon: icon)
+        self.init(
+            icon: icon,
+            text: label,
+            isActive: isActive
+        )
     }
 
     /// Creates a toggle with only a label.
     public init(
-        isActive: Binding<Bool>,
-        label: String
+        label: String,
+        isActive: Binding<Bool>
     ) {
-        self.init(isActive: isActive, text: label, icon: nil)
+        self.init(
+            icon: nil,
+            text: label,
+            isActive: isActive
+        )
     }
 
     /// Creates a toggle with only an icon.
     public init(
-        isActive: Binding<Bool>,
-        icon: SHDIconAsset
+        icon: SHDIconAsset,
+        isActive: Binding<Bool>
     ) {
-        self.init(isActive: isActive, text: nil, icon: icon)
+        self.init(
+            icon: icon,
+            text: nil,
+            isActive: isActive
+        )
     }
 
     public var body: some View {
         Button {
             isActive.toggle()
         } label: {
-                HStack(spacing: .sm) {
-                    if let icon {
-                        SHDIcon(icon)
-                            .iconSize(size.iconSize)
-                    }
-
-                    if let text {
-                        Text(text)
-                            .textStyle(size.textSize)
-                    }
+            HStack(spacing: .sm) {
+                if let icon {
+                    SHDIcon(icon)
+                        .iconSize(size.iconSize)
                 }
-                .padding(.vertical, text != nil ? .xxs : .xs)
-                .padding(.horizontal, .xs)
-                .backgroundColor(currentVariant.backgroundColor)
-                .foregroundColor(currentVariant.foregroundColor)
-                .overlay(overlay)
-                .cornerRadius(.md)
+
+                if let text {
+                    Text(text)
+                        .textStyle(size.textSize)
+                }
             }
+            .padding(.vertical, text != nil ? .xxs : .xs)
+            .padding(.horizontal, .xs)
+            .backgroundColor(currentVariant.backgroundColor)
+            .foregroundColor(currentVariant.foregroundColor)
+            .overlay(overlay)
+            .cornerRadius(.md)
+        }
         .baseButtonStyle()
     }
 

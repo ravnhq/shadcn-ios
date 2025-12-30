@@ -5,11 +5,10 @@
 //  Created by Diego Takaki on 12/26/25.
 //
 
-import SwiftUI
 import ShadcniOS
+import SwiftUI
 
 struct SHDToggleDemoView: View {
-    
     @State private var disabled: Bool = false
     @State private var isActive: Bool = false
     @State private var isIconActive: Bool = false
@@ -20,7 +19,6 @@ struct SHDToggleDemoView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 18) {
-                
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Toggle Size")
                     Picker("Toggle Size", selection: $toggleSize) {
@@ -31,7 +29,7 @@ struct SHDToggleDemoView: View {
                     .pickerStyle(.segmented)
                 }
                 .padding()
-                
+
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Toggle Variant")
                     Picker("Toggle variant", selection: $toggleVariant) {
@@ -41,28 +39,28 @@ struct SHDToggleDemoView: View {
                     .pickerStyle(.segmented)
                 }
                 .padding()
-                
+
                 Toggle("Disabled", isOn: $disabled)
                     .padding()
-                
+
                 SHDToggle(
-                    isActive: $isActive,
+                    icon: .arrowChevronDown,
                     label: "Label + Icon",
-                    icon: .arrowChevronDown
+                    isActive: $isActive
                 )
                 .toggleVariant(variant: toggleVariant, size: toggleSize)
                 .disabled(disabled)
-                
+
                 SHDToggle(
-                    isActive: $isTextActive,
-                    label: "Label only"
+                    label: "Label only",
+                    isActive: $isTextActive
                 )
                 .toggleVariant(variant: toggleVariant, size: toggleSize)
                 .disabled(disabled)
-                
+
                 SHDToggle(
-                    isActive: $isIconActive,
-                    icon: .arrowChevronDown
+                    icon: .arrowChevronDown,
+                    isActive: $isIconActive
                 )
                 .toggleVariant(variant: toggleVariant, size: toggleSize)
                 .disabled(disabled)
