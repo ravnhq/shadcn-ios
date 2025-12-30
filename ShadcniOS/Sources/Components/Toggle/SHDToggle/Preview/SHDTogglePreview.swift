@@ -82,7 +82,7 @@ struct SHDTogglePreview: View {
                         isActive: $isTextActiveOutline,
                         label: "Bold"
                     )
-                        .toggleVariant(variant: .outline)
+                    .toggleVariant(variant: .outline)
                 }
             }
         }

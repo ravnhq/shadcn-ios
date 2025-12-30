@@ -16,14 +16,8 @@ import SwiftUI
 /// - icon + text combinations
 /// - active/inactive states with visual feedback
 ///
-/// Common use cases include:
-/// - Formatting controls (bold, italic, underline)
-/// - Feature toggles (bookmarks, favorites, notifications)
-/// - Selection indicators
-///
 /// Visual styling follows the ShadcniOS design system through modifiers:
 /// - `.toggleVariant(variant:size:)`
-/// - environment values like `buttonSize`
 ///
 /// ## Usage
 /// 
@@ -43,7 +37,7 @@ public struct SHDToggle: View {
     @Binding private var isActive: Bool
 
     private var variant: SHDToggleVariant = .default
-    private var activeVariant: SHDToggleVariant = .active
+    private let activeVariant: SHDToggleVariant = .active
     private var size: SHDButtonSize = .md
     private let text: String?
     private let icon: SHDIconAsset?
@@ -107,8 +101,8 @@ public struct SHDToggle: View {
                             .textStyle(size.textSize)
                     }
                 }
-                .padding(.vertical, .xxs)
-                .padding(.horizontal, text != nil ? .sm : .xxs)
+                .padding(.vertical, text != nil ? .xxs : .xs)
+                .padding(.horizontal, .xs)
                 .backgroundColor(currentVariant.backgroundColor)
                 .foregroundColor(currentVariant.foregroundColor)
                 .overlay(overlay)

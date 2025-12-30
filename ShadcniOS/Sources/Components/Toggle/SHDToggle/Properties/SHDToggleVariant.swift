@@ -32,11 +32,11 @@ public enum SHDToggleVariant {
     /// The default toggle variant with a clear background and no border.
     case `default`
 
-    /// An outlined toggle variant with a visible border and clear background.
-    case outline
-
     /// An active toggle variant with a secondary background color.
     case active
+
+    /// An outlined toggle variant with a visible border and clear background.
+    case outline
 
     var backgroundColor: SHDColor {
         switch self {

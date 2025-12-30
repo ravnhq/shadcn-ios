@@ -51,7 +51,7 @@ struct SHDToggleDemoView: View {
                     icon: .arrowChevronDown
                 )
                 .toggleVariant(variant: toggleVariant, size: toggleSize)
-                    .disabled(disabled)
+                .disabled(disabled)
                 
                 SHDToggle(
                     isActive: $isTextActive,
