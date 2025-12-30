@@ -146,6 +146,14 @@ struct SHDInputOTPDemoView: View {
             }
         }
 
+        if selectedPatternOption == .onlyLetters {
+            if value.rangeOfCharacter(from: CharacterSet.letters.inverted)
+                != nil
+            {
+                return "Only letters are allowed."
+            }
+        }
+
         if Set(value).count == 1, value.first == "0" {
             return "Invalid code."
         }
