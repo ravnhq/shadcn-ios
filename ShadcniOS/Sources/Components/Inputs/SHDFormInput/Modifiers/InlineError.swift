@@ -9,8 +9,9 @@ import SwiftUI
 
 /// A view modifier that injects an inline error message into the environment for use by child views.
 ///
+/// ## Discussion
 /// Use this modifier to display an inline error message associated with a view, such as a text field.
-/// The error message will be available to any child views via the `\EnvironmentValues.inlineError` key.
+/// The error message is consumed by `SHDTextField` and `SHDFormInput`.
 public struct InlineError: ViewModifier {
     // MARK: Properties
 
@@ -26,6 +27,13 @@ public struct InlineError: ViewModifier {
 
 public extension View {
     /// Applies an inline error message to the view.
+    ///
+    /// ## Usage
+    /// ```swift
+    /// SHDTextField(placeholder: "Email", text: $email)
+    ///     .inputStyle(.md)
+    ///     .shdInlineError("Please enter a valid email")
+    /// ```
     ///
     /// - Parameter inlineError: The optional error message to display. If `nil`,
     /// no error message is displayed.

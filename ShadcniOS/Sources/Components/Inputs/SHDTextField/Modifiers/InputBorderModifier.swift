@@ -10,7 +10,7 @@ import SwiftUI
 /// Input border modifier that encapsulates the visual border treatment for input components.
 ///
 /// Centralizes the default border, focus border, error border, and spacing between them so input components
-/// only handle content and state. Applies design-token corner radius, spacing, and colors.
+/// only handle content and state. Applies design-token corner radius, spacing, and colors. 
 internal struct InputBorderModifier: ViewModifier {
     let isFocused: Bool
     let hasError: Bool

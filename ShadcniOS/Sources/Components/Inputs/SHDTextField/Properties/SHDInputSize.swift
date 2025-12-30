@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-/// Defines the available size variants for `SHDTextInput`.
+/// Defines the available size variants for `SHDTextField`.
 ///
 /// ## Discussion
 /// Each size sets text styling, control height, and icon sizing to keep inputs
-/// consistent across variants.
+/// consistent across variants. Use together with `.inputStyle(_:)` to mirror the
+/// sizing approach used by other components like `SHDCheckbox`.
 public enum SHDInputSize {
     /// Small input height.
     case sm
@@ -48,7 +49,7 @@ public enum SHDInputSize {
 
 internal extension View {
     /// Sets the secure field state for the current view hierarchy.
-    //
+    ///
     /// ## Discussion
     /// This allows text fields to switch between regular text input and secure
     /// password input with a visibility toggle.

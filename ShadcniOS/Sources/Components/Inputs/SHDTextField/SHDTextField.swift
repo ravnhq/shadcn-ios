@@ -7,46 +7,42 @@
 
 import SwiftUI
 
-/// A foundational textfield used throughout the ShadcniOS design system.
+/// A design-system text input that supports icons, sizing, inline error, and secure entry.
 ///
 /// ## Discussion
 /// `SHDTextField` binds to external text, renders a placeholder when empty, and
-/// supports optional leading/trailing icons. Size and typography are driven by
-/// the `inputStyle` modifier, following design tokens for height, padding, and type.
+/// supports optional leading/trailing icons. Sizing, padding, and typography are
+/// driven by the `inputStyle` modifier.
 ///
-/// The component supports several states:
-/// - **Focus state**: Shows a primary border when focused.
-/// - **Error state**: Shows destructive border and text color via `shdInlineError`.
-///   The error state clears automatically when the user starts typing.
-/// - **Secure field**: Converts to a password field with visibility toggle via `shdSecureField`.
-///   When enabled, an eye icon replaces the trailing icon to toggle password visibility.
+/// State handling:
+/// - **Focus**: Shows the primary focus border while active.
+/// - **Error**: Use `shdInlineError` to surface destructive border/text and a helper message.
+/// - **Secure**: Use `shdSecureField(true)` to render a secure field with an eye/eye-off toggle.
+///   When secure mode is enabled, the trailing icon is replaced by the visibility toggle.
 ///
 /// - Parameters:
-///   - placeholder: Placeholder text displayed when the input is empty.
-///   - leadingIcon: Optional icon displayed at the leading edge of the field.
-///   - trailingIcon: Optional icon displayed at the trailing edge of the field.
-///     Note: This is ignored when `shdSecureField` is enabled.
-///   - text: Bound text value for the field.
+///   - placeholder: Optional placeholder shown when the field is empty.
+///   - leadingIcon: Optional icon displayed before the text.
+///   - trailingIcon: Optional icon displayed after the text (ignored when secure mode is on).
+///   - text: Bound value for the input content.
 ///
 /// ## Usage
-/// Basic text field:
+/// Basic:
 /// ```swift
 /// @State private var email = ""
 /// SHDTextField(placeholder: "Email address", text: $email)
 ///     .inputStyle(.md)
 /// ```
 ///
-/// With inline error:
+/// Inline error:
 /// ```swift
-/// @State private var email = ""
 /// SHDTextField(placeholder: "Email address", text: $email)
 ///     .inputStyle(.md)
 ///     .shdInlineError("Please enter a valid email address")
 /// ```
 ///
-/// Secure password field:
+/// Secure:
 /// ```swift
-/// @State private var password = ""
 /// SHDTextField(placeholder: "Password", text: $password)
 ///     .inputStyle(.md)
 ///     .shdSecureField(true)

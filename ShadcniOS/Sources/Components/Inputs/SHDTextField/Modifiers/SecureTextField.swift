@@ -13,7 +13,9 @@ import SwiftUI
 /// ### Overview
 /// Applying `SecureTextField` to a view sets the `.isSecureField` environment value,
 /// which instructs any nested
-/// `SHDTextField` to render as a secure input field (hiding the entered text).
+/// `SHDTextField` to render as a secure input field (hiding the entered text). When
+/// secure entry is enabled, the component swaps the trailing icon for an eye/eye-off
+/// toggle so users can reveal or hide the password inline.
 public struct SecureTextField: ViewModifier {
     // MARK: Properties
 
@@ -30,6 +32,13 @@ public struct SecureTextField: ViewModifier {
 
 public extension View {
     /// Configures any nested `SHDTextField` to display as a secure (obscured) field, such as for passwords.
+    ///
+    /// ## Usage
+    /// ```swift
+    /// SHDTextField(placeholder: "Password", text: $password)
+    ///     .inputStyle(.md)
+    ///     .isSecure(true)
+    /// ```
     ///
     /// - Parameter isSecure: A Boolean value indicating whether the text field should
     /// obscure its input. Defaults to

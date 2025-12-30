@@ -15,10 +15,21 @@ import SwiftUI
 /// - The provided field view (e.g., `SHDTextField`)
 /// - Caption text (supporting text or helper)
 ///
+/// Inline errors provided via `shdInlineError` take precedence over the caption, mirroring
+/// how `SHDCheckbox` centralizes its helper text in one place.
+///
 /// - Parameters:
 ///   - label: Leading label text shown above the field. Optional.
 ///   - caption: Supporting text shown below the field. Optional.
 ///   - field: The field view to render (e.g., `SHDTextField`).
+///
+/// ## Usage
+/// ```swift
+/// SHDFormInput(label: "Email", caption: "We'll never share it.") {
+///     SHDTextField(placeholder: "Email address", text: $email)
+///         .inputStyle(.md)
+/// }
+/// ```
 public struct SHDFormInput<Field: View>: View {
     @Environment(\.inlineError) private var inlineError
 
