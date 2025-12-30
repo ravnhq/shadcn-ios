@@ -80,46 +80,19 @@ final internal class SHDInputOTPViewModel {
         variant: SHDInputOTPVariant,
         length: SHDInputOTPLength,
         isSeparated: Bool
-    ) -> (isStart: Bool, isEnd: Bool, showSeparator: Bool) {
+    ) -> SHDInputOTPItemBorderStyle {
 
         let groupSize: Int
         switch length {
-        case .short: groupSize = isSeparated == true ? 2 : 4
-        case .standard: groupSize = isSeparated == true ? 3 : 6
+        case .short: groupSize = isSeparated ? 2 : 4
+        case .standard: groupSize = isSeparated ? 3 : 6
         case .extended: groupSize = 8
         }
 
         let isStart = index % groupSize == 0
         let isEnd = (index + 1) % groupSize == 0 || index == length.digits - 1
+        let showSeparator = (index + 1) % groupSize == 0 && index != length.digits - 1
 
-        let showSeparator = (index + 1) % groupSize == 0
-            && index != length.digits - 1
-
-        return (isStart, isEnd, showSeparator)
-    }
-
-    // MARK: - Validation & Config
-
-    static func validateConfiguration(
-        variant: SHDInputOTPVariant,
-        length: SHDInputOTPLength,
-        size: SHDInputOTPSizing
-    ) -> (SHDInputOTPVariant, String?) {
-        if length == .extended && variant != .controlled {
-            return (
-                .controlled,
-                """
-                    Fallback: Pattern/Separator Variants do not support extended length.
-                    Switched to 'controlled' to prevent overflow
-                """
-            )
-        }
-        if length == .extended && size == .lg {
-            return (
-                variant,
-                "Note: The combination of extended length with 'Large' size may overflow on small screens"
-            )
-        }
-        return (variant, nil)
+        return SHDInputOTPItemBorderStyle(isStart: isStart, isEnd: isEnd, showSeparator: showSeparator)
     }
 }

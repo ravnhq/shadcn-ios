@@ -62,7 +62,7 @@ internal struct SHDInputOTPItem: View {
     private let zws = "\u{200B}"
     private var onBackspace: () -> Void = {}
     private var size: SHDInputOTPSizing = .md
-    private var state: (isStart: Bool, isEnd: Bool, showSeparator: Bool)
+    private var state: SHDInputOTPItemBorderStyle
 
     private var isError: Bool = false
 
@@ -70,7 +70,7 @@ internal struct SHDInputOTPItem: View {
 
     init(
         text: Binding<String>,
-        state: (isStart: Bool, isEnd: Bool, showSeparator: Bool)
+        state: SHDInputOTPItemBorderStyle
     ) {
         _text = text
         self.state = state
@@ -134,6 +134,6 @@ internal struct SHDInputOTPItem: View {
 
     SHDInputOTPItem(
         text: $text,
-        state: (isStart: true, isEnd: true, showSeparator: false)
+        state: SHDInputOTPItemBorderStyle(isStart: true, isEnd: true, showSeparator: false)
     )
 }
