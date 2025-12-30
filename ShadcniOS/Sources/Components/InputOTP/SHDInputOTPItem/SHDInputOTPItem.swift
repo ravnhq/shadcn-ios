@@ -106,8 +106,7 @@ internal struct SHDInputOTPItem: View {
         .frame(width: size.textFieldSize, height: size.textFieldSize)
         .tint(.borderPrimaryDefault)
         .otpBorder(
-            isStart: state.isStart,
-            isEnd: state.isEnd,
+            state: state,
             isError: isError
         )
         .onChange(of: text) { newValue in

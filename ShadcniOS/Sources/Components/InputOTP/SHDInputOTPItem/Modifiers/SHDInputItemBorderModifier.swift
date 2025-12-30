@@ -1,12 +1,11 @@
 //
-//  SHDInputSlotBorder.swift
+//  SHDInputItemBorderModifier.swift
 //  ShadcniOS
 //
 //  Created by Samuel Cornejo on 2025-12-24.
 //
 
 import SwiftUI
-
 
 /// A view modifier that applies a rounded border with focus and error states to an OTP input slot.
 ///
@@ -40,11 +39,10 @@ import SwiftUI
 /// TextField("", text: $text)
 ///     .border(position: .start, isError: false)
 /// ``
-struct SHDInputSlotBorder: ViewModifier {
+struct SHDInputItemBorderModifier: ViewModifier {
     @FocusState private var isFocused: Bool
 
-    let isStart: Bool
-    let isEnd: Bool
+    let state: SHDInputOTPItemBorderStyle
     let isError: Bool
 
     private let cornerRadius: SHDSizing.Radius = .md
@@ -65,10 +63,10 @@ struct SHDInputSlotBorder: ViewModifier {
             .zIndex(isFocused ? 1 : 0)
             .background {
                 UnevenRoundedRectangle(
-                    topLeadingRadius: calculateRadius(isStart),
-                    bottomLeadingRadius: calculateRadius(isStart),
-                    bottomTrailingRadius: calculateRadius(isEnd),
-                    topTrailingRadius: calculateRadius(isEnd)
+                    topLeadingRadius: calculateRadius(state.isStart),
+                    bottomLeadingRadius: calculateRadius(state.isStart),
+                    bottomTrailingRadius: calculateRadius(state.isEnd),
+                    topTrailingRadius: calculateRadius(state.isEnd)
                 )
                 .fill(.white)
                 .stroke(borderColor.color, lineWidth: isFocused ? 2 : 1)
@@ -82,11 +80,10 @@ struct SHDInputSlotBorder: ViewModifier {
 }
 
 extension View {
-    func otpBorder(isStart: Bool, isEnd: Bool, isError: Bool) -> some View {
+    func otpBorder(state: SHDInputOTPItemBorderStyle, isError: Bool) -> some View {
         modifier(
-            SHDInputSlotBorder(
-                isStart: isStart,
-                isEnd: isEnd,
+            SHDInputItemBorderModifier(
+                state: state,
                 isError: isError
             )
         )
