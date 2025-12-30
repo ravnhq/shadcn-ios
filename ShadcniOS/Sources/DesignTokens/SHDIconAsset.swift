@@ -37,4 +37,8 @@ public enum SHDIconAsset: String, Codable {
     case notificationCheckCheck
     case notificationCircleAlert
     case notificationCircleCheckBig
+
+    case search
+
+    case user
 }

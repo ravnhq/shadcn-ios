@@ -17,7 +17,28 @@ struct SHDTextInputDemoView: View {
     @State private var hasTrailingIcon: Bool = false
     @State private var hasInlineError: Bool = false
     @State private var isSecureField: Bool = false
+    @State private var hasLabel: Bool = true
+    @State private var hasCaption: Bool = true
     @FocusState private var isTextFieldFocused: Bool
+
+    var textField: some View {
+        SHDTextField(
+            placeholder: isSecureField ? "Password" : "Email address",
+            leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
+            trailingIcon: hasTrailingIcon ? .mathsX : nil,
+            text: $text
+        )
+        .inputStyle(size)
+        .shdInlineError(hasInlineError ? "Please enter a valid email address" : nil)
+        .shdSecureField(isSecureField)
+        .disabled(isDisabled)
+        .focused($isTextFieldFocused)
+        .onChange(of: text) {
+            if hasInlineError {
+                hasInlineError.toggle()
+            }
+        }
+    }
 
     var body: some View {
         ScrollViewReader { proxy in
@@ -46,38 +67,31 @@ struct SHDTextInputDemoView: View {
                     Toggle("Inline Error", isOn: $hasInlineError)
 
                     Toggle("Secure Field", isOn: $isSecureField)
+                    
+                    Toggle("Label", isOn: $hasLabel)
+                    
+                    Toggle("Caption", isOn: $hasCaption)
                 }
                 .scaleEffect(0.9)
 
                 Divider()
 
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 24) {
                     Text("Preview")
                         .font(.headline)
 
-                    SHDFormInput(
-                        label: "Email",
-                        caption: "Helper text"
-                    ) {
-                        SHDTextField(
-                            placeholder: isSecureField ? "Password" : "Email address",
-                            leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
-                            trailingIcon: hasTrailingIcon ? .mathsX : nil,
-                            text: $text
-                        )
-                        .inputStyle(size)
-                        .shdInlineError(hasInlineError ? "Please enter a valid email address" : nil)
-                        .shdSecureField(isSecureField)
-                        .disabled(isDisabled)
-                        .focused($isTextFieldFocused)
-                        .onChange(of: text) {
-                            if hasInlineError {
-                                hasInlineError.toggle()
-                            }
+                    // Conditional rendering based on label and caption toggles
+                    if hasLabel || hasCaption {
+                        SHDFormInput(
+                            label: hasLabel ? "Email" : nil,
+                            caption: hasCaption ? "We'll never share your email with anyone else." : nil
+                        ) {
+                            textField
                         }
+                    } else {
+                        // Without label or caption
+                        textField
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .id("textFieldContainer")
                 }
                 .padding()
                 
