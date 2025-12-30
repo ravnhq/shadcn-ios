@@ -14,18 +14,18 @@ import SwiftUI
 /// - Label text
 /// - The provided field view (e.g., `SHDTextField`)
 /// - Caption text (supporting text or helper)
+///
+/// - Parameters:
+///   - label: Leading label text shown above the field. Optional.
+///   - caption: Supporting text shown below the field. Optional.
+///   - field: The field view to render (e.g., `SHDTextField`).
 public struct SHDFormInput<Field: View>: View {
+    @Environment(\.inlineError) private var inlineError
 
-    private let label: String?
     private let caption: String?
     private let field: Field
+    private let label: String?
 
-    /// Creates a ShadcniOS form input container.
-    ///
-    /// - Parameters:
-    ///   - label: Leading label text shown above the field. Optional.
-    ///   - caption: Supporting text shown below the field. Optional.
-    ///   - field: The field view to render (e.g., `SHDTextField`).
     public init(
         label: String? = nil,
         caption: String? = nil,
@@ -46,7 +46,11 @@ public struct SHDFormInput<Field: View>: View {
 
             field
 
-            if let caption {
+            if let inlineError {
+                Text(inlineError)
+                    .textStyle(.textSMRegular)
+                    .foregroundColor(.foregroundDestructiveDefault)
+            } else if let caption {
                 Text(caption)
                     .textStyle(.textSMRegular)
                     .foregroundColor(.foregroundMuted)
