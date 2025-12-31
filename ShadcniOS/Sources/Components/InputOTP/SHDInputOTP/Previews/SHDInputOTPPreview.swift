@@ -33,17 +33,17 @@ internal struct SHDInputOTPPreview: View {
             section("Sizes:") {
                 row("SM:") {
                     SHDInputOTP(code: $extractedCode)
-                        .inputOTPConfiguration(variant: .controlled, size: .sm)
+                        .inputOTPConfiguration(size: .sm)
                 }
 
                 row("MD:") {
                     SHDInputOTP(code: $extractedCode)
-                        .inputOTPConfiguration(variant: .controlled)
+                        .inputOTPConfiguration()
                 }
 
                 row("LG:") {
                     SHDInputOTP(code: $extractedCode)
-                        .inputOTPConfiguration(variant: .controlled, size: .lg)
+                        .inputOTPConfiguration(size: .lg)
                 }
             }
 
@@ -61,7 +61,7 @@ internal struct SHDInputOTPPreview: View {
                         code: $extractedCode,
                         caption: "This input OTP only accepts numbers",
                     )
-                    .inputOTPConfiguration(variant: .pattern)
+                    .isPattern()
                 }
 
                 row("Separator:") {

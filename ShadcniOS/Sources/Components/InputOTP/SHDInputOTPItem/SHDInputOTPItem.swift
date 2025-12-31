@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 /// A single input field used by `SHDInputOTP` to render and manage one character in an OTP code.
 ///
@@ -89,13 +90,25 @@ internal struct SHDInputOTPItem: View {
                         onBackspace()
                         return
                     }
-                    let cleanValue = newValue.replacingOccurrences(
-                        of: zws,
-                        with: ""
-                    )
+
+                    let cleanValue =
+                        newValue
+                        .replacingOccurrences(of: zws, with: "")
+                        .filter { !$0.isWhitespace }
 
                     if cleanValue != text {
                         text = cleanValue
+                    } else {
+                        let inputHadInvalidChars = newValue.contains {
+                            $0.isWhitespace
+                        }
+
+                        if inputHadInvalidChars {
+                            DispatchQueue.main.async {
+                                let current = text
+                                text = current
+                            }
+                        }
                     }
                 }
             )
@@ -133,6 +146,10 @@ internal struct SHDInputOTPItem: View {
 
     SHDInputOTPItem(
         text: $text,
-        state: SHDInputOTPItemBorderStyle(isStart: true, isEnd: true, showSeparator: false)
+        state: SHDInputOTPItemBorderStyle(
+            isStart: true,
+            isEnd: true,
+            showSeparator: false
+        )
     )
 }

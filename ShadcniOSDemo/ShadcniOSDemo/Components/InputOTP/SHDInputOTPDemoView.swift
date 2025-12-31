@@ -26,7 +26,7 @@ enum PatternOption: String, CaseIterable, Identifiable {
 
 struct SHDInputOTPDemoView: View {
 
-    @State private var variant: SHDInputOTPVariant = .controlled
+    @State private var isPattern: Bool = false
     @State private var size: SHDInputOTPSizing = .md
     @State private var length: SHDInputOTPLength = .standard
     @State private var isError: Bool = false
@@ -37,18 +37,7 @@ struct SHDInputOTPDemoView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                VStack(alignment: .leading) {
-                    Text("Variants").font(.headline)
-
-                    Picker("Variant", selection: $variant) {
-                        Text("Controlled").tag(SHDInputOTPVariant.controlled)
-                        Text("Pattern").tag(SHDInputOTPVariant.pattern)
-                    }
-                    .pickerStyle(.segmented)
-                    .disabled(length == .extended)
-                }
-
-                if variant == .pattern {
+                if isPattern == true {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Pattern Options").font(.subheadline)
                             .foregroundStyle(.secondary)
@@ -97,9 +86,12 @@ struct SHDInputOTPDemoView: View {
 
                 Spacer().frame(height: 20)
 
+                Toggle("Set Pattern", isOn: $isPattern)
+
                 Toggle("Toggle Error State", isOn: $isError)
                 
                 Toggle("Set separators", isOn: $isSeparated)
+                    .disabled(length == .extended)
 
                 Spacer().frame(height: 40)
 
@@ -113,12 +105,12 @@ struct SHDInputOTPDemoView: View {
                     validateError: validateOTP
                 )
                 .inputOTPConfiguration(
-                    variant: variant,
                     size: size,
                     length: length
                 )
                 .otpSeparatorStyle(isSeparated)
                 .isError(isError)
+                .isPattern(isPattern)
                 .keyboardType(selectedPatternOption.keyboardType)
 
                 Text("Code generated: \(textExtracted)")
@@ -128,7 +120,8 @@ struct SHDInputOTPDemoView: View {
             .padding()
             .onChange(of: length) { _, newValue in
                 if newValue == .extended {
-                    variant = .controlled
+                    isSeparated = false
+                    isPattern = false
                 }
             }
         }

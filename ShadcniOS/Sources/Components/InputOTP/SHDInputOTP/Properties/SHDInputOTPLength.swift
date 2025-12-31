@@ -52,11 +52,23 @@ public enum SHDInputOTPLength {
         }
     }
 
-    var groupSize: Int {
+    var chunckSize: Int {
         switch self {
         case .short: return 2
         case .standard: return 3
         case .extended: return 8
+        }
+    }
+
+    /// Returns the group size for the OTP length, adjusted for separated display.
+    ///
+    /// - Parameter isSeparated: Whether the OTP fields are displayed with separators.
+    /// - Returns: The group size to use for layout calculations.
+    func groupSize(isSeparated: Bool) -> Int {
+        if isSeparated {
+            return chunckSize
+        } else {
+            return digits
         }
     }
 }

@@ -14,7 +14,7 @@ public struct SHDInputOTP: View {
     @State private var validationErrorMessage: String?
 
     private var caption: String = ""
-    private var variant: SHDInputOTPVariant = .controlled
+    private var isPattern: Bool = false
     private var size: SHDInputOTPSizing = .md
     private var length: SHDInputOTPLength = .standard
     private var isError: Bool = false
@@ -49,7 +49,6 @@ public struct SHDInputOTP: View {
 
                     let state = viewModel.bordersState(
                         at: index,
-                        variant: variant,
                         length: length,
                         isSeparated: isSeparated
                     )
@@ -110,15 +109,17 @@ public struct SHDInputOTP: View {
     }
 
     public func inputOTPConfiguration(
-        variant: SHDInputOTPVariant = .controlled,
         size: SHDInputOTPSizing = .md,
         length: SHDInputOTPLength = .standard
     ) -> Self {
         return mutating { inputOTP in
-            inputOTP.variant = variant
             inputOTP.size = size
             inputOTP.length = length
         }
+    }
+
+    public func isPattern(_ isPattern: Bool = true) -> Self {
+        mutating(keyPath: \.isPattern, value: isPattern)
     }
 
     public func isError(_ isError: Bool = true) -> Self {
