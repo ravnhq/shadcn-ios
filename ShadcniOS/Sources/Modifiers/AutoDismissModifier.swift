@@ -62,3 +62,48 @@ internal struct AutoDismissModifier: ViewModifier {
             }
     }
 }
+
+internal extension View {
+    /// Automatically dismisses a view after a specified delay by calling a closure.
+    ///
+    /// ## Discussion
+    /// This modifier provides a closure-based auto-dismiss API that doesn't require
+    /// managing a `@State` binding. When the delay expires, your closure is called,
+    /// allowing you to update any state you need (setting an optional to nil, toggling
+    /// a boolean, etc.).
+    ///
+    /// The timer starts when the view appears and is automatically cancelled if the
+    /// view disappears before the delay completes.
+    ///
+    /// - Parameters:
+    ///   - delay: The duration to wait before calling the dismiss closure.
+    ///   - onDismiss: A closure called when the auto-dismiss timer completes.
+    ///     Use this to update your state and remove the view.
+    ///
+    /// - Returns: A view that will call the dismiss closure after the specified delay.
+    ///
+    /// ## Usage
+    ///
+    /// ### With optional-based state:
+    /// ```swift
+    /// if let toast = currentToast {
+    ///     ToastView(toast)
+    ///         .autoDismiss(after: .seconds(3)) {
+    ///             currentToast = nil
+    ///         }
+    /// }
+    /// ```
+    func autoDismiss(
+        after delay: Duration,
+        id: UUID = UUID(),
+        onDismiss: @escaping () -> Void
+    ) -> some View {
+        modifier(
+            AutoDismissModifier(
+                delay: delay,
+                id: id,
+                onDismiss: onDismiss
+            )
+        )
+    }
+}

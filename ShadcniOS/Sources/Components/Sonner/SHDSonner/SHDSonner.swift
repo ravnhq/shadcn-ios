@@ -8,40 +8,16 @@
 import SwiftUI
 
 /// A toast-style notification component for displaying temporary messages to users.
-///
-/// `SHDSonner` is a core component of the ShadcniOS design system that provides
-/// elegant, non-intrusive notifications. It combines a title, subtitle, and contextual
-/// icon to communicate information, confirmations, warnings, or errors to users.
-///
+/// 
 /// ## Discussion
 ///
 /// The sonner component is designed to provide brief, actionable feedback without
 /// interrupting the user's workflow. It automatically dismisses after a contextual
 /// delay and supports interactive dismissal through tap and drag gestures.
 ///
-/// ## Usage
+/// This type is internal to the module and is not intended to be used directly
+/// outside of `SHDSonnerConfiguration`.
 ///
-/// ```swift
-/// struct ContentView: View {
-///     @State private var showNotification = false
-///
-///     var body: some View {
-///         VStack {
-///             Button("Save Changes") {
-///                 saveData()
-///                 showNotification = true
-///             }
-///         }
-///         .sonner(
-///             configuration: SHDSonnerConfiguration(
-///                 title: "Changes saved",
-///                 subtitle: "Your settings have been updated successfully"
-///             ),
-///             isPresented: $showNotification
-///         )
-///     }
-/// }
-/// ```
 internal struct SHDSonner: View {
 
     private let description: String

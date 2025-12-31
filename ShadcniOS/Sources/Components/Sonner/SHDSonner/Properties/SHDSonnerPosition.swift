@@ -20,14 +20,13 @@ import SwiftUI
 ///
 /// ## Usage
 ///
-/// ### Top
-///
-/// Notifications slide in from the top edge and require an upward drag to dismiss.
-///
-/// ### Bottom (Default)
-///
-/// Notifications slide in from the bottom edge and require a downward drag to dismiss.
-/// 
+///``` swift
+/// SHDSonnerConfiguration(
+///     title: "Draft saved",
+///     subtitle: "Last saved at 3:24 PM",
+///     position: .top
+/// )
+///```
 public enum SHDSonnerPosition {
     case top
     case bottom

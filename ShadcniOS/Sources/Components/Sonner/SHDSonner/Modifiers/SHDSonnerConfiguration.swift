@@ -13,72 +13,31 @@ import SwiftUI
 /// a sonner notification, providing a clean and type-safe API for customizing the notification's
 /// appearance, position, and content.
 ///
-/// ## Overview
+/// ## Discussion
 ///
 /// This configuration struct serves as the bridge between your content and the notification
 /// presentation system. It combines all customization options into a single, immutable value
 /// that can be easily passed to the `.sonner()` view modifier.
 ///
-/// ### Configuration Options
-///
-/// - **Content**: Title and subtitle text
-/// - **Position**: Top or bottom screen edge (``SHDSonnerPosition``)
-/// - **Size**: Typography and icon scale (``SHDSonnerSize``)
-/// - **Variant**: Semantic style and coloring (``SHDSonnerVariant``)
-///
 /// ## Usage
 ///
-/// ### Basic Configuration
 ///
 /// ```swift
+/// @State private var isPresented: Bool = false
 /// let config = SHDSonnerConfiguration(
 ///     title: "Welcome back",
 ///     subtitle: "You have 5 new notifications"
 /// )
 ///
 /// ContentView()
-///     .sonner(configuration: config, isPresented: $showNotification)
+///     .sonner(configuration: config, isPresented: $isPresented)
 /// ```
-/// ### Top-Positioned Warning
-///
-/// ```swift
-/// let warningConfig = SHDSonnerConfiguration(
-///     title: "Connection lost",
-///     subtitle: "Attempting to reconnect...",
-///     position: .top,
-///     size: .lg,
-///     variant: .warning
-/// )
-/// ```
-/// ## Topics
-///
-/// ### Creating a Configuration
-///
-/// - ``init(title:subtitle:position:size:variant:)``
-///
-/// ### Configuration Properties
-///
-/// - ``title``
-/// - ``subtitle``
-/// - ``position``
-/// - ``size``
-/// - ``variant``
-///
-/// ### Presenting Notifications
-///
-/// - ``SwiftUI/View/sonner(configuration:isPresented:)``
-///
-/// ## See Also
-///
-/// - ``SHDSonner``
-/// - ``SHDSonnerPosition``
-/// - ``SHDSonnerSize``
-/// - ``SHDSonnerVariant``
+/// 
 public struct SHDSonnerConfiguration {
 
-    let title: String
-    let subtitle: String
-    let size: SHDSonnerSize
+    private let title: String
+    private let subtitle: String
+    private let size: SHDSonnerSize
     let position: SHDSonnerPosition
     let variant: SHDSonnerVariant
 

@@ -7,32 +7,24 @@
 
 import SwiftUI
 
+/// zIndex declared to avoid confusion on the sonner's values.
+///
+private enum SHDZIndex {
+    static let sonner: Double = 999
+}
+
 /// `SHDSonnerModifier` is the internal implementation that powers the `.sonner()` view modifier.
 /// It handles all aspects of notification presentation, including animations, gestures, timing,
 /// and layout adaptation across different devices and orientations.
-/// ## Internal Implementation
 ///
 /// This modifier is an internal type that should not be used directly. Instead,
 /// use the public `.sonner(configuration:isPresented:)` view modifier provided
 /// by the ``SHDSonnerConfiguration`` extension.
 ///
-/// ## Example Usage (Internal)
-///
-/// ```swift
-/// // Don't use directly - use .sonner() instead
-/// content
-///     .modifier(
-///         SHDSonnerModifier(
-///             sonner: sonner,
-///             position: .bottom,
-///             isPresented: $isPresented
-///         )
-///     )
-/// ```
 internal struct SHDSonnerModifier: ViewModifier {
     // MARK: Properties
 
-    @Environment(\.horizontalSizeClass) private var availableWidth
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @Binding var isPresented: Bool
 
@@ -52,7 +44,7 @@ internal struct SHDSonnerModifier: ViewModifier {
     }
 
     private var isIpadInSmallFormFactor: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad && availableWidth == .compact
+        UIDevice.current.userInterfaceIdiom == .pad && horizontalSizeClass == .compact
     }
 
     init(
@@ -98,10 +90,10 @@ internal struct SHDSonnerModifier: ViewModifier {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .transition(.move(edge: position.edge).combined(with: .opacity))
-                .zIndex(999)
+                .zIndex(SHDZIndex.sonner)
             }
         }
-        .animation(.smooth(duration: 0.5), value: isPresented)
+        .animation(.smooth(duration: 0.75), value: isPresented)
         .onChange(of: isPresented) { _, newValue in
             if newValue {
                 sonnerId = UUID()
@@ -134,9 +126,7 @@ internal struct SHDSonnerModifier: ViewModifier {
     }
 
     private func dismissToast() {
-        withAnimation(.smooth(duration: 0.8)) {
-            isPresented = false
-            dragOffset = 0
-        }
+        isPresented = false
+        dragOffset = 0
     }
 }
