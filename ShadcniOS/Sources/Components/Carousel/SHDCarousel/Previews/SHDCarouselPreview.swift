@@ -25,15 +25,15 @@ internal struct SHDCarouselPreview: View {
     var body: some View {
         ScrollView {
             VStack {
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Group Horizontal Layout – 1:1")
-                        .font(.headline)
-                        .padding()
-
-                    SHDCarousel(items) { item in
-                        createCard(number: item.number)
-                    }
-                }
+//                VStack(alignment: .leading, spacing: 16) {
+//                    Text("Group Horizontal Layout – 1:1")
+//                        .font(.headline)
+//                        .padding()
+//
+//                    SHDCarousel(items) { item in
+//                        createCard(number: item.number)
+//                    }
+//                }
 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Group Horizontal Layout – 3:4")
@@ -55,6 +55,7 @@ internal struct SHDCarouselPreview: View {
                         createCard(number: item.number)
                     }
                     .layoutVariant(.groupHorizontal(.sixteenToNine))
+                    .backgroundColor(.backgroundDestructiveDefault)
                 }
 
                 VStack(alignment: .leading, spacing: 16) {

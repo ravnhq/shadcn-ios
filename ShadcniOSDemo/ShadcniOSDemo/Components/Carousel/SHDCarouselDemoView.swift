@@ -94,9 +94,9 @@ struct SHDCarouselDemoView: View {
                                     .padding()
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(.secondary)                            
+                            .background(.secondary)
                         }
-                            .layoutVariant(layoutVariant)
+                        .layoutVariant(layoutVariant)
 
                     case .numbers:
                         SHDCarousel(numberItems) { numberItem in
@@ -107,7 +107,7 @@ struct SHDCarouselDemoView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.secondary)
                         }
-                            .layoutVariant(layoutVariant)
+                        .layoutVariant(layoutVariant)
 
                     case .images:
                         SHDCarousel(imageItems) { itemImage in
@@ -120,7 +120,7 @@ struct SHDCarouselDemoView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.secondary)
                         }
-                            .layoutVariant(layoutVariant)
+                        .layoutVariant(layoutVariant)
                     }
                 }
             }
