@@ -71,7 +71,7 @@ internal struct SHDSonnerModifier: ViewModifier {
 
                     sonner
                         .frame(
-                            minWidth: isIpadInSmallFormFactor ? .infinity : 320,
+                            minWidth: isIpadInSmallFormFactor ? nil : 320,
                             maxWidth: isIpadInSmallFormFactor ? .infinity : 520
                         )
                         .offset(y: dragOffset)
