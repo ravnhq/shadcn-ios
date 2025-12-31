@@ -70,10 +70,7 @@ internal struct SHDSonnerModifier: ViewModifier {
                     }
 
                     sonner
-                        .frame(
-                            minWidth: isIpadInSmallFormFactor ? nil : 320,
-                            maxWidth: isIpadInSmallFormFactor ? .infinity : 520
-                        )
+                        .frame(maxWidth: isIpadInSmallFormFactor ? .infinity : 520)
                         .offset(y: dragOffset)
                         .padding(.horizontal, .sm)
                         .gesture(dragGesture())
