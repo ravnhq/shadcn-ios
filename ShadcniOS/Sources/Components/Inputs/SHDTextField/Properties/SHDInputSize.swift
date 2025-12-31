@@ -33,14 +33,12 @@ public enum SHDInputSize {
     }
 
     /// Vertical padding used inside the field.
-    var paddingStyle: CGFloat {
-        let padding: SHDSizing.Padding = switch self {
+    var paddingStyle: SHDSizing.Padding {
+        switch self {
         case .sm: .xxs
         case .md: .xs
         case .lg: .sm
         }
-
-        return padding.value
     }
 
     /// Icon size for leading/trailing adornments (fixed at 20pt).
