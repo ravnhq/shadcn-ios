@@ -16,6 +16,10 @@ internal extension EnvironmentValues {
     ///
     /// - Default: `false`
     @Entry var isLoading: Bool = false
+
+    /// An environment key used to determine whether a `SHDTextField` should display an inline error message.
+    /// The default value is `nil`, meaning no error message is displayed by default.
+    @Entry var inlineError: LocalizedStringKey?
 }
 
 internal extension View {
