@@ -52,6 +52,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
     @State private var scrollID: Data.Element.ID?
     @State private var currentPage = 0
+    @State private var dragStartIndex: Int?
     private let spacingRatio: CGFloat = 0.03
     var data: Data
     var content: (Data.Element) -> Content
@@ -65,6 +66,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                 let itemHeight = itemWidth / aspectRatio.aspectRatio
                 let sideInsight = (containerWidth - itemWidth) / 2
                 let spacing = containerWidth * spacingRatio
+                let interval = itemWidth + spacing
 
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: spacing) {
@@ -93,9 +95,24 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                 }
                 .contentMargins(.horizontal, sideInsight, for: .scrollContent)
                 .scrollPosition(id: $scrollID)
-                .scrollTargetBehavior(.viewAligned)
+                .singleItemScrollTargetBehavior(
+                    interval: interval,
+                    currentPage: dragStartIndex ?? currentPage,
+                    offsetAdjustment: sideInsight
+                )
                 .scrollIndicators(.hidden)
                 .frame(height: itemHeight)
+                .simultaneousGesture(
+                    DragGesture()
+                        .onChanged { _ in
+                            if dragStartIndex == nil {
+                                dragStartIndex = currentPage
+                            }
+                        }
+                        .onEnded { _ in
+                            dragStartIndex = nil
+                        }
+                )
                 .onChange(of: scrollID) { newValue in
                     guard let newValue else { return }
 
@@ -120,6 +137,10 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
         .padding(.horizontal, .sm)
     }
 
+    /// Creates the page indicator dots at the bottom of the carousel.
+    ///
+    /// Displays a row of circular indicators, one for each item in the carousel.
+    /// The current page indicator is fully opaque, while inactive indicators are semi-transparent.
     private var indicators: some View {
         HStack(spacing: .sm) {
             ForEach(0..<data.count) { idx in
@@ -129,11 +150,24 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                             ? SHDColor.foregroundDefault.color
                             : SHDColor.foregroundDefault.color.opacity(0.3)
                     )
-                    .frame(width: SHDSizing.Radius.md.value, height: SHDSizing.Radius.md.value)
+                    .frame(
+                        width: SHDSizing.Radius.md.value,
+                        height: SHDSizing.Radius.md.value
+                    )
             }
         }
     }
 
+    /// Calculates the horizontal offset for carousel items to ensure proper centering.
+    ///
+    /// This helper method adjusts the position of the first and last items to account for
+    /// side insets, ensuring items are properly centered within the scrollable container.
+    ///
+    /// - Parameters:
+    ///   - isFirst: Whether this is the first item in the carousel
+    ///   - isLast: Whether this is the last item in the carousel
+    ///   - inset: The side inset value for centering calculations
+    /// - Returns: The horizontal offset to apply to the item
     private func getOffset(isFirst: Bool, isLast: Bool, inset: CGFloat) -> CGFloat {
         if isFirst {
             return -inset

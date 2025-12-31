@@ -32,7 +32,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
     var data: Data
     var content: (Data.Element) -> Content
-    var aspectRation: SHDCarouselItemAspectRatio = .oneToOne
+    var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
         ScrollView {
@@ -40,7 +40,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                 ForEach(data) { item in
                     content(item)
                         .aspectRatio(
-                            aspectRation.aspectRatio,
+                            aspectRatio.aspectRatio,
                             contentMode: .fit
                         )
                 }
@@ -51,7 +51,14 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
         }
     }
 
-    func aspectRatio(_ aspectRation: SHDCarouselItemAspectRatio) -> Self {
-        mutating(keyPath: \.aspectRation, value: aspectRation)
+    /// Sets the aspect ratio for items displayed in the vertical carousel.
+    ///
+    /// This modifier allows customization of item dimensions for vertical scrolling layouts.
+    /// The aspect ratio affects how items are sized within the vertical scrollable container.
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The `SHDCarouselItemAspectRatio` to apply to the carousel items
+    func aspectRatio(_ aspectRatio: SHDCarouselItemAspectRatio) -> Self {
+        mutating(keyPath: \.aspectRatio, value: aspectRatio)
     }
 }

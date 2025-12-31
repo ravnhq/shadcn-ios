@@ -82,6 +82,10 @@ public enum SHDCarouselItemAspectRatio {
     /// Commonly used in photo galleries and featured content showcases.
     case threeToFourWithSingleItem
 
+    /// The mathematical aspect ratio (width:height) for this variant.
+    ///
+    /// Returns the pure aspect ratio value used for calculating item dimensions.
+    /// For example, `.oneToOne` returns `1.0`, `.sixteenToNine` returns `16.0 / 9.0`.
     var aspectRatio: CGFloat {
         switch self {
         case .oneToOne: 1.0
@@ -91,6 +95,10 @@ public enum SHDCarouselItemAspectRatio {
         }
     }
 
+    /// The width factor as a proportion of the container width.
+    ///
+    /// Returns a value between 0.0 and 1.0 representing what percentage of the container width
+    /// should be used for item width. For example, `.oneToOne` uses 45% (0.45) of container width.
     var widthFactor: CGFloat {
         switch self {
         case .oneToOne: 0.45
@@ -100,6 +108,11 @@ public enum SHDCarouselItemAspectRatio {
         }
     }
 
+    /// The height factor as a proportion of the container width.
+    ///
+    /// Returns a value representing what percentage of the container width should be used
+    /// for calculating item height. This is used in conjunction with `aspectRatio` to determine
+    /// final item dimensions.
     var heightFactor: CGFloat {
         switch self {
         case .oneToOne: 0.45
@@ -109,6 +122,11 @@ public enum SHDCarouselItemAspectRatio {
         }
     }
 
+    /// The effective aspect ratio adjusted for the width factor.
+    ///
+    /// This computed property calculates the final aspect ratio used for the carousel container
+    /// by dividing the pure `aspectRatio` by the `widthFactor`. This ensures the container
+    /// maintains the correct proportions when items are sized as a percentage of container width.
     var effectiveAspectRatio: CGFloat {
         aspectRatio / widthFactor
     }

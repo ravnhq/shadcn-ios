@@ -69,6 +69,14 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
         }
     }
 
+    /// Sets the aspect ratio for items displayed in the horizontal carousel.
+    ///
+    /// This modifier allows customization of item dimensions for horizontal scrolling layouts.
+    /// When `.sixteenToNine` is used, the carousel automatically switches to a paged carousel
+    /// for optimal full-width presentation.
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The `SHDCarouselItemAspectRatio` to apply to the carousel items
     func aspectRatio(_ aspectRatio: SHDCarouselItemAspectRatio) -> Self {
         mutating(keyPath: \.aspectRatio, value: aspectRatio)
     }

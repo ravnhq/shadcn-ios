@@ -16,7 +16,7 @@ import SwiftUI
 ///     in a horizontally or vertically scrollable container.
 /// It supports multiple layout variants (group horizontal, single horizontal, and group vertical)
 ///     and aspect ratio variants (1:1, 3:4, 16:9, and 3:4 with single item).
-/// The component uses the `SHDCarouselRepresentable` protocol to allow flexible content customization,
+/// The component uses a `@ViewBuilder` closure to allow flexible content customization,
 ///     enabling you to render any SwiftUI view for each item in the carousel.
 ///
 /// The carousel adapts its internal structure based on the selected layout variant:
