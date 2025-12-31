@@ -13,9 +13,10 @@ import SwiftUI
 /// only handle content and state. Applies design-token corner radius, spacing, and colors. 
 internal struct InputBorderModifier: ViewModifier {
     @Environment(\.inlineError) private var inlineError
+
     private let isFocused: Bool
 
-    init(isFocused: Bool) {
+    internal init(isFocused: Bool) {
         self.isFocused = isFocused
     }
 

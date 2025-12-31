@@ -1,27 +1,35 @@
+//
+//  SHDSecureField.swift
+//  ShadcniOS
+//
+//  Created by Concepción Orellana on 12/15/25.
+//
+
 import SwiftUI
 
-/// A design-system secure text input dedicated to passwords, with a built-in
-/// show/hide toggle and full parity with `SHDTextField` sizing and styling.
+/// A password-friendly text input with built-in secure entry and visibility toggle.
 ///
 /// ## Discussion
-/// `SHDSecureField` binds to external text, renders a placeholder when empty,
-/// supports an optional leading icon, and always shows a trailing eye/eye-off
-/// toggle to reveal or obscure the password.
-///
-/// State handling:
-/// - Focus: Shows the primary focus border while active.
-/// - Error: Use `inlineError` to surface destructive border/text and a helper message.
-/// - Visibility: Tap the eye icon to toggle between `SecureField` and `TextField`.
+/// `SHDSecureField` mirrors the layout and styling of `SHDTextField` but always treats
+/// its content as sensitive. Users can toggle visibility with an eye/eye-off control
+/// while error handling and sizing stay consistent with the text input component.
 ///
 /// - Parameters:
 ///   - placeholder: Optional placeholder shown when the field is empty.
 ///   - leadingIcon: Optional icon displayed before the text.
 ///   - text: Bound value for the input content.
+///
+/// ## Usage
+/// ```swift
+/// @State private var password = ""
+/// SHDSecureField(placeholder: "Password", text: $password)
+///     .inputStyle(.md)
+/// ```
 public struct SHDSecureField: View {
     @Environment(\.inlineError) private var inlineError
 
     @FocusState private var isFocused: Bool
-    @State private var isPasswordVisible: Bool = false
+    @State private var isSecureEntryRevealed: Bool = false
 
     @Binding private var text: String
 
@@ -33,9 +41,10 @@ public struct SHDSecureField: View {
         inlineError != nil ? .foregroundDestructiveDefault : .foregroundDefault
     }
 
-    private var visibilityIcon: SHDIconAsset { isPasswordVisible ? .eye : .eyeOff }
+    private var secureFieldIcon: SHDIconAsset {
+        isSecureEntryRevealed ? .eye : .eyeOff
+    }
 
-    // MARK: - Init
     public init(
         placeholder: String? = nil,
         leadingIcon: SHDIconAsset? = nil,
@@ -46,7 +55,6 @@ public struct SHDSecureField: View {
         _text = text
     }
 
-    // MARK: - View
     public var body: some View {
         HStack(spacing: .sm) {
             if let leadingIcon {
@@ -61,7 +69,7 @@ public struct SHDSecureField: View {
                         .allowsHitTesting(false)
                 }
 
-                if isPasswordVisible {
+                if isSecureEntryRevealed {
                     TextField("", text: $text)
                         .textStyle(size.textStyle)
                         .foregroundColor(textColor)
@@ -76,9 +84,9 @@ public struct SHDSecureField: View {
             .frame(maxWidth: .infinity, alignment: .leading)
 
             Button {
-                isPasswordVisible.toggle()
+                isSecureEntryRevealed.toggle()
             } label: {
-                iconView(visibilityIcon)
+                iconView(secureFieldIcon)
             }
             .buttonStyle(.plain)
         }
@@ -90,8 +98,11 @@ public struct SHDSecureField: View {
     }
 
     /// Applies the input size, updating text style, icon size, and height tokens.
+    ///
+    /// Available sizes: `.sm`, `.md`, `.lg`.
+    ///
     /// - Parameter size: Desired input size. Defaults to `.md`.
-    /// - Returns: A secure text input configured with the given size.
+    /// - Returns: A secure input configured with the given size.
     public func inputStyle(_ size: SHDInputSize = .md) -> some View {
         mutating(keyPath: \.size, value: size)
     }
@@ -102,3 +113,8 @@ public struct SHDSecureField: View {
             .foregroundColor(.iconDefault)
     }
 }
+
+#Preview {
+    SHDInputPreview()
+}
+

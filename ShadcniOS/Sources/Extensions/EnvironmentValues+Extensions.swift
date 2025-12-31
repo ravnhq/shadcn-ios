@@ -17,11 +17,6 @@ internal extension EnvironmentValues {
     /// - Default: `false`
     @Entry var isLoading: Bool = false
 
-    /// An environment key used to determine whether a `SHDTextField`
-    /// should behave as a secure (password) field.
-    /// The default value is `false`, meaning the `SHDTextField` is not secure by default.
-    @Entry var isSecureField: Bool = false
-
     /// An environment key used to determine whether a `SHDTextField` should display an inline error message.
     /// The default value is `nil`, meaning no error message is displayed by default.
     @Entry var inlineError: LocalizedStringKey?

@@ -11,7 +11,7 @@ import SwiftUI
 ///
 /// ## Discussion
 /// Use this modifier to display an inline error message associated with a view, such as a text field.
-/// The error message is consumed by `SHDTextField` and `SHDFormInput`.
+/// The error message is consumed by `SHDTextField`, `SHDSecureField`, and `SHDFormInput`.
 public struct InlineError: ViewModifier {
     // MARK: Properties
 

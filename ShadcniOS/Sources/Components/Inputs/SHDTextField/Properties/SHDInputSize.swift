@@ -46,28 +46,3 @@ public enum SHDInputSize {
     /// Icon size for leading/trailing adornments (fixed at 20pt).
     var iconSize: SHDIconSize { .lg }
 }
-
-internal extension View {
-    /// Sets the secure field state for the current view hierarchy.
-    ///
-    /// ## Discussion
-    /// This allows text fields to switch between regular text input and secure
-    /// password input with a visibility toggle.
-    ///
-    /// When `isSecureField == true`:
-    /// - The text field displays a SecureField by default.
-    /// - An eye/eye-off toggle icon appears to show/hide the password.
-    ///
-    /// ## Usage
-    /// ```swift
-    /// SHDTextField(placeholder: "Password", text: $password)
-    ///     .isSecureField(true)
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - isSecureField: A Boolean value indicating whether the field is a secure field.
-    /// - Returns: A view with the updated `isSecureField` environment value.
-    public func isSecureField(_ isSecureField: Bool) -> some View {
-        environment(\.isSecureField, isSecureField)
-    }
-}

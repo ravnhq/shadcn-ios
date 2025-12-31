@@ -22,19 +22,36 @@ struct SHDTextInputDemoView: View {
     @FocusState private var isTextFieldFocused: Bool
 
     var textField: some View {
-        SHDTextField(
-            placeholder: isSecureField ? "Password" : "Email address",
-            leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
-            trailingIcon: hasTrailingIcon ? .mathsX : nil,
-            text: $text
-        )
-        .inputStyle(size)
-        .isSecureField(isSecureField)
-        .disabled(isDisabled)
-        .focused($isTextFieldFocused)
-        .onChange(of: text) {
-            if hasInlineError {
-                hasInlineError.toggle()
+        Group {
+            if isSecureField {
+                SHDSecureField(
+                    placeholder: "Password",
+                    leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
+                    text: $text
+                )
+                .inputStyle(size)
+                .disabled(isDisabled)
+                .focused($isTextFieldFocused)
+                .onChange(of: text) {
+                    if hasInlineError {
+                        hasInlineError.toggle()
+                    }
+                }
+            } else {
+                SHDTextField(
+                    placeholder: "Email address",
+                    leadingIcon: hasLeadingIcon ? .notificationBellRing : nil,
+                    trailingIcon: hasTrailingIcon ? .mathsX : nil,
+                    text: $text
+                )
+                .inputStyle(size)
+                .disabled(isDisabled)
+                .focused($isTextFieldFocused)
+                .onChange(of: text) {
+                    if hasInlineError {
+                        hasInlineError.toggle()
+                    }
+                }
             }
         }
     }

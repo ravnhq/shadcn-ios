@@ -115,12 +115,11 @@ internal struct SHDInputPreview: View {
                 Text("Secure Field")
                     .textStyle(.textBaseSemibold)
 
-                SHDTextField(
+                SHDSecureField(
                     placeholder: "Password",
                     text: $passwordValue
                 )
                 .inputStyle(.md)
-                .isSecureField(true)
 
                 Text("Form Inputs")
                     .textStyle(.textBaseSemibold)
@@ -141,12 +140,11 @@ internal struct SHDInputPreview: View {
                     label: "Password",
                     caption: "Secure input with visibility toggle."
                 ) {
-                    SHDTextField(
+                    SHDSecureField(
                         placeholder: "Password",
                         text: $passwordValue
                     )
                     .inputStyle(.md)
-                    .isSecureField(true)
                 }
 
                 Spacer()

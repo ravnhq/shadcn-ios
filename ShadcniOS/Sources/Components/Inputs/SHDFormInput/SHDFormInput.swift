@@ -69,3 +69,8 @@ public struct SHDFormInput<Field: View>: View {
         }
     }
 }
+
+#Preview {
+    SHDInputPreview()
+}
+
