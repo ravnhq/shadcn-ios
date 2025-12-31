@@ -20,29 +20,30 @@ internal struct InputBorderModifier: ViewModifier {
         self.isFocused = isFocused
     }
 
-    private var innerBorderColor: Color {
-        (inlineError != nil) ? .borderDestructiveDefault : .borderDefault
-    }
-
-    private var outerBorderColor: Color {
-        (inlineError != nil) ? .borderDestructiveDefault : .borderPrimaryDefault
-    }
-
     func body(content: Content) -> some View {
         content
-            .overlay(
-                RoundedRectangle(cornerRadius: .md)
-                    .inset(by: 1)
-                    .stroke(innerBorderColor, lineWidth: 1)
-            )
+            .overlay(border(lineWidth: 1))
             .padding(.all, .xxxs)
             .overlay {
                 if isFocused {
-                    RoundedRectangle(cornerRadius: .md)
-                        .inset(by: 1)
-                        .stroke(outerBorderColor, lineWidth: 2)
+                    border(lineWidth: 2)
                 }
             }
+    }
+
+    @ViewBuilder
+    private func border(lineWidth: CGFloat) -> some View {
+        let color: Color = {
+            guard inlineError == nil else {
+                return .borderDestructiveDefault
+            }
+
+            return lineWidth == 1 ? .borderDefault : .borderPrimaryDefault
+        }()
+
+        RoundedRectangle(cornerRadius: .md)
+            .inset(by: 1)
+            .stroke(color, lineWidth: lineWidth)
     }
 }
 
@@ -66,3 +67,4 @@ internal extension View {
         modifier(InputBorderModifier(isFocused: isFocused))
     }
 }
+
