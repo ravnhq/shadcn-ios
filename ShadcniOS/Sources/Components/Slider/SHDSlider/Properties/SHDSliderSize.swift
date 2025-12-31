@@ -45,4 +45,12 @@ public enum SHDSliderSize {
         case .lg: 28
         }
     }
+    
+    var textSize: SHDTextStyle {
+        switch self {
+        case .sm: .textSMRegular
+        case .md: .textBaseRegular
+        case .lg: .textLGRegular
+        }
+    }
 }

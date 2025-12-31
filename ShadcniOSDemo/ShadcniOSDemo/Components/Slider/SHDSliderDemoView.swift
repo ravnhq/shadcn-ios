@@ -56,15 +56,9 @@ struct SHDSliderDemoView: View {
                     }
 
                     Spacer()
-
-                    configSection(title: "Options") {
-                        Toggle("Show Min/Max", isOn: $showMinMax)
-                    }
                 }
 
                 Divider()
-
-                // MARK: Preview Section
 
                 VStack(spacing: 24) {
                     Text("Preview")
@@ -108,19 +102,6 @@ struct SHDSliderDemoView: View {
             )
             .sliderVariant(variant: displayFormat)
             .padding(.vertical, 8)
-
-            // Min/Max labels
-            if showMinMax {
-                HStack {
-                    Text("\(minRange)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Text("\(maxRange)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
         }
     }
 
