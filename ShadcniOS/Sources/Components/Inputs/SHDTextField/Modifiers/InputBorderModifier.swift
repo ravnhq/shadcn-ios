@@ -12,15 +12,19 @@ import SwiftUI
 /// Centralizes the default border, focus border, error border, and spacing between them so input components
 /// only handle content and state. Applies design-token corner radius, spacing, and colors. 
 internal struct InputBorderModifier: ViewModifier {
-    let isFocused: Bool
-    let hasError: Bool
+    @Environment(\.inlineError) private var inlineError
+    private let isFocused: Bool
+
+    init(isFocused: Bool) {
+        self.isFocused = isFocused
+    }
 
     private var innerBorderColor: Color {
-        hasError ? .borderDestructiveDefault : .borderDefault
+        (inlineError != nil) ? .borderDestructiveDefault : .borderDefault
     }
 
     private var outerBorderColor: Color {
-        hasError ? .borderDestructiveDefault : .borderPrimaryDefault
+        (inlineError != nil) ? .borderDestructiveDefault : .borderPrimaryDefault
     }
 
     func body(content: Content) -> some View {
@@ -52,13 +56,12 @@ internal extension View {
     /// ## Usage
     /// ```swift
     /// SHDTextField(text: $value, placeholder: "Email")
-    ///     .inputBorder(isFocused: isFocused, hasError: hasError)
+    ///     .inputBorder(isFocused: isFocused)
     /// ```
     ///
     /// - Parameters:
     ///   - isFocused: Whether the input is currently focused, showing the focus border.
-    ///   - hasError: Whether the input has an error, showing the destructive border.
-    func inputBorder(isFocused: Bool, hasError: Bool = false) -> some View {
-        modifier(InputBorderModifier(isFocused: isFocused, hasError: hasError))
+    func inputBorder(isFocused: Bool) -> some View {
+        modifier(InputBorderModifier(isFocused: isFocused))
     }
 }

@@ -32,13 +32,13 @@ public extension View {
     /// ```swift
     /// SHDTextField(placeholder: "Email", text: $email)
     ///     .inputStyle(.md)
-    ///     .shdInlineError("Please enter a valid email")
+    ///     .inlineError("Please enter a valid email")
     /// ```
     ///
     /// - Parameter inlineError: The optional error message to display. If `nil`,
     /// no error message is displayed.
     /// - Returns: A view with the inline error message applied.
-    func shdInlineError(_ inlineError: LocalizedStringKey?) -> some View {
+    func inlineError(_ inlineError: LocalizedStringKey?) -> some View {
         modifier(InlineError(inlineError: inlineError))
     }
 }

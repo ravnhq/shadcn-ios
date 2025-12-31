@@ -15,7 +15,7 @@ import SwiftUI
 /// - The provided field view (e.g., `SHDTextField`)
 /// - Caption text (supporting text or helper)
 ///
-/// Inline errors provided via `shdInlineError` take precedence over the caption, mirroring
+/// Inline errors provided via `inlineError` take precedence over the caption, mirroring
 /// how `SHDCheckbox` centralizes its helper text in one place.
 ///
 /// - Parameters:
@@ -48,7 +48,7 @@ public struct SHDFormInput<Field: View>: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: .xs) {
             if let label {
                 Text(label)
                     .textStyle(.textSMRegular)

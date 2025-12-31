@@ -29,7 +29,7 @@ struct SHDTextInputDemoView: View {
             text: $text
         )
         .inputStyle(size)
-        .shdSecureField(isSecureField)
+        .isSecureField(isSecureField)
         .disabled(isDisabled)
         .focused($isTextFieldFocused)
         .onChange(of: text) {
@@ -87,11 +87,11 @@ struct SHDTextInputDemoView: View {
                         ) {
                             textField
                         }
-                        .shdInlineError(hasInlineError ? "Error message" : nil)
+                        .inlineError(hasInlineError ? "Error message" : nil)
                     } else {
                         // Without label or caption
                         textField
-                            .shdInlineError(hasInlineError ? "Error message" : nil)
+                            .inlineError(hasInlineError ? "Error message" : nil)
                     }
                 }
                 .padding()

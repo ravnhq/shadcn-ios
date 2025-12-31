@@ -61,13 +61,13 @@ internal extension View {
     /// ## Usage
     /// ```swift
     /// SHDTextField(placeholder: "Password", text: $password)
-    ///     .shdSecureField(true)
+    ///     .isSecureField(true)
     /// ```
     ///
     /// - Parameters:
     ///   - isSecureField: A Boolean value indicating whether the field is a secure field.
     /// - Returns: A view with the updated `isSecureField` environment value.
-    public func shdSecureField(_ isSecureField: Bool) -> some View {
+    public func isSecureField(_ isSecureField: Bool) -> some View {
         environment(\.isSecureField, isSecureField)
     }
 }

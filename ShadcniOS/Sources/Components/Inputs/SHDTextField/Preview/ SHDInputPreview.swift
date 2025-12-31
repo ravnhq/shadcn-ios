@@ -110,7 +110,7 @@ internal struct SHDInputPreview: View {
                     text: $errorValue
                 )
                 .inputStyle(.md)
-                .shdInlineError("Please enter a valid email address")
+                .inlineError("Please enter a valid email address")
 
                 Text("Secure Field")
                     .textStyle(.textBaseSemibold)
@@ -120,7 +120,7 @@ internal struct SHDInputPreview: View {
                     text: $passwordValue
                 )
                 .inputStyle(.md)
-                .shdSecureField(true)
+                .isSecureField(true)
 
                 Text("Form Inputs")
                     .textStyle(.textBaseSemibold)
@@ -135,7 +135,7 @@ internal struct SHDInputPreview: View {
                     )
                     .inputStyle(.md)
                 }
-                .shdInlineError("Please enter a valid email address")
+                .inlineError("Please enter a valid email address")
 
                 SHDFormInput(
                     label: "Password",
@@ -146,7 +146,7 @@ internal struct SHDInputPreview: View {
                         text: $passwordValue
                     )
                     .inputStyle(.md)
-                    .shdSecureField(true)
+                    .isSecureField(true)
                 }
 
                 Spacer()
