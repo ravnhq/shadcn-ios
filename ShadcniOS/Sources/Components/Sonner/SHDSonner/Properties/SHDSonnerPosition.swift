@@ -20,13 +20,13 @@ import SwiftUI
 ///
 /// ## Usage
 ///
-///``` swift
+/// ``` swift
 /// SHDSonnerConfiguration(
 ///     title: "Draft saved",
 ///     subtitle: "Last saved at 3:24 PM",
 ///     position: .top
 /// )
-///```
+/// ```
 public enum SHDSonnerPosition {
     case top
     case bottom
