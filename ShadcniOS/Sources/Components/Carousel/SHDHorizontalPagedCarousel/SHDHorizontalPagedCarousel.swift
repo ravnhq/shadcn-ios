@@ -67,7 +67,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                 let spacing = containerWidth * spacingRatio
 
                 ScrollView(.horizontal) {
-                    LazyHStack(spacing: SHDSizing.Padding.xs.value) {
+                    LazyHStack(spacing: spacing) {
                         ForEach(data) { item in
                             let isFirst = item.id == data.first?.id
                             let isLast = item.id == data.last?.id
@@ -98,7 +98,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                 .frame(height: itemHeight)
                 .onChange(of: scrollID) { newValue in
                     guard let newValue else { return }
-                    print(spacing)
+
                     if let index = data.firstIndex(where: { $0.id == newValue }) {
                         withAnimation(.spring()) {
                             currentPage = data.distance(
@@ -129,7 +129,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
                             ? SHDColor.foregroundDefault.color
                             : SHDColor.foregroundDefault.color.opacity(0.3)
                     )
-                    .frame(width: 8, height: 8)
+                    .frame(width: SHDSizing.Radius.md.value, height: SHDSizing.Radius.md.value)
             }
         }
     }
@@ -140,7 +140,7 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
         } else if isLast {
             return inset
         }
-        return 0
+        return .zero
     }
 
     /// Sets the aspect ratio for items displayed in the paged carousel.
@@ -159,17 +159,4 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
 #Preview {
     SHDCarouselPreview()
-}
-
-extension View {
-    @ViewBuilder
-    func ifLet<Content: View, T>(_ value: T?, transform: (Self, T) -> Content)
-        -> some View
-    {
-        if let value = value {
-            transform(self, value)
-        } else {
-            self
-        }
-    }
 }
