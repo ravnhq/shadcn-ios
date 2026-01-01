@@ -87,11 +87,11 @@ public struct SHDInputOTP: View {
                 .textStyle(size.textStyle)
         }
         .onAppear {
-            viewModel.setup(length: length.digits)
+            viewModel.setup(for: length)
         }
         .onChange(of: length) { _, newLength in
             viewModel.otpDigits.removeAll()
-            viewModel.setup(length: newLength.digits)
+            viewModel.setup(for: newLength)
             validationErrorMessage = nil
         }
         .onChange(of: viewModel.otpDigits) { _, _ in

@@ -30,11 +30,9 @@ final internal class SHDInputOTPViewModel {
 
     /// Initializes or resets the OTP digits array to the specified length.
     ///
-    /// - Parameter length: The number of digits in the OTP.
-    func setup(length: Int) {
-        if otpDigits.count != length {
-            otpDigits = Array(repeating: "", count: length)
-        }
+    /// - Parameter length: The type of length to extract the digits.
+    func setup(for length: SHDInputOTPLength) {
+        otpDigits = Array(repeating: "", count: length.digits)
     }
 
     /// Handles input changes for a specific slot, enforcing single-character
@@ -83,10 +81,17 @@ final internal class SHDInputOTPViewModel {
 
         let groupSize = length.groupSize(isSeparated: isSeparated)
 
-        let isStart = index % groupSize == 0
-        let isEnd = (index + 1) % groupSize == 0 || index == length.digits - 1
-        let showSeparator = (index + 1) % groupSize == 0 && index != length.digits - 1
+        let isGroupStart = index % groupSize == 0
+        let isGroupEnd = (index + 1) % groupSize == 0
+        let isLastIndex = index == length.digits - 1
+        let isStart = isGroupStart
+        let isEnd = isGroupEnd || isLastIndex
+        let showSeparator = isGroupEnd && !isLastIndex
 
-        return SHDInputOTPItemBorderStyle(isStart: isStart, isEnd: isEnd, showSeparator: showSeparator)
+        return SHDInputOTPItemBorderStyle(
+            isStart: isStart,
+            isEnd: isEnd,
+            showSeparator: showSeparator
+        )
     }
 }
