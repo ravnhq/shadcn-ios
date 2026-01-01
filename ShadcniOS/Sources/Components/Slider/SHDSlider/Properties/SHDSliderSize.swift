@@ -13,7 +13,7 @@ import Foundation
 /// `SHDSliderSize` defines three standard size variants for sliders in the ShadcniOS
 /// design system. Each variant specifies both the track height and thumb size to
 /// maintain proper visual proportions and touch targets.
-/// 
+///
 /// ## Usage
 ///
 /// Apply size variants using the `.sliderVariant(variant:)` modifier:
@@ -45,7 +45,7 @@ public enum SHDSliderSize {
         case .lg: 28
         }
     }
-    
+
     var textSize: SHDTextStyle {
         switch self {
         case .sm: .textSMRegular

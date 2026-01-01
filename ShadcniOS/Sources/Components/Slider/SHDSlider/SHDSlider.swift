@@ -29,7 +29,7 @@ import SwiftUI
 ///
 /// These are configured through the `SHDSliderSize` enum and applied via the
 /// `.sliderVariant(variant:)` modifier.
-/// 
+///
 /// ## Usage
 ///
 /// Basic slider:
@@ -58,8 +58,7 @@ public struct SHDSlider: View {
     }
 
     public var body: some View {
-
-        HStack(alignment: .top ,spacing: .lg) {
+        HStack(alignment: .top, spacing: .lg) {
             Text("\(minValue)")
                 .textStyle(size.textSize)
                 .foregroundStyle(.foregroundMuted)
