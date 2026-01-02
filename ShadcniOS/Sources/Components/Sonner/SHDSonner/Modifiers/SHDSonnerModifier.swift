@@ -29,12 +29,15 @@ internal struct SHDSonnerModifier: ViewModifier {
     @Binding var isPresented: Bool
 
     @State private var dragOffset: CGFloat = 0
+    @State private var isVisible: Bool = false // Internal state for animation
     @State private var sonnerId = UUID()
     @State private var toastSize: CGSize = .zero
 
     private let dismissThreshold: CGFloat = 50
     private let position: SHDSonnerPosition
     private let sonner: SHDSonner
+    private let sonnerEnterAnimation: Animation = .smooth(duration: 0.5)
+    private let sonnerExitAnimation: Animation = .smooth(duration: 1)
     private let variant: SHDSonnerVariant
 
     // MARK: Computed properties
@@ -63,7 +66,7 @@ internal struct SHDSonnerModifier: ViewModifier {
         ZStack {
             content
 
-            if isPresented {
+            if isVisible {
                 VStack {
                     if position == .bottom {
                         Spacer()
@@ -86,12 +89,17 @@ internal struct SHDSonnerModifier: ViewModifier {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .transition(.move(edge: position.edge).combined(with: .opacity))
+                .transition(
+                    .move(edge: position.edge)
+                    .combined(with: .opacity)
+                )
                 .zIndex(SHDZIndex.sonner)
             }
         }
-        .animation(.smooth(duration: 0.75), value: isPresented)
         .onChange(of: isPresented) { _, newValue in
+            withAnimation(newValue ? sonnerEnterAnimation : sonnerExitAnimation) {
+                isVisible = newValue
+            }
             if newValue {
                 sonnerId = UUID()
             }
