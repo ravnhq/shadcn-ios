@@ -85,8 +85,8 @@ struct SHDSonnerDemoView: View {
         }
         .sonner(
             configuration: SHDSonnerConfiguration(
+                description: "Sunday, December 03, 2023 at 9:00 AM",
                 title: "Event has been created",
-                subtitle: "Sunday, December 03, 2023 at 9:00 AM",
                 position: position,
                 size: selectedSize,
                 variant: selectedVariant

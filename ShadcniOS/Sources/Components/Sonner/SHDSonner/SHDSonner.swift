@@ -45,7 +45,6 @@ internal struct SHDSonner: View {
                     .foregroundStyle(.foregroundMuted)
                     .textStyle(size.descriptionStyle)
             }
-
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.all, .sm)
