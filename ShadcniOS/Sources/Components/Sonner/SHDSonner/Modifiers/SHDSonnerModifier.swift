@@ -59,7 +59,7 @@ internal struct SHDSonnerModifier: ViewModifier {
         _isPresented = isPresented
     }
 
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         ZStack {
             content
 
@@ -125,5 +125,64 @@ internal struct SHDSonnerModifier: ViewModifier {
     private func dismissToast() {
         isPresented = false
         dragOffset = 0
+    }
+}
+
+public extension View {
+    /// Presents a toast notification with automatic dismissal and interactive gestures.
+    ///
+    /// This modifier displays a sonner notification based on the provided configuration
+    /// and binding. The notification automatically dismisses after a contextual delay
+    /// and supports interactive dismissal through tap and drag gestures.
+    ///
+    /// - Parameters:
+    ///   - configuration: The configuration specifying the notification's content and appearance.
+    ///   - isPresented: A binding to a Boolean value that determines whether the notification is visible.
+    ///
+    /// - Returns: A view that presents the notification when the binding becomes `true`.
+    ///
+    /// ## Usage
+    ///
+    /// ```swift
+    /// struct ContentView: View {
+    ///     @State private var showNotification = false
+    ///
+    ///     var body: some View {
+    ///         VStack {
+    ///             Button("Save") {
+    ///                 saveData()
+    ///                 showNotification = true
+    ///             }
+    ///         }
+    ///         .sonner(
+    ///             configuration: SHDSonnerConfiguration(
+    ///                 title: "Saved successfully",
+    ///                 subtitle: "Your changes have been saved"
+    ///             ),
+    ///             isPresented: $showNotification
+    ///         )
+    ///     }
+    /// }
+    /// ```
+    func sonner(
+        configuration: SHDSonnerConfiguration,
+        isPresented: Binding<Bool>
+    ) -> some View {
+        modifier(
+            SHDSonnerModifier(
+                position: configuration.position,
+                sonner: makeSonner(with: configuration),
+                variant: configuration.variant,
+                isPresented: isPresented
+            )
+        )
+    }
+
+    private func makeSonner(with configuration: SHDSonnerConfiguration) -> SHDSonner {
+        SHDSonner(
+            description: configuration.description,
+            title: configuration.title
+        )
+        .sonnerConfiguration(variant: configuration.variant, size: configuration.size)
     }
 }

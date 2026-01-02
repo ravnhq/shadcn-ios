@@ -35,82 +35,23 @@ import SwiftUI
 /// 
 public struct SHDSonnerConfiguration {
 
-    private let title: String
-    private let subtitle: String
-    private let size: SHDSonnerSize
+    let title: String
+    let description: String
+    let size: SHDSonnerSize
     let position: SHDSonnerPosition
     let variant: SHDSonnerVariant
 
     public init(
+        description: String,
         title: String,
-        subtitle: String,
         position: SHDSonnerPosition = .bottom,
         size: SHDSonnerSize = .md,
         variant: SHDSonnerVariant = .default,
     ) {
+        self.description = description
         self.title = title
-        self.subtitle = subtitle
         self.position = position
         self.size = size
         self.variant = variant
-    }
-
-    internal func makeSonner() -> SHDSonner {
-        SHDSonner(
-            description: subtitle,
-            title: title
-        )
-        .sonnerConfiguration(variant: variant, size: size)
-    }
-}
-
-public extension View {
-    /// Presents a toast notification with automatic dismissal and interactive gestures.
-    ///
-    /// This modifier displays a sonner notification based on the provided configuration
-    /// and binding. The notification automatically dismisses after a contextual delay
-    /// and supports interactive dismissal through tap and drag gestures.
-    ///
-    /// - Parameters:
-    ///   - configuration: The configuration specifying the notification's content and appearance.
-    ///   - isPresented: A binding to a Boolean value that determines whether the notification is visible.
-    ///
-    /// - Returns: A view that presents the notification when the binding becomes `true`.
-    ///
-    /// ## Usage
-    ///
-    /// ```swift
-    /// struct ContentView: View {
-    ///     @State private var showNotification = false
-    ///
-    ///     var body: some View {
-    ///         VStack {
-    ///             Button("Save") {
-    ///                 saveData()
-    ///                 showNotification = true
-    ///             }
-    ///         }
-    ///         .sonner(
-    ///             configuration: SHDSonnerConfiguration(
-    ///                 title: "Saved successfully",
-    ///                 subtitle: "Your changes have been saved"
-    ///             ),
-    ///             isPresented: $showNotification
-    ///         )
-    ///     }
-    /// }
-    /// ```
-    func sonner(
-        configuration: SHDSonnerConfiguration,
-        isPresented: Binding<Bool>
-    ) -> some View {
-        modifier(
-            SHDSonnerModifier(
-                position: configuration.position,
-                sonner: configuration.makeSonner(),
-                variant: configuration.variant,
-                isPresented: isPresented
-            )
-        )
     }
 }
