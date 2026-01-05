@@ -95,6 +95,7 @@ import SwiftUI
 public struct SHDCarousel<Data, Content>: View
 where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
+    @State private var hasExcededBounds: Bool = false
     private var data: Data
     private var content: (Data.Element) -> Content
     private var layoutVariant: SHDCarouselLayout = .groupHorizontal(.oneToOne)
@@ -111,12 +112,14 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
         switch layoutVariant {
         case .groupHorizontal(let proportion):
             SHDHorizontalCarousel(
+                hasExcededBounds: $hasExcededBounds,
                 data: data,
                 content: content
             )
             .aspectRatio(proportion)
         case .singleHorizontal:
-            SHDHorizontalPagedCarousel(
+            SHDHorizontalCarousel(
+                hasExcededBounds: $hasExcededBounds,
                 data: data,
                 content: content
             )

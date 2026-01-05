@@ -50,6 +50,7 @@ import SwiftUI
 internal struct SHDHorizontalPagedCarousel<Data, Content>: View
 where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
+    @Binding var hasExcededBounds: Bool
     @State private var scrollID: Data.Element.ID?
     @State private var currentPage = 0
     @State private var dragStartIndex: Int?
@@ -144,16 +145,28 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
     private var indicators: some View {
         HStack(spacing: .sm) {
             ForEach(0..<data.count) { idx in
-                Circle()
-                    .fill(
-                        idx == currentPage
+                GeometryReader { geometry in
+                    Circle()
+                        .fill(
+                            idx == currentPage
                             ? SHDColor.foregroundDefault.color
                             : SHDColor.foregroundDefault.color.opacity(0.3)
-                    )
-                    .frame(
-                        width: SHDSizing.Radius.md.value,
-                        height: SHDSizing.Radius.md.value
-                    )
+                        )
+                        .frame(
+                            width: SHDSizing.Radius.md.value,
+                            height: SHDSizing.Radius.md.value
+                        )
+                        .onAppear {
+                            let circleXPosition = geometry.frame(in: .global).minX
+                            let screenWidth = UIScreen.main.bounds.width
+                            if circleXPosition < 0 {
+                                hasExcededBounds = true
+                            } else if circleXPosition + SHDSizing.Radius.md.value > screenWidth {
+                                hasExcededBounds = true
+                            }
+                        }
+                }
+                .frame(width: SHDSizing.Radius.md.value)
             }
         }
     }

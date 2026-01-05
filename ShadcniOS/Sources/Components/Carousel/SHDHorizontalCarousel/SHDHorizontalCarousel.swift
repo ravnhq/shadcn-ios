@@ -36,13 +36,15 @@ import SwiftUI
 internal struct SHDHorizontalCarousel<Data, Content>: View
 where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
+    @Binding var hasExcededBounds: Bool
     var data: Data
     var content: (Data.Element) -> Content
     var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
-        if aspectRatio == .sixteenToNine {
+        if (aspectRatio == .sixteenToNine || aspectRatio == .threeToFourWithSingleItem) && !hasExcededBounds {
             SHDHorizontalPagedCarousel(
+                hasExcededBounds: $hasExcededBounds,
                 data: data,
                 content: content
             )

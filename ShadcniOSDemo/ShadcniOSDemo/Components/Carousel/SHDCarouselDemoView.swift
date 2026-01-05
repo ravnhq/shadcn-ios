@@ -24,16 +24,17 @@ struct CarouselImage: Identifiable {
 }
 
 struct SHDCarouselDemoView: View {
+    @State private var numberCount: Int = 5
 
     let textItems = [
         CarouselText(text: "Swift"), CarouselText(text: "Kotlin"),
         CarouselText(text: "Go"), CarouselText(text: "Rust"),
     ]
-    let numberItems = [
-        CarouselNumber(number: 1), CarouselNumber(number: 2),
-        CarouselNumber(number: 3), CarouselNumber(number: 4),
-        CarouselNumber(number: 5),
-    ]
+
+    var numberItems: [CarouselNumber] {
+        (1...numberCount).map { CarouselNumber(number: $0) }
+    }
+
     let imageItems = [
         CarouselImage(imageName: "star"), CarouselImage(imageName: "heart"),
         CarouselImage(imageName: "paperplane"),
@@ -65,21 +66,25 @@ struct SHDCarouselDemoView: View {
                 .pickerStyle(.segmented)
                 .padding()
 
-                Picker("Layout Variant", selection: $layoutVariant) {
-                    Text("Group Horizontal 1:1")
-                        .tag(SHDCarouselLayout.groupHorizontal(.oneToOne))
+                VStack {
+                    Picker("Layout Variant", selection: $layoutVariant) {
+                        Text("Group Horizontal 1:1")
+                            .tag(SHDCarouselLayout.groupHorizontal(.oneToOne))
+                        
+                        Text("Group Horizontal 3:4")
+                            .tag(SHDCarouselLayout.groupHorizontal(.threeToFour))
+                        
+                        Text("Group Horizontal 16:9")
+                            .tag(SHDCarouselLayout.groupHorizontal(.sixteenToNine))
+                        
+                        Text("Single Horizontal")
+                            .tag(SHDCarouselLayout.singleHorizontal)
+                        
+                        Text("Group Vertical")
+                            .tag(SHDCarouselLayout.groupVertical)
+                    }
 
-                    Text("Group Horizontal 3:4")
-                        .tag(SHDCarouselLayout.groupHorizontal(.threeToFour))
-
-                    Text("Group Horizontal 16:9")
-                        .tag(SHDCarouselLayout.groupHorizontal(.sixteenToNine))
-
-                    Text("Single Horizontal")
-                        .tag(SHDCarouselLayout.singleHorizontal)
-
-                    Text("Group Vertical")
-                        .tag(SHDCarouselLayout.groupVertical)
+                    Stepper("Increase/Decrease  \(numberCount)", value: $numberCount, in: 0...100)
                 }
                 .padding()
 
