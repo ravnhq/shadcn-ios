@@ -71,8 +71,8 @@ public enum SHDCarouselItemAspectRatio {
     /// Landscape aspect ratio (16:9).
     ///
     /// Optimized for video content, movie posters, or landscape imagery.
-    /// When used with `.groupHorizontal` layout in `SHDHorizontalCarousel`, automatically switches
-    /// to `SHDHorizontalPagedCarousel` for optimal full-width, single-item presentation.
+    /// When used with `.groupHorizontal` layout in `SHDHorizontalCarousel` (and bounds are not exceeded),
+    /// automatically switches to `SHDHorizontalPagedCarousel` for optimal full-width, single-item presentation.
     case sixteenToNine
 
     /// Tall portrait aspect ratio (3:4) optimized for single-item layouts .

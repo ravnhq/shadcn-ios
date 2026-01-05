@@ -16,10 +16,10 @@ import SwiftUI
 /// smooth animated transitions between pages, and includes visual page indicators (dots) at the bottom
 /// for user orientation.
 ///
-/// The component uses `ScrollView(.horizontal)` with `scrollTargetBehavior(.viewAligned)` to achieve
-/// page-based navigation, where each item snaps into view when scrolled. The implementation leverages
+/// The component uses `ScrollView(.horizontal)` with a custom `singleItemScrollTargetBehavior()` modifier
+/// to achieve page-based navigation, where each item snaps into view when scrolled. The implementation leverages
 /// `scrollPosition(id:)` to track the current page and `scrollTargetLayout()` to
-/// enable view-aligned snapping.
+/// enable precise single-item snapping behavior.
 ///
 /// The component is designed for single-item-at-a-time browsing experiences, making it ideal for:
 /// - Photo galleries with featured image display

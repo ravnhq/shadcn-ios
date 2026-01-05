@@ -22,7 +22,7 @@ import SwiftUI
 /// The carousel adapts its internal structure based on the selected layout variant:
 /// - `Group Horizontal` (e.g., `.groupHorizontal(.oneToOne)`) displays multiple items in a horizontal scroll,
 ///     automatically switching to a paged carousel when the `.sixteenToNine`
-///     aspect ratio is used for full-width presentation.
+///     aspect ratio is used (and bounds are not exceeded) for full-width presentation.
 /// - `Single Horizontal` (`.singleHorizontal`) uses a paged carousel (paged scrolling)
 ///     for a single-item-at-a-time experience.
 /// - `Group Vertical` (`.groupVertical`) presents items in a vertical scroll with customizable aspect ratios.
@@ -40,15 +40,15 @@ import SwiftUI
 ///
 /// The carousel supports three layout variants:
 /// - `.groupHorizontal(SHDCarouselItemAspectRatio)`: Multiple items visible horizontally,
-///     automatically switches to paged carousel for `.sixteenToNine` aspect ratio
-/// - `.singleHorizontal`: One item at a time with horizontal paging
+///     automatically switches to paged carousel for `.sixteenToNine` aspect ratio (when bounds are not exceeded)
+/// - `.singleHorizontal`: One item at a time with horizontal paging (uses `.threeToFourWithSingleItem` aspect ratio)
 /// - `.groupVertical`: Multiple items visible vertically in a scrollable container
 ///
 /// The carousel supports four aspect ratio variants with proportional sizing:
 /// - `.oneToOne`: Square items (45% container width × 45% width)
 /// - `.threeToFour`: 3:4 aspect ratio items (40% width × 53% width)
 /// - `.sixteenToNine`: 16:9 aspect ratio items (85% width × 48% width), commonly used for video content.
-///     When used with `.groupHorizontal`, automatically switches to a paged carousel
+///     When used with `.groupHorizontal` (and bounds are not exceeded), automatically switches to a paged carousel
 ///     for optimal presentation.
 /// - `.threeToFourWithSingleItem`: Tall 3:4 aspect ratio optimized for
 ///     single-item layouts (90% width × 120% width)

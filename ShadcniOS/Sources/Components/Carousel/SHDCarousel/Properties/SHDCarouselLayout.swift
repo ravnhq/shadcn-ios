@@ -16,7 +16,7 @@
 /// The three layout variants provide different user experiences:
 /// - `Group Horizontal` displays multiple items visible at once in a horizontal scroll container,
 ///   allowing users to see context from adjacent items. When used with the `.sixteenToNine` aspect ratio
-///   (e.g., `.groupHorizontal(.sixteenToNine)`), it automatically switches to a paged carousel
+///   (e.g., `.groupHorizontal(.sixteenToNine)`) and bounds are not exceeded, it automatically switches to a paged carousel
 ///   for a full-width, single-item-at-a-time experience.
 /// - `Single Horizontal` uses a paged carousel for horizontal browsing,
 ///   displaying one item at a time with page indicators. This variant is ideal for photo galleries
@@ -59,7 +59,7 @@ public enum SHDCarouselLayout: Equatable, Hashable {
     /// Multiple items visible in a horizontal scroll.
     ///
     /// Items are displayed side-by-side with `.md` spacing.
-    /// When using the `.sixteenToNine` aspect ratio variant,
+    /// When using the `.sixteenToNine` aspect ratio variant (and bounds are not exceeded),
     /// automatically switches to a paged carousel for full-width presentation.
     case groupHorizontal(SHDCarouselItemAspectRatio)
 

@@ -17,7 +17,8 @@ import SwiftUI
 /// where users can scroll through items horizontally to see adjacent content.
 ///
 /// The component automatically switches to `SHDHorizontalPagedCarousel` when the `.sixteenToNine`
-/// aspect ratio is used, providing a full-width, single-item-at-a-time paged experience.
+/// or `.threeToFourWithSingleItem` aspect ratio is used (and bounds are not exceeded),
+/// providing a full-width, single-item-at-a-time paged experience.
 ///
 /// The component calculates item dimensions dynamically based on the container width:
 /// - Item width: `containerWidth * aspectRatio.widthFactor`
@@ -130,8 +131,8 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
     /// Sets the aspect ratio for items displayed in the horizontal carousel.
     ///
     /// This modifier allows customization of item dimensions for horizontal scrolling layouts.
-    /// When `.sixteenToNine` is used, the carousel automatically switches to a paged carousel
-    /// for optimal full-width presentation.
+    /// When `.sixteenToNine` or `.threeToFourWithSingleItem` is used (and bounds are not exceeded),
+    /// the carousel automatically switches to a paged carousel for optimal full-width presentation.
     ///
     /// - Parameters:
     ///   - aspectRatio: The `SHDCarouselItemAspectRatio` to apply to the carousel items
