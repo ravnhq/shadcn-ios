@@ -30,10 +30,10 @@ import SwiftUI
 internal struct SingleItemScrollTargetBehavior: ScrollTargetBehavior {
     /// The spacing interval between carousel items (item width + spacing).
     var interval: CGFloat
-    
+
     /// The index of the currently active page.
     var currentPage: Int
-    
+
     /// The horizontal offset adjustment for centering items within the container.
     var offsetAdjustment: CGFloat
 

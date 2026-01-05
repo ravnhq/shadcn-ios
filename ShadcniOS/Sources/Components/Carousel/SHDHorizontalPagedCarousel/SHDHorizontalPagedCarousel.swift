@@ -144,29 +144,17 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
     /// The current page indicator is fully opaque, while inactive indicators are semi-transparent.
     private var indicators: some View {
         HStack(spacing: .sm) {
-            ForEach(0..<data.count) { idx in
-                GeometryReader { geometry in
-                    Circle()
-                        .fill(
-                            idx == currentPage
-                            ? SHDColor.foregroundDefault.color
-                            : SHDColor.foregroundDefault.color.opacity(0.3)
-                        )
-                        .frame(
-                            width: SHDSizing.Radius.md.value,
-                            height: SHDSizing.Radius.md.value
-                        )
-                        .onAppear {
-                            let circleXPosition = geometry.frame(in: .global).minX
-                            let screenWidth = UIScreen.main.bounds.width
-                            if circleXPosition < 0 {
-                                hasExcededBounds = true
-                            } else if circleXPosition + SHDSizing.Radius.md.value > screenWidth {
-                                hasExcededBounds = true
-                            }
-                        }
-                }
-                .frame(width: SHDSizing.Radius.md.value)
+            ForEach(0..<data.count, id: \.self) { idx in
+                Circle()
+                    .fill(
+                        idx == currentPage
+                        ? SHDColor.foregroundDefault.color
+                        : SHDColor.foregroundDefault.color.opacity(0.3)
+                    )
+                    .frame(
+                        width: SHDSizing.Radius.md.value,
+                        height: SHDSizing.Radius.md.value
+                    )
             }
         }
     }

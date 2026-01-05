@@ -42,32 +42,88 @@ where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
     var aspectRatio: SHDCarouselItemAspectRatio = .oneToOne
 
     var body: some View {
-        if (aspectRatio == .sixteenToNine || aspectRatio == .threeToFourWithSingleItem) && !hasExcededBounds {
-            SHDHorizontalPagedCarousel(
-                hasExcededBounds: $hasExcededBounds,
-                data: data,
-                content: content
-            )
-            .aspectRatio(aspectRatio)
-        } else {
-            GeometryReader { proxy in
-                let containerWidth = proxy.size.width
-                let itemWidth = containerWidth * aspectRatio.widthFactor
-                let itemHeight = itemWidth / aspectRatio.aspectRatio
+        Group {
+            if (aspectRatio == .sixteenToNine
+                || aspectRatio == .threeToFourWithSingleItem)
+                && !hasExcededBounds {
+                SHDHorizontalPagedCarousel(
+                    hasExcededBounds: $hasExcededBounds,
+                    data: data,
+                    content: content
+                )
+                .aspectRatio(aspectRatio)
+            } else {
+                GeometryReader { proxy in
+                    let containerWidth = proxy.size.width
+                    let itemWidth = containerWidth * aspectRatio.widthFactor
+                    let itemHeight = itemWidth / aspectRatio.aspectRatio
 
-                ScrollView(.horizontal) {
-                    HStack(spacing: .md) {
-                        ForEach(data) { item in
-                            content(item)
-                                .frame(width: itemWidth, height: itemHeight)
+                    ScrollView(.horizontal) {
+                        HStack(spacing: .md) {
+                            ForEach(data) { item in
+                                content(item)
+                                    .frame(width: itemWidth, height: itemHeight)
+                            }
                         }
                     }
+                    .scrollIndicators(.hidden)
                 }
-                .scrollIndicators(.hidden)
+                .aspectRatio(
+                    aspectRatio.effectiveAspectRatio,
+                    contentMode: .fit
+                )
+                .padding(.vertical, .xxs)
+                .padding(.horizontal, .sm)
             }
-            .aspectRatio(aspectRatio.effectiveAspectRatio, contentMode: .fit)
-            .padding(.vertical, .xxs)
-            .padding(.horizontal, .sm)
+        }
+        .background(
+            GeometryReader { _ in
+                HStack(spacing: .sm) {
+                    ForEach(0..<data.count, id: \.self) { _ in
+                        Circle()
+                            .frame(
+                                width: SHDSizing.Radius.md.value,
+                                height: SHDSizing.Radius.md.value
+                            )
+                    }
+                }
+                .fixedSize()
+                .background(
+                    GeometryReader { indicatorsProxy in
+                        Color.clear
+                            .onAppear {
+                                checkFit(
+                                    indicatorsWidth: indicatorsProxy.size.width,
+                                    screenWidth: UIScreen.main.bounds.width
+                                )
+                            }
+                            .onChange(of: data.count) { _ in
+                                checkFit(
+                                    indicatorsWidth: indicatorsProxy.size.width,
+                                    screenWidth: UIScreen.main.bounds.width
+                                )
+                            }
+                            .onChange(of: indicatorsProxy.size.width) { width in
+                                checkFit(
+                                    indicatorsWidth: width,
+                                    screenWidth: UIScreen.main.bounds.width
+                                )
+                            }
+                    }
+                )
+                .hidden()
+            }
+        )
+    }
+
+    private func checkFit(indicatorsWidth: CGFloat, screenWidth: CGFloat) {
+        guard aspectRatio == .sixteenToNine || aspectRatio == .threeToFourWithSingleItem else { return }
+
+        let padding: CGFloat = 32
+        let doesOverflow = indicatorsWidth > (screenWidth - padding)
+
+        if hasExcededBounds != doesOverflow {
+            hasExcededBounds = doesOverflow
         }
     }
 
