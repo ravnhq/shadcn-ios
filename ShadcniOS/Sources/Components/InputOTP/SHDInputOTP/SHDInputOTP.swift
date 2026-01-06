@@ -24,6 +24,7 @@ import SwiftUI
 /// - **Visual states**: Supports error states and separator styling
 /// - **Configurable sizing**: Multiple size options (small, medium, large)
 /// - **Flexible length**: Supports 4, 6, or 8 digit codes
+/// - **Dynamic Error Handling**: Error states appear on submission and clear immediately upon user interaction.
 ///
 /// ## Initialization
 ///
@@ -75,7 +76,11 @@ public struct SHDInputOTP: View {
     private let validateError: (String) -> String?
 
     private var resolvedIsError: Bool {
-        isError || validationErrorMessage != nil
+        if focusedField == nil {
+            isError || validationErrorMessage != nil
+        } else {
+            false
+        }
     }
 
     private var resolvedCaption: String {
@@ -159,9 +164,17 @@ public struct SHDInputOTP: View {
         .onChange(of: viewModel.otpDigits) { _, _ in
             let current = viewModel.currentCode
             code = current
-            validationErrorMessage = validateError(current)
+            if focusedField != nil && code.count != length.digits {
+                validationErrorMessage = nil
+            } else {
+                focusedField = nil
+                validationErrorMessage = validateError(current)
+            }
         }
         .onChange(of: focusedField) { _, newFocus in
+            if focusedField != nil {
+                validationErrorMessage = nil
+            }
             if let correctedFocus = viewModel.validateFocus(
                 targetIndex: newFocus
             ) {
@@ -223,12 +236,12 @@ public struct SHDInputOTP: View {
 
     /// Enables or disables visual separators between digit groups.
     ///
-    /// - Parameter isSeparaed: Whether to show separators between digit groups. Defaults to `true`.
+    /// - Parameter isSeparated: Whether to show separators between digit groups. Defaults to `true`.
     /// - Returns: A modified `SHDInputOTP` with separator styling applied.
     ///
     /// - Note: Separators are displayed between groups based on the OTP length configuration.
-    public func otpSeparatorStyle(_ isSeparaed: Bool = true) -> Self {
-        mutating(keyPath: \.isSeparated, value: isSeparaed)
+    public func otpSeparatorStyle(_ isSeparated: Bool = true) -> Self {
+        mutating(keyPath: \.isSeparated, value: isSeparated)
     }
 }
 
