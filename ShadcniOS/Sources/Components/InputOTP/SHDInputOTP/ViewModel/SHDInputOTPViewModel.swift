@@ -73,6 +73,19 @@ final internal class SHDInputOTPViewModel {
         return nil
     }
 
+    /// Calculates the border style state for an OTP input item at a specific index.
+    ///
+    /// This method determines which corners should be rounded and whether a separator
+    /// should be displayed based on the item's position within the OTP code and grouping configuration.
+    ///
+    /// - Parameters:
+    ///   - index: The zero-based index of the input item within the OTP code.
+    ///   - length: The length configuration that determines grouping behavior.
+    ///   - isSeparated: Whether separators are enabled between digit groups.
+    /// - Returns: A `SHDInputOTPItemBorderStyle` instance with the calculated border configuration.
+    ///
+    /// - Note: The border style ensures that adjacent items in a group appear visually connected,
+    ///   with rounded corners only at the start and end of each group.
     func bordersState(
         at index: Int,
         length: SHDInputOTPLength,

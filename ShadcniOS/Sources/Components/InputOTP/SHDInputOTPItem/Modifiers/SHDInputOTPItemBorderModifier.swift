@@ -11,7 +11,7 @@ import SwiftUI
 ///
 /// ## Overview
 ///
-/// `SHDInputSlotBorder` is a `ViewModifier` that adds a background with an uneven rounded rectangle
+/// `SHDInputOTPItemBorderModifier` is a `ViewModifier` that adds a background with an uneven rounded rectangle
 /// to create the visual border for OTP input slots. It handles focus states internally and adjusts
 /// the border color and width based on focus and error conditions.
 ///
@@ -20,8 +20,8 @@ import SwiftUI
 ///
 /// ## Parameters
 ///
-/// - `position`: The position of the slot (start, middle, end, single)
-///      to determine which corners should be rounded.
+/// - `state`: The border style configuration that determines which corners should be rounded
+///     and separator display behavior.
 /// - `isError`: A Boolean indicating whether the slot should display an error state.
 ///
 /// ## Usage
@@ -30,15 +30,25 @@ import SwiftUI
 ///
 /// ```swift
 /// TextField("", text: $text)
-///     .modifier(SHDInputSlotBorder(position: .start, isError: false))
+///     .modifier(SHDInputOTPItemBorderModifier(
+///         state: SHDInputOTPItemBorderStyle(
+///             isStart: true,
+///             isEnd: false,
+///             showSeparator: false
+///         ),
+///         isError: false
+///     ))
 /// ```
 ///
 /// Or using the convenience extension:
 ///
 /// ```swift
 /// TextField("", text: $text)
-///     .border(position: .start, isError: false)
-/// ``
+///     .otpBorder(
+///         state: borderStyle,
+///         isError: false
+///     )
+/// ```
 struct SHDInputOTPItemBorderModifier: ViewModifier {
     @FocusState private var isFocused: Bool
 
@@ -80,6 +90,15 @@ struct SHDInputOTPItemBorderModifier: ViewModifier {
 }
 
 extension View {
+    /// Applies OTP border styling to a view.
+    ///
+    /// This convenience method applies the `SHDInputOTPItemBorderModifier` to configure
+    /// the border appearance, focus handling, and error state for an OTP input field.
+    ///
+    /// - Parameters:
+    ///   - state: The border style configuration that determines corner rounding and separator display.
+    ///   - isError: Whether the input should display an error state.
+    /// - Returns: A modified view with OTP border styling applied.
     func otpBorder(state: SHDInputOTPItemBorderStyle, isError: Bool) -> some View {
         modifier(
             SHDInputOTPItemBorderModifier(
