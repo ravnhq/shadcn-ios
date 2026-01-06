@@ -31,7 +31,7 @@ struct SHDInputOTPDemoView: View {
     @State private var length: SHDInputOTPLength = .standard
     @State private var isError: Bool = false
     @State private var textExtracted: String = ""
-    @State private var selectedPatternOption: PatternOption = .onlyNumbers
+    @State private var selectedPatternOption: PatternOption = .alphaNumeric
     @State private var isSeparated: Bool = false
 
     var body: some View {

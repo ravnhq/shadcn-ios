@@ -64,6 +64,9 @@ public struct SHDInputOTP: View {
                             focusedField = index - 1
                         }
                     }
+                    .onPaste({ pastedContent in
+                        onPasteLogic(pastedContent: pastedContent, vm: vm)
+                    })
                     .focused($focusedField, equals: index)
                     .onChange(of: viewModel.otpDigits[index]) { _, newValue in
                         if let nextFocus = viewModel.handleInputChange(
@@ -104,6 +107,27 @@ public struct SHDInputOTP: View {
                 targetIndex: newFocus
             ) {
                 focusedField = correctedFocus
+            }
+        }
+    }
+
+    private func onPasteLogic(pastedContent: String, vm: SHDInputOTPViewModel) {
+        let cleanContent = pastedContent.filter { !$0.isWhitespace }
+        if cleanContent.count == vm.otpDigits.count {
+
+            DispatchQueue.main.async {
+                for (offset, character) in cleanContent.enumerated() where offset < vm.otpDigits.count {
+                    vm.otpDigits[offset] = String(character)
+                }
+                self.focusedField = vm.otpDigits.count - 1
+                self.validationErrorMessage = nil
+                isError(false)
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.validationErrorMessage =
+                    "Paste content does not match OTP length"
+                isError()
             }
         }
     }
