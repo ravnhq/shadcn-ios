@@ -16,6 +16,8 @@ internal extension EnvironmentValues {
     ///
     /// - Default: `false`
     @Entry var isLoading: Bool = false
+    
+    @Entry var isInputOTPError: Bool = false
 }
 
 internal extension View {
@@ -41,5 +43,9 @@ internal extension View {
     /// - Returns: A view with the updated `isLoading` environment value.
     public func isLoading(_ isLoading: Bool) -> some View {
         environment(\.isLoading, isLoading)
+    }
+
+    func isInputOTPError(_ isError: Bool) -> some View {
+        environment(\.isInputOTPError, isError)
     }
 }

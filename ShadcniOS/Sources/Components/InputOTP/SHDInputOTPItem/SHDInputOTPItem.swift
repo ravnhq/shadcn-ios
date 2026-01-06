@@ -66,7 +66,7 @@ internal struct SHDInputOTPItem: View {
     private var size: SHDInputOTPSizing = .md
     private var state: SHDInputOTPItemBorderStyle
 
-    private var isError: Bool = false
+    @Environment(\.isInputOTPError) private var isError
 
     @Binding private var text: String
 
@@ -136,10 +136,6 @@ internal struct SHDInputOTPItem: View {
         mutating(keyPath: \.size, value: size)
     }
 
-    func isError(_ isError: Bool = true) -> Self {
-        mutating(keyPath: \.isError, value: isError)
-    }
-
     public func onBackspace(_ action: @escaping () -> Void) -> Self {
         mutating(keyPath: \.onBackspace, value: action)
     }
@@ -151,13 +147,22 @@ internal struct SHDInputOTPItem: View {
 
 #Preview {
     @Previewable @State var text: String = "1"
+    
+    VStack(spacing: 20) {
 
-    SHDInputOTPItem(
-        text: $text,
-        state: SHDInputOTPItemBorderStyle(
-            isStart: true,
-            isEnd: true,
-            showSeparator: false
+        SHDInputOTPItem(
+            text: $text,
+            state: SHDInputOTPItemBorderStyle(
+                isStart: true, isEnd: true, showSeparator: false
+            )
         )
-    )
+
+        SHDInputOTPItem(
+            text: $text,
+            state: SHDInputOTPItemBorderStyle(
+                isStart: true, isEnd: true, showSeparator: false
+            )
+        )
+        .environment(\.isInputOTPError, true)
+    }
 }

@@ -33,7 +33,6 @@ public struct SHDInputOTP: View {
         code: Binding<String>,
         caption: String = "",
         validateError: @escaping (String) -> String? = { _ in nil }
-
     ) {
         self._code = code
         self.caption = caption
@@ -58,7 +57,6 @@ public struct SHDInputOTP: View {
                         state: state
                     )
                     .itemSize(size)
-                    .isError(resolvedIsError)
                     .onBackspace {
                         if index > 0 {
                             focusedField = index - 1
@@ -84,6 +82,7 @@ public struct SHDInputOTP: View {
                             .padding(.horizontal, 8)
                     }
                 }
+                .isInputOTPError(resolvedIsError)
             }
 
             Text(resolvedCaption)
@@ -122,11 +121,6 @@ public struct SHDInputOTP: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.focusedField = nil
                 }
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.focusedField = nil
-                self.validationErrorMessage = "Paste content does not match OTP length"
             }
         }
     }
