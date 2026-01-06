@@ -8,28 +8,55 @@
 import ShadcniOS
 import SwiftUI
 
-struct SHDCarouselDemoView: View {
-    
-    let textItems: [String] = ["Swift", "Kotlin", "Go", "Rust"]
-    let numberItems: [Int] = [1, 2, 3, 4, 5]
-    let imageItems: [String] = ["star", "heart", "paperplane"]
+struct CarouselText: Identifiable {
+    var id = UUID()
+    var text: String
+}
 
-    @State private var layoutVariant: SHDCarouselLayout = .groupHorizontal(.oneToOne)
+struct CarouselNumber: Identifiable {
+    var id = UUID()
+    var number: Int
+}
+
+struct CarouselImage: Identifiable {
+    var id = UUID()
+    var imageName: String
+}
+
+struct SHDCarouselDemoView: View {
+
+    let textItems = [
+        CarouselText(text: "Swift"), CarouselText(text: "Kotlin"),
+        CarouselText(text: "Go"), CarouselText(text: "Rust"),
+    ]
+    let numberItems = [
+        CarouselNumber(number: 1), CarouselNumber(number: 2),
+        CarouselNumber(number: 3), CarouselNumber(number: 4),
+        CarouselNumber(number: 5),
+    ]
+    let imageItems = [
+        CarouselImage(imageName: "star"), CarouselImage(imageName: "heart"),
+        CarouselImage(imageName: "paperplane"),
+    ]
+
+    @State private var layoutVariant: SHDCarouselLayout = .groupHorizontal(
+        .oneToOne
+    )
 
     enum DataType: String, CaseIterable, Identifiable {
         case text = "Text"
         case numbers = "Numbers"
         case images = "Images"
-        
+
         var id: Self { self }
     }
-    
+
     @State private var selectedType: DataType = .text
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                
+
                 Picker("Data types", selection: $selectedType) {
                     ForEach(DataType.allCases) { type in
                         Text(type.rawValue).tag(type)
@@ -55,14 +82,14 @@ struct SHDCarouselDemoView: View {
                         .tag(SHDCarouselLayout.groupVertical)
                 }
                 .padding()
-                
+
                 Group {
                     switch selectedType {
-                        
+
                     case .text:
-                        SHDCarousel(items: textItems) { item in
+                        SHDCarousel(textItems) { textItem in
                             HStack {
-                                Text(item)
+                                Text(textItem.text)
                                     .font(.title2)
                                     .padding()
                             }
@@ -70,23 +97,22 @@ struct SHDCarouselDemoView: View {
                             .background(.secondary)
                         }
                         .layoutVariant(layoutVariant)
-                        
+
                     case .numbers:
-                        SHDCarousel(items: numberItems) { item in
+                        SHDCarousel(numberItems) { numberItem in
                             HStack {
-                                Text("\(item)")
+                                Text("\(numberItem.number)")
                                     .font(.system(size: 40, weight: .bold))
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.secondary)
-                            
                         }
                         .layoutVariant(layoutVariant)
-                        
+
                     case .images:
-                        SHDCarousel(items: imageItems) { item in
+                        SHDCarousel(imageItems) { itemImage in
                             HStack {
-                                Image(systemName: item)
+                                Image(systemName: itemImage.imageName)
                                     .resizable()
                                     .scaledToFit()
                                     .padding()

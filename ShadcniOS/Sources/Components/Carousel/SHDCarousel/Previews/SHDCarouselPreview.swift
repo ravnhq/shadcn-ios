@@ -7,7 +7,21 @@
 
 import SwiftUI
 
+internal struct CarouselContentPreview: Identifiable {
+    var id = UUID()
+    var number: Int
+}
+
 internal struct SHDCarouselPreview: View {
+
+    var items = [
+        CarouselContentPreview(number: 1),
+        CarouselContentPreview(number: 2),
+        CarouselContentPreview(number: 3),
+        CarouselContentPreview(number: 4),
+        CarouselContentPreview(number: 5)
+    ]
+
     var body: some View {
         ScrollView {
             VStack {
@@ -16,10 +30,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
+                    SHDCarousel(items) { item in
+                        createCard(number: item.number)
                     }
                 }
 
@@ -28,10 +40,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
+                    SHDCarousel(items) { item in
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.groupHorizontal(.threeToFour))
                 }
@@ -41,10 +51,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
+                    SHDCarousel(items) { item in
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.groupHorizontal(.sixteenToNine))
                 }
@@ -54,10 +62,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
+                    SHDCarousel(items) { item in
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.singleHorizontal)
                 }
@@ -67,10 +73,8 @@ internal struct SHDCarouselPreview: View {
                         .font(.headline)
                         .padding()
 
-                    SHDCarousel(
-                        items: [1, 2, 3, 4, 5]
-                    ) { item in
-                        itemView(item)
+                    SHDCarousel(items) { item in
+                        createCard(number: item.number)
                     }
                     .layoutVariant(.groupVertical)
                 }
@@ -78,11 +82,11 @@ internal struct SHDCarouselPreview: View {
         }
     }
 
-    private func itemView(_ item: Int) -> some View {
-        Text("\(item)")
+    func createCard(number: Int) -> some View {
+        Text("\(number)")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .backgroundColor(.backgroundAccent)
-            .cornerRadius(.md)
+            .cornerRadius(8)
     }
 }
 

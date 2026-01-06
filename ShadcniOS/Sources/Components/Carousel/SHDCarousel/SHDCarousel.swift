@@ -8,69 +8,83 @@
 import SwiftUI
 
 /// A flexible carousel component for displaying collections of items
-/// with multiple layout and proportion configurations.
+/// with multiple layout and aspect ratio configurations.
 ///
 /// ## Discussion
 ///
 /// `SHDCarousel` is a generic carousel component that displays a sequence of items
 ///     in a horizontally or vertically scrollable container.
 /// It supports multiple layout variants (group horizontal, single horizontal, and group vertical)
-///     and proportion variants (1:1, 3:4, 16:9, and 3:4 with single item).
-/// The component uses SwiftUI's `@ViewBuilder` to allow flexible content customization,
+///     and aspect ratio variants (1:1, 3:4, 16:9, and 3:4 with single item).
+/// The component uses a `@ViewBuilder` closure to allow flexible content customization,
 ///     enabling you to render any SwiftUI view for each item in the carousel.
 ///
 /// The carousel adapts its internal structure based on the selected layout variant:
 /// - `Group Horizontal` (e.g., `.groupHorizontal(.oneToOne)`) displays multiple items in a horizontal scroll,
-///     switching to a paged carousel when the `.sixteenToNine`
-///     proportion is used for full-width presentation.
+///     automatically switching to a paged carousel when the `.sixteenToNine`
+///     aspect ratio is used for full-width presentation.
 /// - `Single Horizontal` (`.singleHorizontal`) uses a paged carousel (paged scrolling)
 ///     for a single-item-at-a-time experience.
-/// - `Group Vertical` (`.groupVertical`) presents items in a vertical scroll with customizable proportions.
+/// - `Group Vertical` (`.groupVertical`) presents items in a vertical scroll with customizable aspect ratios.
 ///
-/// The component manages internal state for layout and proportion variants through its modifier method
-///  (`layoutVariant(_:)`), which accepts a layout variant that includes the proportion.
+/// The component manages internal state for layout and aspect ratio variants through its modifier method
+///  (`layoutVariant(_:)`), which accepts a layout variant that includes the aspect ratio.
 /// This design follows SwiftUI's immutable value semantics while providing a fluent API for configuration.
 ///
 /// Layout and spacing characteristics:
-/// - Horizontal padding: `.md` on sides, `.xxs` vertical padding
+/// - Horizontal carousels: `.sm` horizontal padding, `.xxs` vertical padding
+/// - Vertical carousel: `.md` horizontal padding, `.xxs` vertical padding
 /// - Horizontal scroll uses `HStack` with `.md` spacing between items
-/// - Vertical scroll uses `VStack` with customizable spacing
-/// - Items adapt their dimensions based on the selected proportion variant
+/// - Vertical scroll uses `VStack` with `.md` spacing between items
+/// - Items adapt their dimensions based on the selected aspect ratio variant
 ///
 /// The carousel supports three layout variants:
-/// - `.groupHorizontal(SHDCarouseItemAspectRatio)`: Multiple items visible horizontally,
-///     switches to paged carousel for `.sixteenToNine` proportion
+/// - `.groupHorizontal(SHDCarouselItemAspectRatio)`: Multiple items visible horizontally,
+///     automatically switches to paged carousel for `.sixteenToNine` aspect ratio
 /// - `.singleHorizontal`: One item at a time with horizontal paging
 /// - `.groupVertical`: Multiple items visible vertically in a scrollable container
 ///
-/// The carousel supports four proportion variants with proportional sizing:
+/// The carousel supports four aspect ratio variants with proportional sizing:
 /// - `.oneToOne`: Square items (45% container width × 45% width)
 /// - `.threeToFour`: 3:4 aspect ratio items (40% width × 53% width)
-/// - `.sixteenToNine`: 16:9 aspect ratio items (85% width × 48% width), commonly used for video content
-/// - `.threeToFourWithSingleItem`: Tall 3:4 proportion optimized for
+/// - `.sixteenToNine`: 16:9 aspect ratio items (85% width × 48% width), commonly used for video content.
+///     When used with `.groupHorizontal`, automatically switches to a paged carousel
+///     for optimal presentation.
+/// - `.threeToFourWithSingleItem`: Tall 3:4 aspect ratio optimized for
 ///     single-item layouts (90% width × 120% width)
 ///
-/// Creates a carousel with the specified items and content view builder.
+/// Creates a carousel with the specified items.
 ///
 /// The carousel will use the default layout (`.groupHorizontal(.oneToOne)`) variant
 /// unless a different variant is applied using the `.layoutVariant(...)` modifier.
 ///
+/// Items are provided as a `RandomAccessCollection` whose elements conform to `Identifiable`.
+/// The visual content for each element is supplied via the initializer's `content` closure.
+///
 /// - Parameters:
-///   - items: An array of items to display in the carousel.
-///     The carousel will create one view for each item using the provided content closure.
-///   - content: A `@ViewBuilder` closure that takes an individual item and returns
-///     the view to display for that item. This closure is called for each item in the carousel.
+///   - data: A `RandomAccessCollection` of `Identifiable` elements to display in the carousel.
+///     The `content` closure is invoked for each element to produce its view.
 ///
 /// ## Usage
 ///
 /// ```swift
-/// let colors = ["Red", "Green", "Blue"]
+/// struct ColorItem: Identifiable {
+///     var id = UUID()
+///     var name: String
+///     var color: Color
+/// }
 ///
-/// SHDCarousel(items: colors) { colorName in
+/// let colors = [
+///     ColorItem(name: "Red", color: .red),
+///     ColorItem(name: "Green", color: .green),
+///     ColorItem(name: "Blue", color: .blue)
+/// ]
+///
+/// SHDCarousel(colors) { item in
 ///     VStack {
 ///         Rectangle()
-///             .fill(.red)
-///         Text(colorName)
+///             .fill(item.color)
+///         Text(item.name)
 ///             .font(.headline)
 ///     }
 ///     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -78,41 +92,41 @@ import SwiftUI
 /// .layoutVariant(.groupHorizontal(.oneToOne))
 /// ```
 ///
-public struct SHDCarousel<Item, Content: View>: View {
+public struct SHDCarousel<Data, Content>: View
+where Data: RandomAccessCollection, Data.Element: Identifiable, Content: View {
 
-    private var items: [Item]
-    private var modelItemView: (Item) -> Content
+    private var data: Data
+    private var content: (Data.Element) -> Content
     private var layoutVariant: SHDCarouselLayout = .groupHorizontal(.oneToOne)
 
     public init(
-        items: [Item],
-        @ViewBuilder modelItemView: @escaping (Item) -> Content
+        _ data: Data,
+        @ViewBuilder _ content: @escaping (Data.Element) -> Content
     ) {
-        self.items = items
-        self.modelItemView = modelItemView
+        self.data = data
+        self.content = content
     }
 
     public var body: some View {
         switch layoutVariant {
         case .groupHorizontal(let proportion):
             SHDHorizontalCarousel(
-                items: items,
-                modelItemView: modelItemView,
-                proportion: proportion
+                data: data,
+                content: content
             )
+            .aspectRatio(proportion)
         case .singleHorizontal:
             SHDHorizontalPagedCarousel(
-                items: items,
-                modelItemView: modelItemView,
-                proportion: SHDCarouseItemAspectRatio.threeToFourWithSingleItem
+                data: data,
+                content: content
             )
+            .aspectRatio(.threeToFourWithSingleItem)
         case .groupVertical:
             SHDVerticalCarousel(
-                items: items,
-                modelItemView: modelItemView,
-                layoutVariant: layoutVariant,
-                proportionVariant: SHDCarouseItemAspectRatio.sixteenToNine
+                data: data,
+                content: content
             )
+            .aspectRatio(.sixteenToNine)
         }
     }
 

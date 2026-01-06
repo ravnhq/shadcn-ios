@@ -11,11 +11,11 @@ import Foundation
 ///
 /// ## Discussion
 ///
-/// `SHDCarouseItemAspectRatio` controls the visual dimensions and aspect ratios of items displayed
+/// `SHDCarouselItemAspectRatio` controls the visual dimensions and aspect ratios of items displayed
 /// in a carousel. Each variant provides preset width and height values optimized for different content types
 /// and use cases.
 ///
-/// The four proportion variants balance content visibility with design flexibility:
+/// The four aspect ratio variants balance content visibility with design flexibility:
 /// - `One to One` (1:1) creates square items ideal for avatars, icons, or uniform grid layouts.
 /// - `Three to Four` (3:4) provides a portrait-oriented rectangle suitable for profile
 ///     cards or product thumbnails.
@@ -34,18 +34,28 @@ import Foundation
 /// ## Usage
 ///
 /// ```swift
-/// SHDCarousel(items: products) { product in
-///     ProductThumbnail(product: product)
+/// struct ProductItem: Identifiable {
+///     var id = UUID()
+///     var product: Product
+/// }
+///
+/// SHDCarousel(products) { item in
+///     ProductThumbnail(product: item.product)
 /// }
 /// .layoutVariant(.groupHorizontal(.threeToFour))
 ///
-/// SHDCarousel(items: videos) { video in
-///     VideoPreview(video: video)
+/// struct VideoItem: Identifiable {
+///     var id = UUID()
+///     var video: Video
+/// }
+///
+/// SHDCarousel(videos) { item in
+///     VideoPreview(video: item.video)
 /// }
 /// .layoutVariant(.groupHorizontal(.sixteenToNine))
 /// ```
 ///
-public enum SHDCarouseItemAspectRatio {
+public enum SHDCarouselItemAspectRatio {
     /// Square aspect ratio (1:1).
     ///
     /// Ideal for displaying avatars, icons, or uniform square content in grid-like arrangements.
@@ -61,8 +71,8 @@ public enum SHDCarouseItemAspectRatio {
     /// Landscape aspect ratio (16:9).
     ///
     /// Optimized for video content, movie posters, or landscape imagery.
-    /// When used with `.groupHorizontal` layout, automatically switches to a paged carousel
-    /// for optimal full-width presentation.
+    /// When used with `.groupHorizontal` layout in `SHDHorizontalCarousel`, automatically switches
+    /// to `SHDHorizontalPagedCarousel` for optimal full-width, single-item presentation.
     case sixteenToNine
 
     /// Tall portrait aspect ratio (3:4) optimized for single-item layouts .
@@ -72,6 +82,10 @@ public enum SHDCarouseItemAspectRatio {
     /// Commonly used in photo galleries and featured content showcases.
     case threeToFourWithSingleItem
 
+    /// The mathematical aspect ratio (width:height) for this variant.
+    ///
+    /// Returns the pure aspect ratio value used for calculating item dimensions.
+    /// For example, `.oneToOne` returns `1.0`, `.sixteenToNine` returns `16.0 / 9.0`.
     var aspectRatio: CGFloat {
         switch self {
         case .oneToOne: 1.0
@@ -81,6 +95,10 @@ public enum SHDCarouseItemAspectRatio {
         }
     }
 
+    /// The width factor as a proportion of the container width.
+    ///
+    /// Returns a value between 0.0 and 1.0 representing what percentage of the container width
+    /// should be used for item width. For example, `.oneToOne` uses 45% (0.45) of container width.
     var widthFactor: CGFloat {
         switch self {
         case .oneToOne: 0.45
@@ -90,6 +108,11 @@ public enum SHDCarouseItemAspectRatio {
         }
     }
 
+    /// The height factor as a proportion of the container width.
+    ///
+    /// Returns a value representing what percentage of the container width should be used
+    /// for calculating item height. This is used in conjunction with `aspectRatio` to determine
+    /// final item dimensions.
     var heightFactor: CGFloat {
         switch self {
         case .oneToOne: 0.45
@@ -99,6 +122,11 @@ public enum SHDCarouseItemAspectRatio {
         }
     }
 
+    /// The effective aspect ratio adjusted for the width factor.
+    ///
+    /// This computed property calculates the final aspect ratio used for the carousel container
+    /// by dividing the pure `aspectRatio` by the `widthFactor`. This ensures the container
+    /// maintains the correct proportions when items are sized as a percentage of container width.
     var effectiveAspectRatio: CGFloat {
         aspectRatio / widthFactor
     }
