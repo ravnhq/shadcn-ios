@@ -119,16 +119,14 @@ public struct SHDInputOTP: View {
                     vm.otpDigits[offset] = String(character)
                 }
                 self.validationErrorMessage = nil
-                isError(false)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.focusedField = nil
                 }
             }
-        } else if focusedField == nil {
+        } else {
             DispatchQueue.main.async {
-                self.validationErrorMessage =
-                    "Paste content does not match OTP length"
-                isError()
+                self.focusedField = nil
+                self.validationErrorMessage = "Paste content does not match OTP length"
             }
         }
     }
