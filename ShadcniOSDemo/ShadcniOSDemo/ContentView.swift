@@ -45,7 +45,7 @@ struct ContentView: View {
                         HStack {
                             Image(
                                 systemName:
-                                "rectangle.inset.filled.badge.record"
+                                    "rectangle.inset.filled.badge.record"
                             )
                             Text("SHDBadge")
                         }
@@ -57,7 +57,7 @@ struct ContentView: View {
                             Text("SHDCheckbox")
                         }
                     }
-                    
+
                     NavigationLink(destination: SHDSliderDemoView()) {
                         HStack {
                             Image(
@@ -79,6 +79,16 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "sensor.tag.radiowaves.forward")
                             Text("SHDRadioGroup")
+                        }
+                    }
+
+                    NavigationLink(destination: SHDInputOTPDemoView()) {
+                        HStack {
+                            Image(
+                                systemName:
+                                    "rectangle.and.pencil.and.ellipsis"
+                            )
+                            Text("SHDInputOTP")
                         }
                     }
                 }
