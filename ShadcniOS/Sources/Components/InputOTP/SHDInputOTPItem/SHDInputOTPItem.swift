@@ -59,9 +59,8 @@ import UIKit
 /// - Focus and grouping are managed by the parent `SHDInputOTP`.
 internal struct SHDInputOTPItem: View {
 
-    @State private var isPasting: Bool = false
-
     private let onValueChange: (String) -> Void = { _ in }
+    private var onPaste: (String) -> Void = { _ in }
     private let zws = "\u{200B}"
     private var onBackspace: () -> Void = {}
     private var size: SHDInputOTPSizing = .md
@@ -97,14 +96,6 @@ internal struct SHDInputOTPItem: View {
                         newValue
                         .replacingOccurrences(of: zws, with: "")
                         .filter { !$0.isWhitespace }
-
-//                    if cleanValue.count > 1 {
-//                        DispatchQueue.main.async {
-//                            let oldValue = text
-//                            text = oldValue
-//                        }
-//                        return
-//                    }
 
                     if cleanValue != text {
                         onPaste(cleanValue)
@@ -170,4 +161,3 @@ internal struct SHDInputOTPItem: View {
         )
     )
 }
-

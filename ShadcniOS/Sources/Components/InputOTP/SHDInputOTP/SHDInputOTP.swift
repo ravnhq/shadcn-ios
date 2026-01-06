@@ -114,16 +114,17 @@ public struct SHDInputOTP: View {
     private func onPasteLogic(pastedContent: String, vm: SHDInputOTPViewModel) {
         let cleanContent = pastedContent.filter { !$0.isWhitespace }
         if cleanContent.count == vm.otpDigits.count {
-
             DispatchQueue.main.async {
                 for (offset, character) in cleanContent.enumerated() where offset < vm.otpDigits.count {
                     vm.otpDigits[offset] = String(character)
                 }
-                self.focusedField = vm.otpDigits.count - 1
                 self.validationErrorMessage = nil
                 isError(false)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    self.focusedField = nil
+                }
             }
-        } else {
+        } else if focusedField == nil {
             DispatchQueue.main.async {
                 self.validationErrorMessage =
                     "Paste content does not match OTP length"
