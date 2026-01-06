@@ -20,7 +20,7 @@ struct SHDSliderPreview: View {
                     .foregroundStyle(.secondary)
 
                 SHDSlider(minValue: 0, maxValue: 100, value: $sliderValue)
-                    .sliderVariant(variant: .lg)
+                    .sliderSize(size: .lg)
                     .padding(.horizontal)
             }
 
@@ -30,7 +30,7 @@ struct SHDSliderPreview: View {
                     .foregroundStyle(.secondary)
 
                 SHDSlider(minValue: -10, maxValue: 40, value: $tempValue)
-                    .sliderVariant(variant: .md)
+                    .sliderSize(size: .md)
                     .padding(.horizontal)
             }
 
@@ -40,7 +40,7 @@ struct SHDSliderPreview: View {
                     .foregroundStyle(.secondary)
 
                 SHDSlider(minValue: 0, maxValue: 100, value: $progressValue)
-                    .sliderVariant(variant: .sm)
+                    .sliderSize(size: .sm)
                     .padding(.horizontal)
             }
         }

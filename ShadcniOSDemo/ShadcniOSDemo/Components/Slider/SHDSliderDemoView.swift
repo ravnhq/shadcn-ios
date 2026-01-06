@@ -100,7 +100,7 @@ struct SHDSliderDemoView: View {
                 maxValue: maxRange,
                 value: $sliderValue
             )
-            .sliderVariant(variant: displayFormat)
+            .sliderSize(size: displayFormat)
             .padding(.vertical, 8)
         }
     }

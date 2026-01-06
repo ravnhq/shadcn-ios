@@ -110,10 +110,10 @@ public struct SHDSlider: View {
 
     /// Applies a size variant to the slider.
     ///
-    /// - Parameter variant: The size configuration for the slider.
+    /// - Parameter size: The size configuration for the slider.
     /// - Returns: A view with the specified slider size applied.
-    public func sliderVariant(variant: SHDSliderSize) -> some View {
-        mutating(keyPath: \.size, value: variant)
+    public func sliderSize(size: SHDSliderSize) -> some View {
+        mutating(keyPath: \.size, value: size)
     }
 }
 
