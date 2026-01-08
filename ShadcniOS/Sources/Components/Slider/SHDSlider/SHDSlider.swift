@@ -13,7 +13,7 @@ import SwiftUI
 /// `SHDSlider` provides a fluid, interactive slider control that supports:
 /// - Continuous value selection within a defined range
 /// - Customizable size variants (small, medium, large)
-/// - Visual feedback with a filled track and draggable thumb
+/// - Visual feedback with a filled track, draggable thumb and min/max values on the edges
 /// - Gesture-based interaction for precise value adjustment
 ///
 /// The slider automatically calculates the thumb position based on the current value
@@ -25,22 +25,10 @@ import SwiftUI
 /// Size variants control:
 /// - Track height
 /// - Thumb diameter
+/// - Text size
 ///
 /// These are configured through the `SHDSliderSize` enum and applied via the
 /// `.sliderVariant(variant:)` modifier.
-///
-/// Layout rules:
-/// - The slider expands to fill available horizontal space
-/// - Height is determined by the selected size variant
-/// - The thumb is centered vertically on the track
-/// - The filled track grows from left to right based on the current value
-///
-/// Creates a ShadcniOS slider.
-///
-/// - Parameters:
-///   - minValue: The minimum value of the slider range.
-///   - maxValue: The maximum value of the slider range.
-///   - value: A binding to the current slider value.
 ///
 /// ## Usage
 ///
@@ -53,51 +41,67 @@ import SwiftUI
 ///
 /// Slider with variation:
 /// ```swift
-/// SHDSlider(minValue: 0, maxValue: 100, value: $humidity)
+/// SHDSlider(minValue: 0, maxValue: 100, value: $volume)
 ///     .sliderVariant(variant: .sm)
 /// ```
 public struct SHDSlider: View {
     @Binding var value: Double
 
-    private var size: SHDSliderSize = .md
     private var minValue: Int
     private var maxValue: Int
+    private var size: SHDSliderSize = .md
+    private var showMinMaxLabels: Bool
 
-    public init(minValue: Int, maxValue: Int, value: Binding<Double>) {
+    public init(minValue: Int, maxValue: Int, showMinMaxLabels: Bool = true, value: Binding<Double>) {
         self.minValue = minValue
         self.maxValue = maxValue
+        self.showMinMaxLabels = showMinMaxLabels
         _value = value
     }
 
     public var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: .full)
-                    .fill(.backgroundSecondaryDefault)
-                    .frame(height: size.sliderSize)
-
-                RoundedRectangle(cornerRadius: .full)
-                    .fill(.iconDefault)
-                    .frame(width: calculateWidth(geometry.size.width), height: size.sliderSize)
-
-                Circle()
-                    .fill(.iconPrimaryDefault)
-                    .frame(width: size.thumbSize, height: size.thumbSize)
-                    .overlay(
-                        Circle()
-                            .strokeBorder(.borderPrimaryDefault, lineWidth: SHDSizing.Radius.xs.rawValue)
-                    )
-                    .offset(x: calculateWidth(geometry.size.width) - size.sliderSize)
+        HStack(alignment: .top, spacing: .lg) {
+            if showMinMaxLabels {
+                Text("\(minValue)")
+                    .textStyle(size.textSize)
+                    .foregroundStyle(.foregroundMuted)
             }
-            .contentShape(Rectangle())
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { gesture in
-                        updateValue(gesture.location.x, width: geometry.size.width)
-                    }
-            )
+
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: .full)
+                        .fill(.backgroundSecondaryDefault)
+                        .frame(height: size.sliderSize)
+
+                    RoundedRectangle(cornerRadius: .full)
+                        .fill(.iconDefault)
+                        .frame(width: calculateWidth(geometry.size.width), height: size.sliderSize)
+
+                    Circle()
+                        .fill(.iconPrimaryDefault)
+                        .frame(width: size.thumbSize, height: size.thumbSize)
+                        .overlay(
+                            Circle()
+                                .strokeBorder(.borderPrimaryDefault, lineWidth: SHDSizing.Radius.xs.rawValue)
+                        )
+                        .offset(x: calculateWidth(geometry.size.width) - size.sliderSize)
+                }
+                .contentShape(Rectangle())
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { gesture in
+                            updateValue(gesture.location.x, width: geometry.size.width)
+                        }
+                )
+            }
+            .frame(height: size.sliderSize)
+
+            if showMinMaxLabels {
+                Text("\(maxValue)")
+                    .textStyle(size.textSize)
+                    .foregroundStyle(.foregroundMuted)
+            }
         }
-        .frame(height: size.sliderSize)
     }
 
     private func calculateWidth(_ totalWidth: CGFloat) -> CGFloat {
@@ -112,10 +116,10 @@ public struct SHDSlider: View {
 
     /// Applies a size variant to the slider.
     ///
-    /// - Parameter variant: The size configuration for the slider.
+    /// - Parameter size: The size configuration for the slider.
     /// - Returns: A view with the specified slider size applied.
-    public func sliderVariant(variant: SHDSliderSize) -> some View {
-        mutating(keyPath: \.size, value: variant)
+    public func sliderSize(size: SHDSliderSize) -> some View {
+        mutating(keyPath: \.size, value: size)
     }
 }
 

@@ -16,9 +16,10 @@ struct SHDSliderDemoView: View {
     @State private var showMinMax: Bool = true
 
     // Slider values
-    @State private var sliderValue: Double = 50
     @State private var minRange: Int = 0
     @State private var maxRange: Int = 100
+    @State private var showMinMaxLabels: Bool = true
+    @State private var sliderValue: Double = 50
 
     var body: some View {
         ScrollView {
@@ -30,6 +31,13 @@ struct SHDSliderDemoView: View {
                         Text("LG").tag(SHDSliderSize.lg)
                     }
                     .pickerStyle(.segmented)
+                }
+                
+                configSection(title: "Show min/max labels") {
+                    Toggle(
+                        "Show min max values",
+                        isOn: $showMinMaxLabels
+                    )
                 }
 
                 HStack(spacing: 20) {
@@ -56,15 +64,9 @@ struct SHDSliderDemoView: View {
                     }
 
                     Spacer()
-
-                    configSection(title: "Options") {
-                        Toggle("Show Min/Max", isOn: $showMinMax)
-                    }
                 }
 
                 Divider()
-
-                // MARK: Preview Section
 
                 VStack(spacing: 24) {
                     Text("Preview")
@@ -104,23 +106,11 @@ struct SHDSliderDemoView: View {
             SHDSlider(
                 minValue: minRange,
                 maxValue: maxRange,
+                showMinMaxLabels: showMinMaxLabels,
                 value: $sliderValue
             )
-            .sliderVariant(variant: displayFormat)
+            .sliderSize(size: displayFormat)
             .padding(.vertical, 8)
-
-            // Min/Max labels
-            if showMinMax {
-                HStack {
-                    Text("\(minRange)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Text("\(maxRange)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
         }
     }
 
