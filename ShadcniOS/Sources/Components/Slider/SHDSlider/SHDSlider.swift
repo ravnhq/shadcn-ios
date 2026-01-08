@@ -47,21 +47,25 @@ import SwiftUI
 public struct SHDSlider: View {
     @Binding var value: Double
 
-    private var size: SHDSliderSize = .md
     private var minValue: Int
     private var maxValue: Int
+    private var size: SHDSliderSize = .md
+    private var showMinMaxLabels: Bool
 
-    public init(minValue: Int, maxValue: Int, value: Binding<Double>) {
+    public init(minValue: Int, maxValue: Int, showMinMaxLabels: Bool = true, value: Binding<Double>) {
         self.minValue = minValue
         self.maxValue = maxValue
+        self.showMinMaxLabels = showMinMaxLabels
         _value = value
     }
 
     public var body: some View {
         HStack(alignment: .top, spacing: .lg) {
-            Text("\(minValue)")
-                .textStyle(size.textSize)
-                .foregroundStyle(.foregroundMuted)
+            if showMinMaxLabels {
+                Text("\(minValue)")
+                    .textStyle(size.textSize)
+                    .foregroundStyle(.foregroundMuted)
+            }
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
@@ -92,9 +96,11 @@ public struct SHDSlider: View {
             }
             .frame(height: size.sliderSize)
 
-            Text("\(maxValue)")
-                .textStyle(size.textSize)
-                .foregroundStyle(.foregroundMuted)
+            if showMinMaxLabels {
+                Text("\(maxValue)")
+                    .textStyle(size.textSize)
+                    .foregroundStyle(.foregroundMuted)
+            }
         }
     }
 
